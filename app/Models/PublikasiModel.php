@@ -35,4 +35,9 @@ class PublikasiModel extends Model
         return $query->getRow()->jumlah_publikasi_1;
         // return $query->row()->average_score;
     }
+    public function getPublikasiTotal()
+    {
+        $query = $this->db->query("SELECT COUNT(id) as count_publikasi FROM publikasi");
+        return $query->getRow()->count_publikasi;
+    }
 }

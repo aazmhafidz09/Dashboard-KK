@@ -34,5 +34,11 @@ class HakiModel extends Model
         $query = $this->db->query("SELECT COUNT(id) as jumlah_ketua FROM haki WHERE (ketua = '$kode_dosen')");
         return $query->getRow()->jumlah_ketua;
         // return $query->row()->average_score;
+
+    }
+    public function getHakiTotal()
+    {
+        $query = $this->db->query("SELECT COUNT(id) as count_haki FROM haki");
+        return $query->getRow()->count_haki;
     }
 }

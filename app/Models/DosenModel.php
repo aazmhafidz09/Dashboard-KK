@@ -15,7 +15,6 @@ class DosenModel extends Model
         }
         return $this->where(['kode_dosen' => $kode_dosen])->first();
     }
-
     public function getPublikasi($id = false)
     {
         if ($id == false) {

@@ -35,4 +35,9 @@ class AbdimasModel extends Model
         return $query->getRow()->jumlah_ketua;
         // return $query->row()->average_score;
     }
+    public function getAbdimasTotal()
+    {
+        $query = $this->db->query("SELECT COUNT(id) as count_abdimas FROM abdimas");
+        return $query->getRow()->count_abdimas;
+    }
 }

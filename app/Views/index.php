@@ -31,7 +31,7 @@
                                     <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup">840</span></h4>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $count_publikasi ?></span></h4>
                                     <p class="text-muted mb-0">Total Publikasi</p>
                                 </div>
                                 <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>137 Publikasi</span>dari tahun sebelumnya
@@ -47,10 +47,10 @@
                                     <div id="orders-chart" data-colors='["--bs-success"]'> </div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup">266</span></h4>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $count_penelitian ?></span></h4>
                                     <p class="text-muted mb-0">Total Penelitian</p>
                                 </div>
-                                <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>42 Penelitian</span> dari tahun sebelumnya
+                                <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_penelitian ?> Penelitian</span> dari tahun sebelumnya
                                 </p>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                     <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup">199</span></h4>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $count_abdimas ?></span></h4>
                                     <p class="text-muted mb-0">Total Abdimas</p>
                                 </div>
                                 <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>36 Abdimas</span> dari tahun sebelumnya
@@ -80,7 +80,7 @@
                                     <div id="growth-chart" data-colors='["--bs-warning"]'></div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"> <span data-plugin="counterup">68</span></h4>
+                                    <h4 class="mb-1 mt-1"> <span data-plugin="counterup"><?php echo $count_haki ?></span></h4>
                                     <p class="text-muted mb-0">Total HaKi</p>
                                 </div>
                                 <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>0 HaKi</span> dari tahun sebelumnya
