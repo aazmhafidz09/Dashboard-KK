@@ -4,15 +4,24 @@ namespace App\Controllers;
 
 use App\Models\DosenModel;
 use App\Models\PublikasiModel;
+use App\Models\AbdimasModel;
+use App\Models\PenelitianModel;
+use App\Models\HakiModel;
 
 class Home extends BaseController
 {
 	protected $dosenModel;
 	protected $publikasiModel;
+	protected $abdimasModel;
+	protected $penelitianModel;
+	protected $hakiModel;
 	public function __construct()
 	{
 		$this->dosenModel = new DosenModel();
 		$this->publikasiModel = new PublikasiModel();
+		$this->abdimasModel = new AbdimasModel();
+		$this->penelitianModel = new PenelitianModel();
+		$this->hakiModel = new HakiModel();
 	}
 
 
@@ -23,6 +32,20 @@ class Home extends BaseController
 			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'pagetitle' => 'Minible']),
 			'title' => 'Daftar Dosen',
 			'dosen' => $this->dosenModel->getDosen(),
+			'publikasi' => $this->publikasiModel->getPublikasi(),
+			'count_publikasi' => $this->publikasiModel->getPublikasiTotal(),
+			'count_abdimas' => $this->abdimasModel->getAbdimasTotal(),
+			'count_penelitian' => $this->penelitianModel->getPenelitianTotal(),
+			'count_haki' => $this->hakiModel->getHakiTotal(),
+			'peningkatan_penelitian' => $this->penelitianModel->getPeningkatanPenelitian(),
+			'peningkatan_publikasi' => $this->publikasiModel->getPeningkatanPublikasi(),
+			'peningkatan_haki' => $this->hakiModel->getPeningkatanHaki(),
+			'peningkatan_abdimas' => $this->hakiModel->getPeningkatanHaki(),
+			'PublikasiYearNow_Inter' => $this->publikasiModel->getPublikasiYearNowInter(),
+			'PublikasiYearNow_Nas' => $this->publikasiModel->getPublikasiYearNowNas(),
+			'PublikasiYearNow_Pros' => $this->publikasiModel->getPublikasiYearNowPros(),
+			'PublikasiYearNow_Pros_Nas' => $this->publikasiModel->getPublikasiYearNowProsNas(),
+
 		];
 		return view('index', $data);
 	}

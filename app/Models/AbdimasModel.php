@@ -35,4 +35,17 @@ class AbdimasModel extends Model
         return $query->getRow()->jumlah_ketua;
         // return $query->row()->average_score;
     }
+    public function getAbdimasTotal()
+    {
+        $query = $this->db->query("SELECT COUNT(id) as count_abdimas FROM abdimas");
+        return $query->getRow()->count_abdimas;
+    }
+    public function getPeningkatanAbdimas()
+    {
+        $query = $this->db->query("SELECT tahun AS tahun_sekarang, (SELECT COUNT(*) FROM abdimas 
+        WHERE tahun = tahun_sekarang) AS jumlah_tahun_sekarang, (SELECT COUNT(*) FROM abdimas WHERE tahun = tahun_sekarang - 1) 
+        AS jumlah_tahun_sebelumnya, (SELECT COUNT(*) FROM abdimas WHERE tahun = tahun_sekarang) - (SELECT COUNT(*) 
+        FROM abdimas WHERE tahun = tahun_sekarang - 1) AS peningkatan_data FROM abdimas WHERE tahun = YEAR(NOW()) OR tahun = YEAR(NOW()) - 1");
+        return $query->getRow()->peningkatan_data;
+    }
 }

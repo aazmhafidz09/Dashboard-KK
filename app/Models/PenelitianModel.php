@@ -35,4 +35,17 @@ class PenelitianModel extends Model
         return $query->getRow()->jumlah_ketua_peneliti;
         // return $query->row()->average_score;
     }
+    public function getPenelitianTotal()
+    {
+        $query = $this->db->query("SELECT COUNT(id) as count_penelitian FROM penelitian");
+        return $query->getRow()->count_penelitian;
+    }
+    public function getPeningkatanPenelitian()
+    {
+        $query = $this->db->query("SELECT tahun AS tahun_sekarang, (SELECT COUNT(*) FROM penelitian 
+        WHERE tahun = tahun_sekarang) AS jumlah_tahun_sekarang, (SELECT COUNT(*) FROM penelitian WHERE tahun = tahun_sekarang - 1) 
+        AS jumlah_tahun_sebelumnya, (SELECT COUNT(*) FROM penelitian WHERE tahun = tahun_sekarang) - (SELECT COUNT(*) 
+        FROM penelitian WHERE tahun = tahun_sekarang - 1) AS peningkatan_data FROM penelitian WHERE tahun = YEAR(NOW()) OR tahun = YEAR(NOW()) - 1");
+        return $query->getRow()->peningkatan_data;
+    }
 }
