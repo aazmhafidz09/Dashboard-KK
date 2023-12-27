@@ -46,10 +46,10 @@
                         <span><?= lang('Statistik') ?></span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="ecommerce-products"><?= lang('Publikasi') ?></a></li>
-                        <li><a href="ecommerce-product-detail"><?= lang('Penelitian') ?></a></li>
-                        <li><a href="ecommerce-orders"><?= lang('Abdimas') ?></a></li>
-                        <li><a href="ecommerce-customers"><?= lang('HaKi') ?></a></li>
+                        <li><a href="/publikasi"><?= lang('Publikasi') ?></a></li>
+                        <li><a href="/penelitian"><?= lang('Penelitian') ?></a></li>
+                        <li><a href="/abdimas"><?= lang('Abdimas') ?></a></li>
+                        <li><a href="/haki"><?= lang('HaKi') ?></a></li>
                     </ul>
                 </li>
 

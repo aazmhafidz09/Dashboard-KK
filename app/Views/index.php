@@ -34,8 +34,15 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $count_publikasi ?></span></h4>
                                     <p class="text-muted mb-0">Total Publikasi</p>
                                 </div>
-                                <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>137 Publikasi</span>dari tahun sebelumnya
-                                </p>
+
+                                <?php if ($peningkatan_publikasi >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_publikasi ?> Publikasi</span> dari tahun sebelumnya
+                                    </p>
+                                <?php else : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_publikasi ?> Publikasi</span>dari tahun sebelumnya
+                                    </p>
+                                <?php endif ?>
+
                             </div>
                         </div>
                     </div> <!-- end col-->
@@ -50,8 +57,13 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $count_penelitian ?></span></h4>
                                     <p class="text-muted mb-0">Total Penelitian</p>
                                 </div>
-                                <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_penelitian ?> Penelitian</span> dari tahun sebelumnya
-                                </p>
+                                <?php if ($peningkatan_penelitian >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_penelitian ?> Penelitian</span> dari tahun sebelumnya
+                                    </p>
+                                <?php else : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_penelitian ?> Penelitian</span> dari tahun sebelumnya
+                                    </p>
+                                <?php endif ?>
                             </div>
                         </div>
                     </div> <!-- end col-->
@@ -66,8 +78,13 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $count_abdimas ?></span></h4>
                                     <p class="text-muted mb-0">Total Abdimas</p>
                                 </div>
-                                <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>36 Abdimas</span> dari tahun sebelumnya
-                                </p>
+                                <?php if ($peningkatan_abdimas >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_abdimas ?> Abdimas</span> dari tahun sebelumnya
+                                    </p>
+                                <?php else : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_abdimas ?> Abdimas</span> dari tahun sebelumnya
+                                    </p>
+                                <?php endif ?>
                             </div>
                         </div>
                     </div> <!-- end col-->
@@ -83,8 +100,14 @@
                                     <h4 class="mb-1 mt-1"> <span data-plugin="counterup"><?php echo $count_haki ?></span></h4>
                                     <p class="text-muted mb-0">Total HaKi</p>
                                 </div>
-                                <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>0 HaKi</span> dari tahun sebelumnya
-                                </p>
+
+                                <?php if ($peningkatan_haki >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_haki ?> HaKi</span> dari tahun sebelumnya
+                                    </p>
+                                <?php else : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_haki ?> HaKi</span> dari tahun sebelumnya
+                                    </p>
+                                <?php endif ?>
                             </div>
                         </div>
                     </div> <!-- end col-->
@@ -115,17 +138,17 @@
                                             <h3 class="text-primary"><span data-plugin="counterup">137</span><span class="text-muted d-inline-block font-size-15 ms-3">Total Publikasi</span></h3>
                                         </li> -->
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup">18</span><span class="text-muted d-inline-block font-size-15 ms-3">Jurnal Internasional</span>
+                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Inter ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Jurnal Internasional</span>
                                             </h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup">30</span><span class="text-muted d-inline-block font-size-15 ms-3">Jurnal Nasional</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Jurnal Nasional</span></h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup">42</span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding</span></h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup">2</span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding Nasional</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding Nasional</span></h3>
                                         </li>
                                     </ul>
                                 </div>
@@ -153,7 +176,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <h4 class="card-title mb-4">Publikasi Terbanyak</h4>
                                 <div data-simplebar style="max-height: 400px;">
                                     <div class="table-responsive">
@@ -178,13 +200,9 @@
                                 </div> <!-- data-sidebar-->
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
-
-
-
-
                     </div> <!-- end Col -->
-
                 </div> <!-- end row-->
+
                 <div class="row">
                     <div class="col-xl-8">
                         <div class="card">
@@ -270,7 +288,6 @@
                                 </div> <!-- data-sidebar-->
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
-
                     </div> <!-- end Col -->
                 </div> <!-- end row-->
 
