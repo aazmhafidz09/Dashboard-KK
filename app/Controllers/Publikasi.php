@@ -33,13 +33,9 @@ class Publikasi extends BaseController
             'dosen' => $this->dosenModel->getDosen(),
             'publikasi' => $this->publikasiModel->getPublikasi_all(),
             'count_publikasi' => $this->publikasiModel->getPublikasiTotal(),
-            'count_abdimas' => $this->abdimasModel->getAbdimasTotal(),
-            'count_penelitian' => $this->penelitianModel->getPenelitianTotal(),
-            'count_haki' => $this->hakiModel->getHakiTotal(),
-            'peningkatan_penelitian' => $this->penelitianModel->getPeningkatanPenelitian(),
+
             'peningkatan_publikasi' => $this->publikasiModel->getPeningkatanPublikasi(),
-            'peningkatan_haki' => $this->hakiModel->getPeningkatanHaki(),
-            'peningkatan_abdimas' => $this->hakiModel->getPeningkatanHaki(),
+
             'PublikasiYearNow_Inter' => $this->publikasiModel->getPublikasiYearNowInter(),
             'PublikasiYearNow_Nas' => $this->publikasiModel->getPublikasiYearNowNas(),
             'PublikasiYearNow_Pros' => $this->publikasiModel->getPublikasiYearNowPros(),
@@ -56,9 +52,12 @@ class Publikasi extends BaseController
             'peningkatan_publikasi_pros' => $this->publikasiModel->getPeningkatanPublikasiPros(),
             'peningkatan_publikasi_pros_nas' => $this->publikasiModel->getPeningkatanPublikasiProsNas(),
 
-            // Order Data Penelitian 
+            // Order Data Publikasi 
             'order_by_tahun' => $this->publikasiModel->getOrderByTahun(),
             'akreditasi_jurnal' => $this->publikasiModel->getAkreditasi(),
+
+            // // Top Publikasi 
+            'top_publikasi' => $this->publikasiModel->getTopPublikasi(),
 
 
         ];

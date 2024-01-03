@@ -421,15 +421,15 @@
                                     <div class="table-responsive">
                                         <table class="table table-borderless table-centered table-nowrap">
                                             <tbody>
-                                                <?php foreach ($dosen as $ds) : ?>
+                                                <?php foreach ($top_penelitian as $tp) : ?>
                                                     <tr>
                                                         <!-- <td style="width: 20px;"><img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle " alt="..."></td> -->
                                                         <td>
-                                                            <h6 class="font-size-15 mb-1 fw-normal"><?= $ds['nama_dosen']; ?></h6>
-                                                            <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> <?= $ds['kode_dosen']; ?></p>
+                                                            <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
+                                                            <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?></p>
                                                         </td>
-                                                        <td><span class="badge bg-danger-subtle text-danger font-size-12">#</span></td>
-                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i>#</td>
+                                                        <!-- <td><span class="badge bg-danger-subtle text-danger font-size-12"><?= $tp['jumlah_penelitian']; ?></span></td> -->
+                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['jumlah_penelitian']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
 

@@ -171,4 +171,10 @@ class PenelitianModel extends Model
         $query = $this->db->query("SELECT jenis AS jenis_pen, COUNT(*) AS jumlah_pen FROM penelitian GROUP BY jenis ORDER BY jenis ASC");
         return $query->getResultArray();
     }
+
+    public function getTopPenelitian()
+    {
+        $query = $this->db->query("SELECT dosen.nama_dosen, dosen.kode_dosen, COUNT(penelitian.kode_dosen) AS jumlah_penelitian FROM dosen dosen JOIN ( SELECT ketua_peneliti AS kode_dosen FROM penelitian UNION ALL SELECT anggota_peneliti_1 AS kode_dosen FROM penelitian UNION ALL SELECT anggota_peneliti_2 AS kode_dosen FROM penelitian UNION ALL SELECT anggota_peneliti_3 AS kode_dosen FROM penelitian UNION ALL SELECT anggota_peneliti_4 AS kode_dosen FROM penelitian ) penelitian ON dosen.kode_dosen = penelitian.kode_dosen GROUP BY dosen.kode_dosen, dosen.nama_dosen ORDER BY jumlah_penelitian DESC LIMIT 10");
+        return $query->getResultArray();
+    }
 }

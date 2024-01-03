@@ -159,4 +159,19 @@ class PublikasiModel extends Model
         $query = $this->db->query("SELECT akreditasi_journal_conf AS akreditasi, COUNT(*) AS jumlah_akr FROM publikasi WHERE akreditasi_journal_conf != '-' AND akreditasi_journal_conf != '' AND akreditasi_journal_conf != 'not accredited yet' AND akreditasi_journal_conf != 'unidentified' AND akreditasi_journal_conf != 'scopus' AND akreditasi_journal_conf != 'not Scopus' AND akreditasi_journal_conf != 'riset' AND akreditasi_journal_conf != 'undefined' GROUP BY akreditasi_journal_conf ORDER BY akreditasi_journal_conf ASC");
         return $query->getResultArray();
     }
+
+    public function getTopPublikasi()
+    {
+        $query = $this->db->query("SELECT dosen.nama_dosen, dosen.kode_dosen, 
+        COUNT(publikasi.kode_dosen) AS jumlah_publikasi FROM dosen dosen 
+        JOIN 
+            ( SELECT penulis_1 AS kode_dosen FROM publikasi UNION ALL 
+             SELECT penulis_2 AS kode_dosen FROM publikasi UNION ALL 
+             SELECT penulis_3 AS kode_dosen FROM publikasi UNION ALL 
+             SELECT penulis_4 AS kode_dosen FROM publikasi UNION ALL 
+             SELECT penulis_5 AS kode_dosen FROM publikasi UNION ALL 
+             SELECT penulis_6 AS kode_dosen FROM publikasi ) 
+             publikasi ON dosen.kode_dosen = publikasi.kode_dosen GROUP BY dosen.kode_dosen, dosen.nama_dosen ORDER BY jumlah_publikasi DESC LIMIT 10");
+        return $query->getResultArray();
+    }
 }

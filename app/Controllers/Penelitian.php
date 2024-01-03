@@ -31,15 +31,9 @@ class Penelitian extends BaseController
             'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'pagetitle' => 'Minible']),
             'title' => 'Daftar Dosen',
             'dosen' => $this->dosenModel->getDosen(),
-            'publikasi' => $this->publikasiModel->getPublikasi_all(),
-            'count_publikasi' => $this->publikasiModel->getPublikasiTotal(),
-            'count_abdimas' => $this->abdimasModel->getAbdimasTotal(),
             'count_penelitian' => $this->penelitianModel->getPenelitianTotal(),
-            'count_haki' => $this->hakiModel->getHakiTotal(),
             'peningkatan_penelitian' => $this->penelitianModel->getPeningkatanPenelitian(),
-            'peningkatan_publikasi' => $this->publikasiModel->getPeningkatanPublikasi(),
-            'peningkatan_haki' => $this->hakiModel->getPeningkatanHaki(),
-            'peningkatan_abdimas' => $this->hakiModel->getPeningkatanHaki(),
+
             'Penelitian_YearNow_Inter' => $this->penelitianModel->getPenelitianYearNowInter(),
             'Penelitian_YearNow_Ekster' => $this->penelitianModel->getPenelitianYearNowEkste(),
             'Penelitian_YearNow_Mand' => $this->penelitianModel->getPenelitianYearNowMand(),
@@ -62,6 +56,9 @@ class Penelitian extends BaseController
             // Order Data Penelitian 
             'order_by_tahun' => $this->penelitianModel->getOrderByTahun(),
             'count_publikasi' => $this->penelitianModel->getCountPublikasi(),
+
+            // Top Penelitian 
+            'top_penelitian' => $this->penelitianModel->getTopPenelitian(),
 
 
         ];
