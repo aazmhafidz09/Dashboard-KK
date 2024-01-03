@@ -365,80 +365,6 @@ if (BarchartColumnColors) {
         },
         
     }
-// var options = {
-//     chart: {
-//         height: 350,
-//         type: 'bar',
-//         toolbar: {
-//             show: true,
-//         },
-
-//     },
-    
-//     plotOptions: {
-//         bar: {
-//             horizontal: false,
-//             columnWidth: '70%',
-//             endingShape: 'rounded'	
-//         },
-//     },
-//     dataLabels: {
-//         enabled: true,
-//         position: 'top', // top, center, bottom,
-//         formatter: function (val) {
-//             return val + "%";
-//         },
-//         offsetY: -20,
-//         style: {
-//             fontSize: '12px',
-//             colors: ["#304758"]
-//         }
-//     },
-    
-//     stroke: {
-//         show: true,
-//         width: 2,
-//         colors: ['transparent']
-//     },
-//     series: [{
-//         name: 'Jurnal Inter',
-//         data: [6, 3, 5, 19, 10, 18, 20, 33, 18]
-//     }, {
-//         name: 'Jurnal Nasio',
-//         data: [5, 9, 11, 9, 9, 20, 21, 44, 30]
-//     },{
-//         name: 'Prosiding',
-//         data: [33, 38, 32, 41, 42, 68, 47, 26, 42]
-//     },{
-//         name: 'Prosiding Nasio',
-//         data: [13, 3, 1, 0, 1, 1, 2, 3, 2]
-//     },
-// ],
-//     colors: BarchartColumnColors,
-//     xaxis: {
-//         categories: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'],
-//     },
-//     yaxis: {
-//         title: {
-//             text: 'Publikasi'
-//         }
-//     },
-//     grid: {
-//         borderColor: '#f1f1f1',
-//     },
-//     fill: {
-//         opacity: 1
-
-//     },
-//     tooltip: {
-//         y: {
-//             formatter: function (val) {
-//                 return " " + val + " Publikasi"
-//             }
-//         }
-//     }
-// }
-
 var chart = new ApexCharts(
     document.querySelector("#column_chart"),
     options
@@ -447,6 +373,8 @@ var chart = new ApexCharts(
 chart.render();
 
 }
+
+
 
 
 
@@ -551,6 +479,115 @@ var options = {
 
 var chart = new ApexCharts(
     document.querySelector("#column_chart_datalabel"),
+    options
+);
+
+chart.render();
+
+}
+
+
+
+// column chart with datalabels
+var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel_1");
+if (BarchartColumnChartColors) {
+var options = {
+    chart: {
+        height: 350,
+        type: 'bar',
+        toolbar: {
+            show: false,
+        }
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                position: 'top', // top, center, bottom
+            },
+        }
+    },
+    dataLabels: {
+        enabled: true,
+        position: 'top', // top, center, bottom,
+        formatter: function (val) {
+            return val + "";
+        },
+        offsetY: -20,
+        style: {
+            fontSize: '12px',
+            colors: ["#304758"]
+        }
+    },
+    series: [{
+        name: 'Abdimas',
+        data: [8, 14, 15, 15, 17, 22, 38, 39, 56, 42, 8, 14, 15, 15, 17, 22, 38, 39, 56, 42,14, 15, 15, 17,8, 14, 15, 15, 17, 22, 38, 39, 56, 42, 8, 14, 15, 15, 17, 22, 38, 39, 56, 42,14, 15, 15, 17]
+    }],
+    grid: {
+        borderColor: '#f1f1f1',
+    },
+    xaxis: {
+        
+        categories: ['2000','2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009','2010', '2011', '2012', '2013',  '2014','2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023','2000','2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009','2010', '2011', '2012', '2013',  '2014','2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'],
+        position: 'down',
+        labels: {
+            offsetY: 0,
+
+        },
+        axisBorder: {
+            show: false
+        },
+        axisTicks: {
+            show: true
+        },
+        crosshairs: {
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    colorFrom: '#D8E3F0',
+                    colorTo: '#BED1E6',
+                    stops: [0, 100],
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                }
+            }
+        },
+        tooltip: {
+            enabled: true,
+            offsetY: -35,
+        }
+    },
+    fill: {
+        gradient: {
+            shade: 'light',
+            type: "horizontal",
+            shadeIntensity: 0.25,
+            gradientToColors: undefined,
+            inverseColors: true,
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [50, 0, 100, 100]
+        },
+    },
+    yaxis: {
+        axisBorder: {
+            show: false
+        },
+        axisTicks: {
+            show: false,
+        },
+        labels: {
+            show: false,
+            formatter: function (val) {
+                return val + " Penelitian";
+            }
+        }
+
+    },
+    
+}
+
+var chart = new ApexCharts(
+    document.querySelector("#column_chart_datalabel_1"),
     options
 );
 
@@ -737,8 +774,8 @@ var options = {
       height: 320,
       type: 'pie',
   }, 
-  series: [44, 55, 41, 17, 15],
-  labels: ["Series 1", "Series 2", "Series 3", "Series 4", "Series 5"],
+  series: [44, 55, 41, 17],
+  labels: ["Jurnal Inter", "Jurnal Nasio", "Prosiding Inter", "Prosiding Nasio"],
   colors: PiechartPieColors,
   legend: {
       show: true,

@@ -8,7 +8,7 @@ use App\Models\PenelitianModel;
 use App\Models\AbdimasModel;
 use App\Models\HakiModel;
 
-class Publikasi extends BaseController
+class Haki extends BaseController
 {
     protected $dosenModel;
     protected $publikasiModel;
@@ -25,47 +25,40 @@ class Publikasi extends BaseController
     }
     public function index()
     {
-        // $dosen = $this->dosenModel->findAll();
+
         $data = [
             'title_meta' => view('partials/title-meta', ['title' => 'Dashboard']),
             'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'pagetitle' => 'Minible']),
             'title' => 'Daftar Dosen',
             'dosen' => $this->dosenModel->getDosen(),
-            'publikasi' => $this->publikasiModel->getPublikasi_all(),
-            'count_publikasi' => $this->publikasiModel->getPublikasiTotal(),
-
-            'peningkatan_publikasi' => $this->publikasiModel->getPeningkatanPublikasi(),
-
-            'PublikasiYearNow_Inter' => $this->publikasiModel->getPublikasiYearNowInter(),
-            'PublikasiYearNow_Nas' => $this->publikasiModel->getPublikasiYearNowNas(),
-            'PublikasiYearNow_Pros' => $this->publikasiModel->getPublikasiYearNowPros(),
-            'PublikasiYearNow_Pros_Nas' => $this->publikasiModel->getPublikasiYearNowProsNas(),
+            'count_haki' => $this->hakiModel->getHakiTotal(),
+            'peningkatan_haki' => $this->hakiModel->getPeningkatanHaki(),
+            'HakiYearNow_Cipta' => $this->hakiModel->getHakiYearNowCipta(),
+            'HakiYearNow_Paten' => $this->hakiModel->getHakiYearNowPaten(),
+            'hakiYearNow_Merek' => $this->hakiModel->getHakiYearNowMerek(),
+            'hakiYearNow_Buku' => $this->hakiModel->getHakiYearNowBuku(),
 
             // get total of the year
-            'Publikasi_Inter' => $this->publikasiModel->getPublikasiInter(),
-            'Publikasi_Nas' => $this->publikasiModel->getPublikasiNas(),
-            'Publikasi_Pros' => $this->publikasiModel->getPublikasiPros(),
-            'Publikasi_Pros_Nas' => $this->publikasiModel->getPublikasiProsNas(),
+            'Haki_Cipta' => $this->hakiModel->getHakiCipta(),
+            'Haki_Paten' => $this->hakiModel->getHakiPaten(),
+            'Haki_Merek' => $this->hakiModel->getHakiMerek(),
+            'Haki_Buku' => $this->hakiModel->getHakiBuku(),
 
-            'peningkatan_publikasi_inter' => $this->publikasiModel->getPeningkatanPublikasiInter(),
-            'peningkatan_publikasi_nas' => $this->publikasiModel->getPeningkatanPublikasiNas(),
-            'peningkatan_publikasi_pros' => $this->publikasiModel->getPeningkatanPublikasiPros(),
-            'peningkatan_publikasi_pros_nas' => $this->publikasiModel->getPeningkatanPublikasiProsNas(),
+            'peningkatan_haki_cipta' => $this->hakiModel->getPeningkatanHakiCipta(),
+            'peningkatan_haki_paten' => $this->hakiModel->getPeningkatanHakiPaten(),
+            'peningkatan_haki_merek' => $this->hakiModel->getPeningkatanHakiMerek(),
+            'peningkatan_haki_buku' => $this->hakiModel->getPeningkatanHakiBuku(),
 
-            // Order Data Publikasi 
-            'order_by_tahun' => $this->publikasiModel->getOrderByTahun(),
-            'akreditasi_jurnal' => $this->publikasiModel->getAkreditasi(),
+            // Order Data Penelitian 
+            'order_by_tahun' => $this->hakiModel->getOrderByTahun(),
+            'jenis' => $this->hakiModel->getCountHaki(),
 
-            // // Top Publikasi 
-            'top_publikasi' => $this->publikasiModel->getTopPublikasi(),
 
 
         ];
         // dd($dosen);
-        return view('publikasi/index', $data);
+        return view('haki/index', $data);
     }
-
-
 
     // public function detail($kode_dosen)
     // {

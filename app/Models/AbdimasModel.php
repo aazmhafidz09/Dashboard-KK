@@ -48,4 +48,81 @@ class AbdimasModel extends Model
         FROM abdimas WHERE tahun = tahun_sekarang - 1) AS peningkatan_data FROM abdimas WHERE tahun = YEAR(NOW()) OR tahun = YEAR(NOW()) - 1");
         return $query->getRow()->peningkatan_data;
     }
+
+    // Semua Tahun 
+    public function getAbdimasInter()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS abd_inter FROM abdimas WHERE jenis = 'internal' OR jenis='INTERNAL'");
+        return $query->getRow()->abd_inter;
+    }
+    public function getAbdimasEkste()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS abd_ekster FROM abdimas WHERE jenis = 'eksternal' OR jenis='EKSTERNAL'");
+        return $query->getRow()->abd_ekster;
+    }
+    public function getAbdimasInterEkster()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS abd_inter_ekster FROM abdimas WHERE jenis = 'INTERNAL & EKSTERNAL'");
+        return $query->getRow()->abd_inter_ekster;
+    }
+
+
+    // Year Now 
+    public function getAbdimasYearNowInter()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS abd_inter FROM abdimas WHERE tahun = YEAR(NOW()) and jenis = 'INTERNAL'");
+        return $query->getRow()->abd_inter;
+    }
+    public function getAbdimasYearNowEkste()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS abd_ekster FROM abdimas WHERE tahun = YEAR(NOW()) and jenis = 'Eksternal'");
+        return $query->getRow()->abd_ekster;
+    }
+    public function getAbdimasYearNowInterEkster()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS abd_inter_ekster FROM abdimas WHERE tahun = YEAR(NOW()) and jenis = 'INTERNAL & EKSTERNAL'");
+        return $query->getRow()->abd_inter_ekster;
+    }
+
+    // Peningkatan Penelitian
+
+    public function getPeningkatanAbdimasInter()
+    {
+        $query = $this->db->query("SELECT 
+        (SELECT COUNT(*) FROM abdimas WHERE jenis = 'internal' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
+        (SELECT COUNT(*) FROM abdimas WHERE jenis = 'internal' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
+        (SELECT COUNT(*) FROM abdimas WHERE jenis = 'internal' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM abdimas WHERE jenis = 'internal' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
+        FROM abdimas 
+        LIMIT 1
+        ");
+        return $query->getRow()->peningkatan_data;
+    }
+    public function getPeningkatanAbdimasEkste()
+    {
+        $query = $this->db->query("SELECT 
+        (SELECT COUNT(*) FROM abdimas WHERE jenis = 'EKSTERNAL' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
+        (SELECT COUNT(*) FROM abdimas WHERE jenis = 'EKSTERNAL' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
+        (SELECT COUNT(*) FROM abdimas WHERE jenis = 'EKSTERNAL' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM abdimas WHERE jenis = 'EKSTERNAL' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
+        FROM abdimas 
+        LIMIT 1
+        ");
+        return $query->getRow()->peningkatan_data;
+    }
+    public function getPeningkatanAbdimasInterEkster()
+    {
+        $query = $this->db->query("SELECT 
+        (SELECT COUNT(*) FROM abdimas WHERE jenis = 'INTERNAL & EKSTERNAL' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
+        (SELECT COUNT(*) FROM abdimas WHERE jenis = 'INTERNAL & EKSTERNAL' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
+        (SELECT COUNT(*) FROM abdimas WHERE jenis = 'INTERNAL & EKSTERNAL' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM abdimas WHERE jenis = 'INTERNAL & EKSTERNAL' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
+        FROM abdimas 
+        LIMIT 1
+        ");
+        return $query->getRow()->peningkatan_data;
+    }
+
+    public function getOrderByTahun()
+    {
+        $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_abd FROM abdimas GROUP BY tahun ORDER BY tahun DESC");
+        return $query->getResultArray();
+    }
 }

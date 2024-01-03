@@ -138,17 +138,17 @@
                                             <h3 class="text-primary"><span data-plugin="counterup">137</span><span class="text-muted d-inline-block font-size-15 ms-3">Total Publikasi</span></h3>
                                         </li> -->
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Inter ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Jurnal Internasional</span>
+                                            <h3><span data-plugin="counterup"><?php echo $Publikasi_Inter ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Jurnal Internasional</span>
                                             </h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Jurnal Nasional</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $Publikasi_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Jurnal Nasional</span></h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $Publikasi_Pros ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding</span></h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding Nasional</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $Publikasi_Pros_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding Nasional</span></h3>
                                         </li>
                                     </ul>
                                 </div>
@@ -223,18 +223,24 @@
 
                                 <div class="mt-1">
                                     <ul class="list-inline main-chart mb-0">
-                                        <li class="list-inline-item chart-border-left me-0 border-0">
+                                        <!-- <li class="list-inline-item chart-border-left me-0 border-0">
                                             <h3 class="text-primary"><span data-plugin="counterup">42</span><span class="text-muted d-inline-block font-size-15 ms-3">Total Penelitian</span></h3>
-                                        </li>
+                                        </li> -->
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup">13</span><span class="text-muted d-inline-block font-size-15 ms-3">Eksternal</span>
+                                            <h3><span data-plugin="counterup"><?php echo $Penelitian_Inter ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Eksternal</span>
                                             </h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup">29</span><span class="text-muted d-inline-block font-size-15 ms-3">Internal</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $Penelitian_Ekster ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Internal</span></h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup">0</span><span class="text-muted d-inline-block font-size-15 ms-3">mandiri</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $Penelitian_Mand ?></span><span class="text-muted d-inline-block font-size-15 ms-3">mandiri</span></h3>
+                                        </li>
+                                        <li class="list-inline-item chart-border-left me-0">
+                                            <h3><span data-plugin="counterup"><?php echo $Penelitian_kerjasamaPT ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Kerjasama PT</span></h3>
+                                        </li>
+                                        <li class="list-inline-item chart-border-left me-0">
+                                            <h3><span data-plugin="counterup"><?php echo $Penelitian_Hilir ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Hilirisasi</span></h3>
                                         </li>
                                     </ul>
                                 </div>

@@ -48,4 +48,133 @@ class PenelitianModel extends Model
         FROM penelitian WHERE tahun = tahun_sekarang - 1) AS peningkatan_data FROM penelitian WHERE tahun = YEAR(NOW()) OR tahun = YEAR(NOW()) - 1");
         return $query->getRow()->peningkatan_data;
     }
+
+    // Year Now 
+    public function getPenelitianYearNowInter()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS pen_inter FROM penelitian WHERE tahun = YEAR(NOW()) and jenis = 'Internal'");
+        return $query->getRow()->pen_inter;
+    }
+    public function getPenelitianYearNowEkste()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS pen_ekste FROM penelitian WHERE tahun = YEAR(NOW()) and jenis = 'Eksternal'");
+        return $query->getRow()->pen_ekste;
+    }
+    public function getPenelitianYearNowMand()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS pen_mand FROM penelitian WHERE tahun = YEAR(NOW()) and jenis = 'Mandiri'");
+        return $query->getRow()->pen_mand;
+    }
+    public function getPenelitianYearNowKerjaSamaPT()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS pen_kerja_sama_PT FROM penelitian WHERE tahun = YEAR(NOW()) and jenis = 'Kerjasama Perguruan Tinggi'");
+        return $query->getRow()->pen_kerja_sama_PT;
+    }
+    public function getPenelitianYearNowHilir()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS pen_Hilir FROM penelitian WHERE tahun = YEAR(NOW()) and jenis = 'Hilirisasi'");
+        return $query->getRow()->pen_Hilir;
+    }
+
+    // Semua Tahun 
+    public function getPenelitianInter()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS pen_inter FROM penelitian WHERE jenis = 'Internal'");
+        return $query->getRow()->pen_inter;
+    }
+    public function getPenelitianEkste()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS pen_ekste FROM penelitian WHERE jenis = 'Eksternal'");
+        return $query->getRow()->pen_ekste;
+    }
+    public function getPenelitianMand()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS pen_mand FROM penelitian WHERE jenis = 'Mandiri'");
+        return $query->getRow()->pen_mand;
+    }
+    public function getPenelitianKerjaSamaPT()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS pen_kerja_sama_PT FROM penelitian WHERE jenis = 'Kerjasama Perguruan Tinggi'");
+        return $query->getRow()->pen_kerja_sama_PT;
+    }
+    public function getPenelitianHilir()
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS pen_Hilir FROM penelitian WHERE jenis = 'Hilirisasi'");
+        return $query->getRow()->pen_Hilir;
+    }
+
+    // Peningkatan Penelitian
+
+    public function getPeningkatanPenelitianInter()
+    {
+        $query = $this->db->query("SELECT 
+        (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Eksternal' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
+        (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Eksternal' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
+        (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Eksternal' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Eksternal' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
+        FROM penelitian 
+        LIMIT 1
+        ");
+        return $query->getRow()->peningkatan_data;
+    }
+    public function getPeningkatanPenelitianEkste()
+    {
+        $query = $this->db->query("SELECT 
+        (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Internal' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
+        (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Internal' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
+        (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Internal' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Internal' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
+        FROM penelitian 
+        LIMIT 1
+        ");
+        return $query->getRow()->peningkatan_data;
+    }
+    public function getPeningkatanPenelitianMand()
+    {
+        $query = $this->db->query("SELECT 
+        (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Mandiri' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
+        (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Mandiri' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
+        (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Mandiri' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Mandiri' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
+        FROM penelitian 
+        LIMIT 1
+        ");
+        return $query->getRow()->peningkatan_data;
+    }
+    public function getPeningkatanPenelitianKerjaSamaPT()
+    {
+        $query = $this->db->query("SELECT 
+        (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Kerjasama Perguruan Tinggi' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
+        (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Kerjasama Perguruan Tinggi' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
+        (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Kerjasama Perguruan Tinggi' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Kerjasama Perguruan Tinggi' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
+        FROM penelitian 
+        LIMIT 1
+        ");
+        return $query->getRow()->peningkatan_data;
+    }
+    public function getPeningkatanPenelitianHilir()
+    {
+        $query = $this->db->query("SELECT 
+        (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Hilirisasi' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
+        (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Hilirisasi' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
+        (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Hilirisasi' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM penelitian WHERE jenis = 'Hilirisasi' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
+        FROM penelitian 
+        LIMIT 1
+        ");
+        return $query->getRow()->peningkatan_data;
+    }
+
+    public function getOrderByTahun()
+    {
+        $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_pen FROM penelitian GROUP BY tahun ORDER BY tahun DESC");
+        return $query->getResultArray();
+    }
+    public function getCountPublikasi()
+    {
+        $query = $this->db->query("SELECT jenis AS jenis_pen, COUNT(*) AS jumlah_pen FROM penelitian GROUP BY jenis ORDER BY jenis ASC");
+        return $query->getResultArray();
+    }
+
+    public function getTopPenelitian()
+    {
+        $query = $this->db->query("SELECT dosen.nama_dosen, dosen.kode_dosen, COUNT(penelitian.kode_dosen) AS jumlah_penelitian FROM dosen dosen JOIN ( SELECT ketua_peneliti AS kode_dosen FROM penelitian UNION ALL SELECT anggota_peneliti_1 AS kode_dosen FROM penelitian UNION ALL SELECT anggota_peneliti_2 AS kode_dosen FROM penelitian UNION ALL SELECT anggota_peneliti_3 AS kode_dosen FROM penelitian UNION ALL SELECT anggota_peneliti_4 AS kode_dosen FROM penelitian ) penelitian ON dosen.kode_dosen = penelitian.kode_dosen GROUP BY dosen.kode_dosen, dosen.nama_dosen ORDER BY jumlah_penelitian DESC LIMIT 10");
+        return $query->getResultArray();
+    }
 }
