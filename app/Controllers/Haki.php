@@ -44,6 +44,29 @@ class Haki extends BaseController
             'PublikasiYearNow_Nas' => $this->publikasiModel->getPublikasiYearNowNas(),
             'PublikasiYearNow_Pros' => $this->publikasiModel->getPublikasiYearNowPros(),
             'PublikasiYearNow_Pros_Nas' => $this->publikasiModel->getPublikasiYearNowProsNas(),
+
+            'HakiYearNow_Cipta' => $this->hakiModel->getHakiYearNowCipta(),
+            'HakiYearNow_Paten' => $this->hakiModel->getHakiYearNowPaten(),
+            'hakiYearNow_Merek' => $this->hakiModel->getHakiYearNowMerek(),
+            'hakiYearNow_Buku' => $this->hakiModel->getHakiYearNowBuku(),
+
+            // get total of the year
+            'Haki_Cipta' => $this->hakiModel->getHakiCipta(),
+            'Haki_Paten' => $this->hakiModel->getHakiPaten(),
+            'Haki_Merek' => $this->hakiModel->getHakiMerek(),
+            'Haki_Buku' => $this->hakiModel->getHakiBuku(),
+
+            'peningkatan_haki_cipta' => $this->hakiModel->getPeningkatanHakiCipta(),
+            'peningkatan_haki_paten' => $this->hakiModel->getPeningkatanHakiPaten(),
+            'peningkatan_haki_merek' => $this->hakiModel->getPeningkatanHakiMerek(),
+            'peningkatan_haki_buku' => $this->hakiModel->getPeningkatanHakiBuku(),
+
+            // Order Data Penelitian 
+            'order_by_tahun' => $this->hakiModel->getOrderByTahun(),
+            'jenis' => $this->hakiModel->getCountHaki(),
+
+
+
         ];
         // dd($dosen);
         return view('haki/index', $data);

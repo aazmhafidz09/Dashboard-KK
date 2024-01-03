@@ -119,4 +119,10 @@ class AbdimasModel extends Model
         ");
         return $query->getRow()->peningkatan_data;
     }
+
+    public function getOrderByTahun()
+    {
+        $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_abd FROM abdimas GROUP BY tahun ORDER BY tahun DESC");
+        return $query->getResultArray();
+    }
 }

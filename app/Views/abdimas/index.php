@@ -210,60 +210,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>2023</td>
-                                                    <td>42</td>
-                                                    <!-- <td>@mdo</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>2022</td>
-                                                    <td>56</td>
-                                                    <!-- <td>@fat</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>2021</td>
-                                                    <td>39</td>
-                                                    <!-- <td>@twitter</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">4</th>
-                                                    <td>2020</td>
-                                                    <td>38</td>
-                                                    <!-- <td>@mdo</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">5</th>
-                                                    <td>2019</td>
-                                                    <td>22</td>
-                                                    <!-- <td>@fat</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">6</th>
-                                                    <td>2018</td>
-                                                    <td>17</td>
-                                                    <!-- <td>@twitter</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">7</th>
-                                                    <td>2017</td>
-                                                    <td>15</td>
-                                                    <!-- <td>@mdo</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">8</th>
-                                                    <td>2016</td>
-                                                    <td>15</td>
-                                                    <!-- <td>@fat</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">9</th>
-                                                    <td>2015</td>
-                                                    <td>14</td>
-                                                    <!-- <td>@twitter</td> -->
-                                                </tr>
+                                                <?php $i = 1 ?>
+
+                                                <?php foreach ($order_by_tahun as $obt) : ?>
+                                                    <tr>
+                                                        <th scope="row"><?= $i++; ?></th>
+                                                        <td><?= $obt['thn']; ?></td>
+                                                        <td><?= $obt['jumlah_abd']; ?></td>
+                                                    </tr>
+
+                                                <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div> <!-- enbd table-responsive-->

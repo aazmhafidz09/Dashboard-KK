@@ -58,6 +58,9 @@ class Abdimas extends BaseController
             'getPeningkatanAbdimasEkste' => $this->abdimasModel->getPeningkatanAbdimasEkste(),
             'getPeningkatanAbdimasInterEkster' => $this->abdimasModel->getPeningkatanAbdimasInterEkster(),
 
+            // Order Data Penelitian 
+            'order_by_tahun' => $this->abdimasModel->getOrderByTahun(),
+
         ];
         // dd($dosen);
         return view('abdimas/index', $data);

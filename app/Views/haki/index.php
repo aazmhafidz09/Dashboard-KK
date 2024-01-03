@@ -31,10 +31,10 @@
                                     <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup">202</span></h4>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Cipta ?></span></h4>
                                     <p class="text-muted mb-0">Hak Cipta</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>7 Publikasi</span> dari tahun sebelumnya
+                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>7 Haki</span> dari tahun sebelumnya
                                 </p> -->
                             </div>
                         </div>
@@ -47,10 +47,10 @@
                                     <div id="orders-chart" data-colors='["--bs-success"]'> </div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup">202</span></h4>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Paten ?></span></h4>
                                     <p class="text-muted mb-0">Paten</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-4 Publikasi</span> dari tahun sebelumnya
+                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-4 Haki</span> dari tahun sebelumnya
                                 </p> -->
                             </div>
                         </div>
@@ -63,10 +63,10 @@
                                     <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup">45,254</span></h4>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Merek ?></span></h4>
                                     <p class="text-muted mb-0">Merek</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-2 Publikasi</span> dari tahun sebelumnya
+                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-2 Haki</span> dari tahun sebelumnya
                                 </p> -->
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                                     <div id="growth-chart" data-colors='["--bs-warning"]'></div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1">+ <span data-plugin="counterup">12.58</span>%</h4>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Buku ?></span></h4>
                                     <p class="text-muted mb-0">Buku</p>
                                 </div>
                                 <!-- <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>10.51%</span> since last week
@@ -96,11 +96,16 @@
                                     <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup">202</span></h4>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $HakiYearNow_Cipta ?></span></h4>
                                     <p class="text-muted mb-0">Hak Cipta</p>
                                 </div>
-                                <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>7 Hak Cipta</span> dari tahun sebelumnya
-                                </p>
+                                <?php if ($peningkatan_haki_cipta >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_haki_cipta ?> Hak Cipta</span> dari tahun sebelumnya
+                                    </p>
+                                <?php else : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_haki_cipta ?> Hak Cipta</span>dari tahun sebelumnya
+                                    </p>
+                                <?php endif ?>
 
                             </div>
                         </div>
@@ -113,11 +118,16 @@
                                     <div id="orders-chart" data-colors='["--bs-success"]'> </div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup">202</span></h4>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $HakiYearNow_Paten ?></span></h4>
                                     <p class="text-muted mb-0">Paten</p>
                                 </div>
-                                <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-4 Paten</span> dari tahun sebelumnya
-                                </p>
+                                <?php if ($peningkatan_haki_paten >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_haki_paten ?> Paten</span> dari tahun sebelumnya
+                                    </p>
+                                <?php else : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_haki_paten ?> Paten</span>dari tahun sebelumnya
+                                    </p>
+                                <?php endif ?>
 
 
                             </div>
@@ -131,11 +141,16 @@
                                     <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup">202</span></h4>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $hakiYearNow_Merek ?></span></h4>
                                     <p class="text-muted mb-0">Merek</p>
                                 </div>
-                                <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-2 Merek</span> dari tahun sebelumnya
-                                </p>
+                                <?php if ($peningkatan_haki_merek >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_haki_merek ?> Merek</span> dari tahun sebelumnya
+                                    </p>
+                                <?php else : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_haki_merek ?> Merek</span>dari tahun sebelumnya
+                                    </p>
+                                <?php endif ?>
 
                             </div>
                         </div>
@@ -149,11 +164,16 @@
                                     <div id="growth-chart" data-colors='["--bs-warning"]'></div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup">0</span></h4>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $hakiYearNow_Buku ?></span></h4>
                                     <p class="text-muted mb-0">Buku</p>
                                 </div>
-                                <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>2 Buku</span> since last week
-                                </p>
+                                <?php if ($peningkatan_haki_buku >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_haki_buku ?> Buku</span> dari tahun sebelumnya
+                                    </p>
+                                <?php else : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_haki_buku ?> Buku</span>dari tahun sebelumnya
+                                    </p>
+                                <?php endif ?>
 
                             </div>
                         </div>
@@ -182,21 +202,10 @@
                                 <div class="mt-1">
                                     <ul class="list-inline main-chart mb-0">
                                         <li class="list-inline-item chart-border-left me-0 border-0">
-                                            <h3 class="text-primary"><span data-plugin="counterup">42</span><span class="text-muted d-inline-block font-size-15 ms-3">Total HaKi</span></h3>
+                                            <h3 class="text-primary"><span data-plugin="counterup"><?php echo $count_haki ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Total HaKi</span></h3>
                                         </li>
-                                        <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup">13</span><span class="text-muted d-inline-block font-size-15 ms-3">Hak Cipta</span>
-                                            </h3>
-                                        </li>
-                                        <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup">29</span><span class="text-muted d-inline-block font-size-15 ms-3">Paten</span></h3>
-                                        </li>
-                                        <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup">0</span><span class="text-muted d-inline-block font-size-15 ms-3">Merek</span></h3>
-                                        </li>
-                                        <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup">0</span><span class="text-muted d-inline-block font-size-15 ms-3">Buku</span></h3>
-                                        </li>
+
+
                                     </ul>
                                 </div>
                                 <div class="mt-3">
@@ -225,7 +234,7 @@
                                     </div>
                                 </div>
 
-                                <h4 class="card-title mb-4">Total Publikasi</h4>
+                                <h4 class="card-title mb-4">Total Haki</h4>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
                                         <table class="table table-borderless table-centered table-nowrap">
@@ -233,65 +242,21 @@
                                                 <tr>
                                                     <th></th>
                                                     <th>Tahun</th>
-                                                    <th>Jumlah Publikasi</th>
+                                                    <th>Jumlah Haki</th>
                                                     <!-- <th>Username</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>2023</td>
-                                                    <td>42</td>
-                                                    <!-- <td>@mdo</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>2022</td>
-                                                    <td>56</td>
-                                                    <!-- <td>@fat</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>2021</td>
-                                                    <td>39</td>
-                                                    <!-- <td>@twitter</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">4</th>
-                                                    <td>2020</td>
-                                                    <td>38</td>
-                                                    <!-- <td>@mdo</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">5</th>
-                                                    <td>2019</td>
-                                                    <td>22</td>
-                                                    <!-- <td>@fat</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">6</th>
-                                                    <td>2018</td>
-                                                    <td>17</td>
-                                                    <!-- <td>@twitter</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">7</th>
-                                                    <td>2017</td>
-                                                    <td>15</td>
-                                                    <!-- <td>@mdo</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">8</th>
-                                                    <td>2016</td>
-                                                    <td>15</td>
-                                                    <!-- <td>@fat</td> -->
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">9</th>
-                                                    <td>2015</td>
-                                                    <td>14</td>
-                                                    <!-- <td>@twitter</td> -->
-                                                </tr>
+                                                <?php $i = 1 ?>
+
+                                                <?php foreach ($order_by_tahun as $obt) : ?>
+                                                    <tr>
+                                                        <th scope="row"><?= $i++; ?></th>
+                                                        <td><?= $obt['thn']; ?></td>
+                                                        <td><?= $obt['jumlah_haki']; ?></td>
+                                                    </tr>
+
+                                                <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div> <!-- enbd table-responsive-->
@@ -322,20 +287,20 @@
                                 <div class="mt-1">
                                     <ul class="list-inline main-chart mb-0">
                                         <!-- <li class="list-inline-item chart-border-left me-0 border-0">
-                                            <h3 class="text-primary"><span data-plugin="counterup">137</span><span class="text-muted d-inline-block font-size-15 ms-3">Total Publikasi</span></h3>
+                                            <h3 class="text-primary"><span data-plugin="counterup">137</span><span class="text-muted d-inline-block font-size-15 ms-3">Total Haki</span></h3>
                                         </li> -->
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Inter ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Hak Cipta</span>
+                                            <h3><span data-plugin="counterup"><?php echo $HakiYearNow_Cipta ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Hak Cipta</span>
                                             </h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Paten</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $HakiYearNow_Paten ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Paten</span></h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Merek</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $hakiYearNow_Merek ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Merek</span></h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Buku</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $hakiYearNow_Buku ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Buku</span></h3>
                                         </li>
                                     </ul>
                                 </div>
@@ -351,7 +316,7 @@
                         <div class="card-body">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Diagram Publikasi</h4>
+                                    <h4 class="card-title mb-4">Diagram Haki</h4>
 
                                     <div id="pie_chart" data-colors='["--bs-success", "--bs-primary", "--bs-warning" ,"--bs-info", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
                                 </div>
@@ -379,7 +344,7 @@
 
                                 <div class="row align-items-center g-0 mt-3">
                                     <div class="col-sm-3">
-                                        <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Scopus </p>
+                                        <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Haki </p>
                                     </div>
 
                                     <div class="col-sm-9">
