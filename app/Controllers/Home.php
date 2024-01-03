@@ -32,7 +32,6 @@ class Home extends BaseController
 			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'pagetitle' => 'Minible']),
 			'title' => 'Daftar Dosen',
 			'dosen' => $this->dosenModel->getDosen(),
-			'publikasi' => $this->publikasiModel->getPublikasi(),
 			'count_publikasi' => $this->publikasiModel->getPublikasiTotal(),
 			'count_abdimas' => $this->abdimasModel->getAbdimasTotal(),
 			'count_penelitian' => $this->penelitianModel->getPenelitianTotal(),
@@ -45,6 +44,17 @@ class Home extends BaseController
 			'PublikasiYearNow_Nas' => $this->publikasiModel->getPublikasiYearNowNas(),
 			'PublikasiYearNow_Pros' => $this->publikasiModel->getPublikasiYearNowPros(),
 			'PublikasiYearNow_Pros_Nas' => $this->publikasiModel->getPublikasiYearNowProsNas(),
+			// get total of the year
+			'Publikasi_Inter' => $this->publikasiModel->getPublikasiInter(),
+			'Publikasi_Nas' => $this->publikasiModel->getPublikasiNas(),
+			'Publikasi_Pros' => $this->publikasiModel->getPublikasiPros(),
+			'Publikasi_Pros_Nas' => $this->publikasiModel->getPublikasiProsNas(),
+			// Penelitian 
+			'Penelitian_Inter' => $this->penelitianModel->getPenelitianInter(),
+			'Penelitian_Ekster' => $this->penelitianModel->getPenelitianEkste(),
+			'Penelitian_Mand' => $this->penelitianModel->getPenelitianMand(),
+			'Penelitian_kerjasamaPT' => $this->penelitianModel->getPenelitianKerjaSamaPT(),
+			'Penelitian_Hilir' => $this->penelitianModel->getPenelitianHilir(),
 
 		];
 		return view('index', $data);

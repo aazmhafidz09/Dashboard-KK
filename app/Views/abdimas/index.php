@@ -24,15 +24,15 @@
             <div class="container-fluid">
                 <h5>Total</h5>
                 <div class="row">
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-md-6 col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Inter ?></span></h4>
-                                    <p class="text-muted mb-0">Jurnal Internasional</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_Inter ?></span></h4>
+                                    <p class="text-muted mb-0">Internal</p>
                                 </div>
                                 <!-- <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>7 Publikasi</span> dari tahun sebelumnya
                                 </p> -->
@@ -40,15 +40,15 @@
                         </div>
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-md-6 col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="orders-chart" data-colors='["--bs-success"]'> </div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Nas ?></span></h4>
-                                    <p class="text-muted mb-0">Jurnal Nasional</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_Ekster ?></span></h4>
+                                    <p class="text-muted mb-0">Eksternal</p>
                                 </div>
                                 <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-4 Publikasi</span> dari tahun sebelumnya
                                 </p> -->
@@ -56,15 +56,15 @@
                         </div>
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-md-6 col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Pros ?></span></h4>
-                                    <p class="text-muted mb-0">Prosiding Internasional</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_Inter_Ekster ?></span></h4>
+                                    <p class="text-muted mb-0">Internal dan Eksternal</p>
                                 </div>
                                 <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-2 Publikasi</span> dari tahun sebelumnya
                                 </p> -->
@@ -72,41 +72,23 @@
                         </div>
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-3">
-
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
-                                </div>
-                                <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Pros_Nas ?></span></h4>
-                                    <p class="text-muted mb-0">Prosiding Nasional</p>
-                                </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>10.51%</span> since last week
-                                </p> -->
-                            </div>
-                        </div>
-                    </div> <!-- end col-->
-
-
 
                     <h5>Tahun <?php echo date("Y"); ?></h5>
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-md-6 col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Inter ?></span></h4>
-                                    <p class="text-muted mb-0">Jurnal Internasional</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_YearNow_Inter ?></span></h4>
+                                    <p class="text-muted mb-0">Internal</p>
                                 </div>
-                                <?php if ($peningkatan_publikasi_inter >= 0) : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_publikasi_inter ?> Publikasi</span> dari tahun sebelumnya
+                                <?php if ($getPeningkatanAbdimasInter >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $getPeningkatanAbdimasInter ?> Abdimas</span> dari tahun sebelumnya
                                     </p>
                                 <?php else : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_publikasi_inter ?> Publikasi</span>dari tahun sebelumnya
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $getPeningkatanAbdimasInter ?> Abdimas</span>dari tahun sebelumnya
                                     </p>
                                 <?php endif ?>
 
@@ -114,21 +96,21 @@
                         </div>
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-md-6 col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="orders-chart" data-colors='["--bs-success"]'> </div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Nas ?></span></h4>
-                                    <p class="text-muted mb-0">Jurnal Nasional</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_YearNow_Ekster ?></span></h4>
+                                    <p class="text-muted mb-0">Eksternal</p>
                                 </div>
-                                <?php if ($peningkatan_publikasi_nas >= 0) : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_publikasi_nas ?> Publikasi</span> dari tahun sebelumnya
+                                <?php if ($getPeningkatanAbdimasEkste >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $getPeningkatanAbdimasEkste ?> Abdimas</span> dari tahun sebelumnya
                                     </p>
                                 <?php else : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_publikasi_nas ?> Publikasi</span>dari tahun sebelumnya
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $getPeningkatanAbdimasEkste ?> Abdimas</span>dari tahun sebelumnya
                                     </p>
                                 <?php endif ?>
 
@@ -137,21 +119,21 @@
                         </div>
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-md-6 col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros ?></span></h4>
-                                    <p class="text-muted mb-0">Prosiding Internasional</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_YearNow_Inter_Ekster ?></span></h4>
+                                    <p class="text-muted mb-0">Internal dan Eksternal</p>
                                 </div>
-                                <?php if ($peningkatan_publikasi_pros >= 0) : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_publikasi_pros ?> Publikasi</span> dari tahun sebelumnya
+                                <?php if ($getPeningkatanAbdimasInterEkster >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $getPeningkatanAbdimasInterEkster ?> Abdimas</span> dari tahun sebelumnya
                                     </p>
                                 <?php else : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_publikasi_pros ?> Publikasi</span>dari tahun sebelumnya
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $getPeningkatanAbdimasInterEkster ?> Abdimas</span>dari tahun sebelumnya
                                     </p>
                                 <?php endif ?>
 
@@ -159,28 +141,7 @@
                         </div>
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-3">
 
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
-                                </div>
-                                <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros_Nas ?></span></h4>
-                                    <p class="text-muted mb-0">Prosiding Nasional</p>
-                                </div>
-                                <?php if ($peningkatan_publikasi_pros_nas >= 0) : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_publikasi_pros_nas ?> Publikasi</span> dari tahun sebelumnya
-                                    </p>
-                                <?php else : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_publikasi_pros_nas ?> Publikasi</span>dari tahun sebelumnya
-                                    </p>
-                                <?php endif ?>
-
-                            </div>
-                        </div>
-                    </div> <!-- end col-->
                 </div> <!-- end row-->
 
 
@@ -200,12 +161,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h4 class="card-title mb-4">Statistik Publikasi</h4>
+                                <h4 class="card-title mb-4">Statistik Abdimas</h4>
 
                                 <div class="mt-1">
                                     <ul class="list-inline main-chart mb-0">
                                         <li class="list-inline-item chart-border-left me-0 border-0">
-                                            <h3 class="text-primary"><span data-plugin="counterup"><?php echo $count_publikasi ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Total Publikasi</span></h3>
+                                            <h3 class="text-primary"><span data-plugin="counterup"><?php echo $count_abdimas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Total Abdimas</span></h3>
                                         </li>
 
                                     </ul>
@@ -236,7 +197,7 @@
                                     </div>
                                 </div>
 
-                                <h4 class="card-title mb-4">Total Publikasi</h4>
+                                <h4 class="card-title mb-4">Total Abdimas</h4>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
                                         <table class="table table-borderless table-centered table-nowrap">
@@ -244,21 +205,65 @@
                                                 <tr>
                                                     <th></th>
                                                     <th>Tahun</th>
-                                                    <th>Jumlah Publikasi</th>
+                                                    <th>Jumlah Abdimas</th>
                                                     <!-- <th>Username</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $i = 1 ?>
-
-                                                <?php foreach ($order_by_tahun as $obt) : ?>
-                                                    <tr>
-                                                        <th scope="row"><?= $i++; ?></th>
-                                                        <td><?= $obt['thn']; ?></td>
-                                                        <td><?= $obt['jumlah_pen']; ?></td>
-                                                    </tr>
-
-                                                <?php endforeach; ?>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>2023</td>
+                                                    <td>42</td>
+                                                    <!-- <td>@mdo</td> -->
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>2022</td>
+                                                    <td>56</td>
+                                                    <!-- <td>@fat</td> -->
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>2021</td>
+                                                    <td>39</td>
+                                                    <!-- <td>@twitter</td> -->
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">4</th>
+                                                    <td>2020</td>
+                                                    <td>38</td>
+                                                    <!-- <td>@mdo</td> -->
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">5</th>
+                                                    <td>2019</td>
+                                                    <td>22</td>
+                                                    <!-- <td>@fat</td> -->
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">6</th>
+                                                    <td>2018</td>
+                                                    <td>17</td>
+                                                    <!-- <td>@twitter</td> -->
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">7</th>
+                                                    <td>2017</td>
+                                                    <td>15</td>
+                                                    <!-- <td>@mdo</td> -->
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">8</th>
+                                                    <td>2016</td>
+                                                    <td>15</td>
+                                                    <!-- <td>@fat</td> -->
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">9</th>
+                                                    <td>2015</td>
+                                                    <td>14</td>
+                                                    <!-- <td>@twitter</td> -->
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div> <!-- enbd table-responsive-->
@@ -284,7 +289,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h4 class="card-title mb-4">Statistik Publikasi</h4>
+                                <h4 class="card-title mb-4">Statistik Abdimas</h4>
 
                                 <div class="mt-1">
                                     <ul class="list-inline main-chart mb-0">
@@ -292,17 +297,14 @@
                                             <h3 class="text-primary"><span data-plugin="counterup">137</span><span class="text-muted d-inline-block font-size-15 ms-3">Total Publikasi</span></h3>
                                         </li> -->
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Inter ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Jurnal Internasional</span>
+                                            <h3><span data-plugin="counterup"><?php echo $Abdimas_YearNow_Inter ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Internal</span>
                                             </h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Jurnal Nasional</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $Abdimas_YearNow_Ekster ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Eksternal</span></h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding</span></h3>
-                                        </li>
-                                        <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding Nasional</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $Abdimas_YearNow_Inter_Ekster ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Internal dan Eksternal</span></h3>
                                         </li>
                                     </ul>
                                 </div>
@@ -318,7 +320,7 @@
                         <div class="card-body">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Diagram Publikasi</h4>
+                                    <h4 class="card-title mb-4">Diagram Abdimas</h4>
 
                                     <div id="pie_chart" data-colors='["--bs-success", "--bs-primary", "--bs-warning" ,"--bs-info", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
                                 </div>
@@ -341,12 +343,12 @@
                                     </div>
                                 </div>
 
-                                <h4 class="card-title mb-4">Top Selling Products</h4>
+                                <h4 class="card-title mb-4">Total Abdimas</h4>
 
 
                                 <div class="row align-items-center g-0 mt-3">
                                     <div class="col-sm-3">
-                                        <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Scopus </p>
+                                        <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Abdimas </p>
                                     </div>
 
                                     <div class="col-sm-9">
@@ -356,191 +358,18 @@
                                         </div>
                                     </div>
                                 </div> <!-- end row-->
-                                <div class="row align-items-center g-0 mt-3">
-                                    <div class="col-sm-3">
-                                        <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> not accredited yet </p>
-                                    </div>
 
-                                    <div class="col-sm-9">
-                                        <div class="progress mt-1" style="height: 8px;">
-                                            <div class="progress-bar progress-bar bg-primary" role="progressbar" style="width: 52%" aria-valuenow="52" aria-valuemin="0" aria-valuemax="52">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> <!-- end row-->
 
 
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
                     </div> <!-- end Col -->
                 </div> <!-- end row-->
-
-
-
-
-
-                <div class="row">
-                    <div class="col-xl-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class=" dropdown-toggle" href="#" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="text-muted">All Members<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
-                                            <a class="dropdown-item" href="#">Locations</a>
-                                            <a class="dropdown-item" href="#">Revenue</a>
-                                            <a class="dropdown-item" href="#">Join Date</a>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                <h4 class="card-title mb-4">Publikasi Terbanyak</h4>
-
-                                <div data-simplebar style="max-height: 339px;">
-                                    <div class="table-responsive">
-                                        <table class="table table-borderless table-centered table-nowrap">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="width: 20px;"><img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle " alt="..."></td>
-                                                    <td>
-                                                        <h6 class="font-size-15 mb-1 fw-normal">Glenn Holden</h6>
-                                                        <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> Nevada</p>
-                                                    </td>
-                                                    <td><span class="badge bg-danger-subtle text-danger font-size-12">Cancel</span></td>
-                                                    <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i>$250.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="assets/images/users/avatar-5.jpg" class="avatar-xs rounded-circle " alt="..."></td>
-                                                    <td>
-                                                        <h6 class="font-size-15 mb-1 fw-normal">Lolita Hamill</h6>
-                                                        <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> Texas</p>
-                                                    </td>
-                                                    <td><span class="badge bg-success-subtle text-success font-size-12">Success</span></td>
-                                                    <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-danger" data-feather="trending-down"></i>$110.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="assets/images/users/avatar-6.jpg" class="avatar-xs rounded-circle " alt="..."></td>
-                                                    <td>
-                                                        <h6 class="font-size-15 mb-1 fw-normal">Robert Mercer</h6>
-                                                        <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> California</p>
-                                                    </td>
-                                                    <td><span class="badge bg-info-subtle text-info font-size-12">Active</span></td>
-                                                    <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i>$420.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="assets/images/users/avatar-7.jpg" class="avatar-xs rounded-circle " alt="..."></td>
-                                                    <td>
-                                                        <h6 class="font-size-15 mb-1 fw-normal">Marie Kim</h6>
-                                                        <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> Montana</p>
-                                                    </td>
-                                                    <td><span class="badge bg-warning-subtle text-warning font-size-12">Pending</span></td>
-                                                    <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-danger" data-feather="trending-down"></i>$120.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="assets/images/users/avatar-8.jpg" class="avatar-xs rounded-circle " alt="..."></td>
-                                                    <td>
-                                                        <h6 class="font-size-15 mb-1 fw-normal">Sonya Henshaw</h6>
-                                                        <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> Colorado</p>
-                                                    </td>
-                                                    <td><span class="badge bg-info-subtle text-info font-size-12">Active</span></td>
-                                                    <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i>$112.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="assets/images/users/avatar-2.jpg" class="avatar-xs rounded-circle " alt="..."></td>
-                                                    <td>
-                                                        <h6 class="font-size-15 mb-1 fw-normal">Marie Kim</h6>
-                                                        <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> Australia</p>
-                                                    </td>
-                                                    <td><span class="badge bg-success-subtle text-success font-size-12">Success</span></td>
-                                                    <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-danger" data-feather="trending-down"></i>$120.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="assets/images/users/avatar-1.jpg" class="avatar-xs rounded-circle " alt="..."></td>
-                                                    <td>
-                                                        <h6 class="font-size-15 mb-1 fw-normal">Sonya Henshaw</h6>
-                                                        <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> India</p>
-                                                    </td>
-                                                    <td><span class="badge bg-danger-subtle text-danger font-size-12">Cancel</span></td>
-                                                    <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i>$112.00</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div> <!-- enbd table-responsive-->
-                                </div> <!-- data-sidebar-->
-                            </div><!-- end card-body-->
-                        </div> <!-- end card-->
-                    </div><!-- end col -->
-
-                    <div class="col-xl-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle" href="#" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <!-- <span class="text-muted">Recent<i class="mdi mdi-chevron-down ms-1"></i></span> -->
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton3">
-                                            <a class="dropdown-item" href="#">Recent</a>
-                                            <a class="dropdown-item" href="#">By Users</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <h4 class="card-title mb-4">Index Publikasi</h4>
-
-                                <ol class="activity-feed mb-0 ps-2" data-simplebar style="max-height: 339px;">
-
-                                    <div class="table-responsive">
-                                        <table class="table mb-0">
-
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th></th>
-                                                    <th>Index</th>
-                                                    <th>Jumlah</th>
-                                                    <!-- <th>Username</th> -->
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $i = 1 ?>
-                                                <?php foreach ($akreditasi_jurnal as $akr) :  ?>
-                                                    <tr>
-                                                        <th scope="row"><?= $i++; ?></th>
-                                                        <td><?= $akr['akreditasi']; ?></td>
-                                                        <td><?= $akr['jumlah_akr']; ?></td>
-                                                        <!-- <td>@mdo</td> -->
-                                                    </tr>
-                                                <?php endforeach; ?>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </ol>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title mb-4">Kualitas Publikasi</h4>
-                                <div id="bar_chart" data-colors='["--bs-success"]' class="apex-charts" dir="ltr"></div>
-                            </div>
-                        </div><!--end card-->
-                    </div>
-                </div>
-                <!-- end row -->
-
                 <div class="row">
                     <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Statistik Publikasi</h4>
+                                <h4 class="card-title mb-4">Statistik Abdimas</h4>
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
                                     <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->

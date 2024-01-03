@@ -24,89 +24,96 @@
             <div class="container-fluid">
                 <h5>Total</h5>
                 <div class="row">
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Inter ?></span></h4>
-                                    <p class="text-muted mb-0">Jurnal Internasional</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_Ekster ?></span></h4>
+                                    <p class="text-muted mb-0">Eksternal</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>7 Publikasi</span> dari tahun sebelumnya
-                                </p> -->
+
                             </div>
                         </div>
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="orders-chart" data-colors='["--bs-success"]'> </div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Nas ?></span></h4>
-                                    <p class="text-muted mb-0">Jurnal Nasional</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_Inter ?></span></h4>
+                                    <p class="text-muted mb-0">Internal</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-4 Publikasi</span> dari tahun sebelumnya
-                                </p> -->
+
                             </div>
                         </div>
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Pros ?></span></h4>
-                                    <p class="text-muted mb-0">Prosiding Internasional</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_Mand ?></span></h4>
+                                    <p class="text-muted mb-0">Mandiri</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-2 Publikasi</span> dari tahun sebelumnya
-                                </p> -->
+
                             </div>
                         </div>
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-3">
-
+                    <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="growth-chart" data-colors='["--bs-warning"]'></div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Pros_Nas ?></span></h4>
-                                    <p class="text-muted mb-0">Prosiding Nasional</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_Kerjasama_PT ?></span></h4>
+                                    <p class="text-muted mb-0">Kerjasama PT</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>10.51%</span> since last week
-                                </p> -->
+
                             </div>
                         </div>
                     </div> <!-- end col-->
+                    <div class="col-xl">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="float-end mt-2">
+                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
+                                </div>
+                                <div>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_Hilir ?></span></h4>
+                                    <p class="text-muted mb-0">Hilirisasi</p>
+                                </div>
 
-
+                            </div>
+                        </div>
+                    </div> <!-- end col-->
 
                     <h5>Tahun <?php echo date("Y"); ?></h5>
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Inter ?></span></h4>
-                                    <p class="text-muted mb-0">Jurnal Internasional</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_YearNow_Ekster ?></span></h4>
+                                    <p class="text-muted mb-0">Eksternal</p>
                                 </div>
-                                <?php if ($peningkatan_publikasi_inter >= 0) : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_publikasi_inter ?> Publikasi</span> dari tahun sebelumnya
+                                <?php if ($peningkatan_Penelitian_Ekster >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_Penelitian_Ekster ?> Penelitian</span> dari tahun sebelumnya
                                     </p>
                                 <?php else : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_publikasi_inter ?> Publikasi</span>dari tahun sebelumnya
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_Penelitian_Ekster ?> Penelitian</span>dari tahun sebelumnya
                                     </p>
                                 <?php endif ?>
 
@@ -114,44 +121,43 @@
                         </div>
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="orders-chart" data-colors='["--bs-success"]'> </div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Nas ?></span></h4>
-                                    <p class="text-muted mb-0">Jurnal Nasional</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_YearNow_Inter ?></span></h4>
+                                    <p class="text-muted mb-0">Internal</p>
                                 </div>
-                                <?php if ($peningkatan_publikasi_nas >= 0) : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_publikasi_nas ?> Publikasi</span> dari tahun sebelumnya
+                                <?php if ($peningkatan_Penelitian_Inter >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_Penelitian_Inter ?> Penelitian</span> dari tahun sebelumnya
                                     </p>
                                 <?php else : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_publikasi_nas ?> Publikasi</span>dari tahun sebelumnya
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_Penelitian_Inter ?> Penelitian</span>dari tahun sebelumnya
                                     </p>
                                 <?php endif ?>
-
 
                             </div>
                         </div>
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros ?></span></h4>
-                                    <p class="text-muted mb-0">Prosiding Internasional</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_YearNow_Mand ?></span></h4>
+                                    <p class="text-muted mb-0">Mandiri</p>
                                 </div>
-                                <?php if ($peningkatan_publikasi_pros >= 0) : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_publikasi_pros ?> Publikasi</span> dari tahun sebelumnya
+                                <?php if ($peningkatan_Penelitian_Mand >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_Penelitian_Mand ?> Penelitian</span> dari tahun sebelumnya
                                     </p>
                                 <?php else : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_publikasi_pros ?> Publikasi</span>dari tahun sebelumnya
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_Penelitian_Mand ?> Penelitian</span>dari tahun sebelumnya
                                     </p>
                                 <?php endif ?>
 
@@ -159,7 +165,7 @@
                         </div>
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-xl">
 
                         <div class="card">
                             <div class="card-body">
@@ -167,14 +173,36 @@
                                     <div id="growth-chart" data-colors='["--bs-warning"]'></div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros_Nas ?></span></h4>
-                                    <p class="text-muted mb-0">Prosiding Nasional</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_YearNow_Kerjasama_PT ?></span></h4>
+                                    <p class="text-muted mb-0">Kerjasama PT</p>
                                 </div>
-                                <?php if ($peningkatan_publikasi_pros_nas >= 0) : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_publikasi_pros_nas ?> Publikasi</span> dari tahun sebelumnya
+                                <?php if ($peningkatan_Penelitian_Kerjasama_PT >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_Penelitian_Kerjasama_PT ?> Penelitian</span> dari tahun sebelumnya
                                     </p>
                                 <?php else : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_publikasi_pros_nas ?> Publikasi</span>dari tahun sebelumnya
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_Penelitian_Kerjasama_PT ?> Penelitian</span>dari tahun sebelumnya
+                                    </p>
+                                <?php endif ?>
+
+                            </div>
+                        </div>
+                    </div> <!-- end col-->
+                    <div class="col-xl">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="float-end mt-2">
+                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
+                                </div>
+                                <div>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_YearNow_Hilir ?></span></h4>
+                                    <p class="text-muted mb-0">Hilirisasi</p>
+                                </div>
+                                <?php if ($peningkatan_Penelitian_Hilir >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_Penelitian_Hilir ?> Penelitian</span> dari tahun sebelumnya
+                                    </p>
+                                <?php else : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_Penelitian_Hilir ?> Penelitian</span>dari tahun sebelumnya
                                     </p>
                                 <?php endif ?>
 
@@ -200,12 +228,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h4 class="card-title mb-4">Statistik Publikasi</h4>
+                                <h4 class="card-title mb-4">Statistik Penelitian</h4>
 
                                 <div class="mt-1">
                                     <ul class="list-inline main-chart mb-0">
                                         <li class="list-inline-item chart-border-left me-0 border-0">
-                                            <h3 class="text-primary"><span data-plugin="counterup"><?php echo $count_publikasi ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Total Publikasi</span></h3>
+                                            <h3 class="text-primary"><span data-plugin="counterup"><?php echo $count_penelitian ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Total Penelitian</span></h3>
                                         </li>
 
                                     </ul>
@@ -236,7 +264,7 @@
                                     </div>
                                 </div>
 
-                                <h4 class="card-title mb-4">Total Publikasi</h4>
+                                <h4 class="card-title mb-4">Total Penelitian</h4>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
                                         <table class="table table-borderless table-centered table-nowrap">
@@ -244,7 +272,7 @@
                                                 <tr>
                                                     <th></th>
                                                     <th>Tahun</th>
-                                                    <th>Jumlah Publikasi</th>
+                                                    <th>Jumlah Penelitian</th>
                                                     <!-- <th>Username</th> -->
                                                 </tr>
                                             </thead>
@@ -259,6 +287,7 @@
                                                     </tr>
 
                                                 <?php endforeach; ?>
+
                                             </tbody>
                                         </table>
                                     </div> <!-- enbd table-responsive-->
@@ -284,7 +313,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h4 class="card-title mb-4">Statistik Publikasi</h4>
+                                <h4 class="card-title mb-4">Statistik Penelitian per Tahun</h4>
 
                                 <div class="mt-1">
                                     <ul class="list-inline main-chart mb-0">
@@ -292,17 +321,20 @@
                                             <h3 class="text-primary"><span data-plugin="counterup">137</span><span class="text-muted d-inline-block font-size-15 ms-3">Total Publikasi</span></h3>
                                         </li> -->
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Inter ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Jurnal Internasional</span>
+                                            <h3><span data-plugin="counterup"><?php echo $Penelitian_YearNow_Ekster ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Eksternal</span>
                                             </h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Jurnal Nasional</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $Penelitian_YearNow_Inter ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Internal</span></h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $Penelitian_YearNow_Mand ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Mandiri</span></h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding Nasional</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $Penelitian_YearNow_Kerjasama_PT ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Kerjasama PT</span></h3>
+                                        </li>
+                                        <li class="list-inline-item chart-border-left me-0">
+                                            <h3><span data-plugin="counterup"><?php echo $Penelitian_YearNow_Hilir ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Hilirisasi</span></h3>
                                         </li>
                                     </ul>
                                 </div>
@@ -318,7 +350,7 @@
                         <div class="card-body">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Diagram Publikasi</h4>
+                                    <h4 class="card-title mb-4">Grafik Penelitian</h4>
 
                                     <div id="pie_chart" data-colors='["--bs-success", "--bs-primary", "--bs-warning" ,"--bs-info", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
                                 </div>
@@ -346,29 +378,16 @@
 
                                 <div class="row align-items-center g-0 mt-3">
                                     <div class="col-sm-3">
-                                        <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Scopus </p>
+                                        <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Desktops </p>
                                     </div>
 
                                     <div class="col-sm-9">
-                                        <div class="progress mt-1" style="height: 8px;">
+                                        <div class="progress mt-1" style="height: 6px;">
                                             <div class="progress-bar progress-bar bg-primary" role="progressbar" style="width: 52%" aria-valuenow="52" aria-valuemin="0" aria-valuemax="52">
                                             </div>
                                         </div>
                                     </div>
                                 </div> <!-- end row-->
-                                <div class="row align-items-center g-0 mt-3">
-                                    <div class="col-sm-3">
-                                        <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> not accredited yet </p>
-                                    </div>
-
-                                    <div class="col-sm-9">
-                                        <div class="progress mt-1" style="height: 8px;">
-                                            <div class="progress-bar progress-bar bg-primary" role="progressbar" style="width: 52%" aria-valuenow="52" aria-valuemin="0" aria-valuemax="52">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> <!-- end row-->
-
 
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -383,7 +402,7 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <!-- <div class="float-end">
+                                <div class="float-end">
                                     <div class="dropdown">
                                         <a class=" dropdown-toggle" href="#" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="text-muted">All Members<i class="mdi mdi-chevron-down ms-1"></i></span>
@@ -395,8 +414,8 @@
                                             <a class="dropdown-item" href="#">Join Date</a>
                                         </div>
                                     </div>
-                                </div> -->
-                                <h4 class="card-title mb-4">Publikasi Terbanyak</h4>
+                                </div>
+                                <h4 class="card-title mb-4">Top Users</h4>
 
                                 <div data-simplebar style="max-height: 339px;">
                                     <div class="table-responsive">
@@ -489,7 +508,7 @@
                                     </div>
                                 </div>
 
-                                <h4 class="card-title mb-4">Index Publikasi</h4>
+                                <h4 class="card-title mb-4">Data Penelitian</h4>
 
                                 <ol class="activity-feed mb-0 ps-2" data-simplebar style="max-height: 339px;">
 
@@ -499,18 +518,18 @@
                                             <thead class="table-light">
                                                 <tr>
                                                     <th></th>
-                                                    <th>Index</th>
+                                                    <th>Penelitian</th>
                                                     <th>Jumlah</th>
                                                     <!-- <th>Username</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $i = 1 ?>
-                                                <?php foreach ($akreditasi_jurnal as $akr) :  ?>
+                                                <?php foreach ($count_publikasi as $cpub) :  ?>
                                                     <tr>
                                                         <th scope="row"><?= $i++; ?></th>
-                                                        <td><?= $akr['akreditasi']; ?></td>
-                                                        <td><?= $akr['jumlah_akr']; ?></td>
+                                                        <td><?= $cpub['jenis_pen']; ?></td>
+                                                        <td><?= $cpub['jumlah_pen']; ?></td>
                                                         <!-- <td>@mdo</td> -->
                                                     </tr>
                                                 <?php endforeach; ?>
@@ -540,7 +559,7 @@
                     <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Statistik Publikasi</h4>
+                                <h4 class="card-title mb-4">Statistik Penelitian</h4>
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
                                     <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->

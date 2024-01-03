@@ -8,7 +8,7 @@ use App\Models\PenelitianModel;
 use App\Models\AbdimasModel;
 use App\Models\HakiModel;
 
-class Publikasi extends BaseController
+class Haki extends BaseController
 {
     protected $dosenModel;
     protected $publikasiModel;
@@ -25,7 +25,7 @@ class Publikasi extends BaseController
     }
     public function index()
     {
-        // $dosen = $this->dosenModel->findAll();
+
         $data = [
             'title_meta' => view('partials/title-meta', ['title' => 'Dashboard']),
             'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'pagetitle' => 'Minible']),
@@ -44,29 +44,10 @@ class Publikasi extends BaseController
             'PublikasiYearNow_Nas' => $this->publikasiModel->getPublikasiYearNowNas(),
             'PublikasiYearNow_Pros' => $this->publikasiModel->getPublikasiYearNowPros(),
             'PublikasiYearNow_Pros_Nas' => $this->publikasiModel->getPublikasiYearNowProsNas(),
-
-            // get total of the year
-            'Publikasi_Inter' => $this->publikasiModel->getPublikasiInter(),
-            'Publikasi_Nas' => $this->publikasiModel->getPublikasiNas(),
-            'Publikasi_Pros' => $this->publikasiModel->getPublikasiPros(),
-            'Publikasi_Pros_Nas' => $this->publikasiModel->getPublikasiProsNas(),
-
-            'peningkatan_publikasi_inter' => $this->publikasiModel->getPeningkatanPublikasiInter(),
-            'peningkatan_publikasi_nas' => $this->publikasiModel->getPeningkatanPublikasiNas(),
-            'peningkatan_publikasi_pros' => $this->publikasiModel->getPeningkatanPublikasiPros(),
-            'peningkatan_publikasi_pros_nas' => $this->publikasiModel->getPeningkatanPublikasiProsNas(),
-
-            // Order Data Penelitian 
-            'order_by_tahun' => $this->publikasiModel->getOrderByTahun(),
-            'akreditasi_jurnal' => $this->publikasiModel->getAkreditasi(),
-
-
         ];
         // dd($dosen);
-        return view('publikasi/index', $data);
+        return view('haki/index', $data);
     }
-
-
 
     // public function detail($kode_dosen)
     // {
