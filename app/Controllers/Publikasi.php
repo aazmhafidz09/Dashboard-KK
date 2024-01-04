@@ -59,6 +59,12 @@ class Publikasi extends BaseController
             // // Top Publikasi 
             'top_publikasi' => $this->publikasiModel->getTopPublikasi(),
 
+            // Get Data Tahunan
+            'data_tahunan' => $this->publikasiModel->getDataDosenTahunan(),
+
+            // Get All Data Publikasi
+            'all_publikasi' => $this->publikasiModel->getAllPublikasi(),
+
 
         ];
         // dd($dosen);

@@ -409,7 +409,7 @@
                                                             <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
                                                             <p class="text-muted font-size-13 mb-0"><?= $tp['nama_dosen']; ?></p>
                                                         </td>
-                                                        <!-- <td><span class="badge bg-danger-subtle text-danger font-size-12">#</span></td> -->
+                                                        <!-- <td><span class="badge bg-danger-subtle text-danger font-size-12">#</span></td>g -->
                                                         <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['jumlah_publikasi']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
@@ -511,7 +511,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div data-simplebar style="max-height: 339px;">
-                                    <h4 class="card-title mb-4">Latest Transaction</h4>
+                                    <h4 class="card-title mb-4">Statistik Publikasi Dosen Pertahun</h4>
                                     <div class="table-responsive">
                                         <table class="table table-centered table-nowrap mb-0">
                                             <thead>
@@ -545,84 +545,88 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <?php $i = 1 ?>
+                                                <?php foreach ($data_tahunan as $dt) : ?>
+                                                    <tr>
 
-                                                    <td><a href="javascript: void(0);" class="text-body fw-bold">UNW</a> </td>
-                                                    <td>2</td>
-                                                    <td>
-                                                        1
-                                                    </td>
-                                                    <td>
-                                                        2
-                                                    </td>
-                                                    <td>
-                                                        12
-                                                    </td>
-                                                    <td>
-                                                        8
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
-                                                    <td>
-                                                        1
-                                                    </td>
-                                                    <td>
-                                                        2
-                                                    </td>
-                                                    <td>
-                                                        12
-                                                    </td>
-                                                    <td>
-                                                        8
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
-                                                    <td>
-                                                        1
-                                                    </td>
-                                                    <td>
-                                                        2
-                                                    </td>
-                                                    <td>
-                                                        12
-                                                    </td>
-                                                    <td>
-                                                        8
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
-                                                    <td>
-                                                        1
-                                                    </td>
-                                                    <td>
-                                                        2
-                                                    </td>
-                                                    <td>
-                                                        12
-                                                    </td>
-                                                    <td>
-                                                        8
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
-                                                    <td>
-                                                        2
-                                                    </td>
-                                                    <td>
-                                                        12
-                                                    </td>
-                                                    <td>
-                                                        8
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
+                                                        <td><a href="javascript: void(0);" class="text-body fw-bold"><?= $dt['kode_dosen']; ?></a> </td>
+                                                        <td><?= $dt['THN_2000']; ?></td>
+                                                        <td>
+                                                            <?= $dt['THN_2001']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2002']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2003']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2004']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2005']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2006']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2007']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2008']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2009']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2010']; ?>
+                                                        </td>
 
-                                                </tr>
+                                                        <td>
+                                                            <?= $dt['THN_2011']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2012']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2013']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2014']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2015']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2016']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2017']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2018']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2019']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2020']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2021']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2022']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2023']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $dt['THN_2024']; ?>
+                                                        </td>
+
+                                                    </tr>
+                                                <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -647,90 +651,30 @@
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Tahun</th>
+                                            <th>Judul Publikasi</th>
+                                            <th>Jenis</th>
+                                            <th>Jurnal/konferensi</th>
+                                            <th>Akreditasi Jurnal</th>
+                                            <th>Penulis</th>
+
                                         </tr>
                                     </thead>
 
-
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011/07/25</td>
-                                            <td>$170,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2012/03/29</td>
-                                            <td>$433,060</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Airi Satou</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>33</td>
-                                            <td>2008/11/28</td>
-                                            <td>$162,700</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brielle Williamson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>New York</td>
-                                            <td>61</td>
-                                            <td>2012/12/02</td>
-                                            <td>$372,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Herrod Chandler</td>
-                                            <td>Sales Assistant</td>
-                                            <td>San Francisco</td>
-                                            <td>59</td>
-                                            <td>2012/08/06</td>
-                                            <td>$137,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Rhona Davidson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Tokyo</td>
-                                            <td>55</td>
-                                            <td>2010/10/14</td>
-                                            <td>$327,900</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Colleen Hurst</td>
-                                            <td>Javascript Developer</td>
-                                            <td>San Francisco</td>
-                                            <td>39</td>
-                                            <td>2009/09/15</td>
-                                            <td>$205,500</td>
-                                        </tr>
+                                        <?php $i = 1 ?>
 
+                                        <?php foreach ($all_publikasi as $alp) : ?>
+                                            <tr>
+                                                <td><?= $alp['tahun']; ?></td>
+                                                <td><?= $alp['judul_publikasi']; ?></td>
+                                                <td><?= $alp['jenis']; ?></td>
+                                                <td><?= $alp['nama_journal_conf']; ?></td>
+                                                <td><?= $alp['akreditasi_journal_conf']; ?></td>
+                                                <td><?= $alp['penulis_all']; ?></td>
+
+                                            </tr>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
 

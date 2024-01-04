@@ -60,11 +60,28 @@ class Penelitian extends BaseController
             // Top Penelitian 
             'top_penelitian' => $this->penelitianModel->getTopPenelitian(),
 
+            // Get Data Tahunan
+            'data_tahunan' => $this->penelitianModel->getDataDosenTahunan(),
+
+            // Get All Data Penelitian
+            'all_penelitian' => $this->penelitianModel->getAllPenelitian(),
+
 
         ];
+
         // dd($dosen);
         return view('penelitian/index', $data);
     }
+
+
+
+    // public function getDataDosenTahunan($tahun){
+    // 'top_penelitian' => $this->penelitianModel->getDataDosenTahunan($tahun),
+
+
+
+
+
 
     // public function detail($kode_dosen)
     // {

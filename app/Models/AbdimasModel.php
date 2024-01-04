@@ -125,4 +125,60 @@ class AbdimasModel extends Model
         $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_abd FROM abdimas GROUP BY tahun ORDER BY tahun DESC");
         return $query->getResultArray();
     }
+
+    public function getDataDosenTahunan()
+    {
+        $query = $this->db->query("SELECT
+        dosen.kode_dosen,
+        COUNT(CASE WHEN abdimas.tahun = 2000 THEN abdimas.kode_dosen END) AS THN_2000,
+        COUNT(CASE WHEN abdimas.tahun = 2001 THEN abdimas.kode_dosen END) AS THN_2001,
+        COUNT(CASE WHEN abdimas.tahun = 2002 THEN abdimas.kode_dosen END) AS THN_2002,
+        COUNT(CASE WHEN abdimas.tahun = 2003 THEN abdimas.kode_dosen END) AS THN_2003,
+        COUNT(CASE WHEN abdimas.tahun = 2004 THEN abdimas.kode_dosen END) AS THN_2004,
+        COUNT(CASE WHEN abdimas.tahun = 2005 THEN abdimas.kode_dosen END) AS THN_2005,
+        COUNT(CASE WHEN abdimas.tahun = 2006 THEN abdimas.kode_dosen END) AS THN_2006,
+        COUNT(CASE WHEN abdimas.tahun = 2007 THEN abdimas.kode_dosen END) AS THN_2007,
+        COUNT(CASE WHEN abdimas.tahun = 2008 THEN abdimas.kode_dosen END) AS THN_2008,
+        COUNT(CASE WHEN abdimas.tahun = 2009 THEN abdimas.kode_dosen END) AS THN_2009,
+        COUNT(CASE WHEN abdimas.tahun = 2010 THEN abdimas.kode_dosen END) AS THN_2010,
+        COUNT(CASE WHEN abdimas.tahun = 2011 THEN abdimas.kode_dosen END) AS THN_2011,
+        COUNT(CASE WHEN abdimas.tahun = 2012 THEN abdimas.kode_dosen END) AS THN_2012,
+        COUNT(CASE WHEN abdimas.tahun = 2013 THEN abdimas.kode_dosen END) AS THN_2013,
+        COUNT(CASE WHEN abdimas.tahun = 2014 THEN abdimas.kode_dosen END) AS THN_2014,
+        COUNT(CASE WHEN abdimas.tahun = 2015 THEN abdimas.kode_dosen END) AS THN_2015,
+        COUNT(CASE WHEN abdimas.tahun = 2016 THEN abdimas.kode_dosen END) AS THN_2016,
+        COUNT(CASE WHEN abdimas.tahun = 2017 THEN abdimas.kode_dosen END) AS THN_2017,
+        COUNT(CASE WHEN abdimas.tahun = 2018 THEN abdimas.kode_dosen END) AS THN_2018,
+        COUNT(CASE WHEN abdimas.tahun = 2019 THEN abdimas.kode_dosen END) AS THN_2019,
+        COUNT(CASE WHEN abdimas.tahun = 2020 THEN abdimas.kode_dosen END) AS THN_2020,
+        COUNT(CASE WHEN abdimas.tahun = 2021 THEN abdimas.kode_dosen END) AS THN_2021,
+        COUNT(CASE WHEN abdimas.tahun = 2022 THEN abdimas.kode_dosen END) AS THN_2022,
+        COUNT(CASE WHEN abdimas.tahun = 2023 THEN abdimas.kode_dosen END) AS THN_2023,
+        COUNT(CASE WHEN abdimas.tahun = 2024 THEN abdimas.kode_dosen END) AS THN_2024
+    FROM
+        dosen
+    LEFT JOIN
+        (
+            SELECT ketua AS kode_dosen, tahun FROM abdimas WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+            UNION ALL
+            SELECT anggota_1, tahun FROM abdimas WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+            UNION ALL
+            SELECT anggota_2, tahun FROM abdimas WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+            UNION ALL
+            SELECT anggota_3, tahun FROM abdimas WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+            UNION ALL
+            SELECT anggota_4, tahun FROM abdimas WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+            UNION ALL
+            SELECT anggota_5, tahun FROM abdimas WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+        ) AS abdimas ON dosen.kode_dosen = abdimas.kode_dosen
+    GROUP BY
+        dosen.kode_dosen;");
+        return $query->getResultArray();
+    }
+
+    public function getAllAbdimas()
+    {
+        $query = $this->db->query("SELECT * FROM `abdimas` ORDER BY `tahun` DESC");
+        return $query->getResultArray();
+    }
 }

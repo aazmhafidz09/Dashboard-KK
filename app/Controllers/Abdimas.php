@@ -46,6 +46,14 @@ class Abdimas extends BaseController
 
             // Order Data Penelitian 
             'order_by_tahun' => $this->abdimasModel->getOrderByTahun(),
+
+            // Get Data Tahunan
+            'data_tahunan' => $this->abdimasModel->getDataDosenTahunan(),
+
+            // Get All Data Abdimas
+            'all_abdimas' => $this->abdimasModel->getAllAbdimas(),
+
+
         ];
         // dd($dosen);
         return view('abdimas/index', $data);

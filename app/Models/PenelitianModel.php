@@ -177,4 +177,58 @@ class PenelitianModel extends Model
         $query = $this->db->query("SELECT dosen.nama_dosen, dosen.kode_dosen, COUNT(penelitian.kode_dosen) AS jumlah_penelitian FROM dosen dosen JOIN ( SELECT ketua_peneliti AS kode_dosen FROM penelitian UNION ALL SELECT anggota_peneliti_1 AS kode_dosen FROM penelitian UNION ALL SELECT anggota_peneliti_2 AS kode_dosen FROM penelitian UNION ALL SELECT anggota_peneliti_3 AS kode_dosen FROM penelitian UNION ALL SELECT anggota_peneliti_4 AS kode_dosen FROM penelitian ) penelitian ON dosen.kode_dosen = penelitian.kode_dosen GROUP BY dosen.kode_dosen, dosen.nama_dosen ORDER BY jumlah_penelitian DESC LIMIT 10");
         return $query->getResultArray();
     }
+
+    public function getDataDosenTahunan()
+    {
+        $query = $this->db->query("SELECT
+        dosen.kode_dosen,
+        COUNT(CASE WHEN penelitian.tahun = 2000 THEN penelitian.kode_dosen END) AS THN_2000,
+        COUNT(CASE WHEN penelitian.tahun = 2001 THEN penelitian.kode_dosen END) AS THN_2001,
+        COUNT(CASE WHEN penelitian.tahun = 2002 THEN penelitian.kode_dosen END) AS THN_2002,
+        COUNT(CASE WHEN penelitian.tahun = 2003 THEN penelitian.kode_dosen END) AS THN_2003,
+        COUNT(CASE WHEN penelitian.tahun = 2004 THEN penelitian.kode_dosen END) AS THN_2004,
+        COUNT(CASE WHEN penelitian.tahun = 2005 THEN penelitian.kode_dosen END) AS THN_2005,
+        COUNT(CASE WHEN penelitian.tahun = 2006 THEN penelitian.kode_dosen END) AS THN_2006,
+        COUNT(CASE WHEN penelitian.tahun = 2007 THEN penelitian.kode_dosen END) AS THN_2007,
+        COUNT(CASE WHEN penelitian.tahun = 2008 THEN penelitian.kode_dosen END) AS THN_2008,
+        COUNT(CASE WHEN penelitian.tahun = 2009 THEN penelitian.kode_dosen END) AS THN_2009,
+        COUNT(CASE WHEN penelitian.tahun = 2010 THEN penelitian.kode_dosen END) AS THN_2010,
+        COUNT(CASE WHEN penelitian.tahun = 2011 THEN penelitian.kode_dosen END) AS THN_2011,
+        COUNT(CASE WHEN penelitian.tahun = 2012 THEN penelitian.kode_dosen END) AS THN_2012,
+        COUNT(CASE WHEN penelitian.tahun = 2013 THEN penelitian.kode_dosen END) AS THN_2013,
+        COUNT(CASE WHEN penelitian.tahun = 2014 THEN penelitian.kode_dosen END) AS THN_2014,
+        COUNT(CASE WHEN penelitian.tahun = 2015 THEN penelitian.kode_dosen END) AS THN_2015,
+        COUNT(CASE WHEN penelitian.tahun = 2016 THEN penelitian.kode_dosen END) AS THN_2016,
+        COUNT(CASE WHEN penelitian.tahun = 2017 THEN penelitian.kode_dosen END) AS THN_2017,
+        COUNT(CASE WHEN penelitian.tahun = 2018 THEN penelitian.kode_dosen END) AS THN_2018,
+        COUNT(CASE WHEN penelitian.tahun = 2019 THEN penelitian.kode_dosen END) AS THN_2019,
+        COUNT(CASE WHEN penelitian.tahun = 2020 THEN penelitian.kode_dosen END) AS THN_2020,
+        COUNT(CASE WHEN penelitian.tahun = 2021 THEN penelitian.kode_dosen END) AS THN_2021,
+        COUNT(CASE WHEN penelitian.tahun = 2022 THEN penelitian.kode_dosen END) AS THN_2022,
+        COUNT(CASE WHEN penelitian.tahun = 2023 THEN penelitian.kode_dosen END) AS THN_2023,
+        COUNT(CASE WHEN penelitian.tahun = 2024 THEN penelitian.kode_dosen END) AS THN_2024
+    FROM
+        dosen
+    LEFT JOIN
+        (
+            SELECT ketua_peneliti AS kode_dosen, tahun FROM penelitian WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+            UNION ALL
+            SELECT anggota_peneliti_1, tahun FROM penelitian WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+            UNION ALL
+            SELECT anggota_peneliti_2, tahun FROM penelitian WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+            UNION ALL
+            SELECT anggota_peneliti_3, tahun FROM penelitian WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+            UNION ALL
+            SELECT anggota_peneliti_4, tahun FROM penelitian WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+        ) AS penelitian ON dosen.kode_dosen = penelitian.kode_dosen
+    GROUP BY
+        dosen.kode_dosen;");
+        return $query->getResultArray();
+    }
+
+    public function getAllPenelitian()
+    {
+        $query = $this->db->query("SELECT * FROM `penelitian` ORDER BY `tahun` DESC;");
+        return $query->getResultArray();
+    }
 }
