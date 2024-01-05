@@ -373,12 +373,12 @@
                                     </div>
                                 </div>
 
-                                <h4 class="card-title mb-4">Top Selling Products</h4>
+                                <h4 class="card-title mb-4">Penelitian</h4>
 
 
                                 <div class="row align-items-center g-0 mt-3">
                                     <div class="col-sm-3">
-                                        <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Desktops </p>
+                                        <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Internal</p>
                                     </div>
 
                                     <div class="col-sm-9">
@@ -920,6 +920,309 @@
 
         var chart = new ApexCharts(
             document.querySelector("#pie_chart"),
+            options
+        );
+
+        chart.render();
+
+    }
+
+
+    // column chart
+    var BarchartColumnColors = getChartColorsArray("column_chart");
+    if (BarchartColumnColors) {
+
+        var options = {
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                    show: false,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        position: 'top', // top, center, bottom
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                position: 'top', // top, center, bottom,
+                formatter: function(val) {
+                    return val + "";
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
+                }
+            },
+            series: [{
+                name: 'Eksternal',
+                data: [<?php foreach ($getOrderByTahunEksternal as $cpub) {
+                            echo '' . $cpub['jumlah_pen'] . ',';
+                        }
+
+                        ?>]
+            }, {
+                name: 'Internal',
+                data: [<?php foreach ($getOrderByTahunInternal as $cpub) {
+                            echo '' . $cpub['jumlah_pen'] . ',';
+                        }
+
+                        ?>]
+            }, {
+                name: 'Mandiri',
+                data: [<?php foreach ($getOrderByTahunMandiri as $cpub) {
+                            echo '' . $cpub['jumlah_pen'] . ',';
+                        }
+
+                        ?>]
+            }, {
+                name: 'Kerja Sama PT',
+                data: [<?php foreach ($getOrderByTahunKerjasamaPT as $cpub) {
+                            echo '' . $cpub['jumlah_pen'] . ',';
+                        }
+
+                        ?>]
+            }, {
+                name: 'Hilirisasi',
+                data: [<?php foreach ($getOrderByTahunHilirisasi as $cpub) {
+                            echo '' . $cpub['jumlah_pen'] . ',';
+                        }
+
+                        ?>]
+            }, ],
+            grid: {
+                borderColor: '#f1f1f1',
+            },
+            xaxis: {
+
+                categories: [<?php foreach ($getOrderByTahunEksternal as $cpub) {
+                                    echo '' . $cpub['thn'] . ',';
+                                }
+
+                                ?> 2024],
+                position: 'down',
+                labels: {
+                    offsetY: 0,
+
+                },
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: true
+                },
+                crosshairs: {
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            colorFrom: '#D8E3F0',
+                            colorTo: '#BED1E6',
+                            stops: [0, 100],
+                            opacityFrom: 1,
+                            opacityTo: 1,
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    offsetY: -35,
+                }
+            },
+            fill: {
+                gradient: {
+                    shade: 'light',
+                    type: "horizontal",
+                    shadeIntensity: 0.25,
+                    gradientToColors: undefined,
+                    inverseColors: true,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [50, 0, 100, 100]
+                },
+            },
+            yaxis: {
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false,
+                },
+                labels: {
+                    show: false,
+                    formatter: function(val) {
+                        return val + " Penelitian";
+                    }
+                }
+
+            },
+
+        }
+        var chart = new ApexCharts(
+            document.querySelector("#column_chart"),
+            options
+        );
+
+        chart.render();
+
+    }
+
+    // Bar chart
+    var BarchartBarColors = getChartColorsArray("bar_chart");
+    if (BarchartBarColors) {
+        var options = {
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                    show: false,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            series: [{
+                data: [<?php foreach ($count_publikasi as $cpub) {
+                            echo '' . $cpub['jumlah_pen'] . ',';
+                        }
+
+                        ?>]
+            }],
+            colors: BarchartBarColors,
+            grid: {
+                borderColor: '#f1f1f1',
+            },
+            xaxis: {
+                categories: ['Eksternal', 'Hilirisasi', 'Internal', 'Kemitraan', 'Kerja Sama PT', 'Mandiri'],
+            }
+        }
+
+        var chart = new ApexCharts(
+            document.querySelector("#bar_chart"),
+            options
+        );
+
+        chart.render();
+
+    }
+
+    // column chart with datalabels
+    var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel_1");
+    if (BarchartColumnChartColors) {
+        var options = {
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                    show: false,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        position: 'top', // top, center, bottom
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                position: 'top', // top, center, bottom,
+                formatter: function(val) {
+                    return val + "";
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
+                }
+            },
+            series: [{
+                name: 'Penelitian',
+                data: [<?php foreach ($top_penelitian_all as $cpub) {
+                            echo '"' . $cpub['jumlah_penelitian'] . '",';
+                        }
+
+                        ?>]
+            }],
+            grid: {
+                borderColor: '#f1f1f1',
+            },
+            xaxis: {
+
+                categories: [<?php foreach ($top_penelitian_all as $cpub) {
+                                    echo '"' . $cpub['kode_dosen'] . '",';
+                                }
+
+                                ?>],
+                position: 'down',
+                labels: {
+                    offsetY: 0,
+
+                },
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: true
+                },
+                crosshairs: {
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            colorFrom: '#D8E3F0',
+                            colorTo: '#BED1E6',
+                            stops: [0, 100],
+                            opacityFrom: 1,
+                            opacityTo: 1,
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    offsetY: -35,
+                }
+            },
+            fill: {
+                gradient: {
+                    shade: 'light',
+                    type: "horizontal",
+                    shadeIntensity: 0.25,
+                    gradientToColors: undefined,
+                    inverseColors: true,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [50, 0, 100, 100]
+                },
+            },
+            yaxis: {
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false,
+                },
+                labels: {
+                    show: false,
+                    formatter: function(val) {
+                        return val + " Penelitian";
+                    }
+                }
+
+            },
+
+        }
+
+        var chart = new ApexCharts(
+            document.querySelector("#column_chart_datalabel_1"),
             options
         );
 

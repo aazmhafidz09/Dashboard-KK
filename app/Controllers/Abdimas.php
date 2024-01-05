@@ -53,6 +53,14 @@ class Abdimas extends BaseController
             // Get All Data Abdimas
             'all_abdimas' => $this->abdimasModel->getAllAbdimas(),
 
+            // Order Data Penelitian 
+            'order_by_tahun_desc' => $this->abdimasModel->getOrderByTahunDesc(),
+
+            // Order Data Penelitian 
+            'order_jenis' => $this->abdimasModel->getOrderByTahunAllJenis(),
+
+            // Order Penelitian 
+            'top_abdimas_all' => $this->abdimasModel->getTopAbdimasAll(),
 
         ];
         // dd($dosen);

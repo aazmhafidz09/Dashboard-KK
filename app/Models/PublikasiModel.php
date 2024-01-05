@@ -154,6 +154,11 @@ class PublikasiModel extends Model
         $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_pen FROM publikasi GROUP BY tahun ORDER BY tahun DESC");
         return $query->getResultArray();
     }
+    public function getOrderByTahun_asc()
+    {
+        $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_pen FROM publikasi GROUP BY tahun ORDER BY tahun ASC");
+        return $query->getResultArray();
+    }
     public function getAkreditasi()
     {
         $query = $this->db->query("SELECT akreditasi_journal_conf AS akreditasi, COUNT(*) AS jumlah_akr FROM publikasi WHERE akreditasi_journal_conf != '-' AND akreditasi_journal_conf != '' AND akreditasi_journal_conf != 'not accredited yet' AND akreditasi_journal_conf != 'unidentified' AND akreditasi_journal_conf != 'scopus' AND akreditasi_journal_conf != 'not Scopus' AND akreditasi_journal_conf != 'riset' AND akreditasi_journal_conf != 'undefined' GROUP BY akreditasi_journal_conf ORDER BY akreditasi_journal_conf ASC");
@@ -228,6 +233,60 @@ class PublikasiModel extends Model
     public function getAllPublikasi()
     {
         $query = $this->db->query("SELECT * FROM `publikasi` ORDER BY `tahun` DESC");
+        return $query->getResultArray();
+    }
+
+    public function getCountPublikasiAll()
+    {
+        $query = $this->db->query("SELECT jenis AS jenis_pen, COUNT(*) AS jumlah_pen FROM publikasi WHERE jenis != 'Q2' GROUP BY jenis ORDER BY jumlah_pen DESC LIMIT 4");
+        return $query->getResultArray();
+    }
+
+    public function getOrderByTahunAllJenis()
+    {
+        $query = $this->db->query("SELECT
+        tahun,
+        SUM(CASE WHEN jenis = 'Jurnal Internasional' THEN 1 ELSE 0 END) AS jumlah_jurnal_internasional,
+        SUM(CASE WHEN jenis = 'Jurnal Nasional' THEN 1 ELSE 0 END) AS jumlah_jurnal_nasional,
+        SUM(CASE WHEN jenis = 'Prosiding Internasional' THEN 1 ELSE 0 END) AS jumlah_prosiding_internasional,
+        SUM(CASE WHEN jenis = 'Prosiding Nasional' THEN 1 ELSE 0 END) AS jumlah_prosiding_nasional
+    FROM
+        publikasi
+    WHERE
+        tahun BETWEEN 2010 AND YEAR(CURDATE())
+    GROUP BY
+        tahun;");
+        return $query->getResultArray();
+    }
+    public function getOrderByTahunJurnalNasional()
+    {
+        $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_pen FROM publikasi WHERE jenis = 'Jurnal Nasional' GROUP BY tahun ORDER BY tahun ASC;");
+        return $query->getResultArray();
+    }
+    public function getOrderByTahunKonferensiInternasional()
+    {
+        $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_pen FROM publikasi WHERE jenis = 'Prosiding Internasional' GROUP BY tahun ORDER BY tahun ASC;");
+        return $query->getResultArray();
+    }
+    public function getOrderByTahunKonferensiNasional()
+    {
+        $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_pen FROM publikasi WHERE jenis = 'Prosiding Nasional' GROUP BY tahun ORDER BY tahun ASC;");
+        return $query->getResultArray();
+    }
+
+
+    public function getTopPublikasiAll()
+    {
+        $query = $this->db->query("SELECT dosen.nama_dosen, dosen.kode_dosen, 
+        COUNT(publikasi.kode_dosen) AS jumlah_publikasi FROM dosen dosen 
+        JOIN 
+            ( SELECT penulis_1 AS kode_dosen FROM publikasi UNION ALL 
+             SELECT penulis_2 AS kode_dosen FROM publikasi UNION ALL 
+             SELECT penulis_3 AS kode_dosen FROM publikasi UNION ALL 
+             SELECT penulis_4 AS kode_dosen FROM publikasi UNION ALL 
+             SELECT penulis_5 AS kode_dosen FROM publikasi UNION ALL 
+             SELECT penulis_6 AS kode_dosen FROM publikasi ) 
+             publikasi ON dosen.kode_dosen = publikasi.kode_dosen GROUP BY dosen.kode_dosen, dosen.nama_dosen ");
         return $query->getResultArray();
     }
 }

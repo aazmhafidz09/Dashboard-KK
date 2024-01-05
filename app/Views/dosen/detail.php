@@ -348,7 +348,7 @@
                                                                 <?= $hk['tahun']; ?>
                                                             </td>
                                                             <td>
-                                                                <?= $hk['jenis_hki']; ?><!-- <span class="badge bg-primary-subtle font-size-12">Open</span> -->
+                                                                <?= $hk['jenis']; ?><!-- <span class="badge bg-primary-subtle font-size-12">Open</span> -->
                                                             </td>
                                                             <td>
                                                                 <div class="dropdown">

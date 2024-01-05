@@ -125,6 +125,11 @@ class AbdimasModel extends Model
         $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_abd FROM abdimas GROUP BY tahun ORDER BY tahun DESC");
         return $query->getResultArray();
     }
+    public function getOrderByTahunDesc()
+    {
+        $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_abd FROM abdimas GROUP BY tahun ORDER BY tahun ASC");
+        return $query->getResultArray();
+    }
 
     public function getDataDosenTahunan()
     {
@@ -179,6 +184,37 @@ class AbdimasModel extends Model
     public function getAllAbdimas()
     {
         $query = $this->db->query("SELECT * FROM `abdimas` ORDER BY `tahun` DESC");
+        return $query->getResultArray();
+    }
+
+    public function getOrderByTahunAllJenis()
+    {
+        $query = $this->db->query("SELECT
+        tahun,
+        SUM(CASE WHEN jenis = 'Internal' THEN 1 ELSE 0 END) AS jumlah_Internal,
+        SUM(CASE WHEN jenis = 'Eksternal' THEN 1 ELSE 0 END) AS jumlah_Eksternal,
+        SUM(CASE WHEN jenis = 'Internal dan Eksternal' THEN 1 ELSE 0 END) AS jumlah_Internal_Eksternal
+    FROM
+        abdimas
+    WHERE
+        tahun BETWEEN 2010 AND YEAR(CURDATE())
+    GROUP BY
+        tahun;");
+        return $query->getResultArray();
+    }
+
+    public function getTopAbdimasAll()
+    {
+        $query = $this->db->query("SELECT dosen.nama_dosen, dosen.kode_dosen, 
+        COUNT(abdimas.kode_dosen) AS jumlah_abdimas FROM dosen dosen 
+        JOIN 
+            ( SELECT ketua AS kode_dosen FROM abdimas UNION ALL 
+             SELECT anggota_1 AS kode_dosen FROM abdimas UNION ALL 
+             SELECT anggota_2 AS kode_dosen FROM abdimas UNION ALL 
+             SELECT anggota_3 AS kode_dosen FROM abdimas UNION ALL 
+             SELECT anggota_4 AS kode_dosen FROM abdimas UNION ALL 
+             SELECT anggota_5 AS kode_dosen FROM abdimas ) 
+             abdimas ON dosen.kode_dosen = abdimas.kode_dosen GROUP BY dosen.kode_dosen, dosen.nama_dosen ");
         return $query->getResultArray();
     }
 }

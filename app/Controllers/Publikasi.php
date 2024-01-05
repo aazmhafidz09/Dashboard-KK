@@ -54,10 +54,13 @@ class Publikasi extends BaseController
 
             // Order Data Publikasi 
             'order_by_tahun' => $this->publikasiModel->getOrderByTahun(),
+            'order_by_tahun_Asc' => $this->publikasiModel->getOrderByTahun_asc(),
             'akreditasi_jurnal' => $this->publikasiModel->getAkreditasi(),
 
             // // Top Publikasi 
             'top_publikasi' => $this->publikasiModel->getTopPublikasi(),
+            // Order Penelitian 
+            'top_publikasi_all' => $this->publikasiModel->getTopPublikasiAll(),
 
             // Get Data Tahunan
             'data_tahunan' => $this->publikasiModel->getDataDosenTahunan(),
@@ -65,6 +68,14 @@ class Publikasi extends BaseController
             // Get All Data Publikasi
             'all_publikasi' => $this->publikasiModel->getAllPublikasi(),
 
+
+            'count_publikasi_all' => $this->publikasiModel->getCountPublikasiAll(),
+
+            // Get Order Data by Jenis
+            'getOrderByTahunAllJenis' => $this->publikasiModel->getOrderByTahunAllJenis(),
+            'getOrderByTahunJurnalNasional' => $this->publikasiModel->getOrderByTahunJurnalNasional(),
+            'getOrderByTahunKonferensiInternasional' => $this->publikasiModel->getOrderByTahunKonferensiInternasional(),
+            'getOrderByTahunKonferensiNasional' => $this->publikasiModel->getOrderByTahunKonferensiNasional(),
 
         ];
         // dd($dosen);

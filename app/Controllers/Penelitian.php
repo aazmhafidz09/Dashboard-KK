@@ -58,8 +58,12 @@ class Penelitian extends BaseController
             'order_by_tahun_Asc' => $this->penelitianModel->getOrderByTahunAsc(),
             'count_publikasi' => $this->penelitianModel->getCountPublikasi(),
 
+
             // Top Penelitian 
             'top_penelitian' => $this->penelitianModel->getTopPenelitian(),
+
+            // Order Penelitian 
+            'top_penelitian_all' => $this->penelitianModel->getTopPenelitianAll(),
 
             // Get Data Tahunan
             'data_tahunan' => $this->penelitianModel->getDataDosenTahunan(),
@@ -67,7 +71,12 @@ class Penelitian extends BaseController
             // Get All Data Penelitian
             'all_penelitian' => $this->penelitianModel->getAllPenelitian(),
 
-
+            // Get Order Data by Jenis
+            'getOrderByTahunEksternal' => $this->penelitianModel->getOrderByTahunEksternal(),
+            'getOrderByTahunInternal' => $this->penelitianModel->getOrderByTahunInternal(),
+            'getOrderByTahunMandiri' => $this->penelitianModel->getOrderByTahunMandiri(),
+            'getOrderByTahunKerjasamaPT' => $this->penelitianModel->getOrderByTahunKerjasamaPT(),
+            'getOrderByTahunHilirisasi' => $this->penelitianModel->getOrderByTahunHilirisasi(),
         ];
 
         // dd($dosen);
