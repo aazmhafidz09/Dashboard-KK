@@ -152,9 +152,85 @@ class HakiModel extends Model
         $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_haki FROM haki GROUP BY tahun ORDER BY tahun DESC");
         return $query->getResultArray();
     }
+    public function getOrderByTahunAsc()
+    {
+        $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_haki FROM haki GROUP BY tahun ORDER BY tahun ASC");
+        return $query->getResultArray();
+    }
     public function getCountHaki()
     {
         $query = $this->db->query("SELECT jenis AS jenis_haki, COUNT(*) AS jumlah_haki FROM haki GROUP BY jenis ORDER BY jenis ASC");
+        return $query->getResultArray();
+    }
+
+
+    public function getCountHakiAll()
+    {
+        $query = $this->db->query("SELECT jenis AS jenis_haki, COUNT(*) AS jumlah_haki FROM haki GROUP BY jenis ORDER BY jumlah_haki DESC LIMIT 4");
+        return $query->getResultArray();
+    }
+
+    public function getOrderByTahunAllJenis()
+    {
+        $query = $this->db->query("SELECT
+        tahun,
+        SUM(CASE WHEN jenis = 'Hak Cipta' THEN 1 ELSE 0 END) AS Hak_Cipta,
+        SUM(CASE WHEN jenis = 'Paten' THEN 1 ELSE 0 END) AS Paten,
+        SUM(CASE WHEN jenis = 'Merek' THEN 1 ELSE 0 END) AS Merek,
+        SUM(CASE WHEN jenis = 'Buku' THEN 1 ELSE 0 END) AS Buku
+    FROM
+        haki
+    WHERE
+        tahun BETWEEN 2010 AND YEAR(CURDATE())
+    GROUP BY
+        tahun;");
+        return $query->getResultArray();
+    }
+
+
+    public function getTopHakiAll()
+    {
+        $query = $this->db->query("SELECT dosen.nama_dosen, dosen.kode_dosen, 
+        COUNT(haki.kode_dosen) AS jumlah_haki FROM dosen dosen 
+        JOIN 
+            ( SELECT ketua AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_1 AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_2 AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_3 AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_4 AS kode_dosen FROM haki UNION ALL
+             SELECT anggota_5 AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_6 AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_7 AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_8 AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_9 AS kode_dosen FROM haki 
+            ) 
+             haki ON dosen.kode_dosen = haki.kode_dosen GROUP BY dosen.kode_dosen, dosen.nama_dosen ");
+        return $query->getResultArray();
+    }
+
+
+    public function getAllHaki()
+    {
+        $query = $this->db->query("SELECT * FROM `haki` ORDER BY `tahun` DESC");
+        return $query->getResultArray();
+    }
+
+    public function getTopHaki()
+    {
+        $query = $this->db->query("SELECT dosen.nama_dosen, dosen.kode_dosen, 
+        COUNT(haki.kode_dosen) AS jumlah_haki FROM dosen dosen 
+        JOIN 
+            ( SELECT ketua AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_1 AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_2 AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_3 AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_4 AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_5 AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_6 AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_7 AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_8 AS kode_dosen FROM haki UNION ALL 
+             SELECT anggota_9 AS kode_dosen FROM haki ) 
+             haki ON dosen.kode_dosen = haki.kode_dosen GROUP BY dosen.kode_dosen, dosen.nama_dosen ORDER BY jumlah_haki DESC LIMIT 10");
         return $query->getResultArray();
     }
 }

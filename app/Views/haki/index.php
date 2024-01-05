@@ -367,6 +367,115 @@
 
 
                 <div class="row">
+                    <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <div class="dropdown">
+                                        <a class=" dropdown-toggle" href="#" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted">All Members<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
+                                            <a class="dropdown-item" href="#">Locations</a>
+                                            <a class="dropdown-item" href="#">Revenue</a>
+                                            <a class="dropdown-item" href="#">Join Date</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="card-title mb-4">Haki Terbanyak</h4>
+
+                                <div data-simplebar style="max-height: 339px;">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless table-centered table-nowrap">
+                                            <tbody>
+                                                <?php foreach ($top_haki as $tp) : ?>
+                                                    <tr>
+                                                        <!-- <td style="width: 20px;"><img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle " alt="..."></td> -->
+                                                        <td>
+                                                            <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
+                                                            <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?></p>
+                                                        </td>
+                                                        <!-- <td><span class="badge bg-danger-subtle text-danger font-size-12"></span></td> -->
+                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['jumlah_haki']; ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div> <!-- enbd table-responsive-->
+                                </div> <!-- data-sidebar-->
+                            </div><!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div><!-- end col -->
+
+                    <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <!-- <span class="text-muted">Recent<i class="mdi mdi-chevron-down ms-1"></i></span> -->
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton3">
+                                            <a class="dropdown-item" href="#">Recent</a>
+                                            <a class="dropdown-item" href="#">By Users</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h4 class="card-title mb-4">Data Haki</h4>
+
+                                <ol class="activity-feed mb-0 ps-2" data-simplebar style="height: 339px;">
+
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Haki</th>
+                                                    <th>Jumlah</th>
+                                                    <!-- <th>Username</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1 ?>
+                                                <?php foreach ($count_haki_all as $cpub) :  ?>
+                                                    <tr>
+                                                        <th scope="row"><?= $i++; ?></th>
+                                                        <td><?= $cpub['jenis_haki']; ?></td>
+                                                        <td><?= $cpub['jumlah_haki']; ?></td>
+                                                        <!-- <td>@mdo</td> -->
+                                                    </tr>
+                                                <?php endforeach; ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </ol>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">Data Haki </h4>
+                                <div id="bar_chart" style="max-height: 339px" data-colors='["--bs-success"]' class="apex-charts" dir="ltr"></div>
+                            </div>
+                        </div><!--end card-->
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="row">
                     <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
@@ -380,6 +489,59 @@
                         </div> <!-- end card-->
                     </div> <!-- end col-->
                 </div> <!-- end row-->
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <h4 class="card-title">Data Haki</h4>
+                                <!-- <p class="card-title-desc">DataTables has most features enabled by
+                                    default, so all you need to do to use it with your own tables is to call
+                                    the construction function: <code>$().DataTable();</code>.
+                                </p> -->
+
+                                <table id="datatable" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Tahun</th>
+                                            <th>Jenis</th>
+                                            <!-- <th>Jenis Ciptaan</th> -->
+                                            <th>Judul</th>
+                                            <th>Ketua</th>
+                                            <th>anggota 1</th>
+                                            <th>anggota 2</th>
+                                            <th>anggota 3</th>
+                                            <th>No Pendaftaran</th>
+                                            <th>No Sertifikat</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <?php $i = 1 ?>
+
+                                        <?php foreach ($all_haki as $alp) : ?>
+                                            <tr>
+                                                <td><?= $alp['tahun']; ?></td>
+                                                <td><?= $alp['jenis']; ?></td>
+
+                                                <td><?= $alp['judul']; ?></td>
+                                                <td><?= $alp['ketua']; ?></td>
+                                                <td><?= $alp['anggota_1']; ?></td>
+                                                <td><?= $alp['anggota_2']; ?></td>
+                                                <td><?= $alp['anggota_3']; ?></td>
+                                                <td><?= $alp['no_pendaftaran']; ?></td>
+                                                <td><?= $alp['no_sertifikat']; ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div> <!-- end col -->
+                </div> <!-- end row -->
 
 
 
@@ -424,7 +586,7 @@
 
 <script src="assets/js/pages/dashboard.init.js"></script>
 <!-- apexcharts init -->
-<script src="assets/js/pages/apexcharts.init.js"></script>
+<!-- <script src="assets/js/pages/apexcharts.init.js"></script> -->
 
 <script src="assets/libs/chart.js/Chart.bundle.min.js"></script>
 <script src="assets/js/pages/chartjs.init.js"></script>
@@ -437,5 +599,480 @@
 </html>
 
 <script type="text/javascript">
+    function getChartColorsArray(chartId) {
+        if (document.getElementById(chartId) !== null) {
+            var colors = document.getElementById(chartId).getAttribute("data-colors");
+            if (colors) {
+                colors = JSON.parse(colors);
+                return colors.map(function(value) {
+                    var newValue = value.replace(" ", "");
+                    if (newValue.indexOf(",") === -1) {
+                        var color = getComputedStyle(document.documentElement).getPropertyValue(newValue);
+                        if (color) return color;
+                        else return newValue;;
+                    } else {
+                        var val = value.split(',');
+                        if (val.length == 2) {
+                            var rgbaColor = getComputedStyle(document.documentElement).getPropertyValue(val[0]);
+                            rgbaColor = "rgba(" + rgbaColor + "," + val[1] + ")";
+                            return rgbaColor;
+                        } else {
+                            return newValue;
+                        }
+                    }
+                });
+            }
+        }
+    }
+    // column chart with datalabels
+    var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel");
+    if (BarchartColumnChartColors) {
+        var options = {
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                    show: false,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        position: 'top', // top, center, bottom
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                position: 'top', // top, center, bottom,
+                formatter: function(val) {
+                    return val + "";
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
+                }
+            },
+            series: [{
+                name: 'publikasi',
+                data: [
+                    <?php foreach ($order_by_tahun_Asc as $obt) {
+                        echo '"' . $obt['jumlah_haki'] . '",';
+                    }
 
+                    ?>
+                ]
+            }],
+            grid: {
+                borderColor: '#f1f1f1',
+            },
+            xaxis: {
+
+                categories: [<?php foreach ($order_by_tahun_Asc as $obt) {
+                                    echo '"' . $obt['thn'] . '",';
+                                }
+                                ?> '2023', '2024'],
+                position: 'down',
+                labels: {
+                    offsetY: 0,
+
+                },
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: true
+                },
+                crosshairs: {
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            colorFrom: '#D8E3F0',
+                            colorTo: '#BED1E6',
+                            stops: [0, 100],
+                            opacityFrom: 1,
+                            opacityTo: 1,
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    offsetY: -35,
+                }
+            },
+            fill: {
+                gradient: {
+                    shade: 'light',
+                    type: "horizontal",
+                    shadeIntensity: 0.25,
+                    gradientToColors: undefined,
+                    inverseColors: true,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [50, 0, 100, 100]
+                },
+            },
+            yaxis: {
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false,
+                },
+                labels: {
+                    show: false,
+                    formatter: function(val) {
+                        return val + " Haki";
+                    }
+                }
+
+            },
+
+        }
+
+        var chart = new ApexCharts(
+            document.querySelector("#column_chart_datalabel"),
+            options
+        );
+
+        chart.render();
+
+    }
+
+
+    // pie chart
+    var PiechartPieColors = getChartColorsArray("pie_chart");
+    if (PiechartPieColors) {
+        var options = {
+            chart: {
+                height: 320,
+                type: 'pie',
+            },
+            series: [<?php echo $Haki_Cipta ?>, <?php echo $Haki_Paten ?>, <?php echo $Haki_Merek ?>, <?php echo $Haki_Buku ?>],
+            labels: ["Hak Cipta", "Paten", "Merek", "Buku"],
+            colors: PiechartPieColors,
+            legend: {
+                show: true,
+                position: 'bottom',
+                horizontalAlign: 'center',
+                verticalAlign: 'middle',
+                floating: false,
+                fontSize: '14px',
+                offsetX: 0
+            },
+            responsive: [{
+                breakpoint: 600,
+                options: {
+                    chart: {
+                        height: 240
+                    },
+                    legend: {
+                        show: false
+                    },
+                }
+            }]
+
+        }
+
+        var chart = new ApexCharts(
+            document.querySelector("#pie_chart"),
+            options
+        );
+
+        chart.render();
+
+    }
+    // column chart
+    var BarchartColumnColors = getChartColorsArray("column_chart");
+    if (BarchartColumnColors) {
+
+        var options = {
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                    show: false,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        position: 'top', // top, center, bottom
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                position: 'top', // top, center, bottom,
+                formatter: function(val) {
+                    return val + "";
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
+                }
+            },
+            series: [{
+                name: 'Hak Cipta',
+                data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+                            echo '' . $cpub['Hak_Cipta'] . ',';
+                        }
+
+                        ?>]
+            }, {
+                name: 'Paten',
+                data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+                            echo '' . $cpub['Paten'] . ',';
+                        }
+
+                        ?>]
+            }, {
+                name: 'Merek',
+                data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+                            echo '' . $cpub['Merek'] . ',';
+                        }
+
+                        ?>]
+            }, {
+                name: 'Buku',
+                data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+                            echo '' . $cpub['Buku'] . ',';
+                        }
+
+                        ?>]
+            }, ],
+            grid: {
+                borderColor: '#f1f1f1',
+            },
+            xaxis: {
+
+                categories: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+                                    echo '' . $cpub['tahun'] . ',';
+                                }
+
+                                ?> 2023, 2024],
+                position: 'down',
+                labels: {
+                    offsetY: 0,
+
+                },
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: true
+                },
+                crosshairs: {
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            colorFrom: '#D8E3F0',
+                            colorTo: '#BED1E6',
+                            stops: [0, 100],
+                            opacityFrom: 1,
+                            opacityTo: 1,
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    offsetY: -35,
+                }
+            },
+            fill: {
+                gradient: {
+                    shade: 'light',
+                    type: "horizontal",
+                    shadeIntensity: 0.25,
+                    gradientToColors: undefined,
+                    inverseColors: true,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [50, 0, 100, 100]
+                },
+            },
+            yaxis: {
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false,
+                },
+                labels: {
+                    show: false,
+                    formatter: function(val) {
+                        return val + " ";
+                    }
+                }
+
+            },
+
+        }
+        var chart = new ApexCharts(
+            document.querySelector("#column_chart"),
+            options
+        );
+
+        chart.render();
+
+    }
+    // column chart with datalabels
+    var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel_1");
+    if (BarchartColumnChartColors) {
+        var options = {
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                    show: false,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        position: 'top', // top, center, bottom
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                position: 'top', // top, center, bottom,
+                formatter: function(val) {
+                    return val + "";
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
+                }
+            },
+            series: [{
+                name: 'Publikasi',
+                data: [<?php foreach ($top_haki_all as $cpub) {
+                            echo '"' . $cpub['jumlah_haki'] . '",';
+                        }
+
+                        ?>]
+            }],
+            grid: {
+                borderColor: '#f1f1f1',
+            },
+            xaxis: {
+
+                categories: [<?php foreach ($top_haki_all as $cpub) {
+                                    echo '"' . $cpub['kode_dosen'] . '",';
+                                }
+
+                                ?>],
+                position: 'down',
+                labels: {
+                    offsetY: 0,
+
+                },
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: true
+                },
+                crosshairs: {
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            colorFrom: '#D8E3F0',
+                            colorTo: '#BED1E6',
+                            stops: [0, 100],
+                            opacityFrom: 1,
+                            opacityTo: 1,
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    offsetY: -35,
+                }
+            },
+            fill: {
+                gradient: {
+                    shade: 'light',
+                    type: "horizontal",
+                    shadeIntensity: 0.25,
+                    gradientToColors: undefined,
+                    inverseColors: true,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [50, 0, 100, 100]
+                },
+            },
+            yaxis: {
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false,
+                },
+                labels: {
+                    show: false,
+                    formatter: function(val) {
+                        return val + " Haki";
+                    }
+                }
+
+            },
+
+        }
+
+        var chart = new ApexCharts(
+            document.querySelector("#column_chart_datalabel_1"),
+            options
+        );
+
+        chart.render();
+
+    }
+    // Bar chart
+    var BarchartBarColors = getChartColorsArray("bar_chart");
+    if (BarchartBarColors) {
+        var options = {
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                    show: false,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            series: [{
+                data: [<?php foreach ($count_haki_all as $cpub) {
+                            echo '' . $cpub['jumlah_haki'] . ',';
+                        }
+
+                        ?>]
+            }],
+            colors: BarchartBarColors,
+            grid: {
+                borderColor: '#f1f1f1',
+            },
+            xaxis: {
+                categories: ['Hak Cipta', 'Paten', 'Merek'],
+            }
+        }
+
+        var chart = new ApexCharts(
+            document.querySelector("#bar_chart"),
+            options
+        );
+
+        chart.render();
+
+    }
 </script>

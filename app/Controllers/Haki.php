@@ -51,8 +51,22 @@ class Haki extends BaseController
 
             // Order Data Penelitian 
             'order_by_tahun' => $this->hakiModel->getOrderByTahun(),
+            'order_by_tahun_Asc' => $this->hakiModel->getOrderByTahunAsc(),
             'jenis' => $this->hakiModel->getCountHaki(),
 
+            // Get Order Data by Jenis
+            'getOrderByTahunAllJenis' => $this->hakiModel->getOrderByTahunAllJenis(),
+
+            // Order Haki 
+            'top_haki_all' => $this->hakiModel->getTopHakiAll(),
+
+            // Get All Data Abdimas
+            'all_haki' => $this->hakiModel->getAllHaki(),
+
+            // // Top Publikasi 
+            'top_haki' => $this->hakiModel->getTopHaki(),
+
+            'count_haki_all' => $this->hakiModel->getCountHakiAll(),
 
 
         ];

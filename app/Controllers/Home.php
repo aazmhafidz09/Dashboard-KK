@@ -55,6 +55,20 @@ class Home extends BaseController
 			'Penelitian_Mand' => $this->penelitianModel->getPenelitianMand(),
 			'Penelitian_kerjasamaPT' => $this->penelitianModel->getPenelitianKerjaSamaPT(),
 			'Penelitian_Hilir' => $this->penelitianModel->getPenelitianHilir(),
+			// // Top Publikasi 
+			'top_publikasi' => $this->publikasiModel->getTopPublikasi(),
+
+			'order_by_tahun_Asc' => $this->penelitianModel->getOrderByTahunAsc(),
+			// Get Order Data by Jenis
+			'getOrderByTahunAllJenis' => $this->publikasiModel->getOrderByTahunAllJenis(),
+			// Top Penelitian 
+			'top_penelitian' => $this->penelitianModel->getTopPenelitian(),
+			// Order Data Penelitian 
+			'order_by_tahun' => $this->abdimasModel->getOrderByTahun(),
+			// Order Data Penelitian 
+			'order_by_tahun_desc' => $this->abdimasModel->getOrderByTahunDesc(),
+			'order_by_tahun_haki' => $this->hakiModel->getOrderByTahun(),
+			'order_by_tahun_Asc_haki' => $this->hakiModel->getOrderByTahunAsc(),
 
 		];
 		return view('index', $data);

@@ -258,21 +258,7 @@ class PublikasiModel extends Model
         tahun;");
         return $query->getResultArray();
     }
-    public function getOrderByTahunJurnalNasional()
-    {
-        $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_pen FROM publikasi WHERE jenis = 'Jurnal Nasional' GROUP BY tahun ORDER BY tahun ASC;");
-        return $query->getResultArray();
-    }
-    public function getOrderByTahunKonferensiInternasional()
-    {
-        $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_pen FROM publikasi WHERE jenis = 'Prosiding Internasional' GROUP BY tahun ORDER BY tahun ASC;");
-        return $query->getResultArray();
-    }
-    public function getOrderByTahunKonferensiNasional()
-    {
-        $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_pen FROM publikasi WHERE jenis = 'Prosiding Nasional' GROUP BY tahun ORDER BY tahun ASC;");
-        return $query->getResultArray();
-    }
+
 
 
     public function getTopPublikasiAll()

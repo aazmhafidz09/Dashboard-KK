@@ -73,9 +73,7 @@ class Publikasi extends BaseController
 
             // Get Order Data by Jenis
             'getOrderByTahunAllJenis' => $this->publikasiModel->getOrderByTahunAllJenis(),
-            'getOrderByTahunJurnalNasional' => $this->publikasiModel->getOrderByTahunJurnalNasional(),
-            'getOrderByTahunKonferensiInternasional' => $this->publikasiModel->getOrderByTahunKonferensiInternasional(),
-            'getOrderByTahunKonferensiNasional' => $this->publikasiModel->getOrderByTahunKonferensiNasional(),
+
 
         ];
         // dd($dosen);

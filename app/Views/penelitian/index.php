@@ -459,7 +459,7 @@
 
                                 <h4 class="card-title mb-4">Data Penelitian</h4>
 
-                                <ol class="activity-feed mb-0 ps-2" data-simplebar style="max-height: 339px;">
+                                <ol class="activity-feed mb-0 ps-2" data-simplebar style="height: 339px;">
 
                                     <div class="table-responsive">
                                         <table class="table mb-0">
@@ -496,8 +496,8 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Kualitas Publikasi</h4>
-                                <div id="bar_chart" data-colors='["--bs-success"]' class="apex-charts" dir="ltr"></div>
+                                <h4 class="card-title mb-4">Data Penelitian </h4>
+                                <div id="bar_chart" data-colors='["--bs-success"]' class="apex-charts" style="max-height: 339px" dir="ltr"></div>
                             </div>
                         </div><!--end card-->
                     </div>

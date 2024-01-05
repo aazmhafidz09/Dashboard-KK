@@ -38,7 +38,7 @@
                                 <div class="row mb-2">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <a href="javascript:void(0);" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Add New</a>
+                                            <!-- <a href="javascript:void(0);" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Add New</a> -->
                                         </div>
                                     </div>
 

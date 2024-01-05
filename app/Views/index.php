@@ -120,14 +120,14 @@
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
+                                        <!-- <a class="dropdown-toggle text-reset" href="./publikasi" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+                                        <a class="fw-semibold" href="./publikasi">Lihat Lengkap</a>
+                                        <!-- </a> -->
+                                        <!-- <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
                                             <a class="dropdown-item" href="#">Monthly</a>
                                             <a class="dropdown-item" href="#">Yearly</a>
                                             <a class="dropdown-item" href="#">Weekly</a>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <h4 class="card-title mb-4">Statistik Publikasi</h4>
@@ -163,42 +163,42 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
+                                <!-- <div class="float-end">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                        <a class=" dropdown-toggle" href="#" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted">All Members<i class="mdi mdi-chevron-down ms-1"></i></span>
                                         </a>
 
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
+                                            <a class="dropdown-item" href="#">Locations</a>
+                                            <a class="dropdown-item" href="#">Revenue</a>
+                                            <a class="dropdown-item" href="#">Join Date</a>
                                         </div>
                                     </div>
-                                </div>
-                                <h4 class="card-title mb-4">Publikasi Terbanyak</h4>
-                                <div data-simplebar style="max-height: 400px;">
+                                </div> -->
+                                <h4 class="card-title mb-4">Data Publikasi Dosen</h4>
+
+                                <div data-simplebar style="max-height: 450px;">
                                     <div class="table-responsive">
                                         <table class="table table-borderless table-centered table-nowrap">
                                             <tbody>
-                                                <?php foreach ($dosen as $ds) : ?>
+                                                <?php foreach ($top_publikasi as $tp) : ?>
                                                     <tr>
-                                                        <td style="width: 20px;"><img src="assets/images/users/user-avatar.jpg" class="avatar-xs rounded-circle " alt="..."></td>
+                                                        <!-- <td style="width: 20px;"><img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle " alt="..."></td> -->
                                                         <td>
-                                                            <h6 class="font-size-15 mb-1 fw-normal"><?= $ds['nama_dosen']; ?></h6>
-                                                            <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> <?= $ds['kode_dosen']; ?></p>
+                                                            <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
+                                                            <p class="text-muted font-size-13 mb-0"><?= $tp['nama_dosen']; ?></p>
                                                         </td>
-                                                        <!-- <td><span class="badge bg-danger-subtle text-danger font-size-12">Cancel</span></td> -->
-                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i>
-                                                            <span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>20 Publikasi</span>
-                                                        </td>
+                                                        <!-- <td><span class="badge bg-danger-subtle text-danger font-size-12">#</span></td>g -->
+                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['jumlah_publikasi']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
+
                                             </tbody>
                                         </table>
                                     </div> <!-- enbd table-responsive-->
                                 </div> <!-- data-sidebar-->
-                            </div> <!-- end card-body-->
+                            </div><!-- end card-body-->
                         </div> <!-- end card-->
                     </div> <!-- end Col -->
                 </div> <!-- end row-->
@@ -209,14 +209,8 @@
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
-                                        </div>
+                                        <a class="fw-semibold" href="./penelitian">Lihat Lengkap</a>
+
                                     </div>
                                 </div>
                                 <h4 class="card-title mb-4">Statistik Penelitian</h4>
@@ -258,6 +252,78 @@
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
+                                        <a class=" dropdown-toggle" href="#" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted">All Members<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
+                                            <a class="dropdown-item" href="#">Locations</a>
+                                            <a class="dropdown-item" href="#">Revenue</a>
+                                            <a class="dropdown-item" href="#">Join Date</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="card-title mb-4">Penelitian Terbanyak</h4>
+
+                                <div data-simplebar style="max-height: 408px;">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless table-centered table-nowrap">
+                                            <tbody>
+                                                <?php foreach ($top_penelitian as $tp) : ?>
+                                                    <tr>
+                                                        <!-- <td style="width: 20px;"><img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle " alt="..."></td> -->
+                                                        <td>
+                                                            <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
+                                                            <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?></p>
+                                                        </td>
+                                                        <!-- <td><span class="badge bg-danger-subtle text-danger font-size-12"><?= $tp['jumlah_penelitian']; ?></span></td> -->
+                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['jumlah_penelitian']; ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div> <!-- enbd table-responsive-->
+                                </div> <!-- data-sidebar-->
+                            </div><!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end Col -->
+                </div> <!-- end row-->
+
+                <div class="row">
+                    <div class="col-xl-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <div class="dropdown">
+                                        <a class="fw-semibold" href="./abdimas">Lihat Lengkap</a>
+
+                                    </div>
+                                </div>
+                                <h4 class="card-title mb-4">Statistik Abdimas</h4>
+
+                                <div class="mt-1">
+                                    <ul class="list-inline main-chart mb-0">
+                                        <li class="list-inline-item chart-border-left me-0 border-0">
+                                            <h3 class="text-primary"><span data-plugin="counterup"><?php echo $count_abdimas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Total Abdimas</span></h3>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div class="mt-3">
+                                    <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
+                                    <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->
+                                    <div id="column_chart_datalabel_abdimas" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+
+                    <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <div class="dropdown">
                                         <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
                                         </a>
@@ -270,23 +336,107 @@
                                     </div>
                                 </div>
 
-                                <h4 class="card-title mb-4">Penelitian Terbanyak</h4>
+                                <h4 class="card-title mb-4">Total Abdimas</h4>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
                                         <table class="table table-borderless table-centered table-nowrap">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Tahun</th>
+                                                    <th>Jumlah Abdimas</th>
+                                                    <!-- <th>Username</th> -->
+                                                </tr>
+                                            </thead>
                                             <tbody>
-                                                <?php foreach ($dosen as $ds) : ?>
+                                                <?php $i = 1 ?>
+
+                                                <?php foreach ($order_by_tahun as $obt) : ?>
                                                     <tr>
-                                                        <td style="width: 20px;"><img src="assets/images/users/user-avatar.jpg" class="avatar-xs rounded-circle " alt="..."></td>
-                                                        <td>
-                                                            <h6 class="font-size-15 mb-1 fw-normal"><?= $ds['nama_dosen']; ?></h6>
-                                                            <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> <?= $ds['kode_dosen']; ?></p>
-                                                        </td>
-                                                        <!-- <td><span class="badge bg-danger-subtle text-danger font-size-12">Cancel</span></td> -->
-                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i>
-                                                            <span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>20 Publikasi</span>
-                                                        </td>
+                                                        <th scope="row"><?= $i++; ?></th>
+                                                        <td><?= $obt['thn']; ?></td>
+                                                        <td><?= $obt['jumlah_abd']; ?></td>
                                                     </tr>
+
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div> <!-- enbd table-responsive-->
+                                </div> <!-- data-sidebar-->
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end Col -->
+                </div> <!-- end row-->
+
+                <div class="row">
+                    <div class="col-xl-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <div class="dropdown">
+                                        <a class="fw-semibold" href="./haki">Lihat Lengkap</a>
+
+                                    </div>
+                                </div>
+                                <h4 class="card-title mb-4">Statistik HaKi</h4>
+
+                                <div class="mt-1">
+                                    <ul class="list-inline main-chart mb-0">
+                                        <li class="list-inline-item chart-border-left me-0 border-0">
+                                            <h3 class="text-primary"><span data-plugin="counterup"><?php echo $count_haki ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Total HaKi</span></h3>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+                                <div class="mt-3">
+                                    <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
+                                    <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->
+                                    <div id="column_chart_datalabel_haki" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+
+                    <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="float-end">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                                            <a class="dropdown-item" href="#">Monthly</a>
+                                            <a class="dropdown-item" href="#">Yearly</a>
+                                            <a class="dropdown-item" href="#">Weekly</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h4 class="card-title mb-4">Total Haki</h4>
+                                <div data-simplebar style="max-height: 408px;">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless table-centered table-nowrap">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Tahun</th>
+                                                    <th>Jumlah Haki</th>
+                                                    <!-- <th>Username</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1 ?>
+
+                                                <?php foreach ($order_by_tahun_haki as $obt) : ?>
+                                                    <tr>
+                                                        <th scope="row"><?= $i++; ?></th>
+                                                        <td><?= $obt['thn']; ?></td>
+                                                        <td><?= $obt['jumlah_haki']; ?></td>
+                                                    </tr>
+
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
@@ -339,7 +489,7 @@
 
 <script src="assets/js/pages/dashboard.init.js"></script>
 <!-- apexcharts init -->
-<script src="assets/js/pages/apexcharts.init.js"></script>
+<!-- <script src="assets/js/pages/apexcharts.init.js"></script> -->
 
 
 <script src="assets/libs/chart.js/Chart.bundle.min.js"></script>
@@ -351,3 +501,485 @@
 </body>
 
 </html>
+
+<script type="text/javascript">
+    // column chart with datalabels
+    var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel");
+    if (BarchartColumnChartColors) {
+        var options = {
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                    show: false,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        position: 'top', // top, center, bottom
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                position: 'top', // top, center, bottom,
+                formatter: function(val) {
+                    return val + "";
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
+                }
+            },
+            series: [{
+                name: 'penelitian',
+                data: [
+                    <?php foreach ($order_by_tahun_Asc as $obt) {
+                        echo '"' . $obt['jumlah_pen'] . '",';
+                    }
+
+                    ?>
+                    // 8, 14, 15, 15, 17, 22, 38, 39, 56, 42
+                ]
+            }],
+            grid: {
+                borderColor: '#f1f1f1',
+            },
+            xaxis: {
+
+                categories: [<?php foreach ($order_by_tahun_Asc as $obt) {
+                                    echo '"' . $obt['thn'] . '",';
+                                }
+                                ?> '2024'],
+                position: 'down',
+                labels: {
+                    offsetY: 0,
+
+                },
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: true
+                },
+                crosshairs: {
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            colorFrom: '#D8E3F0',
+                            colorTo: '#BED1E6',
+                            stops: [0, 100],
+                            opacityFrom: 1,
+                            opacityTo: 1,
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    offsetY: -35,
+                }
+            },
+            fill: {
+                gradient: {
+                    shade: 'light',
+                    type: "horizontal",
+                    shadeIntensity: 0.25,
+                    gradientToColors: undefined,
+                    inverseColors: true,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [50, 0, 100, 100]
+                },
+            },
+            yaxis: {
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false,
+                },
+                labels: {
+                    show: false,
+                    formatter: function(val) {
+                        return val + " Penelitian";
+                    }
+                }
+
+            },
+
+        }
+
+        var chart = new ApexCharts(
+            document.querySelector("#column_chart_datalabel"),
+            options
+        );
+
+        chart.render();
+
+    }
+
+    // column chart
+    var BarchartColumnColors = getChartColorsArray("column_chart");
+    if (BarchartColumnColors) {
+
+        var options = {
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                    show: false,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        position: 'top', // top, center, bottom
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                position: 'top', // top, center, bottom,
+                formatter: function(val) {
+                    return val + "";
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
+                }
+            },
+            series: [{
+                name: 'Jurnal Internasional',
+                data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+                            echo '' . $cpub['jumlah_jurnal_internasional'] . ',';
+                        }
+
+                        ?>]
+            }, {
+                name: 'Jurnal Nasional',
+                data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+                            echo '' . $cpub['jumlah_jurnal_nasional'] . ',';
+                        }
+
+                        ?>]
+            }, {
+                name: 'Konferensi Internasional',
+                data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+                            echo '' . $cpub['jumlah_prosiding_internasional'] . ',';
+                        }
+
+                        ?>]
+            }, {
+                name: 'Konferensi Nasional',
+                data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+                            echo '' . $cpub['jumlah_prosiding_nasional'] . ',';
+                        }
+
+                        ?>]
+            }, ],
+            grid: {
+                borderColor: '#f1f1f1',
+            },
+            xaxis: {
+
+                categories: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+                                    echo '' . $cpub['tahun'] . ',';
+                                }
+
+                                ?> 2024],
+                position: 'down',
+                labels: {
+                    offsetY: 0,
+
+                },
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: true
+                },
+                crosshairs: {
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            colorFrom: '#D8E3F0',
+                            colorTo: '#BED1E6',
+                            stops: [0, 100],
+                            opacityFrom: 1,
+                            opacityTo: 1,
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    offsetY: -35,
+                }
+            },
+            fill: {
+                gradient: {
+                    shade: 'light',
+                    type: "horizontal",
+                    shadeIntensity: 0.25,
+                    gradientToColors: undefined,
+                    inverseColors: true,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [50, 0, 100, 100]
+                },
+            },
+            yaxis: {
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false,
+                },
+                labels: {
+                    show: false,
+                    formatter: function(val) {
+                        return val + " Penelitian";
+                    }
+                }
+
+            },
+
+        }
+        var chart = new ApexCharts(
+            document.querySelector("#column_chart"),
+            options
+        );
+
+        chart.render();
+
+    }
+    // column chart with datalabels
+    var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel_abdimas");
+    if (BarchartColumnChartColors) {
+        var options = {
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                    show: false,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        position: 'top', // top, center, bottom
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                position: 'top', // top, center, bottom,
+                formatter: function(val) {
+                    return val + "";
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
+                }
+            },
+            series: [{
+                name: 'abdimas',
+                data: [
+                    <?php foreach ($order_by_tahun_desc as $obt) {
+                        echo '"' . $obt['jumlah_abd'] . '",';
+                    }
+
+                    ?>
+                ]
+            }],
+            grid: {
+                borderColor: '#f1f1f1',
+            },
+            xaxis: {
+
+                categories: ['2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                position: 'down',
+                labels: {
+                    offsetY: 0,
+
+                },
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: true
+                },
+                crosshairs: {
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            colorFrom: '#D8E3F0',
+                            colorTo: '#BED1E6',
+                            stops: [0, 100],
+                            opacityFrom: 1,
+                            opacityTo: 1,
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    offsetY: -35,
+                }
+            },
+            fill: {
+                gradient: {
+                    shade: 'light',
+                    type: "horizontal",
+                    shadeIntensity: 0.25,
+                    gradientToColors: undefined,
+                    inverseColors: true,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [50, 0, 100, 100]
+                },
+            },
+            yaxis: {
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false,
+                },
+                labels: {
+                    show: false,
+                    formatter: function(val) {
+                        return val + " Abdimas";
+                    }
+                }
+
+            },
+
+        }
+
+        var chart = new ApexCharts(
+            document.querySelector("#column_chart_datalabel_abdimas"),
+            options
+        );
+
+        chart.render();
+
+    }
+
+    var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel_haki");
+    if (BarchartColumnChartColors) {
+        var options = {
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                    show: false,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        position: 'top', // top, center, bottom
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                position: 'top', // top, center, bottom,
+                formatter: function(val) {
+                    return val + "";
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
+                }
+            },
+            series: [{
+                name: 'publikasi',
+                data: [
+                    <?php foreach ($order_by_tahun_Asc_haki as $obt) {
+                        echo '"' . $obt['jumlah_haki'] . '",';
+                    }
+
+                    ?>
+                ]
+            }],
+            grid: {
+                borderColor: '#f1f1f1',
+            },
+            xaxis: {
+
+                categories: [<?php foreach ($order_by_tahun_Asc_haki as $obt) {
+                                    echo '"' . $obt['thn'] . '",';
+                                }
+                                ?> '2023', '2024'],
+                position: 'down',
+                labels: {
+                    offsetY: 0,
+
+                },
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: true
+                },
+                crosshairs: {
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            colorFrom: '#D8E3F0',
+                            colorTo: '#BED1E6',
+                            stops: [0, 100],
+                            opacityFrom: 1,
+                            opacityTo: 1,
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    offsetY: -35,
+                }
+            },
+            fill: {
+                gradient: {
+                    shade: 'light',
+                    type: "horizontal",
+                    shadeIntensity: 0.25,
+                    gradientToColors: undefined,
+                    inverseColors: true,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [50, 0, 100, 100]
+                },
+            },
+            yaxis: {
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false,
+                },
+                labels: {
+                    show: false,
+                    formatter: function(val) {
+                        return val + " Haki";
+                    }
+                }
+
+            },
+
+        }
+
+        var chart = new ApexCharts(
+            document.querySelector("#column_chart_datalabel_haki"),
+            options
+        );
+
+        chart.render();
+
+    }
+</script>
