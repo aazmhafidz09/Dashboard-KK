@@ -55,6 +55,7 @@ class Penelitian extends BaseController
 
             // Order Data Penelitian 
             'order_by_tahun' => $this->penelitianModel->getOrderByTahun(),
+            'order_by_tahun_Asc' => $this->penelitianModel->getOrderByTahunAsc(),
             'count_publikasi' => $this->penelitianModel->getCountPublikasi(),
 
             // Top Penelitian 

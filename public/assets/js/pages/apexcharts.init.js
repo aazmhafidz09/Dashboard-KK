@@ -410,8 +410,11 @@ var options = {
         }
     },
     series: [{
-        name: 'Penelitian',
-        data: [8, 14, 15, 15, 17, 22, 38, 39, 56, 42]
+        name: 'publikasi',
+        data: [
+            
+            8, 14, 15, 15, 17, 22, 38, 39, 56, 42
+        ]
     }],
     grid: {
         borderColor: '#f1f1f1',

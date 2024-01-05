@@ -663,7 +663,7 @@
                                     the construction function: <code>$().DataTable();</code>.
                                 </p> -->
 
-                                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="datatable" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>
@@ -744,7 +744,7 @@
 
 <script src="assets/js/pages/dashboard.init.js"></script>
 <!-- apexcharts init -->
-<script src="assets/js/pages/apexcharts.init.js"></script>
+<!-- <script src="assets/js/pages/apexcharts.init.js"></script> -->
 
 <script src="assets/libs/chart.js/Chart.bundle.min.js"></script>
 <script src="assets/js/pages/chartjs.init.js"></script>
@@ -755,3 +755,175 @@
 </body>
 
 </html>
+
+<script type="text/javascript">
+    // column chart with datalabels
+    var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel");
+    if (BarchartColumnChartColors) {
+        var options = {
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                    show: false,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        position: 'top', // top, center, bottom
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                position: 'top', // top, center, bottom,
+                formatter: function(val) {
+                    return val + "";
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
+                }
+            },
+            series: [{
+                name: 'penelitian',
+                data: [
+                    <?php foreach ($order_by_tahun_Asc as $obt) {
+                        echo '"' . $obt['jumlah_pen'] . '",';
+                    }
+
+                    ?>
+                    // 8, 14, 15, 15, 17, 22, 38, 39, 56, 42
+                ]
+            }],
+            grid: {
+                borderColor: '#f1f1f1',
+            },
+            xaxis: {
+
+                categories: [<?php foreach ($order_by_tahun_Asc as $obt) {
+                                    echo '"' . $obt['thn'] . '",';
+                                }
+                                ?> '2024'],
+                position: 'down',
+                labels: {
+                    offsetY: 0,
+
+                },
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: true
+                },
+                crosshairs: {
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            colorFrom: '#D8E3F0',
+                            colorTo: '#BED1E6',
+                            stops: [0, 100],
+                            opacityFrom: 1,
+                            opacityTo: 1,
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    offsetY: -35,
+                }
+            },
+            fill: {
+                gradient: {
+                    shade: 'light',
+                    type: "horizontal",
+                    shadeIntensity: 0.25,
+                    gradientToColors: undefined,
+                    inverseColors: true,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [50, 0, 100, 100]
+                },
+            },
+            yaxis: {
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false,
+                },
+                labels: {
+                    show: false,
+                    formatter: function(val) {
+                        return val + " Penelitian";
+                    }
+                }
+
+            },
+
+        }
+
+        var chart = new ApexCharts(
+            document.querySelector("#column_chart_datalabel"),
+            options
+        );
+
+        chart.render();
+
+    }
+
+
+    // pie chart
+    var PiechartPieColors = getChartColorsArray("pie_chart");
+    if (PiechartPieColors) {
+        var options = {
+            chart: {
+                height: 320,
+                type: 'pie',
+            },
+            series: [<?php foreach ($count_publikasi as $cpub) {
+                            echo '' . $cpub['jumlah_pen'] . ',';
+                        }
+
+                        ?>],
+            labels: [<?php foreach ($count_publikasi as $cpub) {
+                            echo '"' . $cpub['jenis_pen'] . '",';
+                        }
+
+                        ?>],
+
+            colors: PiechartPieColors,
+            legend: {
+                show: true,
+                position: 'bottom',
+                horizontalAlign: 'center',
+                verticalAlign: 'middle',
+                floating: false,
+                fontSize: '14px',
+                offsetX: 0
+            },
+            responsive: [{
+                breakpoint: 600,
+                options: {
+                    chart: {
+                        height: 240
+                    },
+                    legend: {
+                        show: false
+                    },
+                }
+            }]
+
+        }
+
+        var chart = new ApexCharts(
+            document.querySelector("#pie_chart"),
+            options
+        );
+
+        chart.render();
+
+    }
+</script>

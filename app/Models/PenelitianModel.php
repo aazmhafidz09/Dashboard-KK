@@ -166,6 +166,11 @@ class PenelitianModel extends Model
         $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_pen FROM penelitian GROUP BY tahun ORDER BY tahun DESC");
         return $query->getResultArray();
     }
+    public function getOrderByTahunAsc()
+    {
+        $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_pen FROM penelitian GROUP BY tahun ORDER BY tahun ASC");
+        return $query->getResultArray();
+    }
     public function getCountPublikasi()
     {
         $query = $this->db->query("SELECT jenis AS jenis_pen, COUNT(*) AS jumlah_pen FROM penelitian GROUP BY jenis ORDER BY jenis ASC");
