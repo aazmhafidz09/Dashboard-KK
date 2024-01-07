@@ -28,7 +28,21 @@ class Admin extends BaseController
         // $dosen = $this->dosenModel->findAll();
         $data = [
             'title' => 'Daftar Dosen',
-            'dosen' => $this->dosenModel->getDosen()
+            'dosen' => $this->dosenModel->getDosen(),
+            'all_publikasi' => $this->publikasiModel->getAllPublikasi(),
+            // Get All Data Penelitian
+            'all_penelitian' => $this->penelitianModel->getAllPenelitianLIMIT5(),
+            // Get All Data Penelitian
+            'all_publikasi' => $this->publikasiModel->getAllPublikasiLimit5(),
+            // Get All Data Abdimas
+            // Get All Data Abdimas
+            'all_abdimas' => $this->abdimasModel->getAllAbdimasLimit5(),
+            'all_haki' => $this->hakiModel->getAllHakiLimit5(),
+
+
+
+
+
         ];
 
         // dd($dosen);
@@ -37,7 +51,7 @@ class Admin extends BaseController
     public function publikasi()
     {
         // $dosen = $this->dosenModel->findAll();
-
+        // Get All Data Publikasi
 
         // dd($dosen);
         return view('admin/manage-publikasi');

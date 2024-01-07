@@ -556,6 +556,7 @@
 
 
 <script src="assets/js/pages/dashboard.init.js"></script>
+<script src="assets/js/pages/ecommerce-datatables.init.js"></script>
 <!-- apexcharts init -->
 <!-- <script src="assets/js/pages/apexcharts.init.js"></script> -->
 

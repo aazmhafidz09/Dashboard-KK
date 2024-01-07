@@ -71,6 +71,7 @@ class Penelitian extends BaseController
             // Get All Data Penelitian
             'all_penelitian' => $this->penelitianModel->getAllPenelitian(),
 
+
             // Get Order Data by Jenis
             'getOrderByTahunEksternal' => $this->penelitianModel->getOrderByTahunEksternal(),
             'getOrderByTahunInternal' => $this->penelitianModel->getOrderByTahunInternal(),

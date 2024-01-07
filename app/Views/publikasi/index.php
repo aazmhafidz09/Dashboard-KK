@@ -709,7 +709,9 @@
 <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
 
 
+
 <script src="assets/js/pages/dashboard.init.js"></script>
+<script src="assets/js/pages/ecommerce-datatables.init.js"></script>
 <!-- apexcharts init -->
 <!-- <script src="assets/js/pages/script_publikasi.php"></script> -->
 

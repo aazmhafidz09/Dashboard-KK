@@ -214,6 +214,11 @@ class HakiModel extends Model
         $query = $this->db->query("SELECT * FROM `haki` ORDER BY `tahun` DESC");
         return $query->getResultArray();
     }
+    public function getAllHakiLimit5()
+    {
+        $query = $this->db->query("SELECT * FROM `haki` ORDER BY `tahun` DESC LIMIT 5");
+        return $query->getResultArray();
+    }
 
     public function getTopHaki()
     {

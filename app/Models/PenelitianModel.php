@@ -246,6 +246,11 @@ class PenelitianModel extends Model
         $query = $this->db->query("SELECT * FROM `penelitian` ORDER BY `tahun` DESC;");
         return $query->getResultArray();
     }
+    public function getAllPenelitianLIMIT5()
+    {
+        $query = $this->db->query("SELECT * FROM `penelitian` ORDER BY `tahun` DESC LIMIT 5;");
+        return $query->getResultArray();
+    }
 
 
     public function getOrderByTahunEksternal()

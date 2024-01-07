@@ -236,6 +236,12 @@ class PublikasiModel extends Model
         return $query->getResultArray();
     }
 
+    public function getAllPublikasiLimit5()
+    {
+        $query = $this->db->query("SELECT * FROM `publikasi` ORDER BY `tahun` DESC LIMIT 5");
+        return $query->getResultArray();
+    }
+
     public function getCountPublikasiAll()
     {
         $query = $this->db->query("SELECT jenis AS jenis_pen, COUNT(*) AS jumlah_pen FROM publikasi WHERE jenis != 'Q2' GROUP BY jenis ORDER BY jumlah_pen DESC LIMIT 4");

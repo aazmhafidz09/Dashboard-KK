@@ -186,6 +186,11 @@ class AbdimasModel extends Model
         $query = $this->db->query("SELECT * FROM `abdimas` ORDER BY `tahun` DESC");
         return $query->getResultArray();
     }
+    public function getAllAbdimasLimit5()
+    {
+        $query = $this->db->query("SELECT * FROM `abdimas` ORDER BY `tahun` DESC LIMIT 5");
+        return $query->getResultArray();
+    }
 
     public function getOrderByTahunAllJenis()
     {
