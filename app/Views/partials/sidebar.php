@@ -53,12 +53,32 @@
                     </ul>
                 </li>
 
+
                 <li>
                     <a href="/dosen">
                         <i class="uil-user-circle"></i><span class="badge rounded-pill bg-primary float-end"></span>
                         <span><?= lang('Dosen') ?></span>
                     </a>
                 </li>
+                <?php if (logged_in()) : ?>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="uil-share-alt"></i>
+                            <span><?= lang('Manage') ?></span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="true">
+                            <li><a href="/admin"><?= lang('Admin Dashboard') ?></a></li>
+                            <li><a href="javascript: void(0);" class="has-arrow"><?= lang('Input Data') ?></a>
+                                <ul class="sub-menu" aria-expanded="true">
+                                    <li><a href="/admin/publikasi">Publikasi</a></li>
+                                    <li><a href="/admin/penelitian">Penelitian</a></li>
+                                    <li><a href="/admin/abdimas">Abdimas</a></li>
+                                    <li><a href="/admin/haki">Haki</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif ?>
 
 
 

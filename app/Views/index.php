@@ -21,8 +21,6 @@
 
         <div class="page-content">
             <div class="container-fluid">
-
-                <?= $page_title ?>
                 <div class="row">
                     <div class="col-md-6 col-xl-3">
                         <div class="card">

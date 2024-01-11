@@ -7,6 +7,11 @@ use CodeIgniter\Model;
 class PenelitianModel extends Model
 {
     protected $table = 'penelitian';
+    protected $allowedFields = [
+        'tahun', 'jenis', 'nama_kegiatan', 'judul_penelitian', 'status',
+        'ketua_peneliti', 'anggota_peneliti_1', 'anggota_peneliti_2', 'anggota_peneliti_3', 'anggota_peneliti_4', 'mitra', 'lab_riset', 'kesesuaian_roadmap',
+        'catatan_rekomendasi', 'luaran', 'mk_relevan', 'tgl_pengesahan'
+    ];
 
     public function getPenelitian($kode_dosen = false)
     {

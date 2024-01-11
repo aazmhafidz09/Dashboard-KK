@@ -30,83 +30,147 @@ class Admin extends BaseController
             'title' => 'Daftar Dosen',
             'dosen' => $this->dosenModel->getDosen(),
             'all_publikasi' => $this->publikasiModel->getAllPublikasi(),
-            // Get All Data Penelitian
-            'all_penelitian' => $this->penelitianModel->getAllPenelitianLIMIT5(),
-            // Get All Data Penelitian
-            'all_publikasi' => $this->publikasiModel->getAllPublikasiLimit5(),
-            // Get All Data Abdimas
-            // Get All Data Abdimas
-            'all_abdimas' => $this->abdimasModel->getAllAbdimasLimit5(),
-            'all_haki' => $this->hakiModel->getAllHakiLimit5(),
-
-
-
-
-
+            'all_penelitian' => $this->penelitianModel->getAllPenelitian(),
+            'all_publikasi' => $this->publikasiModel->getAllPublikasi(),
+            'all_abdimas' => $this->abdimasModel->getAllAbdimas(),
+            'all_haki' => $this->hakiModel->getAllHaki(),
         ];
-
-        // dd($dosen);
         return view('admin/index', $data);
     }
+
+    // ========== PUBLIKASI ========== 
+
     public function publikasi()
     {
-        // $dosen = $this->dosenModel->findAll();
-        // Get All Data Publikasi
-
-        // dd($dosen);
         return view('admin/manage-publikasi');
     }
+    public function publikasi_save()
+    {
+        $this->publikasiModel->save([
+            'judul_publikasi' => $this->request->getVar('judul'),
+            'tahun' => $this->request->getVar('tahun'),
+            'penulis_1' => $this->request->getVar('penulis_1'),
+            'penulis_2' => $this->request->getVar('penulis_2'),
+            'penulis_3' => $this->request->getVar('penulis_3'),
+            'penulis_4' => $this->request->getVar('penulis_4'),
+            'penulis_5' => $this->request->getVar('penulis_5'),
+            'penulis_6' => $this->request->getVar('penulis_6'),
+            'lab_riset' => $this->request->getVar('penulis_all'),
+            'penulis_all' => $this->request->getVar('semua_penulis'),
+            'institusi_mitra' => $this->request->getVar('mitra'),
+            'jenis' => $this->request->getVar('jenis'),
+            'nama_journal_conf' => $this->request->getVar('jurnal_konferensi'),
+            'akreditasi_journal_conf' => $this->request->getVar('akreditasi'),
+            'link_artikel' => $this->request->getVar('link'),
+            'luaran_riset_abdimas' => $this->request->getVar('luaran')
+        ]);
+        return view('admin');
+        // dd($this->request->getVar());
+    }
+
+    // ========== PENELITIAN ========== 
+
     public function penelitian()
     {
-        // $dosen = $this->dosenModel->findAll();
 
-
-        // dd($dosen);
         return view('admin/manage-penelitian');
     }
+    public function penelitian_save()
+    {
+
+        $this->penelitianModel->save([
+            'tahun' => $this->request->getVar('tahun'),
+            'jenis' => $this->request->getVar('jenis'),
+            'nama_kegiatan' => $this->request->getVar('nama_kegiatan'),
+            'judul_penelitian' => $this->request->getVar('judul'),
+            'status' => $this->request->getVar('status'),
+            'ketua_peneliti' => $this->request->getVar('ketua'),
+            'anggota_peneliti_1' => $this->request->getVar('anggota_1'),
+            'anggota_peneliti_2' => $this->request->getVar('anggota_2'),
+            'anggota_peneliti_3' => $this->request->getVar('anggota_3'),
+            'anggota_peneliti_4' => $this->request->getVar('anggota_4'),
+            'mitra' => $this->request->getVar('mitra'),
+            'lab_riset' => $this->request->getVar('lab_riset'),
+            'kesesuaian_roadmap' => $this->request->getVar('roadmap'),
+            'catatan_rekomendasi' => $this->request->getVar('rekomendasi'),
+            'luaran' => $this->request->getVar('riset'),
+            'mk_relevan' => $this->request->getVar('mk_relevan'),
+            'tgl_pengesahan' => $this->request->getVar('tgl_pengesahan'),
+        ]);
+
+        // dd($this->request->getVar());
+        return view('admin');
+    }
+
+
+    // ========== ABDIMAS ========== 
+
     public function abdimas()
     {
-        // $dosen = $this->dosenModel->findAll();
-
-
-        // dd($dosen);
         return view('admin/manage-abdimas');
     }
-    public function haki()
+    public function abdimas_save()
     {
-        // $dosen = $this->dosenModel->findAll();
+        $this->abdimasModel->save([
+            'tahun' => $this->request->getVar('tahun'),
+            'jenis' => $this->request->getVar('jenus'),
+            'nama_kegiatan' => $this->request->getVar('nama_kegiatan'),
+            'judul' => $this->request->getVar('judul'),
+            'status' => $this->request->getVar('status'),
+            'lab_riset' => $this->request->getVar('lab_riset'),
+            'ketua' => $this->request->getVar('ketua'),
+            'anggota_1' => $this->request->getVar('anggota_1'),
+            'anggota_2' => $this->request->getVar('anggota_2'),
+            'anggota_3' => $this->request->getVar('anggota_3'),
+            'anggota_4' => $this->request->getVar('anggota_4'),
+            'anggota_5' => $this->request->getVar('anggota_5'),
+            // 'mitra' => $this->request->getVar('link'),
+            'alamat_mitra' => $this->request->getVar('alamat_mitra'),
+            'kesesuaian_roadmap' => $this->request->getVar('roadmp'),
+            'permasalahan_masy' => $this->request->getVar('permasalahan_masyarakat'),
+            'solusi' => $this->request->getVar('solusi'),
+            'catatan' => $this->request->getVar('catatan'),
+            'luaran' => $this->request->getVar('luaran'),
+            'tgl_pengesahan' => $this->request->getVar('tgl_peengesahan'),
+        ]);
 
 
-        // dd($dosen);
-        return view('admin/manage-haki');
+        // dd($this->request->getVar());
+        return view('admin');
     }
 
-    // public function detail($kode_dosen)
-    // {
-    //     $data = [
-    //         'title' => 'Detail Dosen',
-    //         'dosen' => $this->dosenModel->getDosen($kode_dosen),
-    //         'publikasi' => $this->publikasiModel->getPublikasi($kode_dosen),
-    //         'jumlah_publikasi' => $this->publikasiModel->getJumlahPublikasi($kode_dosen),
-    //         'jumlah_publikasi_1' => $this->publikasiModel->getJumlahPublikasi_1($kode_dosen),
-    //         'penelitian' => $this->penelitianModel->getPenelitian($kode_dosen),
-    //         'jumlah_penelitian' => $this->penelitianModel->getJumlahPenelitian($kode_dosen),
-    //         'jumlah_ketua_peneliti' => $this->penelitianModel->getJumlahKetuaPeneliti($kode_dosen),
-    //         'abdimas' => $this->abdimasModel->getAbdimas($kode_dosen),
-    //         'jumlah_abdimas' => $this->abdimasModel->getJumlahAbdimas($kode_dosen),
-    //         'jumlah_ketua' => $this->abdimasModel->getJumlahKetua($kode_dosen),
-    //         'haki' => $this->hakiModel->getHaki($kode_dosen),
-    //         'jumlah_haki' => $this->hakiModel->getJumlahHaki($kode_dosen),
-    //         'jumlah_ketua_haki' => $this->hakiModel->getJumlahKetuaHaki($kode_dosen)
+    // ========== HAKI ========== 
 
-    //     ];
-    //     // echo $data['jumlah_publikasi'];
-    //     return view('admin/detail', $data);
-    // }
-    // public function test($kode_dosen)
-    // {
-    //     $jumlah_publikasi = $this->publikasiModel->getJumlahPublikasi($kode_dosen);
+    public function haki()
+    {
+        return view('admin/manage-haki');
+    }
+    public function haki_save()
+    {
 
-    //     echo ($jumlah_publikasi);
-    // }
+        $this->hakiModel->save([
+            'tahun' => $this->request->getVar('tahun'),
+            'ketua' => $this->request->getVar('ketua'),
+            'anggota_1' => $this->request->getVar('anggota_1'),
+            'anggota_2' => $this->request->getVar('anggota_2'),
+            'anggota_3' => $this->request->getVar('anggota_3'),
+            'anggota_4' => $this->request->getVar('anggota_4'),
+            'anggota_5' => $this->request->getVar('anggota_5'),
+            'anggota_6' => $this->request->getVar('anggota_6'),
+            'anggota_7' => $this->request->getVar('anggota_7'),
+            'anggota_8' => $this->request->getVar('anggota_8'),
+            'anggota_9' => $this->request->getVar('anggota_9'),
+            'jenis' => $this->request->getVar('jenis'),
+            'jenis_ciptaan' => $this->request->getVar('ciptaan'),
+            'judul' => $this->request->getVar('roadmp'),
+            'jenis' => $this->request->getVar('judul_haki'),
+            'abstrak' => $this->request->getVar('abstrak'),
+            'no_pendaftaran' => $this->request->getVar('no_pendaftaran'),
+            'no_sertifikat' => $this->request->getVar('no_sertifikat'),
+            'catatan' => $this->request->getVar('catatan'),
+        ]);
+        return view('admin');
+
+        // dd($this->request->getVar());
+    }
 }

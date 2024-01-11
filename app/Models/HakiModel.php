@@ -7,6 +7,10 @@ use CodeIgniter\Model;
 class HakiModel extends Model
 {
     protected $table = 'haki';
+    protected $allowedFields = [
+        'tahun', 'ketua', 'anggota_1', 'anggota_2', 'anggota_3', 'anggota_4', 'anggota_5', 'anggota_6', 'anggota_7', 'anggota_8', 'anggota_9',
+        'jenis', 'jenis_ciptaan', 'judul', 'jenis', 'abstrak', 'no_pendaftaran', 'no_sertifikat', 'catatan'
+    ];
 
     public function getHaki($kode_dosen = false)
     {
@@ -93,10 +97,6 @@ class HakiModel extends Model
         $query = $this->db->query("SELECT COUNT(*) AS haki_buku FROM haki WHERE tahun = YEAR(NOW()) and jenis = 'BUKU'");
         return $query->getRow()->haki_buku;
     }
-
-
-
-
 
     // Peningkatan HAKI
 

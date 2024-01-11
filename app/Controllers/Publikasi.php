@@ -15,6 +15,7 @@ class Publikasi extends BaseController
     protected $penelitianModel;
     protected $abdimasModel;
     protected $hakiModel;
+
     public function __construct()
     {
         $this->dosenModel = new DosenModel();
@@ -33,9 +34,7 @@ class Publikasi extends BaseController
             'dosen' => $this->dosenModel->getDosen(),
             'publikasi' => $this->publikasiModel->getPublikasi_all(),
             'count_publikasi' => $this->publikasiModel->getPublikasiTotal(),
-
             'peningkatan_publikasi' => $this->publikasiModel->getPeningkatanPublikasi(),
-
             'PublikasiYearNow_Inter' => $this->publikasiModel->getPublikasiYearNowInter(),
             'PublikasiYearNow_Nas' => $this->publikasiModel->getPublikasiYearNowNas(),
             'PublikasiYearNow_Pros' => $this->publikasiModel->getPublikasiYearNowPros(),

@@ -7,6 +7,7 @@ use CodeIgniter\Model;
 class PublikasiModel extends Model
 {
     protected $table = 'publikasi';
+    protected $allowedFields = ['judul_publikasi', 'tahun', 'jenis', 'penulis_1', 'penulis_2', 'penulis_3', 'penulis_4', 'penulis_5', 'penulis_6', 'lab_riset', 'penulis_all', 'institusi_mitra', 'nama_journal_conf', 'akreditasi_journal_conf', 'link_artikel', 'luaran_riset_abdimas'];
     public function getPublikasi_all()
     {
         return $this->findAll();

@@ -8,6 +8,9 @@ File: Datatables Js File
 
 $(document).ready(function() {
     $('#datatable').DataTable();
+    $('#datatable_1').DataTable();
+    $('#datatable_2').DataTable();
+    $('#datatable_3').DataTable();
 
     //Buttons examples
     var table = $('#datatable-buttons').DataTable({
@@ -19,4 +22,5 @@ $(document).ready(function() {
         .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
         
         $(".dataTables_length select").addClass('form-select form-select-sm');
-} );
+} 
+);

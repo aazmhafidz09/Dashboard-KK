@@ -34,7 +34,7 @@
                                     <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
                                 </div>
 
-                                <table id="datatable" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='3' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="datatable" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>
@@ -173,14 +173,14 @@
                                 </div>
 
 
-                                <table id="datatable" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="datatable_2" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>
                                             <th>Jenis</th>
                                             <th>Nama Kegiatan</th>
                                             <th>Judul</th>
-                                            <th>Status</th>
+                                            <!-- <th>Status</th> -->
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -193,7 +193,7 @@
                                                 <td><?= $alp['jenis']; ?></td>
                                                 <td><?= $alp['nama_kegiatan']; ?></td>
                                                 <td><?= $alp['judul']; ?></td>
-                                                <td><?= $alp['status']; ?></td>
+                                                <!-- <td><?= $alp['status']; ?></td> -->
                                                 <td>
                                                     <ul class="list-inline mb-0">
                                                         <li class="list-inline-item">
@@ -244,7 +244,7 @@
                                     <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
                                 </div>
 
-                                <table id="datatable" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="datatable_3" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>

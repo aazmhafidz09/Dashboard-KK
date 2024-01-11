@@ -28,220 +28,180 @@
     <!-- Start right Content here -->
     <!-- ============================================================== -->
     <div class="main-content">
-
         <div class="page-content">
             <div class="container-fluid">
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-
-                                <h4 class="card-title">Input Data Haki</h4>
-                                <p class="card-title-desc">Masukan data <code>Haki</code> ke dalam <code>form</code> berikut</p>
-
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">Judul Haki</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="Judul" id="Judul-Publikasi">
+                <form action="/admin/haki_save" method="post">
+                    <?= csrf_field(); ?>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Input Data Haki</h4>
+                                    <p class="card-title-desc">Masukan data <code>Haki</code> ke dalam <code>form</code> berikut</p>
+                                    <div class="mb-3 row">
+                                        <label for="Judul_Publikasi" class="col-md-2 col-form-label">Judul Haki</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" placeholder="Judul" id="Judul_haki" name="Judul_haki">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="example-number-input" class="col-md-2 col-form-label">Tahun</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="number" placeholder="2024" id="example-number-input" name="tahun">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label class="col-md-2 col-form-label">Jenis Haki</label>
+                                        <div class="col-md-10">
+                                            <select class="form-select" name="jenis">
+                                                <option>PATEN</option>
+                                                <option>HAK CIPTA</option>
+                                                <option>MEREK</option>
+                                                <option>KARYA/BUKU</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Jenis Ciptaan</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" placeholder="Jenis Ciptaan" id="Judul-Publikasi" name="ciptaan">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="mb-3 row">
-                                    <label for="example-number-input" class="col-md-2 col-form-label">Tahun</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="number" placeholder="2024" id="example-number-input">
-                                    </div>
-                                </div>
-
-                                <div class="mb-3 row">
-                                    <label class="col-md-2 col-form-label">Jenis Haki</label>
-                                    <div class="col-md-10">
-                                        <select class="form-select">
-                                            <option>PATEN</option>
-                                            <option>HAK CIPTA</option>
-                                            <option>MEREK</option>
-                                            <option>KARYA/BUKU</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">Jenis Ciptaan</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="Jenis Ciptaan" id="Judul-Publikasi">
-                                    </div>
-                                </div>
-
-                                <!-- <div class="row">
-                                    <label for="exampleDataList" class="col-md-2 col-form-label">Datalists</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-                                        <datalist id="datalistOptions">
-                                            <option value="San Francisco">
-                                            <option value="New York">
-                                            <option value="Seattle">
-                                            <option value="Los Angeles">
-                                            <option value="Chicago">
-                                        </datalist>
-                                    </div>
-                                </div> -->
                             </div>
-                        </div>
-                    </div> <!-- end col -->
-                </div>
-                <!-- end row -->
+                        </div> <!-- end col -->
+                    </div>
+                    <!-- end row -->
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- <h4 class="card-title">Data Penulis</h4> -->
-                                <p class="card-title-desc">Masukan data <code>Anggota</code> ke dalam <code>form</code> berikut.</p>
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">Ketua</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- <h4 class="card-title">Data Penulis</h4> -->
+                                    <p class="card-title-desc">Masukan data <code>Anggota</code> ke dalam <code>form</code> berikut.</p>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Ketua</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" placeholder="Kode Dosen" id="anggota" name="ketua">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 1</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi" name="anggota_1">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 2</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi" name="anggota_2">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 3</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi" name="anggota_3">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 4</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi" name="anggota_4">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 5</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi" name="anggota_5">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 6</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi" name="anggota_6">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 7</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi" name="anggota_7">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 8</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi" name="anggota_8">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 9</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi" name="anggota_9">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">Anggota 1</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">Anggota 2</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">Anggota 3</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">Anggota 4</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">Anggota 5</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">Anggota 6</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">Anggota 7</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">Anggota 8</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">Anggota 9</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="Kode Dosen" id="Judul-Publikasi">
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- End Form Layout -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-
-                                <!-- <h4 class="card-title">Input Data Publikasi</h4> -->
-                                <p class="card-title-desc">Masukan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
-
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">Abstrak</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="abstrak" id="Judul-Publikasi">
+                    <!-- End Form Layout -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- <h4 class="card-title">Input Data Publikasi</h4> -->
+                                    <p class="card-title-desc">Masukan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Abstrak</label>
+                                        <div class="col-md-10">
+                                            <textarea class="form-control" id="catatan" rows="3" name="abstrak"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">No Pendaftaran </label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" placeholder="No Pendaftaran" id="Judul-Publikasi" name="no_pendaftaran">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">No Sertifikat </label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" placeholder="No Sertifikat" id="Judul-Publikasi" name="no_sertifikat">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Catatan </label>
+                                        <div class="col-md-10">
+                                            <textarea class="form-control" id="catatan" rows="3" name="catatan"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">No Pendaftaran </label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="No Pendaftaran" id="Judul-Publikasi">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">No Sertifikat </label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="No Sertifikat" id="Judul-Publikasi">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="example-text-input" class="col-md-2 col-form-label">Catatan </label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" placeholder="Catatan" id="Judul-Publikasi">
-                                    </div>
-                                </div>
-
-
-
-                                <div class="mt-4">
-                                    <!-- <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Inline forms layout</h5> -->
-
-
-                                </div>
-
-
-
                             </div>
+                        </div> <!-- end col -->
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
 
-                        </div>
-
-                    </div> <!-- end col -->
-
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-
-                                <p class="card-title-desc">Submit hasil <code>isian</code> data anda dengan klik <code>tombol</code> berikut</p>
-
-                                <form>
+                                    <p class="card-title-desc">Submit hasil <code>isian</code> data anda dengan klik <code>tombol</code> berikut</p>
+                                    <!-- <form> -->
                                     <div class="hstack gap-3">
                                         <!-- <input class="form-control me-auto" type="text" placeholder="Add your item here..." aria-label="Add your item here..."> -->
-                                        <button type="button" class="btn btn-primary waves-effect waves-light w-md">Submit</button>
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light w-md">Submit</button>
                                         <div class="vr"></div>
                                         <button type="reset" class="btn btn-outline-danger waves-effect waves-light w-md">Reset</button>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- end row -->
-
+                    <!-- end row -->
+                </form>
                 <!-- Start Form Sizing -->
-
                 <!-- end row -->
-
             </div> <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
-
 
         <?= $this->include('partials/footer') ?>
     </div>
