@@ -37,8 +37,8 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-
                                     <h4 class="card-title">Input Data Publikasi</h4>
+                                    <?= $validation->listErrors(); ?>
                                     <p class="card-title-desc">Masukan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
 
                                     <div class="mb-3 row">
@@ -53,10 +53,6 @@
                                             <input class="form-control" type="number" id="example-number-input" name="tahun">
                                         </div>
                                     </div>
-
-
-
-
                                     <div class="mb-3 row">
                                         <label class="col-md-2 col-form-label">Jenis Publikasi</label>
                                         <div class="col-md-10">
@@ -68,20 +64,6 @@
                                             </select>
                                         </div>
                                     </div>
-
-                                    <!-- <div class="row">
-                                    <label for="exampleDataList" class="col-md-2 col-form-label">Datalists</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-                                        <datalist id="datalistOptions">
-                                            <option value="San Francisco">
-                                            <option value="New York">
-                                            <option value="Seattle">
-                                            <option value="Los Angeles">
-                                            <option value="Chicago">
-                                        </datalist>
-                                    </div>
-                                </div> -->
                                 </div>
                             </div>
                         </div> <!-- end col -->
@@ -145,7 +127,6 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-
                                     <!-- <h4 class="card-title">Input Data Publikasi</h4> -->
                                     <p class="card-title-desc">Masukan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
 

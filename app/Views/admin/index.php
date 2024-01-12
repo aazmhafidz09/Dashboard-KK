@@ -27,6 +27,11 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
+                                <?php if (session()->getFlashdata('pesan')) : ?>
+                                    <div class="alert alert-success" role="alert">
+                                        <?= session()->getFlashdata('pesan'); ?>
+                                    </div>
+                                <?php endif ?>
 
                                 <h4 class="card-title">Data Publikasi</h4>
                                 <div>

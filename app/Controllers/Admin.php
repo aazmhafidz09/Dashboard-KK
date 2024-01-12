@@ -25,6 +25,7 @@ class Admin extends BaseController
     }
     public function index()
     {
+
         // $dosen = $this->dosenModel->findAll();
         $data = [
             'title' => 'Daftar Dosen',
@@ -42,10 +43,28 @@ class Admin extends BaseController
 
     public function publikasi()
     {
-        return view('admin/manage-publikasi');
+        session();
+        $data = [
+            'validation' => \Config\Services::validation()
+        ];
+        return view('admin/manage-publikasi', $data);
     }
     public function publikasi_save()
     {
+        if (!$this->validate([
+            'judul_publikasi' => 'required',
+            'tahun' => 'required',
+            'jenis' => 'required',
+            'penulis_1' => 'required'
+        ])) {
+            $validation = \config\Services::validation();
+            // dd($validation);
+
+            return redirect()->to('/admin/publikasi')->withInput()->with('validation', $validation);
+        }
+
+
+
         $this->publikasiModel->save([
             'judul_publikasi' => $this->request->getVar('judul'),
             'tahun' => $this->request->getVar('tahun'),
@@ -64,7 +83,8 @@ class Admin extends BaseController
             'link_artikel' => $this->request->getVar('link'),
             'luaran_riset_abdimas' => $this->request->getVar('luaran')
         ]);
-        return view('admin');
+        session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+        return redirect()->to('/admin');
         // dd($this->request->getVar());
     }
 
@@ -77,6 +97,13 @@ class Admin extends BaseController
     }
     public function penelitian_save()
     {
+        if (!$this->validate([
+            'judul_penelitian' => 'required',
+            'tahun' => 'required',
+            'jenis' => 'required'
+        ])) {
+            return redirect()->to('/admin/penelitian');
+        }
 
         $this->penelitianModel->save([
             'tahun' => $this->request->getVar('tahun'),
@@ -95,11 +122,12 @@ class Admin extends BaseController
             'catatan_rekomendasi' => $this->request->getVar('rekomendasi'),
             'luaran' => $this->request->getVar('riset'),
             'mk_relevan' => $this->request->getVar('mk_relevan'),
-            'tgl_pengesahan' => $this->request->getVar('tgl_pengesahan'),
+            'tgl_pengesahan' => $this->request->getVar('tgl_pengesahan')
         ]);
 
         // dd($this->request->getVar());
-        return view('admin');
+        session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+        return redirect()->to('/admin');
     }
 
 
@@ -111,6 +139,13 @@ class Admin extends BaseController
     }
     public function abdimas_save()
     {
+        if (!$this->validate([
+            'judul' => 'required',
+            'tahun' => 'required',
+            'jenis' => 'required'
+        ])) {
+            return redirect()->to('/admin/penelitian');
+        }
         $this->abdimasModel->save([
             'tahun' => $this->request->getVar('tahun'),
             'jenis' => $this->request->getVar('jenus'),
@@ -131,12 +166,13 @@ class Admin extends BaseController
             'solusi' => $this->request->getVar('solusi'),
             'catatan' => $this->request->getVar('catatan'),
             'luaran' => $this->request->getVar('luaran'),
-            'tgl_pengesahan' => $this->request->getVar('tgl_peengesahan'),
+            'tgl_pengesahan' => $this->request->getVar('tgl_peengesahan')
         ]);
 
 
         // dd($this->request->getVar());
-        return view('admin');
+        session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+        return redirect()->to('/admin');
     }
 
     // ========== HAKI ========== 
@@ -148,6 +184,13 @@ class Admin extends BaseController
     public function haki_save()
     {
 
+        if (!$this->validate([
+            'judul' => 'required',
+            'tahun' => 'required',
+            'jenis' => 'required'
+        ])) {
+            return redirect()->to('/admin/haki');
+        }
         $this->hakiModel->save([
             'tahun' => $this->request->getVar('tahun'),
             'ketua' => $this->request->getVar('ketua'),
@@ -167,9 +210,10 @@ class Admin extends BaseController
             'abstrak' => $this->request->getVar('abstrak'),
             'no_pendaftaran' => $this->request->getVar('no_pendaftaran'),
             'no_sertifikat' => $this->request->getVar('no_sertifikat'),
-            'catatan' => $this->request->getVar('catatan'),
+            'catatan' => $this->request->getVar('catatan')
         ]);
-        return view('admin');
+        session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+        return redirect()->to('/admin');
 
         // dd($this->request->getVar());
     }
