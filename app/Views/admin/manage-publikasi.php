@@ -31,6 +31,7 @@
 
         <div class="page-content">
             <div class="container-fluid">
+                <?= $validation->listErrors(); ?>
                 <form action="/admin/publikasi_save">
 
                     <div class="row">
@@ -38,9 +39,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Input Data Publikasi</h4>
-                                    <?= $validation->listErrors(); ?>
                                     <p class="card-title-desc">Masukan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
-
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Judul Publikasi</label>
                                         <div class="col-md-10">

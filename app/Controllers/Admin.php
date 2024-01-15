@@ -43,19 +43,17 @@ class Admin extends BaseController
 
     public function publikasi()
     {
-        session();
+        // session();
         $data = [
-            'validation' => \Config\Services::validation()
+            'validation' => \config\Services::validation()
         ];
+        // dd($data);
         return view('admin/manage-publikasi', $data);
     }
     public function publikasi_save()
     {
         if (!$this->validate([
-            'judul_publikasi' => 'required',
-            'tahun' => 'required',
-            'jenis' => 'required',
-            'penulis_1' => 'required'
+            'judul_publikasi' => 'required'
         ])) {
             $validation = \config\Services::validation();
             // dd($validation);

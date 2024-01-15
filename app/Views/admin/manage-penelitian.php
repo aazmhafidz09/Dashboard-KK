@@ -177,9 +177,6 @@
                                             <textarea class="form-control" type="text" id="Judul-Publikasi" name="rekomendasi"></textarea>
                                         </div>
                                     </div>
-
-
-
                                     <div class="mb-3 row">
                                         <label class="col-md-2 col-form-label">Luaran riset/abdimas</label>
                                         <div class="col-md-10">
