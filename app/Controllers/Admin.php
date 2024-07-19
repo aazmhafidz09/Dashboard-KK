@@ -64,31 +64,6 @@ class Admin extends BaseController
             return redirect()->to('/admin/publikasi')->withInput()->with('validation', $validation);
         }
 
-        // Cek kode dosen ada atau tidak
-        // $idx = 0;
-        // $allDosenExist = false;
-        // $dosenList = array(
-        //     $this->request->getVar('penulis_1'),
-        //     $this->request->getVar('penulis_2'),           
-        //     $this->request->getVar('penulis_3'),
-        //     $this->request->getVar('penulis_4'),
-        //     $this->request->getVar('penulis_5'),
-        //     $this->request->getVar('penulis_6')
-        // );
-        // while($idx < count($dosenList) && $allDosenExist) {
-        //     $kodeDosen = $dosenList[$idx];
-
-        //     if($kodeDosen == "") {
-        //         $allDosenExist = (($this->dosenModel->getDosen($kodeDosen) === null)
-        //                             && $allDosenExist);
-        //     }
-        //     $idx++;
-        // }
-
-        // if(!$allDosenExist) {
-        //     // Redirect to `/admin/publikasi` with error message
-        // }
-
         $this->publikasiModel->save([
             'judul_publikasi' => $this->request->getVar('judul_publikasi'),
             'tahun' => $this->request->getVar('tahun'),
@@ -107,7 +82,7 @@ class Admin extends BaseController
             'link_artikel' => $this->request->getVar('link'),
             'luaran_riset_abdimas' => $this->request->getVar('luaran')
         ]);
-        session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+        session()->setFlashdata('pesan', 'Publikasi berhasil ditambahkan');
         return redirect()->to('/admin');
         // dd($this->request->getVar());
     }
@@ -141,31 +116,6 @@ class Admin extends BaseController
 
             return redirect()->to('/admin/publikasi')->withInput()->with('validation', $validation);
         }
-
-        // Cek kode dosen ada atau tidak
-        // $idx = 0;
-        // $allDosenExist = false;
-        // $dosenList = array(
-        //     $this->request->getVar('penulis_1'),
-        //     $this->request->getVar('penulis_2'),           
-        //     $this->request->getVar('penulis_3'),
-        //     $this->request->getVar('penulis_4'),
-        //     $this->request->getVar('penulis_5'),
-        //     $this->request->getVar('penulis_6')
-        // );
-        // while($idx < count($dosenList) && $allDosenExist) {
-        //     $kodeDosen = $dosenList[$idx];
-
-        //     if($kodeDosen == "") {
-        //         $allDosenExist = (($this->dosenModel->getDosen($kodeDosen) === null)
-        //                             && $allDosenExist);
-        //     }
-        //     $idx++;
-        // }
-
-        // if(!$allDosenExist) {
-        //     // Redirect to `/admin/publikasi` with error message
-        // }
 
         if($this->publikasiModel->where('id', $id)->first() == null) {
             // TODO: Make the flash data red in UI
@@ -263,7 +213,7 @@ class Admin extends BaseController
     public function handle_penelitian_edit($id) {
         if($this->penelitianModel->where('id', $id)->first() == null) {
             // TODO: Make the flash data red in UI
-            session()->setFlashdata('pesan', 'Publikasi tidak ditemukan');
+            session()->setFlashdata('pesan', 'Penelitian tidak ditemukan');
             return redirect()->to('/admin');
         }
 
@@ -286,7 +236,7 @@ class Admin extends BaseController
             'mk_relevan' => $this->request->getVar('mk_relevan'),
             'tgl_pengesahan' => $this->request->getVar('tgl_pengesahan')
         ]);
-        session()->setFlashdata('pesan', 'Publikasi berhasil diperbarui');
+        session()->setFlashdata('pesan', 'Penelitian berhasil diperbarui');
         return redirect()->to('/admin');
         // dd($this->request->getVar());
     }
@@ -340,7 +290,83 @@ class Admin extends BaseController
         return redirect()->to('/admin');
     }
 
+    public function abdimas_edit($id) {
+        helper('form');
+        $abdimas = $this->abdimasModel->where('id', $id)->first();
+        if($abdimas == null) {
+            // TODO: Make the flash data red in UI
+            session()->setFlashdata('pesan', 'abdimas tidak ditemukan');
+            return redirect()->to('/admin');
+        }
+
+        $data = [
+            'oldAbdimas' => $abdimas,
+            'listDosen' => $this->dosenModel->getAllKodeDosen()
+            /* 'dosenIS' => [ 
+                    "ABW", "ACK", "ADF", "AHY",
+                    "BBD", "BDP",
+                    "COK",
+                    "DNH",
+                    "EAR", "EDF", "ENY",
+                    "FAR", "FSV",
+                    "GIA", "GKL",
+                    "HIW", "HII", "HUI",
+                    "IAU", "IZA",
+                    "JMT",
+                    "KNR",
+                    "LDS",
+                    "MDS", "MZI",
+                    "NDP",
+                    "OGO",
+                    "PEY",
+                    "RMB", "RRD", "RSM",
+                    "SLL", "SSD", "STZ", "SUO",
+                    "UIN", "UNW",
+                    "WKF",
+                    "ZHH",
+            ]*/
+        ];
+        session()->setFlashdata('pesan', 'abdimas berhasil diperbarui');
+        return view("admin/update-abdimas", $data);
+    }
+
+    public function handle_abdimas_edit($id) {
+        if($this->abdimasModel->where('id', $id)->first() == null) {
+            // TODO: Make the flash data red in UI
+            session()->setFlashdata('pesan', 'abdimas tidak ditemukan');
+            return redirect()->to('/admin');
+        }
+
+        $this->abdimasModel->update($id, [
+            'tahun' => $this->request->getVar('tahun'),
+            'jenis' => $this->request->getVar('jenus'),
+            'nama_kegiatan' => $this->request->getVar('nama_kegiatan'),
+            'judul' => $this->request->getVar('judul'),
+            'status' => $this->request->getVar('status'),
+            'lab_riset' => $this->request->getVar('lab_riset'),
+            'ketua' => $this->request->getVar('ketua'),
+            'anggota_1' => $this->request->getVar('anggota_1'),
+            'anggota_2' => $this->request->getVar('anggota_2'),
+            'anggota_3' => $this->request->getVar('anggota_3'),
+            'anggota_4' => $this->request->getVar('anggota_4'),
+            'anggota_5' => $this->request->getVar('anggota_5'),
+            'mitra' => $this->request->getVar('institusi_mitra'),
+            'alamat_mitra' => $this->request->getVar('alamat_mitra'),
+            'kesesuaian_roadmap' => $this->request->getVar('kesesuaian_roadmap'),
+            'permasalahan_masy' => $this->request->getVar('permasalahan_masyarakat'),
+            'solusi' => $this->request->getVar('solusi'),
+            'catatan' => $this->request->getVar('catatan'),
+            'luaran' => $this->request->getVar('luaran'),
+            'tgl_pengesahan' => $this->request->getVar('tgl_pengesahan')
+        ]);
+        session()->setFlashdata('pesan', 'Abdimas berhasil diperbarui');
+        return redirect()->to('/admin');
+        // dd($this->request->getVar());
+    }
+
+    // ******************************************************
     // ========== HAKI ========== 
+    // ******************************************************
 
     public function haki()
     {

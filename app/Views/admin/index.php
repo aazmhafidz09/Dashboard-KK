@@ -211,7 +211,7 @@
                                                             <a href="#" class="text-primary"><i class="uil uil-eye font-size-18"></i></a>
                                                         </li>
                                                         <li class="list-inline-item">
-                                                            <a href="javascript:void(0);" class="text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                                            <a href="/admin/abdimas/update/<?=$alp['id']?>" class="text-primary"><i class="uil uil-pen font-size-18"></i></a>
                                                         </li>
                                                         <li class="list-inline-item">
                                                             <a href="/abdimas/delete/<?=$alp['id']?>;" class="text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
