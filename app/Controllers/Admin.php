@@ -32,7 +32,6 @@ class Admin extends BaseController
             'dosen' => $this->dosenModel->getDosen(),
             'all_publikasi' => $this->publikasiModel->getAllPublikasi(),
             'all_penelitian' => $this->penelitianModel->getAllPenelitian(),
-            'all_publikasi' => $this->publikasiModel->getAllPublikasi(),
             'all_abdimas' => $this->abdimasModel->getAllAbdimas(),
             'all_haki' => $this->hakiModel->getAllHaki(),
         ];
@@ -87,7 +86,7 @@ class Admin extends BaseController
         // dd($this->request->getVar());
     }
     public function publikasi_delete($id){
-        $this->penelitianModel->delete($id);
+        $this->publikasiModel->delete($id);
         session()->setFlashdata('pesan', 'Data berhasil dihapus');
         return redirect()->to('/admin');
     }
@@ -301,7 +300,7 @@ class Admin extends BaseController
 
         $data = [
             'oldAbdimas' => $abdimas,
-            'listDosen' => $this->dosenModel->getAllKodeDosen()
+            'listDosen' => $this->dosenModel->getAllKodeDosen(),
             /* 'dosenIS' => [ 
                     "ABW", "ACK", "ADF", "AHY",
                     "BBD", "BDP",

@@ -64,13 +64,28 @@
                                                 <td>
                                                     <ul class="d-flex list-inline mb-0">
                                                         <li class="list-inline-item">
-                                                            <a href="#" class="text-primary"><i class="uil uil-eye font-size-18"></i></a>
+                                                            <button 
+                                                                class="p-0 border-0 bg-transparent text-primary"
+                                                                onclick="window.location = '<?=base_url('#')?>'"
+                                                            >
+                                                                <i class="uil uil-eye font-size-18"></i>
+                                                            </button>
                                                         </li>
                                                         <li class="list-inline-item">
-                                                            <a href="/admin/publikasi/update/<?=$alp['id']?>" class="text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                                            <button 
+                                                                class="p-0 border-0 bg-transparent text-primary"
+                                                                onclick="window.location = '<?=base_url('admin/publikasi/update/' . $alp['id'])?>'"
+                                                            >
+                                                                <i class="uil uil-pen font-size-18"></i>
+                                                            </button>
                                                         </li>
                                                         <li class="list-inline-item">
-                                                            <a href="/publikasi/delete/<?=$alp['id']?>" class="text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
+                                                            <button 
+                                                                class="p-0 border-0 bg-transparent text-danger"
+                                                                onclick="window.location = '<?=base_url('admin/publikasi/delete/' . $alp['id'])?>'"
+                                                            >
+                                                                <i class="uil uil-trash-alt font-size-18"></i>
+                                                            </button>
                                                         </li>
 
                                                     </ul>
@@ -139,15 +154,29 @@
                                                 <td>
                                                     <ul class="d-flex list-inline mb-0">
                                                         <li class="list-inline-item">
-                                                            <a href="#" class="text-primary"><i class="uil uil-eye font-size-18"></i></a>
+                                                            <button 
+                                                                class="p-0 border-0 bg-transparent text-primary"
+                                                                onclick="window.location = '<?=base_url('#')?>'"
+                                                            >
+                                                                <i class="uil uil-eye font-size-18"></i>
+                                                            </button>
                                                         </li>
                                                         <li class="list-inline-item">
-                                                            <a href="/admin/penelitian/update/<?=$alp['id']?>" class="text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                                            <button 
+                                                                class="p-0 border-0 bg-transparent text-primary"
+                                                                onclick="window.location = '<?=base_url('admin/penelitian/update/' . $alp['id'])?>'"
+                                                            >
+                                                                <i class="uil uil-pen font-size-18"></i>
+                                                            </button>
                                                         </li>
                                                         <li class="list-inline-item">
-                                                            <a href="/penelitian/delete/<?=$alp['id']?>" class="text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
+                                                            <button 
+                                                                class="p-0 border-0 bg-transparent text-danger"
+                                                                onclick="window.location = '<?=base_url('admin/penelitian/delete/' . $alp['id'])?>'"
+                                                            >
+                                                                <i class="uil uil-trash-alt font-size-18"></i>
+                                                            </button>
                                                         </li>
-
                                                     </ul>
                                                 </td>
                                             </tr>
@@ -208,15 +237,29 @@
                                                 <td>
                                                     <ul class="d-flex list-inline mb-0">
                                                         <li class="list-inline-item">
-                                                            <a href="#" class="text-primary"><i class="uil uil-eye font-size-18"></i></a>
+                                                            <button 
+                                                                class="p-0 border-0 bg-transparent text-primary"
+                                                                onclick="window.location = '<?=base_url('#')?>'"
+                                                            >
+                                                                <i class="uil uil-eye font-size-18"></i>
+                                                            </button>
                                                         </li>
                                                         <li class="list-inline-item">
-                                                            <a href="/admin/abdimas/update/<?=$alp['id']?>" class="text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                                            <button 
+                                                                class="p-0 border-0 bg-transparent text-primary"
+                                                                onclick="window.location = '<?=base_url('admin/abdimas/update/' . $alp['id'])?>'"
+                                                            >
+                                                                <i class="uil uil-pen font-size-18"></i>
+                                                            </button>
                                                         </li>
                                                         <li class="list-inline-item">
-                                                            <a href="/abdimas/delete/<?=$alp['id']?>;" class="text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
+                                                            <button 
+                                                                class="p-0 border-0 bg-transparent text-danger"
+                                                                onclick="window.location = '<?=base_url('admin/abdimas/delete/' . $alp['id'])?>'"
+                                                            >
+                                                                <i class="uil uil-trash-alt font-size-18"></i>
+                                                            </button>
                                                         </li>
-
                                                     </ul>
                                                 </td>
                                             </tr>
@@ -287,15 +330,29 @@
                                                 <td>
                                                     <ul class="d-flex list-inline mb-0">
                                                         <li class="list-inline-item">
-                                                            <a href="#" class="text-primary"><i class="uil uil-eye font-size-18"></i></a>
+                                                            <button 
+                                                                class="p-0 border-0 bg-transparent text-primary"
+                                                                onclick="window.location = '<?=base_url('#')?>'"
+                                                            >
+                                                                <i class="uil uil-eye font-size-18"></i>
+                                                            </button>
                                                         </li>
                                                         <li class="list-inline-item">
-                                                            <a href="/admin/haki/update/<?=$alp['id']?>" class="text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                                            <button 
+                                                                class="p-0 border-0 bg-transparent text-primary"
+                                                                onclick="window.location = '<?=base_url('admin/haki/update/' . $alp['id'])?>'"
+                                                            >
+                                                                <i class="uil uil-pen font-size-18"></i>
+                                                            </button>
                                                         </li>
                                                         <li class="list-inline-item">
-                                                            <a href="/haki/delete/<?=$alp['id']?>;" class="text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
+                                                            <button 
+                                                                class="p-0 border-0 bg-transparent text-danger"
+                                                                onclick="window.location = '<?=base_url('admin/haki/delete/' . $alp['id'])?>'"
+                                                            >
+                                                                <i class="uil uil-trash-alt font-size-18"></i>
+                                                            </button>
                                                         </li>
-
                                                     </ul>
                                                 </td>
                                             </tr>
