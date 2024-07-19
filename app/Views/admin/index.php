@@ -62,12 +62,12 @@
                                                 <td><?= $alp['jenis']; ?></td>
                                                 <td><?= $alp['nama_journal_conf']; ?></td>
                                                 <td>
-                                                    <ul class="list-inline mb-0">
+                                                    <ul class="d-flex list-inline mb-0">
                                                         <li class="list-inline-item">
-                                                            <a href="#" class="px-2 text-primary"><i class="uil uil-eye font-size-18"></i></a>
+                                                            <a href="#" class="text-primary"><i class="uil uil-eye font-size-18"></i></a>
                                                         </li>
                                                         <li class="list-inline-item">
-                                                            <a href="/admin/publikasi/update/<?=$alp['id']?>" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                                            <a href="/admin/publikasi/update/<?=$alp['id']?>" class="text-primary"><i class="uil uil-pen font-size-18"></i></a>
                                                         </li>
                                                         <li class="list-inline-item">
                                                             <a href="/publikasi/delete/<?=$alp['id']?>" class="text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
@@ -137,12 +137,12 @@
                                                 <td><?= $alp['judul_penelitian']; ?></td>
 
                                                 <td>
-                                                    <ul class="list-inline mb-0">
+                                                    <ul class="d-flex list-inline mb-0">
                                                         <li class="list-inline-item">
-                                                            <a href="#" class="px-2 text-primary"><i class="uil uil-eye font-size-18"></i></a>
+                                                            <a href="#" class="text-primary"><i class="uil uil-eye font-size-18"></i></a>
                                                         </li>
                                                         <li class="list-inline-item">
-                                                            <a href="/admin/penelitian/update/<?=$alp['id']?>" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                                            <a href="/admin/penelitian/update/<?=$alp['id']?>" class="text-primary"><i class="uil uil-pen font-size-18"></i></a>
                                                         </li>
                                                         <li class="list-inline-item">
                                                             <a href="/penelitian/delete/<?=$alp['id']?>" class="text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
@@ -206,12 +206,12 @@
                                                 <td><?= $alp['judul']; ?></td>
                                                 <!-- <td><?= $alp['status']; ?></td> -->
                                                 <td>
-                                                    <ul class="list-inline mb-0">
+                                                    <ul class="d-flex list-inline mb-0">
                                                         <li class="list-inline-item">
-                                                            <a href="#" class="px-2 text-primary"><i class="uil uil-eye font-size-18"></i></a>
+                                                            <a href="#" class="text-primary"><i class="uil uil-eye font-size-18"></i></a>
                                                         </li>
                                                         <li class="list-inline-item">
-                                                            <a href="javascript:void(0);" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                                            <a href="javascript:void(0);" class="text-primary"><i class="uil uil-pen font-size-18"></i></a>
                                                         </li>
                                                         <li class="list-inline-item">
                                                             <a href="/abdimas/delete/<?=$alp['id']?>;" class="text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
@@ -285,16 +285,15 @@
                                                 <td><?= $alp['no_pendaftaran']; ?></td>
                                                 <td><?= $alp['no_sertifikat']; ?></td>
                                                 <td>
-                                                    <ul class="list-inline mb-0">
+                                                    <ul class="d-flex list-inline mb-0">
                                                         <li class="list-inline-item">
-                                                            <a href="#" class="px-2 text-primary"><i class="uil uil-eye font-size-18"></i></a>
+                                                            <a href="#" class="text-primary"><i class="uil uil-eye font-size-18"></i></a>
                                                         </li>
                                                         <li class="list-inline-item">
-                                                            <a href="javascript:void(0);" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
-                                                            <a href="/admin/haki/update/<?=$alp['id']?>" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                                            <a href="/admin/haki/update/<?=$alp['id']?>" class="text-primary"><i class="uil uil-pen font-size-18"></i></a>
                                                         </li>
                                                         <li class="list-inline-item">
-                                                            <a href="/haki/delete/<?=$alp['id']?>;" class="px-2 text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
+                                                            <a href="/haki/delete/<?=$alp['id']?>;" class="text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
                                                         </li>
 
                                                     </ul>
