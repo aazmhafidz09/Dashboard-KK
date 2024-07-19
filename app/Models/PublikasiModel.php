@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class PublikasiModel extends Model
 {
     protected $table = 'publikasi';
-    protected $allowedFields = ['judul_publikasi', 'tahun', 'jenis', 'penulis_1', 'penulis_2', 'penulis_3', 'penulis_4', 'penulis_5', 'penulis_6', 'lab_riset', 'penulis_all', 'institusi_mitra', 'nama_journal_conf', 'akreditasi_journal_conf', 'link_artikel', 'luaran_riset_abdimas'];
+    protected $allowedFields = ['judul_publikasi', 'tahun', 'jenis', 'penulis_1', 'penulis_2', 'penulis_3', 'penulis_4', 'penulis_5', 'penulis_6', 'lab_riset', 'penulis_all', 'institusi_mitra', 'nama_journal_conf', 'akreditasi_journal_conf', 'link_artikel'];
     public function getPublikasi_all()
     {
         return $this->findAll();
@@ -49,8 +49,8 @@ class PublikasiModel extends Model
     {
         $query = $this->db->query("SELECT tahun AS tahun_sekarang, (SELECT COUNT(*) FROM publikasi 
         WHERE tahun = tahun_sekarang) AS jumlah_tahun_sekarang, (SELECT COUNT(*) FROM publikasi WHERE tahun = tahun_sekarang - 1) 
-        AS jumlah_tahun_sebelumnya, (SELECT COUNT(*) FROM publikasi WHERE tahun = tahun_sekarang) - (SELECT COUNT(*) 
-        FROM publikasi WHERE tahun = tahun_sekarang - 1) AS peningkatan_data FROM publikasi WHERE tahun = YEAR(NOW()) OR tahun = YEAR(NOW()) - 1");
+        AS jumlah_tahun_sebelumnya, (SELECT COUNT(*) FROM publikasi WHERE tahun = YEAR(NOW())) - (SELECT COUNT(*) 
+        FROM publikasi WHERE tahun = YEAR(NOW()) - 1) AS peningkatan_data FROM publikasi WHERE tahun = YEAR(NOW()) OR tahun = YEAR(NOW()) - 1");
         return $query->getRow()->peningkatan_data;
     }
 
@@ -281,5 +281,9 @@ class PublikasiModel extends Model
              SELECT penulis_6 AS kode_dosen FROM publikasi ) 
              publikasi ON dosen.kode_dosen = publikasi.kode_dosen GROUP BY dosen.kode_dosen, dosen.nama_dosen ");
         return $query->getResultArray();
+    }
+    public function get_table_fields()
+    {
+        return $this->db->getFieldNames('publikasi');
     }
 }

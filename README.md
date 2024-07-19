@@ -1,26 +1,11 @@
-
 # Dashboard Application for Research Group
 
 The Intelligence System Research Group dashboard website is an online-based website specifically designed to display statistical data related to Publications, Research, Abdimas and HaKi.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Screenshots
 
-
 ![App Screenshot](https://github.com/aazmhafidz09/Dashboard-KK/blob/main/iScreen%20Shoter%20-%20Safari%20-%20240126005454.jpg?raw=true)
+
 ## Features
 
 - Main Dashboard
@@ -33,7 +18,7 @@ The Intelligence System Research Group dashboard website is an online-based webs
 
 ## Setting Database Configuration
 
-Import ```db_kk_is.sql``` to your PhpMyAdmin Database 
+Import `db_kk_is.sql` to your PhpMyAdmin Database
 
 ```bash
   public array $default = [
@@ -57,10 +42,8 @@ Import ```db_kk_is.sql``` to your PhpMyAdmin Database
         'numberNative' => false,
     ];
 ```
-    
+
 ## Run Locally
-
-
 
 Clone the project
 
@@ -80,8 +63,6 @@ Start the server
   .~your_directory~/php spark serve
 ```
 
-
 ## Authors
 
 - [@Aazmhafidz09](https://github.com/aazmhafidz09)
-

@@ -66,4 +66,9 @@ class Abdimas extends BaseController
         // dd($dosen);
         return view('abdimas/index', $data);
     }
+    public function delete($id){
+        $this->abdimasModel->delete($id);
+
+        return redirect()->to('abdimas');
+    }
 }

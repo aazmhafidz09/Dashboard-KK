@@ -49,7 +49,7 @@ class HakiModel extends Model
         $query = $this->db->query("SELECT tahun AS tahun_sekarang, (SELECT COUNT(*) FROM haki 
         WHERE tahun = tahun_sekarang) AS jumlah_tahun_sekarang, (SELECT COUNT(*) FROM haki WHERE tahun = tahun_sekarang - 1) 
         AS jumlah_tahun_sebelumnya, (SELECT COUNT(*) FROM haki WHERE tahun = tahun_sekarang) - (SELECT COUNT(*) 
-        FROM haki WHERE tahun = tahun_sekarang - 1) AS peningkatan_data FROM haki WHERE tahun = 2023 OR tahun = 2023 - 1");
+        FROM haki WHERE tahun = tahun_sekarang - 1) AS peningkatan_data FROM haki WHERE tahun = YEAR(NOW()) OR tahun = YEAR(NOW()) - 1");
         return $query->getRow()->peningkatan_data;
     }
 
@@ -105,8 +105,8 @@ class HakiModel extends Model
         $query = $this->db->query("SELECT 
         (SELECT COUNT(*) FROM haki WHERE jenis = 'HAK CIPTA' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
         (SELECT COUNT(*) FROM haki WHERE jenis = 'HAK CIPTA' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
-        (SELECT COUNT(*) FROM haki WHERE jenis = 'HAK CIPTA' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM HAKI WHERE jenis = 'HAK CIPTA' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
-        FROM HAKI 
+        (SELECT COUNT(*) FROM haki WHERE jenis = 'HAK CIPTA' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM haki WHERE jenis = 'HAK CIPTA' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
+        FROM haki 
         LIMIT 1
         ");
         return $query->getRow()->peningkatan_data;
@@ -114,10 +114,10 @@ class HakiModel extends Model
     public function getPeningkatanHakiPaten()
     {
         $query = $this->db->query("SELECT 
-        (SELECT COUNT(*) FROM HAKI WHERE jenis = 'PATEN' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
-        (SELECT COUNT(*) FROM HAKI WHERE jenis = 'PATEN' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
-        (SELECT COUNT(*) FROM HAKI WHERE jenis = 'PATEN' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM HAKI WHERE jenis = 'PATEN' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
-        FROM HAKI 
+        (SELECT COUNT(*) FROM haki WHERE jenis = 'PATEN' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
+        (SELECT COUNT(*) FROM haki WHERE jenis = 'PATEN' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
+        (SELECT COUNT(*) FROM haki WHERE jenis = 'PATEN' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM haki WHERE jenis = 'PATEN' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
+        FROM haki 
         LIMIT 1
         ");
         return $query->getRow()->peningkatan_data;
@@ -125,10 +125,10 @@ class HakiModel extends Model
     public function getPeningkatanHakiMerek()
     {
         $query = $this->db->query("SELECT 
-        (SELECT COUNT(*) FROM HAKI WHERE jenis = 'MEREK' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
-        (SELECT COUNT(*) FROM HAKI WHERE jenis = 'MEREK' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
-        (SELECT COUNT(*) FROM HAKI WHERE jenis = 'MEREK' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM HAKI WHERE jenis = 'MEREK' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
-        FROM HAKI 
+        (SELECT COUNT(*) FROM haki WHERE jenis = 'MEREK' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
+        (SELECT COUNT(*) FROM haki WHERE jenis = 'MEREK' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
+        (SELECT COUNT(*) FROM haki WHERE jenis = 'MEREK' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM haki WHERE jenis = 'MEREK' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
+        FROM haki 
         LIMIT 1
         ");
         return $query->getRow()->peningkatan_data;
@@ -136,10 +136,10 @@ class HakiModel extends Model
     public function getPeningkatanHakiBuku()
     {
         $query = $this->db->query("SELECT 
-        (SELECT COUNT(*) FROM HAKI WHERE jenis = 'BUKU' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
-        (SELECT COUNT(*) FROM HAKI WHERE jenis = 'BUKU' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
-        (SELECT COUNT(*) FROM HAKI WHERE jenis = 'BUKU' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM HAKI WHERE jenis = 'BUKU' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
-        FROM HAKI 
+        (SELECT COUNT(*) FROM haki WHERE jenis = 'BUKU' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
+        (SELECT COUNT(*) FROM haki WHERE jenis = 'BUKU' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
+        (SELECT COUNT(*) FROM haki WHERE jenis = 'BUKU' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM haki WHERE jenis = 'BUKU' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
+        FROM haki 
         LIMIT 1
         ");
         return $query->getRow()->peningkatan_data;
@@ -238,4 +238,9 @@ class HakiModel extends Model
              haki ON dosen.kode_dosen = haki.kode_dosen GROUP BY dosen.kode_dosen, dosen.nama_dosen ORDER BY jumlah_haki DESC LIMIT 10");
         return $query->getResultArray();
     }
+    public function get_table_fields()
+    {
+        return $this->db->getFieldNames('haki');
+    }
+    
 }

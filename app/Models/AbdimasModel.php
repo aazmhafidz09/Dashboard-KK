@@ -49,8 +49,8 @@ class AbdimasModel extends Model
     {
         $query = $this->db->query("SELECT tahun AS tahun_sekarang, (SELECT COUNT(*) FROM abdimas 
         WHERE tahun = tahun_sekarang) AS jumlah_tahun_sekarang, (SELECT COUNT(*) FROM abdimas WHERE tahun = tahun_sekarang - 1) 
-        AS jumlah_tahun_sebelumnya, (SELECT COUNT(*) FROM abdimas WHERE tahun = tahun_sekarang) - (SELECT COUNT(*) 
-        FROM abdimas WHERE tahun = tahun_sekarang - 1) AS peningkatan_data FROM abdimas WHERE tahun = YEAR(NOW()) OR tahun = YEAR(NOW()) - 1");
+        AS jumlah_tahun_sebelumnya, (SELECT COUNT(*) FROM abdimas WHERE tahun = YEAR(NOW())) - (SELECT COUNT(*) 
+        FROM abdimas WHERE tahun = YEAR(NOW()) - 1) AS peningkatan_data FROM abdimas WHERE tahun = YEAR(NOW()) OR tahun = YEAR(NOW()) - 1");
         return $query->getRow()->peningkatan_data;
     }
 
@@ -226,5 +226,9 @@ class AbdimasModel extends Model
              SELECT anggota_5 AS kode_dosen FROM abdimas ) 
              abdimas ON dosen.kode_dosen = abdimas.kode_dosen GROUP BY dosen.kode_dosen, dosen.nama_dosen ");
         return $query->getResultArray();
+    }
+    public function get_table_fields()
+    {
+        return $this->db->getFieldNames('abdimas');
     }
 }

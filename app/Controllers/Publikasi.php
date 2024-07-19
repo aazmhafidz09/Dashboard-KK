@@ -79,6 +79,14 @@ class Publikasi extends BaseController
         return view('publikasi/index', $data);
     }
 
+    public function delete($id){
+        $this->PublikasiModel->delete($id);
+        return redirect()->to('/admin/manage-publikasi');
+    }
+    public function DetailPublikasi(){
+        $data=['all_publikasi' => $this->publikasiModel->getAllPublikasi()];
+        return redirect()->to('/temp/index');
+    }
 
 
     // public function detail($kode_dosen)
