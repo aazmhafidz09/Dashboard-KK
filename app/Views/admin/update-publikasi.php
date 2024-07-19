@@ -297,8 +297,8 @@
                                         <label class="col-md-2 col-form-label">Luaran riset/abdimas</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="luaran">
-                                                <option>Riset</option>
-                                                <option>Abdimas</option>
+                                                <option <?=esc($oldPublikasi["luaran"] == "Riset"? "selected": "") ?> >Riset</option>
+                                                <option <?=esc($oldPublikasi["luaran"] == "Abdimas"? "selected": "") ?> >Abdimas</option>
                                             </select>
                                         </div>
                                     </div>

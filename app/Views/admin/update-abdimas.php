@@ -78,9 +78,9 @@
                                         <label for="jenis" class="col-md-2 col-form-label">Jenis Abdimas</label>
                                         <div class="col-md-10">
                                             <select id="jenis" class="form-select" name="jenis">
-                                                <option>Internal</option>
-                                                <option>Eksternal</option>
-                                                <option>Internal dan Eksternal</option>
+                                                <option <?= esc($oldAbdimas["jenis"] == "INTERNAL"? "selected": "") ?> >Internal</option>
+                                                <option <?= esc($oldAbdimas["jenis"] == "EKSTERNAL"? "selected": "") ?> >Eksternal</option>
+                                                <option <?= esc($oldAbdimas["jenis"] == "INTERNAL & EKSTERNAL"? "selected": "") ?> >Internal dan Eksternal</option>
                                             </select>
                                         </div>
                                     </div>
@@ -89,8 +89,9 @@
                                         <label for="abdimas_status" class="col-md-2 col-form-label">Status</label> 
                                         <div class="col-md-10">
                                             <select id="abdimas_status" class="form-select" name="status">
-                                                <option>Didanai</option>
-                                                <option>Closed</option>
+                                                <option <?= esc($oldAbdimas["status"] == "Didanai"? "selected": "") ?> >Didanai</option>
+                                                <option <?= esc($oldAbdimas["status"] == "Tidak didanai"? "selected": "") ?> >Tidak didanai</option>
+                                                <option <?= esc($oldAbdimas["status"] == "Closed"? "selected": "") ?> >Closed</option>
                                             </select>
                                         </div>
                                     </div>

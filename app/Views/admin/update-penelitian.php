@@ -120,20 +120,6 @@
                                             </select>
                                         </div>
                                     </div>
-
-                                    <!-- <div class="row">
-                                    <label for="exampleDataList" class="col-md-2 col-form-label">Datalists</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-                                        <datalist id="datalistOptions">
-                                            <option value="San Francisco">
-                                            <option value="New York">
-                                            <option value="Seattle">
-                                            <option value="Los Angeles">
-                                            <option value="Chicago">
-                                        </datalist>
-                                    </div>
-                                </div> -->
                                 </div>
                             </div>
                         </div> <!-- end col -->
