@@ -8,8 +8,24 @@ class HakiModel extends Model
 {
     protected $table = 'haki';
     protected $allowedFields = [
-        'tahun', 'ketua', 'anggota_1', 'anggota_2', 'anggota_3', 'anggota_4', 'anggota_5', 'anggota_6', 'anggota_7', 'anggota_8', 'anggota_9',
-        'jenis', 'jenis_ciptaan', 'judul', 'jenis', 'abstrak', 'no_pendaftaran', 'no_sertifikat', 'catatan'
+        'abstrak', 
+        'anggota_1', 
+        'anggota_2', 
+        'anggota_3', 
+        'anggota_4', 
+        'anggota_5', 
+        'anggota_6', 
+        'anggota_7', 
+        'anggota_8', 
+        'anggota_9',
+        'catatan',
+        'jenis', 
+        'jenis_ciptaan', 
+        'judul', 
+        'ketua', 
+        'no_pendaftaran', 
+        'no_sertifikat',
+        'tahun'
     ];
 
     public function getHaki($kode_dosen = false)
