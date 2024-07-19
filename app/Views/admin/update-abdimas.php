@@ -56,7 +56,7 @@
                                                 type="text" 
                                                 placeholder="Judul" 
                                                 id="Judul_Abdimas" 
-                                                name="Judul_Abdimas"
+                                                name="judul"
                                                 value="<?=$oldAbdimas["judul"]?>"
                                             >
                                         </div>
@@ -69,7 +69,7 @@
                                                 type="number" 
                                                 placeholder="Tahun" 
                                                 id="Tahun" 
-                                                name="Tahun"
+                                                name="tahun"
                                                 value="<?=$oldAbdimas["tahun"]?>"
                                             >
                                         </div>

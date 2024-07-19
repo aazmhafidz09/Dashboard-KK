@@ -9,8 +9,26 @@ class AbdimasModel extends Model
     protected $table = 'abdimas';
 
     protected $allowedFields =  [
-        'tahun', 'jenis', 'nama_kegiatan', 'judul', 'status', 'lab_riset', 'ketua', 'anggota_1', 'anggota_2', 'anggota_3', 'anggota_4', 'anggota_5', 'alamat_mitra', 'kesesuaian_roadmap',
-        'permasalahan_masy', 'solusi', 'luaran', 'catatan', 'tgl_pengesahan'
+        'alamat_mitra', 
+        'anggota_1', 
+        'anggota_2', 
+        'anggota_3', 
+        'anggota_4', 
+        'anggota_5', 
+        'catatan', 
+        'jenis', 
+        'judul', 
+        'kesesuaian_roadmap',
+        'ketua', 
+        'lab_riset', 
+        'luaran', 
+        'mitra', 
+        'nama_kegiatan', 
+        'permasalahan_masy', 
+        'solusi', 
+        'status', 
+        'tahun', 
+        'tgl_pengesahan'
     ];
 
     public function getAbdimas($kode_dosen = false)

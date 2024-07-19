@@ -293,24 +293,15 @@
                                             >
                                         </div>
                                     </div>
-                                    <div class="mb-3 row">
+                                    <!-- <div class="mb-3 row">
                                         <label class="col-md-2 col-form-label">Luaran riset/abdimas</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="luaran">
-                                                <option <?=esc($oldPublikasi["luaran"] == "Riset"? "selected": "") ?> >Riset</option>
-                                                <option <?=esc($oldPublikasi["luaran"] == "Abdimas"? "selected": "") ?> >Abdimas</option>
+                                                <option <=esc($oldPublikasi["luaran"] == "Riset"? "selected": "") ?> >Riset</option>
+                                                <option <=esc($oldPublikasi["luaran"] == "Riset"? "selected": "") ?> >Abdimas</option>
                                             </select>
                                         </div>
-                                    </div>
-
-                                    <div class="mt-4">
-                                        <!-- <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Inline forms layout</h5> -->
-
-
-                                    </div>
-
-
-
+                                    </div> -->
                                 </div>
 
                             </div>

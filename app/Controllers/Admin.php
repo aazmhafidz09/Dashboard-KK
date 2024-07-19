@@ -79,7 +79,7 @@ class Admin extends BaseController
             'nama_journal_conf' => $this->request->getVar('jurnal_konferensi'),
             'akreditasi_journal_conf' => $this->request->getVar('akreditasi'),
             'link_artikel' => $this->request->getVar('link'),
-            'luaran_riset_abdimas' => $this->request->getVar('luaran')
+            // 'luaran_riset_abdimas' => $this->request->getVar('luaran')
         ]);
         session()->setFlashdata('pesan', 'Publikasi berhasil ditambahkan');
         return redirect()->to('/admin');
@@ -138,7 +138,7 @@ class Admin extends BaseController
             'nama_journal_conf' => $this->request->getVar('jurnal_konferensi'),
             'akreditasi_journal_conf' => $this->request->getVar('akreditasi'),
             'link_artikel' => $this->request->getVar('link'),
-            //'luaran_riset_abdimas' => $this->request->getVar('luaran')
+            'luaran_riset_abdimas' => $this->request->getVar('luaran')
         ]);
         session()->setFlashdata('pesan', 'Publikasi berhasil diperbarui');
         return redirect()->to('/admin');
@@ -231,7 +231,7 @@ class Admin extends BaseController
             'lab_riset' => $this->request->getVar('lab_riset'),
             'kesesuaian_roadmap' => $this->request->getVar('roadmap'),
             'catatan_rekomendasi' => $this->request->getVar('rekomendasi'),
-            'luaran' => $this->request->getVar('riset'),
+            'luaran' => $this->request->getVar('luaran'),
             'mk_relevan' => $this->request->getVar('mk_relevan'),
             'tgl_pengesahan' => $this->request->getVar('tgl_pengesahan')
         ]);

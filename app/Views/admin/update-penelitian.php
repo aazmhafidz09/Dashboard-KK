@@ -256,17 +256,15 @@
                                                 type="text" 
                                                 id="Judul-Publikasi" 
                                                 name="rekomendasi"
-                                                value="<?= esc($oldPenelitian["catatan_rekomendasi"]) ?>"
-                                            >
-                                            </textarea>
+                                            ><?= esc($oldPenelitian["catatan_rekomendasi"])?></textarea>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-md-2 col-form-label">Luaran riset/abdimas</label>
                                         <div class="col-md-10"> <!-- Which column represent this? -->
-                                            <select class="form-select" name="riset">
-                                                <option>Riset</option>
-                                                <option>Abdimas</option>
+                                            <select class="form-select" name="luaran">
+                                                <option <?= esc($oldPenelitian["luaran"] == "Riset"? "selected": "") ?> >Riset</option>
+                                                <option <?= esc($oldPenelitian["luaran"] == "Abdimas"? "selected": "") ?> >Abdimas</option>
                                             </select>
                                         </div>
                                     </div>
