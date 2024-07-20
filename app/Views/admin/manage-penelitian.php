@@ -41,19 +41,38 @@
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Judul Penelitian</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="Judul Penelitian" id="Judul-Publikasi" name="judul">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="Judul Penelitian" 
+                                                id="Judul-Publikasi" 
+                                                name="judul"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Nama Kegiatan</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="Judul Penelitian" id="Judul-Publikasi" name="nama_kegiatan">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="Judul Penelitian" 
+                                                id="Judul-Publikasi" 
+                                                name="nama_kegiatan"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-number-input" class="col-md-2 col-form-label">Tahun</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="number" placeholder="Tahun" id="example-number-input" name="tahun">
+                                            <input 
+                                                class="form-control" 
+                                                type="number" 
+                                                placeholder="<?= date("Y") ?>" 
+                                                min="1"
+                                                id="example-number-input" 
+                                                name="tahun"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -111,31 +130,61 @@
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Ketua Peneliti</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="Ketua Peneliti" id="Judul-Publikasi" name="ketua">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="Ketua Peneliti" 
+                                                id="Judul-Publikasi" 
+                                                name="ketua"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti 1</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="Anggota Peneliti 1" id="Judul-Publikasi" name="anggota_1">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="Anggota Peneliti 1" 
+                                                id="Judul-Publikasi" 
+                                                name="anggota_1"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti 2</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="Anggota Peneliti 2" id="Judul-Publikasi" name="anggota_2">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="Anggota Peneliti 2" 
+                                                id="Judul-Publikasi" 
+                                                name="anggota_2"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti 3</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="Anggota Peneliti 3" id="Judul-Publikasi" name="anggota_3">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="Anggota Peneliti 3" 
+                                                id="Judul-Publikasi" 
+                                                name="anggota_3"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti 4</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="Anggota Peneliti 4" id="Judul-Publikasi" name="anggota_4">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="Anggota Peneliti 4" 
+                                                id="Judul-Publikasi" 
+                                                name="anggota_4"
+                                            >
                                         </div>
                                     </div>
 
@@ -156,19 +205,34 @@
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Institusi Mitra</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" id="Judul-Publikasi" name="mitra">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                id="Judul-Publikasi" 
+                                                name="mitra"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">laboratorium Riset</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" id="Judul-Publikasi" name="lab_riset">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                id="Judul-Publikasi" 
+                                                name="lab_riset"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">kesesuaian roadmap</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" id="Judul-Publikasi" name="roadmap">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                id="Judul-Publikasi" 
+                                                name="roadmap"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -180,7 +244,7 @@
                                     <div class="mb-3 row">
                                         <label class="col-md-2 col-form-label">Luaran riset/abdimas</label>
                                         <div class="col-md-10">
-                                            <select class="form-select" name="riset">
+                                            <select class="form-select" name="luaran">
                                                 <option>Riset</option>
                                                 <option>Abdimas</option>
                                             </select>
@@ -189,13 +253,23 @@
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">mata kuliah relevan</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" id="Judul-Publikasi" name="mk_relevan">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                id="Judul-Publikasi" 
+                                                name="mk_relevan"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-date-input" class="col-md-2 col-form-label">Tanggal Pengesahan</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="date" id="example-date-input" name="tgl_pengesahan">
+                                            <input 
+                                                class="form-control" 
+                                                type="date" 
+                                                id="example-date-input" 
+                                                name="tgl_pengesahan"
+                                            >
                                         </div>
                                     </div>
 

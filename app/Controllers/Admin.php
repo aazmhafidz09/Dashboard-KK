@@ -70,7 +70,7 @@ class Admin extends BaseController
             'judul_publikasi' => $this->request->getVar('judul_publikasi'),
             'lab_riset' => $this->request->getVar('penulis_all'),
             'link_artikel' => $this->request->getVar('link'),
-            'luaran_riset_abdimas' => $this->request->getVar('luaran'),
+            // 'luaran_riset_abdimas' => $this->request->getVar('luaran'),
             'nama_journal_conf' => $this->request->getVar('jurnal_konferensi'),
             'penulis_1' => $this->request->getVar('penulis_1'),
             'penulis_2' => $this->request->getVar('penulis_2'),
@@ -129,7 +129,7 @@ class Admin extends BaseController
             'judul_publikasi' => $this->request->getVar('judul_publikasi'),
             'lab_riset' => $this->request->getVar('penulis_all'),
             'link_artikel' => $this->request->getVar('link'),
-            'luaran_riset_abdimas' => $this->request->getVar('luaran'),
+            // 'luaran_riset_abdimas' => $this->request->getVar('luaran'),
             'nama_journal_conf' => $this->request->getVar('jurnal_konferensi'),
             'penulis_1' => $this->request->getVar('penulis_1'),
             'penulis_2' => $this->request->getVar('penulis_2'),
@@ -158,9 +158,12 @@ class Admin extends BaseController
     {
         if (!$this->validate([
             'jenis' => 'required',
-            'judul_penelitian' => 'required',
+            'judul' => 'required',
             'tahun' => 'required',
         ])) {
+            $validation = \config\Services::validation();
+            dd($validation);
+
             return redirect()->to('/admin/penelitian');
         }
 
@@ -175,7 +178,7 @@ class Admin extends BaseController
             'kesesuaian_roadmap' => $this->request->getVar('roadmap'),
             'ketua_peneliti' => $this->request->getVar('ketua'),
             'lab_riset' => $this->request->getVar('lab_riset'),
-            'luaran' => $this->request->getVar('riset'),
+            'luaran' => $this->request->getVar('luaran'),
             'mitra' => $this->request->getVar('mitra'),
             'mk_relevan' => $this->request->getVar('mk_relevan'),
             'nama_kegiatan' => $this->request->getVar('nama_kegiatan'),
@@ -240,11 +243,14 @@ class Admin extends BaseController
         // dd($this->request->getVar());
     }
 
+    // ****************************************************************************************************
     // ========== ABDIMAS ========== 
+    // ****************************************************************************************************
 
     public function abdimas()
     {
-        return view('admin/manage-abdimas');
+        $data = ["listDosen" => $this->dosenModel->getAllKodeDosen()];
+        return view('admin/manage-abdimas', $data);
     }
     public function abdimas_save()
     {
@@ -394,8 +400,8 @@ class Admin extends BaseController
             'anggota_9' => $this->request->getVar('anggota_9'),
             'catatan' => $this->request->getVar('catatan'),
             'jenis' => $this->request->getVar('jenis'),
-            'jenis_ciptaan' => $this->request->getVar('ciptaan'),
-            'judul' => $this->request->getVar('roadmp'),
+            'jenis_ciptaan' => $this->request->getVar('jenis_ciptaan'),
+            'judul' => $this->request->getVar('judul'),
             'ketua' => $this->request->getVar('ketua'),
             'no_pendaftaran' => $this->request->getVar('no_pendaftaran'),
             'no_sertifikat' => $this->request->getVar('no_sertifikat'),

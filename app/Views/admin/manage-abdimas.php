@@ -51,13 +51,26 @@
                                     <div class="mb-3 row">
                                         <label for="Judul-Abdimas" class="col-md-2 col-form-label">Judul Abdimas</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="Judul" id="Judul_Abdimas" name="Judul_Abdimas">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="Judul" 
+                                                id="Judul_Abdimas" 
+                                                name="judul"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="Tahun" class="col-md-2 col-form-label">Tahun</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="number" placeholder="Tahun" id="Tahun" name="Tahun">
+                                            <input 
+                                                class="form-control" 
+                                                type="number" 
+                                                placeholder="<?= date("Y") ?>" 
+                                                min="1"
+                                                id="Tahun" 
+                                                name="tahun"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -72,8 +85,8 @@
                                     </div>
                                     <div class="mb-2 row">
                                         <label for="status" class="col-md-2 col-form-label">status</label>
-                                        <div class="col-mb-1-md-40 row">
-                                            <select id="status" class="form-select" name="status">
+                                        <div class="col-md-10">
+                                            <select id="abdimas_status" class="form-select" name="status">
                                                 <option>Didanai</option>
                                                 <option>Closed</option>
                                             </select>
@@ -90,6 +103,43 @@
                             <div class="card">
                                 <div class="card-body">
                                     <!-- <h4 class="card-title">Data Penulis</h4> -->
+                                    <p class="card-title-desc">Masukan data <code>abdimas</code> ke dalam <code>form</code> berikut.</p>
+                                    <div class="mb-3 row">
+                                        <label for="Ketua" class="col-md-2 col-form-label">Ketua</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control" list="datalistOptions" id="Ketua" placeholder="kode dosen" name="ketua">
+                                                <option value=""> Kode dosen </option>
+                                                <?php foreach ($listDosen as $dosen): ?>
+                                                    <option value="<?=$dosen?>" > 
+                                                        <?=$dosen?> 
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <?php foreach(range(1, 5) as $anggotaField): ?>
+                                        <div class="mb-3 row">
+                                            <label 
+                                                for="Anggota_<?=$anggotaField?>" 
+                                                class="col-md-2 col-form-label"
+                                            >
+                                                Anggota <?=$anggotaField?>
+                                            </label>
+
+                                            <div class="col-md-10">
+                                                <select class="form-control" id="Anggota_<?=$anggotaField?>" name="anggota_<?=$anggotaField?>">
+                                                <option value=""> Kode dosen </option>
+                                                    <?php foreach ($listDosen as $dosen): ?>
+                                                        <option value="<?=$dosen?>" > 
+                                                            <?=$dosen?> 
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+
+                                    <!-- <h4 class="card-title">Data Penulis</h4>
                                     <p class="card-title-desc">Masukan data <code>abdimas</code> ke dalam <code>form</code> berikut.</p>
                                     <div class="mb-3 row">
                                         <label for="Ketua" class="col-md-2 col-form-label">Ketua</label>
@@ -373,7 +423,7 @@
                                                 <option value="ZHH">
                                             </datalist>
                                         </div>
-                                    </div>
+                                    </div> -->
 
 
                                 </div>
@@ -390,19 +440,37 @@
                                     <div class="mb-3 row">
                                         <label for="Institusi_mitra" class="col-md-2 col-form-label">Institusi Mitra</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="institusi mitra" id="Institusi_mitra" name="Institusi_mitra">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="institusi mitra" 
+                                                id="Institusi_mitra" 
+                                                name="institusi_mitra"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="Alamat_mitra" class="col-md-2 col-form-label">Alamat Mitra</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="alamat mitra" id="Alamat_mitra" name="alamat_mitra">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="alamat mitra" 
+                                                id="Alamat_mitra" 
+                                                name="alamat_mitra"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="kesesuaian_roadmap" class="col-md-2 col-form-label">Kesesuaian Roadmap</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="Kesesuaian Roadmap" id="kesesuaian_roadmap" name="kesesuaian_roadmap">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="Kesesuaian Roadmap" 
+                                                id="kesesuaian_roadmap" 
+                                                name="kesesuaian_roadmap"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -415,7 +483,13 @@
                                     <div class="mb-3 row">
                                         <label for="solusi" class="col-md-2 col-form-label">Solusi</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="Solusi" id="solusi" name="solusi">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="Solusi" 
+                                                id="solusi" 
+                                                name="solusi"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -428,13 +502,25 @@
                                     <div class="mb-3 row">
                                         <label for="luaran" class="col-md-2 col-form-label">Luaran</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="Luaran" id="luaran" name="luaran">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder= "Luaran" 
+                                                id="luaran" 
+                                                name="luaran"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="tanggal_pengesahan" class="col-md-2 col-form-label">Tanggal Pengesahan</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="date" placeholder="tanggal pengesahan" id="tanggal_pengesahan" name="tgl_pengesahan">
+                                            <input 
+                                                class="form-control" 
+                                                type="date" 
+                                                placeholder="tanggal pengesahan" 
+                                                id="tanggal_pengesahan" 
+                                                name="tgl_pengesahan"
+                                            >
                                         </div>
                                     </div>
                                 </div>

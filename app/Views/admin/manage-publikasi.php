@@ -43,13 +43,25 @@
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Judul Publikasi</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" id="Judul-Publikasi" name="judul_publikasi">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                id="Judul-Publikasi" 
+                                                name="judul_publikasi"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-number-input" class="col-md-2 col-form-label">Tahun</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="number" id="example-number-input" name="tahun">
+                                            <input 
+                                                class="form-control" 
+                                                type="number" 
+                                                id="example-number-input" 
+                                                name="tahun"
+                                                placeholder="<?= date("Y") ?>" 
+                                                min="1"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -78,43 +90,85 @@
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Penulis 1</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="kode dosen" id="Judul-Publikasi" name="penulis_1">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="kode dosen" 
+                                                id="Judul-Publikasi" 
+                                                name="penulis_1"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Penulis 2</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="masukan jika terdapat penulis 2" id="Judul-Publikasi" name="penulis_2">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="masukan jika terdapat penulis 2" 
+                                                id="Judul-Publikasi" 
+                                                name="penulis_2"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Penulis 3</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="masukan jika terdapat penulis 3" id="Judul-Publikasi" name="penulis_3">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="masukan jika terdapat penulis 3" 
+                                                id="Judul-Publikasi" 
+                                                name="penulis_3"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Penulis 4</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="masukan jika terdapat penulis 4" id="Judul-Publikasi" name="penulis_4">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="masukan jika terdapat penulis 4" 
+                                                id="Judul-Publikasi" 
+                                                name="penulis_4"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Penulis 5</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="masukan jika terdapat penulis 5" id="Judul-Publikasi" name="penulis_5">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="masukan jika terdapat penulis 5" 
+                                                id="Judul-Publikasi" 
+                                                name="penulis_5"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Penulis 6</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="masukan jika terdapat penulis 6" id="Judul-Publikasi" name="penulis_6">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="masukan jika terdapat penulis 6" 
+                                                id="Judul-Publikasi" 
+                                                name="penulis_6"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Semua Penulis</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="masukan semua penulis" id="Judul-Publikasi" name="semua_penulis">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="masukan semua penulis" 
+                                                id="Judul-Publikasi" 
+                                                name="semua_penulis"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -132,13 +186,25 @@
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Institusi Mitra</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="institusi mitra" id="Judul-Publikasi" name="mitra">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="institusi mitra" 
+                                                id="Judul-Publikasi" 
+                                                name="mitra"
+                                            >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Nama Jurnal/konferensi </label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" placeholder="jurnal/konferensi" id="Judul-Publikasi" name="jurnal_konferensi">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="jurnal/konferensi" 
+                                                id="Judul-Publikasi" 
+                                                name="jurnal_konferensi"
+                                            >
                                         </div>
                                     </div>
 
@@ -164,10 +230,16 @@
                                     <div class="mb-3 row">
                                         <label for="example-url-input" class="col-md-2 col-form-label">URL Artikel</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" type="url" placeholder="Link Artikel" id="example-url-input" name="link">
+                                            <input 
+                                                class="form-control" 
+                                                type="url" 
+                                                placeholder="Link Artikel" 
+                                                id="example-url-input" 
+                                                name="link"
+                                            >
                                         </div>
                                     </div>
-                                    <div class="mb-3 row">
+                                    <!-- <div class="mb-3 row">
                                         <label class="col-md-2 col-form-label">Luaran riset/abdimas</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="luaran">
@@ -175,7 +247,7 @@
                                                 <option>Abdimas</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="mt-4">
                                         <!-- <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Inline forms layout</h5> -->
