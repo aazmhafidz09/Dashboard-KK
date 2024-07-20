@@ -67,7 +67,8 @@
                                             <input 
                                                 class="form-control" 
                                                 type="number" 
-                                                placeholder="Tahun" 
+                                                placeholder="<?= date("Y") ?>" 
+                                                min="1"
                                                 id="Tahun" 
                                                 name="tahun"
                                                 value="<?=$oldAbdimas["tahun"]?>"

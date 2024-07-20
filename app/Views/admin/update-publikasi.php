@@ -68,6 +68,8 @@
                                                 type="number" 
                                                 id="example-number-input" 
                                                 name="tahun"
+                                                placeholder="<?= date("Y") ?>" 
+                                                min="1"
                                                 value="<?= esc($oldPublikasi["tahun"]) ?>"
                                             >
                                         </div>

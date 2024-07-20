@@ -57,7 +57,8 @@
                                             <input 
                                                 class="form-control" 
                                                 type="number" 
-                                                placeholder="2024" 
+                                                placeholder="<?= date("Y") ?>" 
+                                                min="1"
                                                 id="example-number-input" 
                                                 name="tahun"
                                                 value="<?= $oldHaki["tahun"] ?>"
