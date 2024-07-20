@@ -69,10 +69,10 @@
                                         <label class="col-md-2 col-form-label">Jenis Haki</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
-                                                <option <?= esc($oldHaki["jenis"] == "PATEN"? "PATEN": "") ?> >PATEN</option>
-                                                <option <?= esc($oldHaki["jenis"] == "HAK CIPTA"? "HAK CIPTA": "") ?> >HAK CIPTA</option>
-                                                <option <?= esc($oldHaki["jenis"] == "MEREK"? "MEREK": "") ?> >MEREK</option>
-                                                <option <?= esc($oldHaki["jenis"] == "KARYA/BUKU"? "KARYA/BUKU": "") ?> >KARYA/BUKU</option>
+                                                <option <?= esc($oldHaki["jenis"] == "PATEN"? "selected": "") ?> >PATEN</option>
+                                                <option <?= esc($oldHaki["jenis"] == "HAK CIPTA"? "selected": "") ?> >HAK CIPTA</option>
+                                                <option <?= esc($oldHaki["jenis"] == "MEREK"? "selected": "") ?> >MEREK</option>
+                                                <option <?= esc($oldHaki["jenis"] == "KARYA/BUKU"? "selected": "") ?> >KARYA/BUKU</option>
                                             </select>
                                         </div>
                                     </div>
