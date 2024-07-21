@@ -78,18 +78,11 @@
                                         <label class="col-md-2 col-form-label">Jenis Publikasi</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
-                                                <option <?= esc($oldPublikasi["jenis"] == "Jurnal Internasional"? "selected": "")?> >
-                                                    Jurnal Internasional
-                                                </option>
-                                                <option <?= esc($oldPublikasi["jenis"] == "Jurnal Nasional"? "selected": "")?> >
-                                                    Jurnal Nasional
-                                                </option>
-                                                <option <?= esc($oldPublikasi["jenis"] == "Prosiding Internasional"? "selected": "")?> >
-                                                    Prosiding Internasional
-                                                </option>
-                                                <option <?= esc($oldPublikasi["jenis"] == "Prosiding Nasional"? "selected": "")?> >
-                                                    Prosiding Nasional
-                                                </option>
+                                                <?php foreach($jenisPublikasi as $jenis): ?>
+                                                    <option <?= esc(strtolower($jenis) == strtolower($oldPublikasi["jenis"])? "selected": "")?> >
+                                                        <?= $jenis ?>
+                                                    </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -105,84 +98,21 @@
                                 <div class="card-body">
                                     <!-- <h4 class="card-title">Data Penulis</h4> -->
                                     <p class="card-title-desc">Masukan data <code>penulis</code> ke dalam <code>form</code> berikut.</p>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Penulis 1</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="kode dosen" 
-                                                id="Judul-Publikasi" 
-                                                name="penulis_1"
-                                                value="<?= esc($oldPublikasi["penulis_1"]) ?>"
-                                            >
+                                    <?php foreach(range(1, 6) as $nPenulis): ?>
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Penulis <?=$nPenulis?></label>
+                                            <div class="col-md-10">
+                                                <input 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    placeholder="kode dosen" 
+                                                    id="Judul-Publikasi" 
+                                                    name="penulis_<?= $nPenulis?>"
+                                                    value="<?= esc($oldPublikasi["penulis_" . $nPenulis]) ?>"
+                                                >
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Penulis 2</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="masukan jika terdapat penulis 2" 
-                                                id="Judul-Publikasi" 
-                                                name="penulis_2"
-                                                value="<?= esc($oldPublikasi["penulis_2"]) ?>"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Penulis 3</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="masukan jika terdapat penulis 3" 
-                                                id="Judul-Publikasi" 
-                                                name="penulis_3"
-                                                value="<?= esc($oldPublikasi["penulis_3"]) ?>"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Penulis 4</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="masukan jika terdapat penulis 4" 
-                                                id="Judul-Publikasi" 
-                                                name="penulis_4"
-                                                value="<?= esc($oldPublikasi["penulis_4"]) ?>"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Penulis 5</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="masukan jika terdapat penulis 5" 
-                                                id="Judul-Publikasi" 
-                                                name="penulis_5"
-                                                value="<?= esc($oldPublikasi["penulis_5"]) ?>"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Penulis 6</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="masukan jika terdapat penulis 6" 
-                                                id="Judul-Publikasi" 
-                                                name="penulis_6"
-                                                value="<?= esc($oldPublikasi["penulis_6"]) ?>"
-                                            >
-                                        </div>
-                                    </div>
+                                    <?php endforeach; ?>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Semua Penulis</label>
                                         <div class="col-md-10">
@@ -243,42 +173,12 @@
                                                 name="akreditasi"
                                             >
                                                 <!-- // Handle old selected thing! -->
-                                                <option <?= esc($oldPublikasi["akreditasi_journal_conf"]) == "Q1"? "selected": "" ?> > 
-                                                    Q1 
-                                                </option>
-                                                <option <?= esc($oldPublikasi["akreditasi_journal_conf"]) == "Q2"? "selected": "" ?> > 
-                                                    Q2
-                                                </option>
-                                                <option <?= esc($oldPublikasi["akreditasi_journal_conf"]) == "Q3"? "selected": "" ?> >
-                                                    Q3
-                                                </option>
-                                                <option <?= esc($oldPublikasi["akreditasi_journal_conf"]) == "Q4"? "selected": "" ?> > 
-                                                    Q4
-                                                </option>
-                                                <option <?= esc($oldPublikasi["akreditasi_journal_conf"]) == "S1"? "selected": "" ?> >
-                                                    S1
-                                                </option>
-                                                <option <?= esc($oldPublikasi["akreditasi_journal_conf"]) == "S2"? "selected": "" ?> >
-                                                    S2
-                                                </option>
-                                                <option <?= esc($oldPublikasi["akreditasi_journal_conf"]) == "S3"? "selected": "" ?> >
-                                                    S3
-                                                </option>
-                                                <option <?= esc($oldPublikasi["akreditasi_journal_conf"]) == "S4"? "selected": "" ?> >
-                                                    S4
-                                                </option>
-                                                <option <?= esc($oldPublikasi["akreditasi_journal_conf"]) == "S5"? "selected": "" ?> >
-                                                    S5
-                                                </option>
-                                                <option <?= esc($oldPublikasi["akreditasi_journal_conf"]) == "S6"? "selected": "" ?> >
-                                                    S6
-                                                </option>
-                                                <option <?= esc($oldPublikasi["akreditasi_journal_conf"]) == "Scopus"? "selected": "" ?> >
-                                                    Scopus
-                                                </option>
-                                                <option <?= esc($oldPublikasi["akreditasi_journal_conf"]) == "not accredited yet"? "selected": "" ?> >
-                                                    not accredited yet
-                                                </option>
+                                                <option> not accredited yet </option>
+                                                <?php foreach($akreditasiPublikasi as $akreditasi): ?>
+                                                    <option <?= esc(strtolower($akreditasi) == strtolower($oldPublikasi["akreditasi_journal_conf"])? "selected": "") ?> > 
+                                                        <?= $akreditasi ?>
+                                                    </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>

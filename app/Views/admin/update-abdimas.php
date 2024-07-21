@@ -79,9 +79,11 @@
                                         <label for="jenis" class="col-md-2 col-form-label">Jenis Abdimas</label>
                                         <div class="col-md-10">
                                             <select id="jenis" class="form-select" name="jenis">
-                                                <option <?= esc($oldAbdimas["jenis"] == "INTERNAL"? "selected": "") ?> >Internal</option>
-                                                <option <?= esc($oldAbdimas["jenis"] == "EKSTERNAL"? "selected": "") ?> >Eksternal</option>
-                                                <option <?= esc($oldAbdimas["jenis"] == "INTERNAL & EKSTERNAL"? "selected": "") ?> >Internal dan Eksternal</option>
+                                                <?php foreach($jenisAbdimas as $jenis): ?>
+                                                    <option <?= esc(strtolower($jenis) == strtolower($oldAbdimas["jenis"])? "selected": "") ?> >
+                                                        <?= $jenis?>
+                                                    </option>
+                                                <?php endforeach ?>
                                             </select>
                                         </div>
                                     </div>
@@ -90,9 +92,11 @@
                                         <label for="abdimas_status" class="col-md-2 col-form-label">Status</label> 
                                         <div class="col-md-10">
                                             <select id="abdimas_status" class="form-select" name="status">
-                                                <option <?= esc($oldAbdimas["status"] == "Didanai"? "selected": "") ?> >Didanai</option>
-                                                <option <?= esc($oldAbdimas["status"] == "Tidak didanai"? "selected": "") ?> >Tidak didanai</option>
-                                                <option <?= esc($oldAbdimas["status"] == "Closed"? "selected": "") ?> >Closed</option>
+                                                <?php foreach($statusAbdimas as $status): ?>
+                                                    <option <?= esc(strtolower($status) == strtolower($oldAbdimas["status"])? "selected": "") ?> >
+                                                        <?= $status?>
+                                                    </option>
+                                                <?php endforeach ?>
                                             </select>
                                         </div>
                                     </div>

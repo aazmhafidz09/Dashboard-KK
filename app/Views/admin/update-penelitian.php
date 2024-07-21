@@ -83,24 +83,11 @@
                                         <label class="col-md-2 col-form-label">Jenis Penelitian</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
-                                                <option <?= esc($oldPenelitian["jenis"] == "Internal"? "selected": "") ?> >
-                                                    Internal
-                                                </option>
-                                                <option <?= esc($oldPenelitian["jenis"] == "Eksternal"? "selected": "") ?> >
-                                                    Eksternal
-                                                </option>
-                                                <option <?= esc($oldPenelitian["jenis"] == "Mandiri"? "selected": "") ?> >
-                                                    Mandiri
-                                                </option>
-                                                <option <?= esc($oldPenelitian["jenis"] == "Kerjasama Perguruan Tinggi"? "selected": "") ?> >
-                                                    Kerjasama Perguruan Tinggi
-                                                </option>
-                                                <option <?= esc($oldPenelitian["jenis"] == "Kemitraan"? "selected": "") ?> >
-                                                    Kemitraan
-                                                </option>
-                                                <option <?= esc($oldPenelitian["jenis"] == "Hilirisasi"? "selected": "") ?> >
-                                                    Hilirisasi
-                                                </option>
+                                                <?php foreach($jenisPenelitian as $jenis): ?>
+                                                    <option <?= esc(strtolower($jenis) == strtolower($oldPenelitian["jenis"])? "selected": "") ?> >
+                                                        <?= $jenis ?>
+                                                    </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -108,16 +95,11 @@
                                         <label class="col-md-2 col-form-label">Status</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="status">
-                                                <option <?= esc($oldPenelitian["status"] == "Didanai"? "selected": "")?>>
-                                                    Didanai
-                                                </option>
-                                                <option <?= esc($oldPenelitian["status"] == "Submit Proposal"? "selected": "")?>>
-                                                    Submit Proposal
-                                                </option>
-                                                <!-- <option>Mandiri</option>
-                                                    <option>Kerjasama Perguruan Tinggi</option>
-                                                    <option>Kemitraan</option>
-                                                    <option>Hilirisasi</option> -->
+                                                <?php foreach($statusPenelitian as $status): ?>
+                                                    <option <?= esc(strtolower($status) == strtolower($oldPenelitian["status"])? "selected": "")?>>
+                                                        <?= $status ?>
+                                                    </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -146,60 +128,21 @@
                                             >
                                         </div>
                                     </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti 1</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Anggota Peneliti 1" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_1"
-                                                value="<?= esc($oldPenelitian["anggota_peneliti_1"]) ?>"
-                                            >
+                                    <?php foreach(range(1, 4) as $nAnggota): ?>
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti <?=$nAnggota ?> </label>
+                                            <div class="col-md-10">
+                                                <input 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    placeholder="Anggota Peneliti <?= $nAnggota?>" 
+                                                    id="Judul-Publikasi" 
+                                                    name="anggota_<?=$nAnggota?>"
+                                                    value="<?= esc($oldPenelitian["anggota_peneliti_" . $nAnggota]) ?>"
+                                                >
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti 2</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Anggota Peneliti 2" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_2"
-                                                value="<?= esc($oldPenelitian["anggota_peneliti_2"]) ?>"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti 3</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Anggota Peneliti 3" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_3"
-                                                value="<?= esc($oldPenelitian["anggota_peneliti_3"]) ?>"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti 4</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Anggota Peneliti 4" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_4"
-                                                value="<?= esc($oldPenelitian["anggota_peneliti_4"]) ?>"
-                                            >
-                                        </div>
-                                    </div>
-
-
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
@@ -264,8 +207,11 @@
                                         <label class="col-md-2 col-form-label">Luaran riset/abdimas</label>
                                         <div class="col-md-10"> <!-- Which column represent this? -->
                                             <select class="form-select" name="luaran">
-                                                <option <?= esc($oldPenelitian["luaran"] == "Riset"? "selected": "") ?> >Riset</option>
-                                                <option <?= esc($oldPenelitian["luaran"] == "Abdimas"? "selected": "") ?> >Abdimas</option>
+                                                <?php foreach($luaranPenelitian as $luaran): ?>
+                                                    <option <?= esc(strtolower($luaran) == strtolower($oldPenelitian["luaran"])? "selected": "") ?> >
+                                                        <?= $luaran ?>
+                                                    </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -293,29 +239,18 @@
                                             >
                                         </div>
                                     </div>
-
-
                                     <div class="mt-4">
                                         <!-- <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Inline forms layout</h5> -->
-
-
                                     </div>
-
-
-
                                 </div>
-
                             </div>
-
                         </div> <!-- end col -->
-
                     </div>
 
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-
                                     <p class="card-title-desc">Submit hasil <code>isian</code> data anda dengan klik <code>tombol</code> berikut</p>
                                     <!-- <form> -->
                                     <div class="hstack gap-3">
@@ -327,15 +262,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- end row -->
-
-                    <!-- end row -->
+                    </div> <!-- end row -->
                 </form>
-
             </div> <!-- container-fluid -->
-        </div>
-        <!-- End Page-content -->
+        </div> <!-- End Page-content -->
 
 
         <?= $this->include('partials/footer') ?>

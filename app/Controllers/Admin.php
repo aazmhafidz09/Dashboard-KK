@@ -100,8 +100,21 @@ class Admin extends BaseController
             return redirect()->to('/admin');
         }
 
-        $data = ['oldPublikasi' => $publikasi];
-            session()->setFlashdata('pesan', 'Publikasi berhasil diperbarui');
+        $data = [
+            'oldPublikasi' => $publikasi,
+            'akreditasiPublikasi' => [ 
+                "Q1", "Q2", "Q3", "Q4", 
+                "S1", "S2", "S3", "S4", "S5", "S6",
+                "Scopus"
+            ],
+            'jenisPublikasi' => [
+                "Jurnal Internasional",
+                "Jurnal Nasional",
+                "Prosiding Internasional",
+                "Prosiding Nasional"
+            ]
+        ];
+        session()->setFlashdata('pesan', 'Publikasi berhasil diperbarui');
         return view("admin/update-publikasi", $data);
     }
 
@@ -207,7 +220,19 @@ class Admin extends BaseController
             return redirect()->to('/admin');
         }
 
-        $data = ['oldPenelitian' => $penelitian];
+        $data = [
+            'oldPenelitian' => $penelitian,
+            'jenisPenelitian' => [
+                "Internal",
+                "Eksternal",
+                "Mandiri",
+                "Kerjasama Perguruan Tinggi",
+                "Kemitraan",
+                "Hilirisasi"
+            ],
+            'statusPenelitian' => ["Didanai", "Submit Proposal"],
+            'luaranPenelitian' => ["Riset", "Abdimas"]
+        ];
         session()->setFlashdata('pesan', 'Penelitian berhasil diperbarui');
         return view("admin/update-penelitian", $data);
     }
@@ -307,6 +332,16 @@ class Admin extends BaseController
         $data = [
             'listDosen' => $this->dosenModel->getAllKodeDosen(),
             'oldAbdimas' => $abdimas,
+            'jenisAbdimas' => [
+                "EKSTERNAL",
+                "INTERNAL",
+                "INTERNAL & EKSTERNAL",
+            ],
+            'statusAbdimas' => [
+                "Didanai",
+                "Tidak didanai",
+                "Closed",
+            ]
             /* 'dosenIS' => [ 
                     "ABW", "ACK", "ADF", "AHY",
                     "BBD", "BDP",
@@ -427,7 +462,10 @@ class Admin extends BaseController
             return redirect()->to('/admin');
         }
 
-        $data = ['oldHaki' => $haki];
+        $data = [
+            'oldHaki' => $haki,
+            'jenisHaki' => [ "PATEN", "HAK CIPTA", "MEREK", "KARYA/BUKU" ]
+        ];
         session()->setFlashdata('pesan', 'haki berhasil diperbarui');
         return view("admin/update-haki", $data);
     }
