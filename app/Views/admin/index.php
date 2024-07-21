@@ -97,12 +97,7 @@
                                     </tbody>
                                 </table>
                                 <div class="row">
-                                    <div class="col">
-                                        <div class="position-relative">
-                                            <input type="text" class="form-control chat-input rounded" placeholder="">
-
-                                        </div>
-                                    </div>
+                                    <div class="col"> </div>
                                     <div class="col-auto">
                                         <a href="/publikasi" class="btn btn-success waves-effect waves-light mb-3" role="button"></i>Lihat Selengkapnya</a>
                                         <!-- <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span class="d-none d-sm-inline-block me-2">Send</span> <i class="mdi mdi-send float-end"></i></button> -->
@@ -184,12 +179,7 @@
                                     </tbody>
                                 </table>
                                 <div class="row">
-                                    <div class="col">
-                                        <div class="position-relative">
-                                            <input type="text" class="form-control chat-input rounded" placeholder="">
-
-                                        </div>
-                                    </div>
+                                    <div class="col"> </div>
                                     <div class="col-auto">
                                         <a href="/penelitian" class="btn btn-success waves-effect waves-light mb-3" role="button"></i>Lihat Selengkapnya</a>
                                         <!-- <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span class="d-none d-sm-inline-block me-2">Send</span> <i class="mdi mdi-send float-end"></i></button> -->
@@ -267,12 +257,7 @@
                                     </tbody>
                                 </table>
                                 <div class="row">
-                                    <div class="col">
-                                        <div class="position-relative">
-                                            <input type="text" class="form-control chat-input rounded" placeholder="">
-
-                                        </div>
-                                    </div>
+                                    <div class="col"> </div>
                                     <div class="col-auto">
                                         <a href="/abdimas" class="btn btn-success waves-effect waves-light mb-3" role="button"></i>Lihat Selengkapnya</a>
                                         <!-- <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span class="d-none d-sm-inline-block me-2">Send</span> <i class="mdi mdi-send float-end"></i></button> -->
@@ -360,31 +345,19 @@
                                     </tbody>
                                 </table>
                                 <div class="row">
-                                    <div class="col">
-                                        <div class="position-relative">
-                                            <input type="text" class="form-control chat-input rounded" placeholder="">
-
-                                        </div>
-                                    </div>
+                                    <div class="col"> </div>
                                     <div class="col-auto">
                                         <a href="/haki" class="btn btn-success waves-effect waves-light mb-3" role="button"></i>Lihat Selengkapnya</a>
                                         <!-- <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span class="d-none d-sm-inline-block me-2">Send</span> <i class="mdi mdi-send float-end"></i></button> -->
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div> <!-- end col -->
                 </div> <!-- end row -->
-
-
-
-
             </div> <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
-
-
         <?= $this->include('partials/footer') ?>
     </div>
     <!-- end main content-->
