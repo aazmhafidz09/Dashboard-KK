@@ -47,6 +47,7 @@ class Admin extends BaseController
         // session();
         $data = [
             'validation' => \config\Services::validation(),
+            'listDosen' => $this->dosenModel->getAllKodeDosen(),
             'akreditasiPublikasi' => [ 
                 "Q1", "Q2", "Q3", "Q4", 
                 "S1", "S2", "S3", "S4", "S5", "S6",
@@ -113,6 +114,7 @@ class Admin extends BaseController
 
         $data = [
             'oldPublikasi' => $publikasi,
+            'listDosen' => $this->dosenModel->getAllKodeDosen(),
             'akreditasiPublikasi' => [ 
                 "Q1", "Q2", "Q3", "Q4", 
                 "S1", "S2", "S3", "S4", "S5", "S6",
@@ -176,6 +178,7 @@ class Admin extends BaseController
     public function penelitian()
     {
         $data = [
+            'listDosen' => $this->dosenModel->getAllKodeDosen(),
             'jenisPenelitian' => [
                 "Internal",
                 "Eksternal",
@@ -245,6 +248,7 @@ class Admin extends BaseController
 
         $data = [
             'oldPenelitian' => $penelitian,
+            'listDosen' => $this->dosenModel->getAllKodeDosen(),
             'jenisPenelitian' => [
                 "Internal",
                 "Eksternal",
@@ -377,29 +381,6 @@ class Admin extends BaseController
                 "Tidak didanai",
                 "Closed",
             ]
-            /* 'dosenIS' => [ 
-                    "ABW", "ACK", "ADF", "AHY",
-                    "BBD", "BDP",
-                    "COK",
-                    "DNH",
-                    "EAR", "EDF", "ENY",
-                    "FAR", "FSV",
-                    "GIA", "GKL",
-                    "HIW", "HII", "HUI",
-                    "IAU", "IZA",
-                    "JMT",
-                    "KNR",
-                    "LDS",
-                    "MDS", "MZI",
-                    "NDP",
-                    "OGO",
-                    "PEY",
-                    "RMB", "RRD", "RSM",
-                    "SLL", "SSD", "STZ", "SUO",
-                    "UIN", "UNW",
-                    "WKF",
-                    "ZHH",
-            ]*/
         ];
         session()->setFlashdata('pesan', 'abdimas berhasil diperbarui');
         return view("admin/update-abdimas", $data);
@@ -445,7 +426,10 @@ class Admin extends BaseController
 
     public function haki()
     {
-        $data = [ 'jenisHaki' => [ "PATEN", "HAK CIPTA", "MEREK", "KARYA/BUKU" ] ];
+        $data = [ 
+            'listDosen' => $this->dosenModel->getAllKodeDosen(),
+            'jenisHaki' => [ "PATEN", "HAK CIPTA", "MEREK", "KARYA/BUKU" ] 
+        ];
         return view('admin/manage-haki', $data);
     }
     public function haki_save()
@@ -500,6 +484,7 @@ class Admin extends BaseController
 
         $data = [
             'oldHaki' => $haki,
+            'listDosen' => $this->dosenModel->getAllKodeDosen(),
             'jenisHaki' => [ "PATEN", "HAK CIPTA", "MEREK", "KARYA/BUKU" ]
         ];
         session()->setFlashdata('pesan', 'haki berhasil diperbarui');

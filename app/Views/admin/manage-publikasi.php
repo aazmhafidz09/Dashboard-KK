@@ -90,13 +90,20 @@
                                         <div class="mb-3 row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Penulis <?=$nPenulis?></label>
                                             <div class="col-md-10">
-                                                <input 
+                                                <select 
                                                     class="form-control" 
                                                     type="text" 
                                                     placeholder="kode dosen" 
                                                     id="Judul-Publikasi" 
                                                     name="penulis_<?= $nPenulis?>"
                                                 >
+                                                    <option value="" > Penulis <?=$nPenulis?> </option>
+                                                    <?php foreach ($listDosen as $dosen): ?>
+                                                        <option value="<?=$dosen?>" > 
+                                                            <?=$dosen?> 
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
                                             </div>
                                         </div>
                                     <?php endforeach; ?>

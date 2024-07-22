@@ -124,26 +124,41 @@
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Ketua Peneliti</label>
                                         <div class="col-md-10">
-                                            <input 
+                                            <select 
                                                 class="form-control" 
                                                 type="text" 
                                                 placeholder="Ketua Peneliti" 
                                                 id="Judul-Publikasi" 
                                                 name="ketua"
                                             >
+                                                <option value="" > Ketua </option>
+                                                <?php foreach ($listDosen as $dosen): ?>
+                                                    <option value="<?=$dosen?>" > 
+                                                        <?=$dosen?> 
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <?php foreach(range(1, 4) as $nAnggota): ?>
                                         <div class="mb-3 row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti <?=$nAnggota ?> </label>
                                             <div class="col-md-10">
-                                                <input 
+                                                <select 
                                                     class="form-control" 
                                                     type="text" 
                                                     placeholder="Anggota Peneliti <?= $nAnggota?>" 
                                                     id="Judul-Publikasi" 
                                                     name="anggota_<?=$nAnggota?>"
+                                                    class="form-control" 
                                                 >
+                                                    <option value="" > Peneliti <?=$nAnggota?> </option>
+                                                    <?php foreach ($listDosen as $dosen): ?>
+                                                        <option value="<?=$dosen?>" > 
+                                                            <?=$dosen?> 
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
                                             </div>
                                         </div>
                                     <?php endforeach; ?>

@@ -98,28 +98,42 @@
                                     <!-- <h4 class="card-title">Data Penulis</h4> -->
                                     <p class="card-title-desc">Masukan data <code>Anggota</code> ke dalam <code>form</code> berikut.</p>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Ketua</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Pengusul 1</label>
                                         <div class="col-md-10">
-                                            <input 
+                                            <select 
                                                 class="form-control" 
                                                 type="text" 
                                                 placeholder="Kode Dosen" 
                                                 id="anggota" 
                                                 name="ketua"
                                             >
+                                                <option value="" > Pengusul 1 </option>
+                                                <?php foreach ($listDosen as $dosen): ?>
+                                                    <option value="<?=$dosen?>" > 
+                                                        <?=$dosen?> 
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <?php foreach(range(1, 9) as $nAnggota): ?>
                                         <div class="mb-3 row">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">Anggota <?= $nAnggota?></label>
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Pengusul <?= $nAnggota + 1?></label>
                                             <div class="col-md-10">
-                                                <input 
+                                                <select 
                                                     class="form-control" 
                                                     type="text" 
                                                     placeholder="Kode Dosen" 
                                                     id="Judul-Publikasi" 
                                                     name="anggota_<?= $nAnggota?>"
                                                 >
+                                                    <option value="" > Pengusul <?=$nAnggota + 1?> </option>
+                                                    <?php foreach ($listDosen as $dosen): ?>
+                                                        <option value="<?=$dosen?>" > 
+                                                            <?=$dosen?> 
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
                                             </div>
                                         </div>
                                     <?php endforeach; ?>

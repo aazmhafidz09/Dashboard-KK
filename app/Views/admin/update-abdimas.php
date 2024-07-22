@@ -116,7 +116,7 @@
                                         <label for="Ketua" class="col-md-2 col-form-label">Ketua</label>
                                         <div class="col-md-10">
                                             <select class="form-control" list="datalistOptions" id="Ketua" placeholder="kode dosen" name="ketua">
-                                                <option value=""> Kode dosen </option>
+                                                <option value=""> Ketua </option>
                                                 <?php foreach ($listDosen as $dosen): ?>
                                                     <option 
                                                         value="<?=$dosen?>"
@@ -139,7 +139,7 @@
 
                                             <div class="col-md-10">
                                                 <select class="form-control" id="Anggota_<?=$anggotaField?>" name="anggota_<?=$anggotaField?>">
-                                                <option value=""> Kode dosen </option>
+                                                    <option value=""> Anggota <?=$anggotaField?> </option>
                                                     <?php foreach ($listDosen as $dosen): ?>
                                                         <option 
                                                             value="<?=$dosen?>"
@@ -152,48 +152,6 @@
                                             </div>
                                         </div>
                                     <?php endforeach; ?>
-                                        <!-- <input class="form-control" list="datalistOptions" id="Anggota_1" placeholder="kode dosen" name="ketua">
-                                        <datalist id="datalistOptions">
-                                            <option value="ABW">
-                                            <option value="ADF">
-                                            <option value="AHY">
-                                            <option value="BBD">
-                                            <option value="BDP">
-                                            <option value="COK">
-                                            <option value="DNH">
-                                            <option value="EAR">
-                                            <option value="EDF">
-                                            <option value="FAR">
-                                            <option value="FSV">
-                                            <option value="GIA">
-                                            <option value="GKL">
-                                            <option value="HIW">
-                                            <option value="HUI">
-                                            <option value="IZA">
-                                            <option value="JMT">
-                                            <option value="KNR">
-                                            <option value="MDS">
-                                            <option value="MZI">
-                                            <option value="PEY">
-                                            <option value="RMB">
-                                            <option value="RRD">
-                                            <option value="RSM">
-                                            <option value="SLL">
-                                            <option value="SSD">
-                                            <option value="SUO">
-                                            <option value="UIN">
-                                            <option value="UNW">
-                                            <option value="WKF">
-                                            <option value="NDP">
-                                            <option value="ACK">
-                                            <option value="ENY">
-                                            <option value="HII">
-                                            <option value="OGO">
-                                            <option value="STZ">
-                                            <option value="IAU">
-                                            <option value="LDS">
-                                            <option value="ZHH">
-                                        </datalist> -->
                                 </div>
                             </div>
                         </div>

@@ -106,28 +106,28 @@
                                     <!-- <h4 class="card-title">Data Penulis</h4> -->
                                     <p class="card-title-desc">Masukan data <code>abdimas</code> ke dalam <code>form</code> berikut.</p>
                                     <div class="mb-3 row">
-                                        <label for="Ketua" class="col-md-2 col-form-label">Ketua</label>
+                                        <label for="Ketua" class="col-md-2 col-form-label"> Ketua </label>
                                         <div class="col-md-10">
                                             <select class="form-control" list="datalistOptions" id="Ketua" placeholder="kode dosen" name="ketua">
-                                                <option value=""> Kode dosen </option>
+                                                <option value="" > Ketua </option>
                                                 <?php foreach ($listDosen as $dosen): ?>
                                                     <option value="<?=$dosen?>" > <?=$dosen?> </option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
-                                    <?php foreach(range(1, 5) as $anggotaField): ?>
+                                    <?php foreach(range(1, 5) as $nAnggota): ?>
                                         <div class="mb-3 row">
                                             <label 
-                                                for="Anggota_<?=$anggotaField?>" 
+                                                for="Anggota_<?=$nAnggota?>" 
                                                 class="col-md-2 col-form-label"
                                             >
-                                                Anggota <?=$anggotaField?>
+                                                Anggota <?=$nAnggota?>
                                             </label>
 
                                             <div class="col-md-10">
-                                                <select class="form-control" id="Anggota_<?=$anggotaField?>" name="anggota_<?=$anggotaField?>">
-                                                <option value=""> Kode dosen </option>
+                                                <select class="form-control" id="Anggota_<?=$nAnggota?>" name="anggota_<?=$nAnggota?>">
+                                                    <option value="" > Anggota <?= $nAnggota?> </option>
                                                     <?php foreach ($listDosen as $dosen): ?>
                                                         <option value="<?=$dosen?>" > <?=$dosen?> </option>
                                                     <?php endforeach; ?>
@@ -135,294 +135,6 @@
                                             </div>
                                         </div>
                                     <?php endforeach; ?>
-
-                                    <!-- <h4 class="card-title">Data Penulis</h4>
-                                    <p class="card-title-desc">Masukan data <code>abdimas</code> ke dalam <code>form</code> berikut.</p>
-                                    <div class="mb-3 row">
-                                        <label for="Ketua" class="col-md-2 col-form-label">Ketua</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" list="datalistOptions" id="Ketua" placeholder="kode dosen" name="ketua">
-                                            <datalist id="datalistOptions">
-                                                <option value="ABW">
-                                                <option value="ADF">
-                                                <option value="AHY">
-                                                <option value="BBD">
-                                                <option value="BDP">
-                                                <option value="COK">
-                                                <option value="DNH">
-                                                <option value="EAR">
-                                                <option value="EDF">
-                                                <option value="FAR">
-                                                <option value="FSV">
-                                                <option value="GIA">
-                                                <option value="GKL">
-                                                <option value="HIW">
-                                                <option value="HUI">
-                                                <option value="IZA">
-                                                <option value="JMT">
-                                                <option value="KNR">
-                                                <option value="MDS">
-                                                <option value="MZI">
-                                                <option value="PEY">
-                                                <option value="RMB">
-                                                <option value="RRD">
-                                                <option value="RSM">
-                                                <option value="SLL">
-                                                <option value="SSD">
-                                                <option value="SUO">
-                                                <option value="UIN">
-                                                <option value="UNW">
-                                                <option value="WKF">
-                                                <option value="NDP">
-                                                <option value="ACK">
-                                                <option value="ENY">
-                                                <option value="HII">
-                                                <option value="OGO">
-                                                <option value="STZ">
-                                                <option value="IAU">
-                                                <option value="LDS">
-                                                <option value="ZHH">
-                                            </datalist>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="Anggota_1" class="col-md-2 col-form-label">Anggota 1</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" list="datalistOptions" id="Anggota_1" placeholder="kode dosen" name="anggota_1">
-                                            <datalist id="datalistOptions">
-                                                <option value="ABW">
-                                                <option value="ADF">
-                                                <option value="AHY">
-                                                <option value="BBD">
-                                                <option value="BDP">
-                                                <option value="COK">
-                                                <option value="DNH">
-                                                <option value="EAR">
-                                                <option value="EDF">
-                                                <option value="FAR">
-                                                <option value="FSV">
-                                                <option value="GIA">
-                                                <option value="GKL">
-                                                <option value="HIW">
-                                                <option value="HUI">
-                                                <option value="IZA">
-                                                <option value="JMT">
-                                                <option value="KNR">
-                                                <option value="MDS">
-                                                <option value="MZI">
-                                                <option value="PEY">
-                                                <option value="RMB">
-                                                <option value="RRD">
-                                                <option value="RSM">
-                                                <option value="SLL">
-                                                <option value="SSD">
-                                                <option value="SUO">
-                                                <option value="UIN">
-                                                <option value="UNW">
-                                                <option value="WKF">
-                                                <option value="NDP">
-                                                <option value="ACK">
-                                                <option value="ENY">
-                                                <option value="HII">
-                                                <option value="OGO">
-                                                <option value="STZ">
-                                                <option value="IAU">
-                                                <option value="LDS">
-                                                <option value="ZHH">
-                                            </datalist>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="Anggota_2" class="col-md-2 col-form-label">Anggota 2</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" list="datalistOptions" id="Anggota_2" placeholder="kode dosen" name="anggota_2">
-                                            <datalist id="datalistOptions">
-                                                <option value="ABW">
-                                                <option value="ADF">
-                                                <option value="AHY">
-                                                <option value="BBD">
-                                                <option value="BDP">
-                                                <option value="COK">
-                                                <option value="DNH">
-                                                <option value="EAR">
-                                                <option value="EDF">
-                                                <option value="FAR">
-                                                <option value="FSV">
-                                                <option value="GIA">
-                                                <option value="GKL">
-                                                <option value="HIW">
-                                                <option value="HUI">
-                                                <option value="IZA">
-                                                <option value="JMT">
-                                                <option value="KNR">
-                                                <option value="MDS">
-                                                <option value="MZI">
-                                                <option value="PEY">
-                                                <option value="RMB">
-                                                <option value="RRD">
-                                                <option value="RSM">
-                                                <option value="SLL">
-                                                <option value="SSD">
-                                                <option value="SUO">
-                                                <option value="UIN">
-                                                <option value="UNW">
-                                                <option value="WKF">
-                                                <option value="NDP">
-                                                <option value="ACK">
-                                                <option value="ENY">
-                                                <option value="HII">
-                                                <option value="OGO">
-                                                <option value="STZ">
-                                                <option value="IAU">
-                                                <option value="LDS">
-                                                <option value="ZHH">
-                                            </datalist>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3 row">
-                                        <label for="Anggota_3" class="col-md-2 col-form-label">Anggota 3</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" list="datalistOptions" id="Anggota_3" placeholder="kode dosen" name="anggota_3">
-                                            <datalist id="datalistOptions">
-                                                <option value="ABW">
-                                                <option value="ADF">
-                                                <option value="AHY">
-                                                <option value="BBD">
-                                                <option value="BDP">
-                                                <option value="COK">
-                                                <option value="DNH">
-                                                <option value="EAR">
-                                                <option value="EDF">
-                                                <option value="FAR">
-                                                <option value="FSV">
-                                                <option value="GIA">
-                                                <option value="GKL">
-                                                <option value="HIW">
-                                                <option value="HUI">
-                                                <option value="IZA">
-                                                <option value="JMT">
-                                                <option value="KNR">
-                                                <option value="MDS">
-                                                <option value="MZI">
-                                                <option value="PEY">
-                                                <option value="RMB">
-                                                <option value="RRD">
-                                                <option value="RSM">
-                                                <option value="SLL">
-                                                <option value="SSD">
-                                                <option value="SUO">
-                                                <option value="UIN">
-                                                <option value="UNW">
-                                                <option value="WKF">
-                                                <option value="NDP">
-                                                <option value="ACK">
-                                                <option value="ENY">
-                                                <option value="HII">
-                                                <option value="OGO">
-                                                <option value="STZ">
-                                                <option value="IAU">
-                                                <option value="LDS">
-                                                <option value="ZHH">
-                                            </datalist>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="Anggota_4" class="col-md-2 col-form-label">Anggota 4</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" list="datalistOptions" id="Anggota_4" placeholder="kode dosen" name="anggota_4">
-                                            <datalist id="datalistOptions">
-                                                <option value="ABW">
-                                                <option value="ADF">
-                                                <option value="AHY">
-                                                <option value="BBD">
-                                                <option value="BDP">
-                                                <option value="COK">
-                                                <option value="DNH">
-                                                <option value="EAR">
-                                                <option value="EDF">
-                                                <option value="FAR">
-                                                <option value="FSV">
-                                                <option value="GIA">
-                                                <option value="GKL">
-                                                <option value="HIW">
-                                                <option value="HUI">
-                                                <option value="IZA">
-                                                <option value="JMT">
-                                                <option value="KNR">
-                                                <option value="MDS">
-                                                <option value="MZI">
-                                                <option value="PEY">
-                                                <option value="RMB">
-                                                <option value="RRD">
-                                                <option value="RSM">
-                                                <option value="SLL">
-                                                <option value="SSD">
-                                                <option value="SUO">
-                                                <option value="UIN">
-                                                <option value="UNW">
-                                                <option value="WKF">
-                                                <option value="NDP">
-                                                <option value="ACK">
-                                                <option value="ENY">
-                                                <option value="HII">
-                                                <option value="OGO">
-                                                <option value="STZ">
-                                                <option value="IAU">
-                                                <option value="LDS">
-                                                <option value="ZHH">
-                                            </datalist>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="Anggota_5" class="col-md-2 col-form-label">Anggota 5</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" list="datalistOptions" id="Anggota_5" placeholder="kode dosen" name="anggota_5">
-                                            <datalist id="datalistOptions">
-                                                <option value="ABW">
-                                                <option value="ADF">
-                                                <option value="AHY">
-                                                <option value="BBD">
-                                                <option value="BDP">
-                                                <option value="COK">
-                                                <option value="DNH">
-                                                <option value="EAR">
-                                                <option value="EDF">
-                                                <option value="FAR">
-                                                <option value="FSV">
-                                                <option value="GIA">
-                                                <option value="GKL">
-                                                <option value="HIW">
-                                                <option value="HUI">
-                                                <option value="IZA">
-                                                <option value="JMT">
-                                                <option value="KNR">
-                                                <option value="MDS">
-                                                <option value="MZI">
-                                                <option value="PEY">
-                                                <option value="RMB">
-                                                <option value="RRD">
-                                                <option value="RSM">
-                                                <option value="SLL">
-                                                <option value="SSD">
-                                                <option value="SUO">
-                                                <option value="UIN">
-                                                <option value="UNW">
-                                                <option value="WKF">
-                                                <option value="NDP">
-                                                <option value="ACK">
-                                                <option value="ENY">
-                                                <option value="HII">
-                                                <option value="OGO">
-                                                <option value="STZ">
-                                                <option value="IAU">
-                                                <option value="LDS">
-                                                <option value="ZHH">
-                                            </datalist>
-                                        </div>
-                                    </div> -->
-
-
                                 </div>
                             </div>
                         </div>
