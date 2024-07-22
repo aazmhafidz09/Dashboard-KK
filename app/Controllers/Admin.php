@@ -82,13 +82,13 @@ class Admin extends BaseController
             'tahun' => $this->request->getVar('tahun'),
         ]);
         session()->setFlashdata('pesan', 'Publikasi berhasil ditambahkan');
-        return redirect()->to('/admin');
+        return redirect()->to(base_url('/admin'));
         // dd($this->request->getVar());
     }
     public function publikasi_delete($id){
         $this->publikasiModel->delete($id);
         session()->setFlashdata('pesan', 'Data berhasil dihapus');
-        return redirect()->to('/admin');
+        return redirect()->to(base_url('/admin'));
     }
     
     public function publikasi_edit($id) {
@@ -97,7 +97,7 @@ class Admin extends BaseController
         if($publikasi == null) {
             // TODO: Make the flash data red in UI
             session()->setFlashdata('pesan', 'Publikasi tidak ditemukan');
-            return redirect()->to('/admin');
+            return redirect()->to(base_url('/admin'));
         }
 
         $data = [
@@ -132,7 +132,7 @@ class Admin extends BaseController
         if($this->publikasiModel->where('id', $id)->first() == null) {
             // TODO: Make the flash data red in UI
             session()->setFlashdata('pesan', 'Publikasi tidak ditemukan');
-            return redirect()->to('/admin');
+            return redirect()->to(base_url('/admin'));
         }
 
         $this->publikasiModel->update($id, [
@@ -154,7 +154,7 @@ class Admin extends BaseController
             'tahun' => $this->request->getVar('tahun'),
         ]);
         session()->setFlashdata('pesan', 'Publikasi berhasil diperbarui');
-        return redirect()->to('/admin');
+        return redirect()->to(base_url('/admin'));
         // dd($this->request->getVar());
     }
 
@@ -202,13 +202,13 @@ class Admin extends BaseController
 
         // dd($this->request->getVar());
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
-        return redirect()->to('/admin');
+        return redirect()->to(base_url('/admin'));
     }
 
     public function penelitian_delete($id) {
         $this->penelitianModel->delete($id);
         session()->setFlashdata('pesan', 'Data berhasil dihapus');
-        return redirect()->to('/admin');
+        return redirect()->to(base_url('/admin'));
     }
 
     public function penelitian_edit($id) {
@@ -217,7 +217,7 @@ class Admin extends BaseController
         if($penelitian == null) {
             // TODO: Make the flash data red in UI
             session()->setFlashdata('pesan', 'Penelitian tidak ditemukan');
-            return redirect()->to('/admin');
+            return redirect()->to(base_url('/admin'));
         }
 
         $data = [
@@ -241,7 +241,7 @@ class Admin extends BaseController
         if($this->penelitianModel->where('id', $id)->first() == null) {
             // TODO: Make the flash data red in UI
             session()->setFlashdata('pesan', 'Penelitian tidak ditemukan');
-            return redirect()->to('/admin');
+            return redirect()->to(base_url('/admin'));
         }
 
         $this->penelitianModel->update($id, [
@@ -264,7 +264,7 @@ class Admin extends BaseController
             'tgl_pengesahan' => $this->request->getVar('tgl_pengesahan')
         ]);
         session()->setFlashdata('pesan', 'Penelitian berhasil diperbarui');
-        return redirect()->to('/admin');
+        return redirect()->to(base_url('/admin'));
         // dd($this->request->getVar());
     }
 
@@ -312,12 +312,12 @@ class Admin extends BaseController
 
         // dd($this->request->getVar());
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
-        return redirect()->to('/admin');
+        return redirect()->to(base_url('/admin'));
     }
     public function abdimas_delete($id){
         $this->abdimasModel->delete($id);
         session()->setFlashdata('pesan', 'Data berhasil dihapus');
-        return redirect()->to('/admin');
+        return redirect()->to(base_url('/admin'));
     }
 
     public function abdimas_edit($id) {
@@ -326,7 +326,7 @@ class Admin extends BaseController
         if($abdimas == null) {
             // TODO: Make the flash data red in UI
             session()->setFlashdata('pesan', 'abdimas tidak ditemukan');
-            return redirect()->to('/admin');
+            return redirect()->to(base_url('/admin'));
         }
 
         $data = [
@@ -374,7 +374,7 @@ class Admin extends BaseController
         if($this->abdimasModel->where('id', $id)->first() == null) {
             // TODO: Make the flash data red in UI
             session()->setFlashdata('pesan', 'abdimas tidak ditemukan');
-            return redirect()->to('/admin');
+            return redirect()->to(base_url('/admin'));
         }
 
         $this->abdimasModel->update($id, [
@@ -400,7 +400,7 @@ class Admin extends BaseController
             'tgl_pengesahan' => $this->request->getVar('tgl_pengesahan')
         ]);
         session()->setFlashdata('pesan', 'Abdimas berhasil diperbarui');
-        return redirect()->to('/admin');
+        return redirect()->to(base_url('/admin'));
         // dd($this->request->getVar());
     }
 
@@ -443,14 +443,14 @@ class Admin extends BaseController
             'tahun' => $this->request->getVar('tahun'),
         ]);
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
-        return redirect()->to('/admin');
+        return redirect()->to(base_url('/admin'));
 
         // dd($this->request->getVar());
     }
     public function haki_delete($id){
         $this->hakiModel->delete($id);
         session()->setFlashdata('pesan', 'Data berhasil dihapus');
-        return redirect()->to('/admin');
+        return redirect()->to(base_url('/admin'));
     }
     
     public function haki_edit($id) {
@@ -459,7 +459,7 @@ class Admin extends BaseController
         if($haki == null) {
             // TODO: Make the flash data red in UI
             session()->setFlashdata('pesan', 'haki tidak ditemukan');
-            return redirect()->to('/admin');
+            return redirect()->to(base_url('/admin'));
         }
 
         $data = [
@@ -474,7 +474,7 @@ class Admin extends BaseController
         if($this->hakiModel->where('id', $id)->first() == null) {
             // TODO: Make the flash data red in UI
             session()->setFlashdata('pesan', 'Haki tidak ditemukan');
-            return redirect()->to('/admin');
+            return redirect()->to(base_url('/admin'));
         }
 
         $this->hakiModel->update($id, [
@@ -498,7 +498,7 @@ class Admin extends BaseController
             'tahun' => $this->request->getVar('tahun'),
         ]);
         session()->setFlashdata('pesan', 'Haki berhasil diperbarui');
-        return redirect()->to('/admin');
+        return redirect()->to(base_url('/admin'));
         // dd($this->request->getVar());
     }
 }

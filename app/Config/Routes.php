@@ -36,6 +36,7 @@ $routes->get('/index', 'Home::index');
 
 
 $routes->get('/dosen/(:segment)', 'Dosen::detail/$1');
+
 $routes->get('/admin/publikasi/update/(:segment)', 'Admin::publikasi_edit/$1');
 $routes->get('/admin/publikasi/delete/(:segment)', 'Admin::publikasi_delete/$1');
 $routes->get('/admin/penelitian/update/(:segment)', 'Admin::penelitian_edit/$1');
