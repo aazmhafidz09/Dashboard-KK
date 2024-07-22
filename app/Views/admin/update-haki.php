@@ -29,6 +29,13 @@
     <!-- ============================================================== -->
     <div class="main-content">
         <div class="page-content">
+            <?php if (session()->getFlashdata('warning')) : ?>
+                <div class="alert alert-warning" role="alert">
+                    <?= session()->getFlashdata('warning'); ?>
+                </div>
+            <?php endif ?>
+            <?= $validation->listErrors(); ?>
+
             <div class="container-fluid">
                 <form action="/admin/handle_haki_edit/<?= $oldHaki["id"] ?>" method="post">
                     <?= csrf_field(); ?>

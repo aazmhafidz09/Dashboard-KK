@@ -88,7 +88,7 @@ class Admin extends BaseController
             );
 
             if($isSame) {
-                session()->setFlashdata('pesan', 'Publikasi serupa ditemukan');
+                session()->setFlashdata('warning', 'Publikasi serupa ditemukan');
                 return redirect()->to(base_url('/admin/publikasi/update/' . $result["id"]));
             }
         }
@@ -236,7 +236,7 @@ class Admin extends BaseController
             );
 
             if($isSame) {
-                session()->setFlashdata('pesan', 'Penelitian serupa ditemukan');
+                session()->setFlashdata('warning', 'Penelitian serupa ditemukan');
                 return redirect()->to(base_url('/admin/penelitian/update/' . $result["id"]));
             }
         }
@@ -373,7 +373,7 @@ class Admin extends BaseController
             );
 
             if($isSame) {
-                session()->setFlashdata('pesan', 'Abdimas serupa ditemukan');
+                session()->setFlashdata('warning', 'Abdimas serupa ditemukan');
                 return redirect()->to(base_url('/admin/abdimas/update/' . $result["id"]));
             }
         }
@@ -508,7 +508,7 @@ class Admin extends BaseController
             );
 
             if($isSame) {
-                session()->setFlashdata('pesan', 'Haki serupa ditemukan');
+                session()->setFlashdata('warning', 'Haki serupa ditemukan');
                 return redirect()->to(base_url('/admin/haki/update/' . $result["id"]));
             }
         }

@@ -29,6 +29,8 @@
     <!-- ============================================================== -->
     <div class="main-content">
         <div class="page-content">
+            <?= $validation->listErrors(); ?>
+
             <div class="container-fluid">
                 <form action="/admin/haki_save" method="post">
                     <?= csrf_field(); ?>
