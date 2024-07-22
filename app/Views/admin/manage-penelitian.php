@@ -79,12 +79,9 @@
                                         <label class="col-md-2 col-form-label">Jenis Penelitian</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
-                                                <option>Internal</option>
-                                                <option>Eksternal</option>
-                                                <option>Mandiri</option>
-                                                <option>Kerjasama Perguruan Tinggi</option>
-                                                <option>Kemitraan</option>
-                                                <option>Hilirisasi</option>
+                                                <?php foreach($jenisPenelitian as $jenis): ?>
+                                                    <option> <?= $jenis ?> </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -92,12 +89,9 @@
                                         <label class="col-md-2 col-form-label">Status</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="status">
-                                                <option>Didanai</option>
-                                                <option>Submit Proposal</option>
-                                                <!-- <option>Mandiri</option>
-                                            <option>Kerjasama Perguruan Tinggi</option>
-                                            <option>Kemitraan</option>
-                                            <option>Hilirisasi</option> -->
+                                                <?php foreach($statusPenelitian as $status): ?>
+                                                    <option> <?= $status ?> </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -139,56 +133,20 @@
                                             >
                                         </div>
                                     </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti 1</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Anggota Peneliti 1" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_1"
-                                            >
+                                    <?php foreach(range(1, 4) as $nAnggota): ?>
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti <?=$nAnggota ?> </label>
+                                            <div class="col-md-10">
+                                                <input 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    placeholder="Anggota Peneliti <?= $nAnggota?>" 
+                                                    id="Judul-Publikasi" 
+                                                    name="anggota_<?=$nAnggota?>"
+                                                >
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti 2</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Anggota Peneliti 2" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_2"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti 3</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Anggota Peneliti 3" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_3"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti 4</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Anggota Peneliti 4" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_4"
-                                            >
-                                        </div>
-                                    </div>
-
-
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
@@ -245,8 +203,9 @@
                                         <label class="col-md-2 col-form-label">Luaran riset/abdimas</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="luaran">
-                                                <option>Riset</option>
-                                                <option>Abdimas</option>
+                                                <?php foreach($luaranPenelitian as $luaran): ?>
+                                                    <option> <?= $luaran ?> </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -272,22 +231,12 @@
                                             >
                                         </div>
                                     </div>
-
-
                                     <div class="mt-4">
                                         <!-- <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Inline forms layout</h5> -->
-
-
                                     </div>
-
-
-
                                 </div>
-
                             </div>
-
                         </div> <!-- end col -->
-
                     </div>
 
                     <div class="row">

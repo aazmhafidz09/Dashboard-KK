@@ -68,10 +68,9 @@
                                         <label class="col-md-2 col-form-label">Jenis Publikasi</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
-                                                <option>Jurnal Internasional</option>
-                                                <option>Jurnal Nasional</option>
-                                                <option>Prosiding Internasional</option>
-                                                <option>Prosiding Nasional</option>
+                                                <?php foreach($jenisPublikasi as $jenis): ?>
+                                                    <option> <?= $jenis ?> </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -87,78 +86,20 @@
                                 <div class="card-body">
                                     <!-- <h4 class="card-title">Data Penulis</h4> -->
                                     <p class="card-title-desc">Masukan data <code>penulis</code> ke dalam <code>form</code> berikut.</p>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Penulis 1</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="kode dosen" 
-                                                id="Judul-Publikasi" 
-                                                name="penulis_1"
-                                            >
+                                    <?php foreach(range(1, 6) as $nPenulis): ?>
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Penulis <?=$nPenulis?></label>
+                                            <div class="col-md-10">
+                                                <input 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    placeholder="kode dosen" 
+                                                    id="Judul-Publikasi" 
+                                                    name="penulis_<?= $nPenulis?>"
+                                                >
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Penulis 2</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="masukan jika terdapat penulis 2" 
-                                                id="Judul-Publikasi" 
-                                                name="penulis_2"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Penulis 3</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="masukan jika terdapat penulis 3" 
-                                                id="Judul-Publikasi" 
-                                                name="penulis_3"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Penulis 4</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="masukan jika terdapat penulis 4" 
-                                                id="Judul-Publikasi" 
-                                                name="penulis_4"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Penulis 5</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="masukan jika terdapat penulis 5" 
-                                                id="Judul-Publikasi" 
-                                                name="penulis_5"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Penulis 6</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="masukan jika terdapat penulis 6" 
-                                                id="Judul-Publikasi" 
-                                                name="penulis_6"
-                                            >
-                                        </div>
-                                    </div>
+                                    <?php endforeach; ?>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Semua Penulis</label>
                                         <div class="col-md-10">
@@ -212,18 +153,10 @@
                                         <label class="col-md-2 col-form-label">Akreditasi</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="akreditasi">
-                                                <option>Q1</option>
-                                                <option>Q2</option>
-                                                <option>Q3</option>
-                                                <option>Q4</option>
-                                                <option>S1</option>
-                                                <option>S2</option>
-                                                <option>S3</option>
-                                                <option>S4</option>
-                                                <option>S5</option>
-                                                <option>S6</option>
-                                                <option>Scopus</option>
-                                                <option>not accredited yet</option>
+                                                <option> not accredited yet </option>
+                                                <?php foreach($akreditasiPublikasi as $akreditasi): ?>
+                                                    <option> <?= $akreditasi ?> </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>

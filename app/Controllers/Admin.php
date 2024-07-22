@@ -46,7 +46,18 @@ class Admin extends BaseController
     {
         // session();
         $data = [
-            'validation' => \config\Services::validation()
+            'validation' => \config\Services::validation(),
+            'akreditasiPublikasi' => [ 
+                "Q1", "Q2", "Q3", "Q4", 
+                "S1", "S2", "S3", "S4", "S5", "S6",
+                "Scopus"
+            ],
+            'jenisPublikasi' => [
+                "Jurnal Internasional",
+                "Jurnal Nasional",
+                "Prosiding Internasional",
+                "Prosiding Nasional"
+            ]
         ];
         // dd($data);
         return view('admin/manage-publikasi', $data);
@@ -164,8 +175,20 @@ class Admin extends BaseController
 
     public function penelitian()
     {
+        $data = [
+            'jenisPenelitian' => [
+                "Internal",
+                "Eksternal",
+                "Mandiri",
+                "Kerjasama Perguruan Tinggi",
+                "Kemitraan",
+                "Hilirisasi"
+            ],
+            'statusPenelitian' => ["Didanai", "Submit Proposal"],
+            'luaranPenelitian' => ["Riset", "Abdimas"]
+        ];
 
-        return view('admin/manage-penelitian');
+        return view( 'admin/manage-penelitian', $data);
     }
     public function penelitian_save()
     {
@@ -274,7 +297,19 @@ class Admin extends BaseController
 
     public function abdimas()
     {
-        $data = ["listDosen" => $this->dosenModel->getAllKodeDosen()];
+        $data = [
+            "listDosen" => $this->dosenModel->getAllKodeDosen(),
+            'jenisAbdimas' => [
+                "EKSTERNAL",
+                "INTERNAL",
+                "INTERNAL & EKSTERNAL",
+            ],
+            'statusAbdimas' => [
+                "Didanai",
+                "Tidak didanai",
+                "Closed",
+            ]
+        ];
         return view('admin/manage-abdimas', $data);
     }
     public function abdimas_save()
@@ -410,7 +445,8 @@ class Admin extends BaseController
 
     public function haki()
     {
-        return view('admin/manage-haki');
+        $data = [ 'jenisHaki' => [ "PATEN", "HAK CIPTA", "MEREK", "KARYA/BUKU" ] ];
+        return view('admin/manage-haki', $data);
     }
     public function haki_save()
     {

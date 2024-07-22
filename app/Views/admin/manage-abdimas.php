@@ -77,9 +77,9 @@
                                         <label for="jenis" class="col-md-2 col-form-label">Jenis Abdimas</label>
                                         <div class="col-md-10">
                                             <select id="jenis" class="form-select" name="jenis">
-                                                <option>Internal</option>
-                                                <option>Eksternal</option>
-                                                <option>Internal dan Eksternal</option>
+                                                <?php foreach($jenisAbdimas as $jenis): ?>
+                                                    <option> <?= $jenis?> </option>
+                                                <?php endforeach ?>
                                             </select>
                                         </div>
                                     </div>
@@ -87,8 +87,9 @@
                                         <label for="status" class="col-md-2 col-form-label">status</label>
                                         <div class="col-md-10">
                                             <select id="abdimas_status" class="form-select" name="status">
-                                                <option>Didanai</option>
-                                                <option>Closed</option>
+                                                <?php foreach($statusAbdimas as $status): ?>
+                                                    <option> <?= $status?> </option>
+                                                <?php endforeach ?>
                                             </select>
                                         </div>
                                     </div>
@@ -110,9 +111,7 @@
                                             <select class="form-control" list="datalistOptions" id="Ketua" placeholder="kode dosen" name="ketua">
                                                 <option value=""> Kode dosen </option>
                                                 <?php foreach ($listDosen as $dosen): ?>
-                                                    <option value="<?=$dosen?>" > 
-                                                        <?=$dosen?> 
-                                                    </option>
+                                                    <option value="<?=$dosen?>" > <?=$dosen?> </option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -130,9 +129,7 @@
                                                 <select class="form-control" id="Anggota_<?=$anggotaField?>" name="anggota_<?=$anggotaField?>">
                                                 <option value=""> Kode dosen </option>
                                                     <?php foreach ($listDosen as $dosen): ?>
-                                                        <option value="<?=$dosen?>" > 
-                                                            <?=$dosen?> 
-                                                        </option>
+                                                        <option value="<?=$dosen?>" > <?=$dosen?> </option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>

@@ -67,10 +67,9 @@
                                         <label class="col-md-2 col-form-label">Jenis Haki</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
-                                                <option>PATEN</option>
-                                                <option>HAK CIPTA</option>
-                                                <option>MEREK</option>
-                                                <option>KARYA/BUKU</option>
+                                                <?php foreach($jenisHaki as $jenis): ?>
+                                                    <option> <?= $jenis ?> </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -110,114 +109,20 @@
                                             >
                                         </div>
                                     </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 1</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Kode Dosen" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_1"
-                                            >
+                                    <?php foreach(range(1, 9) as $nAnggota): ?>
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Anggota <?= $nAnggota?></label>
+                                            <div class="col-md-10">
+                                                <input 
+                                                    class="form-control" 
+                                                    type="text" 
+                                                    placeholder="Kode Dosen" 
+                                                    id="Judul-Publikasi" 
+                                                    name="anggota_<?= $nAnggota?>"
+                                                >
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 2</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Kode Dosen" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_2"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 3</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Kode Dosen" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_3"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 4</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Kode Dosen" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_4"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 5</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Kode Dosen" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_5"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 6</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Kode Dosen" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_6"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 7</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Kode Dosen" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_7"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 8</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Kode Dosen" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_8"
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Anggota 9</label>
-                                        <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Kode Dosen" 
-                                                id="Judul-Publikasi" 
-                                                name="anggota_9"
-                                            >
-                                        </div>
-                                    </div>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
