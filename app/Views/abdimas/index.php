@@ -56,6 +56,7 @@
                         </div>
                     </div> <!-- end col-->
 
+                    <!--
                     <div class="col-md-6 col-xl">
                         <div class="card">
                             <div class="card-body">
@@ -63,14 +64,14 @@
                                     <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_Inter_Ekster ?></span></h4>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><php echo $Abdimas_Inter_Ekster ?></span></h4>
                                     <p class="text-muted mb-0">Internal dan Eksternal</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-2 Publikasi</span> dari tahun sebelumnya
-                                </p> -->
+                                <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-2 Publikasi</span> dari tahun sebelumnya </p>
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div>
+                    -->
 
 
                     <h5>Tahun <?php echo date("Y"); ?></h5>

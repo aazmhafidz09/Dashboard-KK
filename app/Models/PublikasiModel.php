@@ -278,6 +278,8 @@ class PublikasiModel extends Model
     WHERE
         tahun BETWEEN 2010 AND YEAR(CURDATE())
     GROUP BY
+        tahun
+    ORDER BY
         tahun;");
         return $query->getResultArray();
     }
