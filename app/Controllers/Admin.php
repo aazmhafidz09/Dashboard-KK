@@ -63,6 +63,7 @@ class Admin extends BaseController
         // dd($data);
         return view('admin/manage-publikasi', $data);
     }
+
     public function publikasi_save()
     {
         if (!$this->validate([
@@ -72,7 +73,24 @@ class Admin extends BaseController
             $validation = \config\Services::validation();
             dd($validation);
 
-            return redirect()->to('/admin/publikasi')->withInput()->with('validation', $validation);
+            return redirect()->to(base_url('/admin/publikasi'))->withInput()->with('validation', $validation);
+        }
+
+        // Check for "similar" record
+        $sql = " SELECT id, judul_publikasi FROM publikasi ";
+        $results = $this->publikasiModel->db->query($sql)->getResultArray();
+        foreach($results as $result) {
+            $isSame = (
+                (
+                    strtolower($this->request->getVar("judul_publikasi")) == 
+                    strtolower($result["judul_publikasi"])
+                )
+            );
+
+            if($isSame) {
+                session()->setFlashdata('pesan', 'Publikasi serupa ditemukan');
+                return redirect()->to(base_url('/admin/publikasi/update/' . $result["id"]));
+            }
         }
 
         $this->publikasiModel->save([
@@ -203,7 +221,24 @@ class Admin extends BaseController
             $validation = \config\Services::validation();
             dd($validation);
 
-            return redirect()->to('/admin/penelitian');
+            return redirect()->to(base_url('/admin/penelitian'));
+        }
+
+        // Check for "similar" record
+        $sql = " SELECT id, judul_penelitian FROM penelitian ";
+        $results = $this->penelitianModel->db->query($sql)->getResultArray();
+        foreach($results as $result) {
+            $isSame = (
+                (
+                    strtolower($this->request->getVar("judul")) == 
+                    strtolower($result["judul_penelitian"])
+                )
+            );
+
+            if($isSame) {
+                session()->setFlashdata('pesan', 'Penelitian serupa ditemukan');
+                return redirect()->to(base_url('/admin/penelitian/update/' . $result["id"]));
+            }
         }
 
         $this->penelitianModel->save([
@@ -323,8 +358,26 @@ class Admin extends BaseController
             'tahun' => 'required',
             'jenis' => 'required'
         ])) {
-            return redirect()->to('/admin/penelitian');
+            return redirect()->to(base_url('/admin/penelitian'));
         }
+
+        // Check for "similar" record
+        $sql = " SELECT id, judul FROM abdimas ";
+        $results = $this->abdimasModel->db->query($sql)->getResultArray();
+        foreach($results as $result) {
+            $isSame = (
+                (
+                    strtolower($this->request->getVar("judul")) == 
+                    strtolower($result["judul"])
+                )
+            );
+
+            if($isSame) {
+                session()->setFlashdata('pesan', 'Abdimas serupa ditemukan');
+                return redirect()->to(base_url('/admin/abdimas/update/' . $result["id"]));
+            }
+        }
+
         $this->abdimasModel->save([
             'anggota_1' => $this->request->getVar('anggota_1'),
             'anggota_2' => $this->request->getVar('anggota_2'),
@@ -440,8 +493,26 @@ class Admin extends BaseController
             'tahun' => 'required',
             'jenis' => 'required'
         ])) {
-            return redirect()->to('/admin/haki');
+            return redirect()->to(base_url('/admin/haki'));
         }
+
+        // Check for "similar" record
+        $sql = " SELECT id, judul FROM haki";
+        $results = $this->hakiModel->db->query($sql)->getResultArray();
+        foreach($results as $result) {
+            $isSame = (
+                ( 
+                    strtolower($this->request->getVar("judul")) == 
+                    strtolower($result["judul"])
+                )
+            );
+
+            if($isSame) {
+                session()->setFlashdata('pesan', 'Haki serupa ditemukan');
+                return redirect()->to(base_url('/admin/haki/update/' . $result["id"]));
+            }
+        }
+
         $this->hakiModel->save([
             'abstrak' => $this->request->getVar('abstrak'),
             'anggota_1' => $this->request->getVar('anggota_1'),

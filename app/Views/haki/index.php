@@ -509,10 +509,10 @@
                                             <th>Jenis</th>
                                             <!-- <th>Jenis Ciptaan</th> -->
                                             <th>Judul</th>
-                                            <th>Ketua</th>
-                                            <th>anggota 1</th>
-                                            <th>anggota 2</th>
-                                            <th>anggota 3</th>
+                                            <th>Pengusul 1</th>
+                                            <th>Pengusul 2</th>
+                                            <th>Pengusul 3</th>
+                                            <th>Pengusul 4</th>
                                             <th>No Pendaftaran</th>
                                             <th>No Sertifikat</th>
                                         </tr>
