@@ -69,6 +69,7 @@
                                                 </th>
                                                 <th scope="col">Nama</th>
                                                 <th scope="col">Kode Dosen</th>
+                                                <th scope="col">Kelompok Keahlian</th>
                                                 <th scope="col" style="width: 200px;">Action</th>
                                             </tr>
                                         </thead>
@@ -79,6 +80,7 @@
                                                     <th scope="row"><?= $i++; ?></th>
                                                     <td><?= $ds['kode_dosen']; ?></td>
                                                     <td><?= $ds['nama_dosen']; ?></td>
+                                                    <td><?= $ds['KK']; ?></td>
                                                     <td>
                                                         <a href="/dosen/<?= $ds['kode_dosen']; ?>" class="btn btn-success"> detail</a>
                                                     </td>

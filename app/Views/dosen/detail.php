@@ -56,7 +56,7 @@
 
                                 <div class="text-muted">
                                     <h5 class="font-size-16">Kelompok Keahlian :</h5>
-                                    <p>Intelligence System</p>
+                                    <p> <?= $dosen["KK"] ?></p>
                                     <div class="table-responsive mt-4">
                                         <div>
                                             <p class="mb-1">Nama :</p>
@@ -190,7 +190,7 @@
                                                             <th scope="col">No</th>
                                                             <th scope="col">Judul</th>
                                                             <th scope="col">Tahun</th>
-                                                            <th scope="col">Jenis</th>
+                                                            <th scope="col"> Tautan </th>
                                                             <th scope="col" style="width: 120px;">Action</th>
                                                         </tr>
                                                     </thead>
@@ -199,13 +199,16 @@
                                                         <?php foreach ($publikasi as $pb) : ?>
                                                             <tr>
                                                                 <th scope="row"><?= $i++; ?></th>
-                                                                <td><a href="#" class="text-reset "><?= $pb['judul_publikasi']; ?></a></td>
                                                                 <td>
-                                                                    <?= $pb['tahun']; ?>
+                                                                    <a 
+                                                                        href="<?= $pb["link_artikel"] == ""? "#": $pb["link_artikel"]?>" 
+                                                                        class="text-reset "
+                                                                    >
+                                                                        <?= $pb['judul_publikasi']; ?>
+                                                                    </a>
                                                                 </td>
-                                                                <td>
-                                                                    <?= $pb['link_artikel']; ?><!-- <span class="badge bg-primary-subtle font-size-12">Open</span> -->
-                                                                </td>
+                                                                <td> <?= $pb['tahun']; ?> </td>
+                                                                <td> <?= $pb['link_artikel']; ?><!-- <span class="badge bg-primary-subtle font-size-12">Open</span> --> </td>
                                                                 <td>
                                                                     <div class="dropdown">
                                                                         <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
