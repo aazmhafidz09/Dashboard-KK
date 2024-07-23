@@ -6,6 +6,20 @@
 
 <?= $this->include('partials/body') ?>
 
+<?php // Initial PHP
+    $data = [ "byKK" => [], "byYear" => [] ];
+    foreach($dosen as $d) {
+        $kkDosen = $d["KK"]; // By KK
+        $kodeDosen = $d["kode_dosen"];
+        if(isset($data["byKK"][$kkDosen])) {
+            array_push($data["byKK"][$kkDosen], $kodeDosen);
+        } else {
+            $data["byKK"][$kkDosen] = [$kodeDosen];
+        }
+        // TODO: By Tahun
+    }
+
+?>
 <!-- Begin page -->
 <div id="layout-wrapper">
 
@@ -115,29 +129,6 @@
                             </div>
                         </div>
                     </div> <!-- end col-->
-
-                    <div class="col-md-6 col-xl">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="float-end mt-2">
-                                    <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
-                                </div>
-                                <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_YearNow_Inter_Ekster ?></span></h4>
-                                    <p class="text-muted mb-0">Internal dan Eksternal</p>
-                                </div>
-                                <?php if ($getPeningkatanAbdimasInterEkster >= 0) : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $getPeningkatanAbdimasInterEkster ?> Abdimas</span> dari tahun sebelumnya
-                                    </p>
-                                <?php else : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $getPeningkatanAbdimasInterEkster ?> Abdimas</span>dari tahun sebelumnya
-                                    </p>
-                                <?php endif ?>
-
-                            </div>
-                        </div>
-                    </div> <!-- end col-->
-
 
                 </div> <!-- end row-->
 
@@ -256,9 +247,6 @@
                                         <li class="list-inline-item chart-border-left me-0">
                                             <h3><span data-plugin="counterup"><?php echo $Abdimas_YearNow_Ekster ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Eksternal</span></h3>
                                         </li>
-                                        <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $Abdimas_YearNow_Inter_Ekster ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Internal dan Eksternal</span></h3>
-                                        </li>
                                     </ul>
                                 </div>
                                 <div class="mt-3">
@@ -322,6 +310,25 @@
                     <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
+                                <div class="float-end">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fw-semibold">Sort By: </span> 
+                                            <span class="text-muted" id="chartStatistikAbdimas_KK"> KK SEAL <i class="mdi mdi-chevron-down ms-1"></i></span>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
+                                            <?php foreach($data["byKK"] as $KK => $_): ?>
+                                                <button 
+                                                    class="dropdown-item" 
+                                                    onclick="makeChartAbdimas('<?=$KK?>')"
+                                                >
+                                                    KK <?= $KK ?>
+                                                </button>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <h4 class="card-title mb-4">Statistik Abdimas</h4>
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
@@ -455,6 +462,123 @@
 
 
 <script type="text/javascript">
+    const dataPublikasi = {
+        <?php
+            foreach($data_tahunan as $d) {
+                echo "'" . $d["kode_dosen"] . "': {";
+                foreach(array_keys($d) as $label) {
+                    $pattern = "THN_";
+                    $pos = strpos($label, $pattern);
+                    if($pos !== false) {
+                        $year = substr($label, $pos + strlen($pattern));
+                        echo "'" . $year . "': " . $d[$pattern . $year] . ",";
+                    }
+                }
+                echo "},";
+            }
+        ?>
+    }
+
+    <?php
+        echo "const dosenByKK = {";
+        foreach($data["byKK"] as $kkDosen => $dosenList) {
+            echo "'" . $kkDosen . "'" . ": [";
+            foreach($dosenList as $dosen) {
+                echo "'" . $dosen . "'" . ", ";
+            }
+            echo "],";
+        }
+        echo "};";
+    ?>
+
+    function makeChartAbdimas(kkFilter) {
+        document.getElementById("chartStatistikAbdimas_KK").innerHTML = `KK ${kkFilter}`
+        const targetElement = document.getElementById("chartStatistikAbdimas");
+        targetElement.innerHTML = "";
+        const chart = new ApexCharts(
+            document.getElementById("chartStatistikAbdimas"),
+            {
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    toolbar: {
+                        show: false,
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: { position: 'top'}, // top, center, bottom },
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    position: 'top', // top, center, bottom,
+                    formatter: function(val) { return val + ""; },
+                    offsetY: -20,
+                    style: { fontSize: '12px', colors: ["#304758"] }
+                },
+                series: [{
+                    name: 'abdimas',
+                    data: dosenByKK[kkFilter] .map(dosen => {
+                            console.log(dataPublikasi[dosen])
+                            return Object.values(dataPublikasi[dosen])
+                                .reduce((acc, val) => acc + val, 0)
+                            }) ,
+                    // [
+                    //     <php foreach ($order_by_tahun_desc as $obt) {
+                    //         echo '"' . $obt['jumlah_abd'] . '",';
+                    //     }
+                    // ?> ]
+                }],
+                grid: { borderColor: '#f1f1f1', },
+                xaxis: {
+                    categories: dosenByKK[kkFilter],
+                    position: 'down',
+                    labels: { offsetY: 0, },
+                    axisBorder: { show: false },
+                    axisTicks: { show: true },
+                    crosshairs: {
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                colorFrom: '#D8E3F0',
+                                colorTo: '#BED1E6',
+                                stops: [0, 100],
+                                opacityFrom: 1,
+                                opacityTo: 1,
+                            }
+                        }
+                    },
+                    tooltip: { enabled: true, offsetY: -35, }
+                },
+                fill: {
+                    gradient: {
+                        shade: 'light',
+                        type: "horizontal",
+                        shadeIntensity: 0.25,
+                        gradientToColors: undefined,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [50, 0, 100, 100]
+                    },
+                },
+                yaxis: {
+                    axisBorder: { show: false },
+                    axisTicks: { show: false, },
+                    labels: {
+                        show: false,
+                        formatter: function(val) { return val + " Abdimas"; }
+                    }
+                },
+            }
+        );
+
+
+        chart.render();
+
+    }
+
     function getChartColorsArray(chartId) {
         if (document.getElementById(chartId) !== null) {
             var colors = document.getElementById(chartId).getAttribute("data-colors");
@@ -603,8 +727,8 @@
                 height: 320,
                 type: 'pie',
             },
-            series: [<?php echo $Abdimas_Inter ?>, <?php echo $Abdimas_Ekster ?>, <?php echo $Abdimas_Inter_Ekster ?>],
-            labels: ["Internal", "Eksternal", "Internal dan Eksternal"],
+            series: [<?php echo $Abdimas_Inter ?>, <?php echo $Abdimas_Ekster ?>],
+            labels: ["Internal", "Eksternal"],
             colors: PiechartPieColors,
             legend: {
                 show: true,
@@ -669,33 +793,27 @@
                     colors: ["#304758"]
                 }
             },
-            series: [{
-                name: 'Internal',
-                data: [<?php foreach ($order_jenis as $cpub) {
-                            echo '' . $cpub['jumlah_Internal'] . ',';
-                        }
+            series: [
+                {
+                    name: 'Internal',
+                    data: [<?php foreach ($order_jenis as $cpub) {
+                                echo '' . $cpub['jumlah_Internal'] . ',';
+                            }
 
-                        ?>]
-            }, {
-                name: 'Eksternal',
-                data: [<?php foreach ($order_jenis as $cpub) {
-                            echo '' . $cpub['jumlah_Eksternal'] . ',';
-                        }
+                            ?>]
+                }, {
+                    name: 'Eksternal',
+                    data: [<?php foreach ($order_jenis as $cpub) {
+                                echo '' . $cpub['jumlah_Eksternal'] . ',';
+                            }
 
-                        ?>]
-            }, {
-                name: 'Internal dan Eksternal',
-                data: [<?php foreach ($order_jenis as $cpub) {
-                            echo '' . $cpub['jumlah_Internal_Eksternal'] . ',';
-                        }
-
-                        ?>]
-            }, ],
+                            ?>]
+                },
+            ],
             grid: {
                 borderColor: '#f1f1f1',
             },
             xaxis: {
-
                 categories: [<?php 
                     foreach ($order_jenis as $cpub) {
                         echo '' . $cpub['tahun'] . ',';
@@ -765,23 +883,6 @@
 
         chart.render();
 
-    }
-    // column chart with datalabels
-    const dataPublikasi = {
-        <?php
-            foreach($data_tahunan as $data) {
-                echo "'" . $data["kode_dosen"] . "': {";
-                foreach(array_keys($data) as $label) {
-                    $pattern = "THN_";
-                    $pos = strpos($label, $pattern);
-                    if($pos !== false) {
-                        $year = substr($label, $pos + strlen($pattern));
-                        echo "'" . $year . "': " . $data[$pattern . $year] . ",";
-                    }
-                }
-                echo "},";
-            }
-        ?>
     }
 
     const updateChartStatistik = function(target, newKodeDosen) {
@@ -910,22 +1011,19 @@
             },
             series: [{
                 name: 'Publikasi',
-                data: [<?php foreach ($top_abdimas_all as $cpub) {
-                            echo '"' . $cpub['jumlah_abdimas'] . '",';
-                        }
-
-                        ?>]
+                data: dosenByKK[Object.keys(dosenByKK)[0]]
+                        .map(dosen => {
+                            console.log(dataPublikasi[dosen])
+                            return Object.values(dataPublikasi[dosen])
+                                .reduce((acc, val) => acc + val, 0)
+                        }) ,
             }],
             grid: {
                 borderColor: '#f1f1f1',
             },
             xaxis: {
+                categories: dosenByKK[Object.keys(dosenByKK)[0]],
 
-                categories: [<?php foreach ($top_abdimas_all as $cpub) {
-                                    echo '"' . $cpub['kode_dosen'] . '",';
-                                }
-
-                                ?>],
                 position: 'down',
                 labels: {
                     offsetY: 0,
