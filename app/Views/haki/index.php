@@ -1,11 +1,7 @@
 <?= $this->include('partials/main') ?>
 
 <head>
-
-
-
     <?= $this->include('partials/head-css') ?>
-
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -634,7 +630,7 @@
                 type: 'bar',
                 toolbar: {
                     show: false,
-                }
+                },
             },
             plotOptions: {
                 bar: {
@@ -673,7 +669,7 @@
                 categories: [<?php foreach ($order_by_tahun_Asc as $obt) {
                                     echo '"' . $obt['thn'] . '",';
                                 }
-                                ?> '2023', '2024'],
+                                ?>],
                 position: 'down',
                 labels: {
                     offsetY: 0,
@@ -853,7 +849,7 @@
                                     echo '' . $cpub['tahun'] . ',';
                                 }
 
-                                ?> 2023, 2024],
+                                ?>],
                 position: 'down',
                 labels: {
                     offsetY: 0,
@@ -928,7 +924,7 @@
                 type: 'bar',
                 toolbar: {
                     show: false,
-                }
+                },
             },
             plotOptions: {
                 bar: {

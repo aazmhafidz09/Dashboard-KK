@@ -734,7 +734,7 @@
                 labels: {
                     show: false,
                     formatter: function(val) {
-                        return val + " Penelitian";
+                        return val + " Publikasi";
                     }
                 }
 
@@ -793,7 +793,13 @@
                 borderColor: '#f1f1f1',
             },
             xaxis: {
-                categories: ['2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                categories: [
+                    <?php foreach ($order_by_tahun_desc as $obt) {
+                        echo '"' . $obt['thn'] . '",';
+                    }
+
+                    ?>
+                ],
                 position: 'down',
                 labels: {
                     offsetY: 0,
@@ -904,18 +910,10 @@
                 borderColor: '#f1f1f1',
             },
             xaxis: {
-
                 categories: [
-                    <?php 
-                        // $yearLength = count($order_by_tahun_Asc_haki) - 1;
-                        // foreach (range(0, $yearLength) as $idx)
-                        //     $obt = $order_by_tahun_Asc_haki[$idx];
-                        //     echo (
-                        //         ($idx == $yearLength - 1)
-                        //         ? '"' . $obt['thn']
-                        //         : '"' . $obt['thn'] . '",'
-                        //     );
-                        foreach ($order_by_tahun_Asc_haki as $obt) { echo '"' . $obt['thn'] . '",'; } ?>
+                    <?php foreach ($order_by_tahun_Asc_haki as $obt) { 
+                        echo '"' . $obt['thn'] . '",'; } 
+                    ?>
                 ],
                 position: 'down',
                 labels: {

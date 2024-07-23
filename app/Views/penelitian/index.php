@@ -1,15 +1,9 @@
 <?= $this->include('partials/main') ?>
-
 <head>
-
-
-
     <?= $this->include('partials/head-css') ?>
-
 </head>
 
 <?= $this->include('partials/body') ?>
-
 <!-- Begin page -->
 <div id="layout-wrapper">
 
@@ -512,7 +506,8 @@
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
                                     <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->
-                                    <div id="column_chart_datalabel_1" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
+                                    <!-- <div id="column_chart_datalabel_1" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div> -->
+                                    <div id="chartStatistikPenelitian" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -526,128 +521,10 @@
                         <div class="card">
                             <div class="card-body">
                                 <div data-simplebar style="max-height: 339px;">
-                                    <h4 class="card-title mb-4">Statistik Penelitian Dosen Pertahun</h4>
-                                    <div class="table-responsive">
-                                        <table class="table table-centered table-nowrap mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Kode Dosen</th>
-                                                    <th>2000</th>
-                                                    <th>2001</th>
-                                                    <th>2002</th>
-                                                    <th>2003</th>
-                                                    <th>2004</th>
-                                                    <th>2005</th>
-                                                    <th>2006</th>
-                                                    <th>2007</th>
-                                                    <th>2008</th>
-                                                    <th>2009</th>
-                                                    <th>2010</th>
-                                                    <th>2011</th>
-                                                    <th>2012</th>
-                                                    <th>2013</th>
-                                                    <th>2014</th>
-                                                    <th>2015</th>
-                                                    <th>2016</th>
-                                                    <th>2017</th>
-                                                    <th>2018</th>
-                                                    <th>2019</th>
-                                                    <th>2020</th>
-                                                    <th>2021</th>
-                                                    <th>2022</th>
-                                                    <th>2023</th>
-                                                    <th>2024</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $data_tahunan ?>
-                                                
-                                                <?php $i = 1 ?>
-                                                <?php foreach ($data_tahunan as $dt) : ?>
-                                                    <tr>
-
-                                                        <td><a href="javascript: void(0);" class="text-body fw-bold"><?= $dt['kode_dosen']; ?></a> </td>
-                                                        <td><?= $dt['THN_2000']; ?></td>
-                                                        <td>
-                                                            <?= $dt['THN_2001']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2002']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2003']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2004']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2005']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2006']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2007']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2008']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2009']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2010']; ?>
-                                                        </td>
-
-                                                        <td>
-                                                            <?= $dt['THN_2011']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2012']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2013']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2014']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2015']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2016']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2017']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2018']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2019']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2020']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2021']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2022']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2023']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?= $dt['THN_2024']; ?>
-                                                        </td>
-
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    <h4 id="chartPenelitian__title" class="card-title mb-4">Statistik Penelitian Dosen Pertahun</h4>
+                                    <p id="chartPenelitian__desc"> Klik pada salah satu dosen untuk melihat statistik penelitian dosen tersebut</p>
                                 </div>
+                                <div id="chartPenelitianDosen"> </div>
                                 <!-- end table-responsive -->
                             </div>
                         </div>
@@ -658,7 +535,6 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-
                                 <h4 class="card-title">Data Penelitian</h4>
                                 <!-- <p class="card-title-desc">DataTables has most features enabled by
                                     default, so all you need to do to use it with your own tables is to call
@@ -809,7 +685,7 @@
                 categories: [<?php foreach ($order_by_tahun_Asc as $obt) {
                                     echo '"' . $obt['thn'] . '",';
                                 }
-                                ?> '2024'],
+                                ?>],
                 position: 'down',
                 labels: {
                     offsetY: 0,
@@ -1007,7 +883,7 @@
                                     echo '' . $cpub['thn'] . ',';
                                 }
 
-                                ?> 2024],
+                                ?>],
                 position: 'down',
                 labels: {
                     offsetY: 0,
@@ -1118,8 +994,113 @@
 
     }
 
+    const dataPublikasi = {
+        <?php
+            foreach($data_tahunan as $data) {
+                echo "'" . $data["kode_dosen"] . "': {";
+                foreach(array_keys($data) as $label) {
+                    $pattern = "THN_";
+                    $pos = strpos($label, $pattern);
+                    if($pos !== false) {
+                        $year = substr($label, $pos + strlen($pattern));
+                        echo "'" . $year . "': " . $data[$pattern . $year] . ",";
+                    }
+                }
+                echo "},";
+            }
+        ?>
+    }
+
+    const updateChartStatistik = function(target, newKodeDosen) {
+        const dataPublikasiDosen = dataPublikasi[newKodeDosen];
+        document.getElementById("chartPenelitian__desc").innerHTML = ""
+        document.getElementById("chartPenelitian__title").innerHTML = `Statistik Penelitian ${newKodeDosen}`
+        const chart = new ApexCharts(
+            target,  
+            {
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    toolbar: {
+                        show: false,
+                    },
+                    events: {
+                        dataPointSelection: function(e, context, opts) {
+                            let kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
+                            let targetElement = document.getElementById("chartPenelitianDosen") 
+                            updateChartStatistik(targetElement, kodeDosen)
+                        }
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            position: 'top', // top, center, bottom
+                        },
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    position: 'top', // top, center, bottom,
+                    formatter: val => val + "",
+                    offsetY: -20,
+                    style: { fontSize: '12px', colors: ["#304758"] }
+                },
+                series: [{
+                    name: 'Publikasi',
+                    data: Object.values(dataPublikasiDosen)
+                }],
+                grid: { borderColor: '#f1f1f1', },
+                xaxis: {
+                    categories: Object.keys(dataPublikasiDosen),
+                    position: 'down',
+                    labels: { offsetY: 0, },
+                    axisBorder: { show: false },
+                    axisTicks: { show: true },
+                    crosshairs: {
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                colorFrom: '#D8E3F0',
+                                colorTo: '#BED1E6',
+                                stops: [0, 100],
+                                opacityFrom: 1,
+                                opacityTo: 1,
+                            }
+                        }
+                    },
+                    tooltip: { enabled: true, offsetY: -35, }
+                },
+                fill: {
+                    gradient: {
+                        shade: 'light',
+                        type: "horizontal",
+                        shadeIntensity: 0.25,
+                        gradientToColors: undefined,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [50, 0, 100, 100]
+                    },
+                },
+                yaxis: {
+                    axisBorder: { show: false },
+                    axisTicks: { show: false, },
+                    labels: {
+                        show: false,
+                        formatter: val => val + " Penelitian"
+                    }
+                },
+            }
+        );
+
+        target.innerHTML = "";
+        chart.render();
+    }
+
     // column chart with datalabels
-    var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel_1");
+    let targetID = "chartStatistikPenelitian";
+    var BarchartColumnChartColors = getChartColorsArray(targetID);
     if (BarchartColumnChartColors) {
         var options = {
             chart: {
@@ -1127,6 +1108,13 @@
                 type: 'bar',
                 toolbar: {
                     show: false,
+                },
+                events: {
+                    dataPointSelection: function(e, context, opts) {
+                        let kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
+                        let targetElement = document.getElementById("chartPenelitianDosen") 
+                        updateChartStatistik(targetElement, kodeDosen)
+                    }
                 }
             },
             plotOptions: {
@@ -1224,12 +1212,7 @@
 
         }
 
-        var chart = new ApexCharts(
-            document.querySelector("#column_chart_datalabel_1"),
-            options
-        );
-
+        var chart = new ApexCharts( document.getElementById(targetID), options);
         chart.render();
-
     }
 </script>
