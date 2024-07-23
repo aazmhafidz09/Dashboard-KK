@@ -41,7 +41,6 @@
                     <?= session()->getFlashdata('warning'); ?>
                 </div>
             <?php endif ?>
-            <?= $validation->listErrors(); ?>
 
             <div class="container-fluid">
                 <form action="/admin/handle_abdimas_edit/<?=$oldAbdimas["id"]?>" method="post">

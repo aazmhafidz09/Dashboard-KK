@@ -34,7 +34,6 @@
                     <?= session()->getFlashdata('warning'); ?>
                 </div>
             <?php endif ?>
-            <?= $validation->listErrors(); ?>
 
             <div class="container-fluid">
                 <form action="/admin/handle_penelitian_edit/<?=esc($oldPenelitian["id"])?>" method="post">

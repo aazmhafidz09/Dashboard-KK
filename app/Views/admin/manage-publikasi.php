@@ -31,7 +31,6 @@
 
         <div class="page-content">
             <div class="container-fluid">
-                <?= $validation->listErrors(); ?>
                 <form action="/admin/publikasi_save">
 
                     <div class="row">
