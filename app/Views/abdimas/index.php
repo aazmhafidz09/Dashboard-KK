@@ -1,35 +1,30 @@
 <?= $this->include('partials/main') ?>
-
 <head>
     <?= $this->include('partials/head-css') ?>
 </head>
-
 <?= $this->include('partials/body') ?>
 
 <?php // Initial PHP
-    $data = [ "byKK" => [], "byYear" => [] ];
+    $dosenByKK = [];
     foreach($dosen as $d) {
         $kkDosen = $d["KK"]; // By KK
         $kodeDosen = $d["kode_dosen"];
-        if(isset($data["byKK"][$kkDosen])) {
-            array_push($data["byKK"][$kkDosen], $kodeDosen);
+        if(isset($dosenByKK[$kkDosen])) {
+            array_push($dosenByKK[$kkDosen], $kodeDosen);
         } else {
-            $data["byKK"][$kkDosen] = [$kodeDosen];
+            $dosenByKK[$kkDosen] = [$kodeDosen];
         }
-        // TODO: By Tahun
     }
-
 ?>
+
 <!-- Begin page -->
 <div id="layout-wrapper">
-
     <?= $this->include('partials/menu') ?>
 
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
     <div class="main-content">
-
         <div class="page-content">
             <div class="container-fluid">
                 <h5>Total</h5>
@@ -44,8 +39,7 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_Inter ?></span></h4>
                                     <p class="text-muted mb-0">Internal</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>7 Publikasi</span> dari tahun sebelumnya
-                                </p> -->
+                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>7 Publikasi</span> dari tahun sebelumnya </p> -->
                             </div>
                         </div>
                     </div> <!-- end col-->
@@ -60,29 +54,10 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_Ekster ?></span></h4>
                                     <p class="text-muted mb-0">Eksternal</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-4 Publikasi</span> dari tahun sebelumnya
-                                </p> -->
+                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-4 Publikasi</span> dari tahun sebelumnya </p> -->
                             </div>
                         </div>
                     </div> <!-- end col-->
-
-                    <!--
-                    <div class="col-md-6 col-xl">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="float-end mt-2">
-                                    <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
-                                </div>
-                                <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><php echo $Abdimas_Inter_Ekster ?></span></h4>
-                                    <p class="text-muted mb-0">Internal dan Eksternal</p>
-                                </div>
-                                <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-2 Publikasi</span> dari tahun sebelumnya </p>
-                            </div>
-                        </div>
-                    </div>
-                    -->
-
 
                     <h5>Tahun <?php echo date("Y"); ?></h5>
                     <div class="col-md-6 col-xl">
@@ -96,13 +71,18 @@
                                     <p class="text-muted mb-0">Internal</p>
                                 </div>
                                 <?php if ($getPeningkatanAbdimasInter >= 0) : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $getPeningkatanAbdimasInter ?> Abdimas</span> dari tahun sebelumnya
+                                    <p class="text-muted mt-3 mb-0">
+                                        <span class="text-success me-1">
+                                            <i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $getPeningkatanAbdimasInter ?> Abdimas
+                                        </span> dari tahun sebelumnya
                                     </p>
                                 <?php else : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $getPeningkatanAbdimasInter ?> Abdimas</span>dari tahun sebelumnya
+                                    <p class="text-muted mt-3 mb-0">
+                                        <span class="text-danger me-1">
+                                            <i class="mdi mdi-arrow-down-bold me-1"></i> <?php echo $getPeningkatanAbdimasInter ?> Abdimas
+                                        </span>dari tahun sebelumnya
                                     </p>
                                 <?php endif ?>
-
                             </div>
                         </div>
                     </div> <!-- end col-->
@@ -124,14 +104,10 @@
                                     <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $getPeningkatanAbdimasEkste ?> Abdimas</span>dari tahun sebelumnya
                                     </p>
                                 <?php endif ?>
-
-
                             </div>
                         </div>
                     </div> <!-- end col-->
-
                 </div> <!-- end row-->
-
 
                 <div class="row">
                     <div class="col-xl-8">
@@ -156,7 +132,6 @@
                                         <li class="list-inline-item chart-border-left me-0 border-0">
                                             <h3 class="text-primary"><span data-plugin="counterup"><?php echo $count_abdimas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Total Abdimas</span></h3>
                                         </li>
-
                                     </ul>
                                 </div>
                                 <div class="mt-3">
@@ -194,19 +169,16 @@
                                                     <th></th>
                                                     <th>Tahun</th>
                                                     <th>Jumlah Abdimas</th>
-                                                    <!-- <th>Username</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $i = 1 ?>
-
                                                 <?php foreach ($order_by_tahun as $obt) : ?>
                                                     <tr>
                                                         <th scope="row"><?= $i++; ?></th>
                                                         <td><?= $obt['thn']; ?></td>
                                                         <td><?= $obt['jumlah_abd']; ?></td>
                                                     </tr>
-
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
@@ -234,7 +206,6 @@
                                     </div>
                                 </div>
                                 <h4 class="card-title mb-4">Statistik Abdimas</h4>
-
                                 <div class="mt-1">
                                     <ul class="list-inline main-chart mb-0">
                                         <!-- <li class="list-inline-item chart-border-left me-0 border-0">
@@ -285,13 +256,10 @@
                                 </div>
 
                                 <h4 class="card-title mb-4">Total Abdimas</h4>
-
-
                                 <div class="row align-items-center g-0 mt-3">
                                     <div class="col-sm-3">
                                         <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Abdimas </p>
                                     </div>
-
                                     <div class="col-sm-9">
                                         <div class="progress mt-1" style="height: 8px;">
                                             <div class="progress-bar progress-bar bg-primary" role="progressbar" style="width: 52%" aria-valuenow="52" aria-valuemin="0" aria-valuemax="52">
@@ -299,25 +267,26 @@
                                         </div>
                                     </div>
                                 </div> <!-- end row-->
-
-
-
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
                     </div> <!-- end Col -->
                 </div> <!-- end row-->
+
                 <div class="row">
                     <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By: </span> 
-                                            <span class="text-muted" id="chartStatistikAbdimas_KK"> KK SEAL <i class="mdi mdi-chevron-down ms-1"></i></span>
+                                        <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fw-semibold">Sort By:&nbsp; </span> 
+                                            <div class="text-muted d-flex"> 
+                                                <p id="chartStatistikAbdimas_KK"> KK <?= array_keys($dosenByKK)[0]?></p>
+                                                <i class="mdi mdi-chevron-down ms-1"> </i>
+                                            </div>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
-                                            <?php foreach($data["byKK"] as $KK => $_): ?>
+                                            <?php foreach($dosenByKK as $KK => $_): ?>
                                                 <button 
                                                     class="dropdown-item" 
                                                     onclick="makeChartAbdimas('<?=$KK?>')"
@@ -331,8 +300,6 @@
 
                                 <h4 class="card-title mb-4">Statistik Abdimas</h4>
                                 <div class="mt-3">
-                                    <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
-                                    <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->
                                     <!-- <div id="column_chart_datalabel_1" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div> -->
                                     <div id="chartStatistikAbdimas" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
                                 </div>
@@ -350,7 +317,6 @@
                                     <p id="chartAbdimas__desc"> Klik pada salah satu dosen untuk melihat statistik abdimas dosen tersebut</p>
                                 </div>
                                 <div id="chartAbdimasDosen"> </div>
-                                <!-- end table-responsive -->
                             </div>
                         </div>
                     </div>
@@ -360,10 +326,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-
                                 <h4 class="card-title">Data Abdimas</h4>
-
-
                                 <table id="datatable" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
@@ -380,8 +343,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
-
                                         <?php foreach ($all_abdimas as $alp) : ?>
                                             <tr>
                                                 <td><?= $alp['tahun']; ?></td>
@@ -393,22 +354,17 @@
                                                 <td><?= $alp['anggota_1']; ?></td>
                                                 <td><?= $alp['anggota_2']; ?></td>
                                                 <td><?= $alp['anggota_3']; ?></td>
-
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div> <!-- end col -->
                 </div> <!-- end row -->
-
-
             </div> <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
-
 
         <?= $this->include('partials/footer') ?>
     </div>
@@ -418,7 +374,6 @@
 <!-- END layout-wrapper -->
 
 <?= $this->include('partials/right-sidebar') ?>
-
 <?= $this->include('partials/vendor-scripts') ?>
 
 <!-- Required datatable js -->
@@ -454,636 +409,12 @@
 
 <!-- App js -->
 <script src="assets/js/app.js"></script>
-
 </body>
-
 </html>
 
-
-
-<script type="text/javascript">
-    const dataPublikasi = {
-        <?php
-            foreach($data_tahunan as $d) {
-                echo "'" . $d["kode_dosen"] . "': {";
-                foreach(array_keys($d) as $label) {
-                    $pattern = "THN_";
-                    $pos = strpos($label, $pattern);
-                    if($pos !== false) {
-                        $year = substr($label, $pos + strlen($pattern));
-                        echo "'" . $year . "': " . $d[$pattern . $year] . ",";
-                    }
-                }
-                echo "},";
-            }
-        ?>
-    }
-
-    <?php
-        echo "const dosenByKK = {";
-        foreach($data["byKK"] as $kkDosen => $dosenList) {
-            echo "'" . $kkDosen . "'" . ": [";
-            foreach($dosenList as $dosen) {
-                echo "'" . $dosen . "'" . ", ";
-            }
-            echo "],";
-        }
-        echo "};";
-    ?>
-
-    function makeChartAbdimas(kkFilter) {
-        document.getElementById("chartStatistikAbdimas_KK").innerHTML = `KK ${kkFilter}`
-        const targetElement = document.getElementById("chartStatistikAbdimas");
-        targetElement.innerHTML = "";
-        const chart = new ApexCharts(
-            document.getElementById("chartStatistikAbdimas"),
-            {
-                chart: {
-                    height: 350,
-                    type: 'bar',
-                    toolbar: {
-                        show: false,
-                    }
-                },
-                plotOptions: {
-                    bar: {
-                        dataLabels: { position: 'top'}, // top, center, bottom },
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                    position: 'top', // top, center, bottom,
-                    formatter: function(val) { return val + ""; },
-                    offsetY: -20,
-                    style: { fontSize: '12px', colors: ["#304758"] }
-                },
-                series: [{
-                    name: 'abdimas',
-                    data: dosenByKK[kkFilter] .map(dosen => {
-                            console.log(dataPublikasi[dosen])
-                            return Object.values(dataPublikasi[dosen])
-                                .reduce((acc, val) => acc + val, 0)
-                            }) ,
-                    // [
-                    //     <php foreach ($order_by_tahun_desc as $obt) {
-                    //         echo '"' . $obt['jumlah_abd'] . '",';
-                    //     }
-                    // ?> ]
-                }],
-                grid: { borderColor: '#f1f1f1', },
-                xaxis: {
-                    categories: dosenByKK[kkFilter],
-                    position: 'down',
-                    labels: { offsetY: 0, },
-                    axisBorder: { show: false },
-                    axisTicks: { show: true },
-                    crosshairs: {
-                        fill: {
-                            type: 'gradient',
-                            gradient: {
-                                colorFrom: '#D8E3F0',
-                                colorTo: '#BED1E6',
-                                stops: [0, 100],
-                                opacityFrom: 1,
-                                opacityTo: 1,
-                            }
-                        }
-                    },
-                    tooltip: { enabled: true, offsetY: -35, }
-                },
-                fill: {
-                    gradient: {
-                        shade: 'light',
-                        type: "horizontal",
-                        shadeIntensity: 0.25,
-                        gradientToColors: undefined,
-                        inverseColors: true,
-                        opacityFrom: 1,
-                        opacityTo: 1,
-                        stops: [50, 0, 100, 100]
-                    },
-                },
-                yaxis: {
-                    axisBorder: { show: false },
-                    axisTicks: { show: false, },
-                    labels: {
-                        show: false,
-                        formatter: function(val) { return val + " Abdimas"; }
-                    }
-                },
-            }
-        );
-
-
-        chart.render();
-
-    }
-
-    function getChartColorsArray(chartId) {
-        if (document.getElementById(chartId) !== null) {
-            var colors = document.getElementById(chartId).getAttribute("data-colors");
-            if (colors) {
-                colors = JSON.parse(colors);
-                return colors.map(function(value) {
-                    var newValue = value.replace(" ", "");
-                    if (newValue.indexOf(",") === -1) {
-                        var color = getComputedStyle(document.documentElement).getPropertyValue(newValue);
-                        if (color) return color;
-                        else return newValue;;
-                    } else {
-                        var val = value.split(',');
-                        if (val.length == 2) {
-                            var rgbaColor = getComputedStyle(document.documentElement).getPropertyValue(val[0]);
-                            rgbaColor = "rgba(" + rgbaColor + "," + val[1] + ")";
-                            return rgbaColor;
-                        } else {
-                            return newValue;
-                        }
-                    }
-                });
-            }
-        }
-    }
-
-    // column chart with datalabels
-    var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel");
-    if (BarchartColumnChartColors) {
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-                toolbar: {
-                    show: false,
-                }
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        position: 'top', // top, center, bottom
-                    },
-                }
-            },
-            dataLabels: {
-                enabled: true,
-                position: 'top', // top, center, bottom,
-                formatter: function(val) {
-                    return val + "";
-                },
-                offsetY: -20,
-                style: {
-                    fontSize: '12px',
-                    colors: ["#304758"]
-                }
-            },
-            series: [{
-                name: 'abdimas',
-                data: [
-                    <?php foreach ($order_by_tahun_desc as $obt) {
-                        echo '"' . $obt['jumlah_abd'] . '",';
-                    }
-                ?> ]
-            }],
-            grid: {
-                borderColor: '#f1f1f1',
-            },
-            xaxis: {
-                categories: [<?php 
-                    foreach ($order_by_tahun_desc as $obt) {
-                        echo '"' . $obt['thn'] . '",';
-                    }
-                ?>],
-                position: 'down',
-                labels: {
-                    offsetY: 0,
-
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: true
-                },
-                crosshairs: {
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            colorFrom: '#D8E3F0',
-                            colorTo: '#BED1E6',
-                            stops: [0, 100],
-                            opacityFrom: 1,
-                            opacityTo: 1,
-                        }
-                    }
-                },
-                tooltip: {
-                    enabled: true,
-                    offsetY: -35,
-                }
-            },
-            fill: {
-                gradient: {
-                    shade: 'light',
-                    type: "horizontal",
-                    shadeIntensity: 0.25,
-                    gradientToColors: undefined,
-                    inverseColors: true,
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [50, 0, 100, 100]
-                },
-            },
-            yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false,
-                },
-                labels: {
-                    show: false,
-                    formatter: function(val) {
-                        return val + " Abdimas";
-                    }
-                }
-
-            },
-
-        }
-
-        var chart = new ApexCharts(
-            document.querySelector("#column_chart_datalabel"),
-            options
-        );
-
-        chart.render();
-
-    }
-
-    // pie chart
-    var PiechartPieColors = getChartColorsArray("pie_chart");
-    if (PiechartPieColors) {
-        var options = {
-            chart: {
-                height: 320,
-                type: 'pie',
-            },
-            series: [<?php echo $Abdimas_Inter ?>, <?php echo $Abdimas_Ekster ?>],
-            labels: ["Internal", "Eksternal"],
-            colors: PiechartPieColors,
-            legend: {
-                show: true,
-                position: 'bottom',
-                horizontalAlign: 'center',
-                verticalAlign: 'middle',
-                floating: false,
-                fontSize: '14px',
-                offsetX: 0
-            },
-            responsive: [{
-                breakpoint: 600,
-                options: {
-                    chart: {
-                        height: 240
-                    },
-                    legend: {
-                        show: false
-                    },
-                }
-            }]
-
-        }
-
-        var chart = new ApexCharts(
-            document.querySelector("#pie_chart"),
-            options
-        );
-
-        chart.render();
-
-    }
-
-    // column chart
-    var BarchartColumnColors = getChartColorsArray("column_chart");
-    if (BarchartColumnColors) {
-
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-                toolbar: {
-                    show: false,
-                }
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        position: 'top', // top, center, bottom
-                    },
-                }
-            },
-            dataLabels: {
-                enabled: true,
-                position: 'top', // top, center, bottom,
-                formatter: function(val) {
-                    return val + "";
-                },
-                offsetY: -20,
-                style: {
-                    fontSize: '12px',
-                    colors: ["#304758"]
-                }
-            },
-            series: [
-                {
-                    name: 'Internal',
-                    data: [<?php foreach ($order_jenis as $cpub) {
-                                echo '' . $cpub['jumlah_Internal'] . ',';
-                            }
-
-                            ?>]
-                }, {
-                    name: 'Eksternal',
-                    data: [<?php foreach ($order_jenis as $cpub) {
-                                echo '' . $cpub['jumlah_Eksternal'] . ',';
-                            }
-
-                            ?>]
-                },
-            ],
-            grid: {
-                borderColor: '#f1f1f1',
-            },
-            xaxis: {
-                categories: [<?php 
-                    foreach ($order_jenis as $cpub) {
-                        echo '' . $cpub['tahun'] . ',';
-                    }
-                ?>],
-                position: 'down',
-                labels: {
-                    offsetY: 0,
-
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: true
-                },
-                crosshairs: {
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            colorFrom: '#D8E3F0',
-                            colorTo: '#BED1E6',
-                            stops: [0, 100],
-                            opacityFrom: 1,
-                            opacityTo: 1,
-                        }
-                    }
-                },
-                tooltip: {
-                    enabled: true,
-                    offsetY: -35,
-                }
-            },
-            fill: {
-                gradient: {
-                    shade: 'light',
-                    type: "horizontal",
-                    shadeIntensity: 0.25,
-                    gradientToColors: undefined,
-                    inverseColors: true,
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [50, 0, 100, 100]
-                },
-            },
-            yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false,
-                },
-                labels: {
-                    show: false,
-                    formatter: function(val) {
-                        return val + " Abdimas";
-                    }
-                }
-
-            },
-
-        }
-        var chart = new ApexCharts(
-            document.querySelector("#column_chart"),
-            options
-        );
-
-        chart.render();
-
-    }
-
-    const updateChartStatistik = function(target, newKodeDosen) {
-        const dataPublikasiDosen = dataPublikasi[newKodeDosen];
-        document.getElementById("chartAbdimas__desc").innerHTML = ""
-        document.getElementById("chartAbdimas__title").innerHTML = `Statistik Abdimas ${newKodeDosen}`
-        const chart = new ApexCharts(
-            target,  
-            {
-                chart: {
-                    height: 350,
-                    type: 'bar',
-                    toolbar: {
-                        show: false,
-                    },
-                    events: {
-                        dataPointSelection: function(e, context, opts) {
-                            let kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
-                            let targetElement = document.getElementById("chartAbdimasDosen") 
-                            updateChartStatistik(targetElement, kodeDosen)
-                        }
-                    }
-                },
-                plotOptions: {
-                    bar: {
-                        dataLabels: {
-                            position: 'top', // top, center, bottom
-                        },
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                    position: 'top', // top, center, bottom,
-                    formatter: val => val + "",
-                    offsetY: -20,
-                    style: { fontSize: '12px', colors: ["#304758"] }
-                },
-                series: [{
-                    name: 'Publikasi',
-                    data: Object.values(dataPublikasiDosen)
-                }],
-                grid: { borderColor: '#f1f1f1', },
-                xaxis: {
-                    categories: Object.keys(dataPublikasiDosen),
-                    position: 'down',
-                    labels: { offsetY: 0, },
-                    axisBorder: { show: false },
-                    axisTicks: { show: true },
-                    crosshairs: {
-                        fill: {
-                            type: 'gradient',
-                            gradient: {
-                                colorFrom: '#D8E3F0',
-                                colorTo: '#BED1E6',
-                                stops: [0, 100],
-                                opacityFrom: 1,
-                                opacityTo: 1,
-                            }
-                        }
-                    },
-                    tooltip: { enabled: true, offsetY: -35, }
-                },
-                fill: {
-                    gradient: {
-                        shade: 'light',
-                        type: "horizontal",
-                        shadeIntensity: 0.25,
-                        gradientToColors: undefined,
-                        inverseColors: true,
-                        opacityFrom: 1,
-                        opacityTo: 1,
-                        stops: [50, 0, 100, 100]
-                    },
-                },
-                yaxis: {
-                    axisBorder: { show: false },
-                    axisTicks: { show: false, },
-                    labels: {
-                        show: false,
-                        formatter: val => val + " Abdimas"
-                    }
-                },
-            }
-        );
-
-        target.innerHTML = "";
-        chart.render();
-    }
-    
-    let targetID = "chartStatistikAbdimas"
-    var statistikAbdimas = getChartColorsArray(targetID);
-    if (statistikAbdimas) {
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-                toolbar: {
-                    show: false,
-                },
-                events: {
-                    dataPointSelection: function(e, context, opts) {
-                        let kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
-                        let targetElement = document.getElementById("chartAbdimasDosen") 
-                        updateChartStatistik(targetElement, kodeDosen)
-                    }
-                }
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        position: 'top', // top, center, bottom
-                    },
-                }
-            },
-            dataLabels: {
-                enabled: true,
-                position: 'top', // top, center, bottom,
-                formatter: function(val) {
-                    return val + "";
-                },
-                offsetY: -20,
-                style: {
-                    fontSize: '12px',
-                    colors: ["#304758"]
-                }
-            },
-            series: [{
-                name: 'Publikasi',
-                data: dosenByKK[Object.keys(dosenByKK)[0]]
-                        .map(dosen => {
-                            console.log(dataPublikasi[dosen])
-                            return Object.values(dataPublikasi[dosen])
-                                .reduce((acc, val) => acc + val, 0)
-                        }) ,
-            }],
-            grid: {
-                borderColor: '#f1f1f1',
-            },
-            xaxis: {
-                categories: dosenByKK[Object.keys(dosenByKK)[0]],
-
-                position: 'down',
-                labels: {
-                    offsetY: 0,
-
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: true
-                },
-                crosshairs: {
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            colorFrom: '#D8E3F0',
-                            colorTo: '#BED1E6',
-                            stops: [0, 100],
-                            opacityFrom: 1,
-                            opacityTo: 1,
-                        }
-                    }
-                },
-                tooltip: {
-                    enabled: true,
-                    offsetY: -35,
-                }
-            },
-            fill: {
-                gradient: {
-                    shade: 'light',
-                    type: "horizontal",
-                    shadeIntensity: 0.25,
-                    gradientToColors: undefined,
-                    inverseColors: true,
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [50, 0, 100, 100]
-                },
-            },
-            yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false,
-                },
-                labels: {
-                    show: false,
-                    formatter: function(val) {
-                        return val + " Abdimas";
-                    }
-                }
-
-            },
-
-        }
-
-        var chart = new ApexCharts( document.getElementById(targetID), options);
-        chart.render();
-
-    }
-</script>
+<!-- Pass data needed by script here! -->
+<?= view('abdimas/jsScript', [
+    "dosenByKK" => $dosenByKK,
+    "data_tahunan" => $data_tahunan,
+    "order_by_tahun_desc" => $order_by_tahun_desc
+]) ?>
