@@ -68,7 +68,7 @@ class Haki extends BaseController
 
             'count_haki_all' => $this->hakiModel->getCountHakiAll(),
 
-
+            'data_tahunan' => $this->hakiModel->getDataDosenTahunan(),
         ];
         // dd($dosen);
         return view('haki/index', $data);

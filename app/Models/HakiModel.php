@@ -259,4 +259,46 @@ class HakiModel extends Model
         return $this->db->getFieldNames('haki');
     }
     
+    public function getDataDosenTahunan() {
+        $sql = "
+            SELECT 
+                kode_dosen,
+                haki.tahun, 
+                COUNT(*) AS banyak_haki 
+            FROM dosen 
+            LEFT JOIN haki 
+                ON ( haki.anggota_1 = kode_dosen 
+                    OR haki.anggota_2 = kode_dosen 
+                    OR haki.anggota_3 = kode_dosen 
+                    OR haki.anggota_4 = kode_dosen 
+                    OR haki.anggota_5 = kode_dosen 
+                    OR haki.anggota_6 = kode_dosen 
+                    OR haki.anggota_7 = kode_dosen 
+                    OR haki.anggota_8 = kode_dosen 
+                    OR haki.ketua = kode_dosen) 
+            GROUP BY haki.tahun, kode_dosen
+            ORDER BY kode_dosen, haki.tahun
+            ;
+        ";
+
+        $data = [];
+        $results = $this->db->query($sql)->getResultArray();
+        $yearRange = range(2008, date("Y")); // Tel-U was found around 2013, so this should be okay
+        foreach($results as $result) {
+            $year = $result["tahun"];
+            $kode_dosen = $result["kode_dosen"];
+            $yearCount = $result["banyak_haki"];
+            if(!isset($data[$kode_dosen])) {
+                // Unnecessary, but for the sake of pertaining uniformity, let it slide
+                $data[$kode_dosen] = [ "kode_dosen" => $kode_dosen ];
+                foreach($yearRange as $y) {
+                    $data[$kode_dosen]['THN_' . $y] = 0;
+                }
+            }
+
+            if(!is_null($year)) $data[$kode_dosen]['THN_' . $year] = $yearCount;
+        }
+
+        return $data;
+    }
 }

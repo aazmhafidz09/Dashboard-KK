@@ -4,8 +4,35 @@
 </head>
 
 <?php // Initial PHP
+    $dosenKetuaByKK = [];
+    $dosenByKK = [];
+    foreach($dosen as $d) {
+        $kkDosen = $d["KK"]; // By KK
+        $kodeDosen = $d["kode_dosen"];
+        if(isset($dosenByKK[$kkDosen])) {
+            array_push($dosenByKK[$kkDosen], $kodeDosen);
+            $dosenKetuaByKK[$kkDosen][$kodeDosen] = 0;
+        } else {
+            $dosenByKK[$kkDosen] = [$kodeDosen];
+            $dosenKetuaByKK[$kkDosen] = [
+                $kodeDosen => 0
+            ];
+        }
+    }
+
     $tahunPenelitianTersedia = [];
     foreach($all_penelitian as $a) { // OPtimizable?
+        $ketuaPeneliti = $a["ketua_peneliti"];
+        if(!is_null($ketuaPeneliti)) {
+            foreach($dosenByKK as $kk => $dList) {
+                foreach($dList as $d) {
+                    if($d == $ketuaPeneliti) {
+                        $dosenKetuaByKK[$kk][$ketuaPeneliti] += 1;
+                    }
+                }
+            }
+        }
+
         $tahunPenelitian = $a["tahun"];
         $isExist = false;
         $idx = 0;
@@ -17,16 +44,7 @@
         if(!$isExist) array_push($tahunPenelitianTersedia, $tahunPenelitian);
     }
 
-    $dosenByKK = [];
-    foreach($dosen as $d) {
-        $kkDosen = $d["KK"]; // By KK
-        $kodeDosen = $d["kode_dosen"];
-        if(isset($dosenByKK[$kkDosen])) {
-            array_push($dosenByKK[$kkDosen], $kodeDosen);
-        } else {
-            $dosenByKK[$kkDosen] = [$kodeDosen];
-        }
-    }
+    // dd($dosenKetuaByKK);
 ?>
 
 <?= $this->include('partials/body') ?>
