@@ -1,4 +1,9 @@
 <script type="text/javascript">
+    // admin, KK, dosen
+    // dosen mau pakai SSO
+    // admin => ALL + log
+    // KK => CRUD pada KK
+
     let CHART_STATISTIK_ABDIMAS_FILTER = {
         kk: <?= $defaultFilterKK ?>,
         tahun: "Semua",
@@ -84,7 +89,7 @@
                 xaxis: {
                     categories: dosenByKK[kk],
                     position: 'down',
-                    labels: { offsetY: 0, rotate: 270},
+                    labels: { offsetY: 0, rotate: 270, rotateAlways: true},
                     axisBorder: { show: false },
                     axisTicks: { show: true },
                     crosshairs: {
@@ -443,7 +448,7 @@
             xaxis: {
                 categories: dosenByKK[Object.keys(dosenByKK)[0]],
                 position: 'down',
-                labels: { offsetY: 0, rotate: 270},
+                labels: { offsetY: 0, rotate: 270, rotateAlways: true},
                 axisBorder: { show: false },
                 axisTicks: { show: true },
                 crosshairs: {

@@ -84,7 +84,7 @@
                 xaxis: {
                     categories: dosenByKK[kk],
                     position: 'down',
-                    labels: { offsetY: 0, rotate: 270},
+                    labels: { offsetY: 0, rotate: 270, rotateAlways: true},
                     axisBorder: { show: false },
                     axisTicks: { show: true },
                     crosshairs: {
@@ -482,7 +482,7 @@
             xaxis: {
                 categories: dosenByKK[Object.keys(dosenByKK)[0]],
                 position: 'down',
-                labels: { offsetY: 0, },
+                labels: { offsetY: 0, rotate: 270, rotateAlways: true},
                 axisBorder: { show: false },
                 axisTicks: { show: true },
                 crosshairs: {
@@ -516,7 +516,7 @@
                 axisTicks: { show: false, },
                 labels: {
                     show: false,
-                    formatter: val => val + " Penelitian"
+                    formatter: val => val + " Publikasi"
                 }
             },
         }
