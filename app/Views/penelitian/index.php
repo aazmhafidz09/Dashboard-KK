@@ -3,6 +3,32 @@
     <?= $this->include('partials/head-css') ?>
 </head>
 
+<?php // Initial PHP
+    $tahunPenelitianTersedia = [];
+    foreach($all_penelitian as $a) { // OPtimizable?
+        $tahunPenelitian = $a["tahun"];
+        $isExist = false;
+        $idx = 0;
+        while(!$isExist && $idx < count($tahunPenelitianTersedia)) {
+            $isExist = $tahunPenelitianTersedia[$idx] == $tahunPenelitian;
+            $idx += 1;
+        }
+
+        if(!$isExist) array_push($tahunPenelitianTersedia, $tahunPenelitian);
+    }
+
+    $dosenByKK = [];
+    foreach($dosen as $d) {
+        $kkDosen = $d["KK"]; // By KK
+        $kodeDosen = $d["kode_dosen"];
+        if(isset($dosenByKK[$kkDosen])) {
+            array_push($dosenByKK[$kkDosen], $kodeDosen);
+        } else {
+            $dosenByKK[$kkDosen] = [$kodeDosen];
+        }
+    }
+?>
+
 <?= $this->include('partials/body') ?>
 <!-- Begin page -->
 <div id="layout-wrapper">
@@ -13,7 +39,6 @@
     <!-- Start right Content here -->
     <!-- ============================================================== -->
     <div class="main-content">
-
         <div class="page-content">
             <div class="container-fluid">
                 <h5>Total</h5>
@@ -28,7 +53,6 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_Ekster ?></span></h4>
                                     <p class="text-muted mb-0">Eksternal</p>
                                 </div>
-
                             </div>
                         </div>
                     </div> <!-- end col-->
@@ -58,7 +82,6 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_Mand ?></span></h4>
                                     <p class="text-muted mb-0">Mandiri</p>
                                 </div>
-
                             </div>
                         </div>
                     </div> <!-- end col-->
@@ -73,7 +96,6 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_Kerjasama_PT ?></span></h4>
                                     <p class="text-muted mb-0">Kerjasama PT</p>
                                 </div>
-
                             </div>
                         </div>
                     </div> <!-- end col-->
@@ -87,7 +109,6 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_Hilir ?></span></h4>
                                     <p class="text-muted mb-0">Hilirisasi</p>
                                 </div>
-
                             </div>
                         </div>
                     </div> <!-- end col-->
@@ -388,10 +409,6 @@
                     </div> <!-- end Col -->
                 </div> <!-- end row-->
 
-
-
-
-
                 <div class="row">
                     <div class="col-xl-4">
                         <div class="card">
@@ -502,6 +519,51 @@
                     <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
+                                <div class="float-end d-flex">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fw-semibold">Tahun:&nbsp; </span> 
+                                            <div class="text-muted d-flex"> 
+                                                <p id="chartStatistikPenelitian_tahun"> Semua </p>
+                                                <i class="mdi mdi-chevron-down ms-1"> </i>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="CHART_STATISTIK_PENELITIAN_FILTER = {...CHART_STATISTIK_PENELITIAN_FILTER,  tahun: 'Semua'}; makeChartPenelitian(); "
+                                            > Semua </button>
+                                            <?php foreach($tahunPenelitianTersedia as $tahun): ?>
+                                                <button 
+                                                    class="dropdown-item" 
+                                                    onclick="CHART_STATISTIK_PENELITIAN_FILTER = {...CHART_STATISTIK_PENELITIAN_FILTER, tahun: '<?= $tahun ?>'}; makeChartPenelitian(); "
+                                                >
+                                                    <?= $tahun ?>
+                                                </button>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fw-semibold">KK:&nbsp; </span> 
+                                            <div class="text-muted d-flex"> 
+                                                <p id="chartStatistikPenelitian_KK"> KK <?= array_keys($dosenByKK)[0]?></p>
+                                                <i class="mdi mdi-chevron-down ms-1"> </i>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
+                                            <?php foreach($dosenByKK as $KK => $_): ?>
+                                                <button 
+                                                    class="dropdown-item" 
+                                                    onclick="CHART_STATISTIK_PENELITIAN_FILTER = {...CHART_STATISTIK_PENELITIAN_FILTER, kk: '<?= $KK ?>'}; makeChartPenelitian(); "
+                                                >
+                                                    KK <?= $KK ?>
+                                                </button>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <h4 class="card-title mb-4">Statistik Penelitian</h4>
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
@@ -513,8 +575,6 @@
                         </div> <!-- end card-->
                     </div> <!-- end col-->
                 </div> <!-- end row-->
-
-
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -536,11 +596,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Data Penelitian</h4>
-                                <!-- <p class="card-title-desc">DataTables has most features enabled by
-                                    default, so all you need to do to use it with your own tables is to call
-                                    the construction function: <code>$().DataTable();</code>.
-                                </p> -->
-
                                 <table id="datatable" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
@@ -555,10 +610,8 @@
                                             <th>anggota 4</th>
                                         </tr>
                                     </thead>
-
                                     <tbody>
                                         <?php $i = 1 ?>
-
                                         <?php foreach ($all_penelitian as $alp) : ?>
                                             <tr>
                                                 <td><?= $alp['tahun']; ?></td>
@@ -574,13 +627,10 @@
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div> <!-- end col -->
                 </div> <!-- end row -->
-
-
             </div> <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
@@ -635,584 +685,17 @@
 
 </html>
 
-<script type="text/javascript">
-    // column chart with datalabels
-    var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel");
-    if (BarchartColumnChartColors) {
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-                toolbar: {
-                    show: false,
-                }
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        position: 'top', // top, center, bottom
-                    },
-                }
-            },
-            dataLabels: {
-                enabled: true,
-                position: 'top', // top, center, bottom,
-                formatter: function(val) {
-                    return val + "";
-                },
-                offsetY: -20,
-                style: {
-                    fontSize: '12px',
-                    colors: ["#304758"]
-                }
-            },
-            series: [{
-                name: 'penelitian',
-                data: [
-                    <?php foreach ($order_by_tahun_Asc as $obt) {
-                        echo '"' . $obt['jumlah_pen'] . '",';
-                    }
+<?= view('penelitian/jsScript', [
+    "dosenByKK" => $dosenByKK,
+    "data_tahunan" => $data_tahunan,
+    "defaultFilterKK" => "'" . array_keys($dosenByKK)[0] . "'",
 
-                    ?>
-                    // 8, 14, 15, 15, 17, 22, 38, 39, 56, 42
-                ]
-            }],
-            grid: {
-                borderColor: '#f1f1f1',
-            },
-            xaxis: {
-
-                categories: [<?php foreach ($order_by_tahun_Asc as $obt) {
-                                    echo '"' . $obt['thn'] . '",';
-                                }
-                                ?>],
-                position: 'down',
-                labels: {
-                    offsetY: 0,
-
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: true
-                },
-                crosshairs: {
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            colorFrom: '#D8E3F0',
-                            colorTo: '#BED1E6',
-                            stops: [0, 100],
-                            opacityFrom: 1,
-                            opacityTo: 1,
-                        }
-                    }
-                },
-                tooltip: {
-                    enabled: true,
-                    offsetY: -35,
-                }
-            },
-            fill: {
-                gradient: {
-                    shade: 'light',
-                    type: "horizontal",
-                    shadeIntensity: 0.25,
-                    gradientToColors: undefined,
-                    inverseColors: true,
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [50, 0, 100, 100]
-                },
-            },
-            yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false,
-                },
-                labels: {
-                    show: false,
-                    formatter: function(val) {
-                        return val + " Penelitian";
-                    }
-                }
-
-            },
-
-        }
-
-        var chart = new ApexCharts(
-            document.querySelector("#column_chart_datalabel"),
-            options
-        );
-
-        chart.render();
-
-    }
-
-
-    // pie chart
-    var PiechartPieColors = getChartColorsArray("pie_chart");
-    if (PiechartPieColors) {
-        var options = {
-            chart: {
-                height: 320,
-                type: 'pie',
-            },
-            series: [<?php foreach ($count_publikasi as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        }
-
-                        ?>],
-            labels: [<?php foreach ($count_publikasi as $cpub) {
-                            echo '"' . $cpub['jenis_pen'] . '",';
-                        }
-
-                        ?>],
-
-            colors: PiechartPieColors,
-            legend: {
-                show: true,
-                position: 'bottom',
-                horizontalAlign: 'center',
-                verticalAlign: 'middle',
-                floating: false,
-                fontSize: '14px',
-                offsetX: 0
-            },
-            responsive: [{
-                breakpoint: 600,
-                options: {
-                    chart: {
-                        height: 240
-                    },
-                    legend: {
-                        show: false
-                    },
-                }
-            }]
-
-        }
-
-        var chart = new ApexCharts(
-            document.querySelector("#pie_chart"),
-            options
-        );
-
-        chart.render();
-
-    }
-
-
-    // column chart
-    var BarchartColumnColors = getChartColorsArray("column_chart");
-    if (BarchartColumnColors) {
-
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-                toolbar: {
-                    show: false,
-                }
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        position: 'top', // top, center, bottom
-                    },
-                }
-            },
-            dataLabels: {
-                enabled: true,
-                position: 'top', // top, center, bottom,
-                formatter: function(val) {
-                    return val + "";
-                },
-                offsetY: -20,
-                style: {
-                    fontSize: '12px',
-                    colors: ["#304758"]
-                }
-            },
-            series: [{
-                name: 'Eksternal',
-                data: [<?php foreach ($getOrderByTahunEksternal as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        }
-
-                        ?>]
-            }, {
-                name: 'Internal',
-                data: [<?php foreach ($getOrderByTahunInternal as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        }
-
-                        ?>]
-            }, {
-                name: 'Mandiri',
-                data: [<?php foreach ($getOrderByTahunMandiri as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        }
-
-                        ?>]
-            }, {
-                name: 'Kerja Sama PT',
-                data: [<?php foreach ($getOrderByTahunKerjasamaPT as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        }
-
-                        ?>]
-            }, {
-                name: 'Hilirisasi',
-                data: [<?php foreach ($getOrderByTahunHilirisasi as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        }
-
-                        ?>]
-            }, ],
-            grid: {
-                borderColor: '#f1f1f1',
-            },
-            xaxis: {
-
-                categories: [<?php foreach ($getOrderByTahunEksternal as $cpub) {
-                                    echo '' . $cpub['thn'] . ',';
-                                }
-
-                                ?>],
-                position: 'down',
-                labels: {
-                    offsetY: 0,
-
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: true
-                },
-                crosshairs: {
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            colorFrom: '#D8E3F0',
-                            colorTo: '#BED1E6',
-                            stops: [0, 100],
-                            opacityFrom: 1,
-                            opacityTo: 1,
-                        }
-                    }
-                },
-                tooltip: {
-                    enabled: true,
-                    offsetY: -35,
-                }
-            },
-            fill: {
-                gradient: {
-                    shade: 'light',
-                    type: "horizontal",
-                    shadeIntensity: 0.25,
-                    gradientToColors: undefined,
-                    inverseColors: true,
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [50, 0, 100, 100]
-                },
-            },
-            yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false,
-                },
-                labels: {
-                    show: false,
-                    formatter: function(val) {
-                        return val + " Penelitian";
-                    }
-                }
-
-            },
-
-        }
-        var chart = new ApexCharts(
-            document.querySelector("#column_chart"),
-            options
-        );
-
-        chart.render();
-
-    }
-
-    // Bar chart
-    var BarchartBarColors = getChartColorsArray("bar_chart");
-    if (BarchartBarColors) {
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-                toolbar: {
-                    show: false,
-                }
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: true,
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            series: [{
-                data: [<?php foreach ($count_publikasi as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        }
-
-                        ?>]
-            }],
-            colors: BarchartBarColors,
-            grid: {
-                borderColor: '#f1f1f1',
-            },
-            xaxis: {
-                categories: ['Eksternal', 'Hilirisasi', 'Internal', 'Kemitraan', 'Kerja Sama PT', 'Mandiri'],
-            }
-        }
-
-        var chart = new ApexCharts(
-            document.querySelector("#bar_chart"),
-            options
-        );
-
-        chart.render();
-
-    }
-
-    const dataPublikasi = {
-        <?php
-            foreach($data_tahunan as $data) {
-                echo "'" . $data["kode_dosen"] . "': {";
-                foreach(array_keys($data) as $label) {
-                    $pattern = "THN_";
-                    $pos = strpos($label, $pattern);
-                    if($pos !== false) {
-                        $year = substr($label, $pos + strlen($pattern));
-                        echo "'" . $year . "': " . $data[$pattern . $year] . ",";
-                    }
-                }
-                echo "},";
-            }
-        ?>
-    }
-
-    const updateChartStatistik = function(target, newKodeDosen) {
-        const dataPublikasiDosen = dataPublikasi[newKodeDosen];
-        document.getElementById("chartPenelitian__desc").innerHTML = ""
-        document.getElementById("chartPenelitian__title").innerHTML = `Statistik Penelitian ${newKodeDosen}`
-        const chart = new ApexCharts(
-            target,  
-            {
-                chart: {
-                    height: 350,
-                    type: 'bar',
-                    toolbar: {
-                        show: false,
-                    },
-                    events: {
-                        dataPointSelection: function(e, context, opts) {
-                            let kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
-                            let targetElement = document.getElementById("chartPenelitianDosen") 
-                            updateChartStatistik(targetElement, kodeDosen)
-                        }
-                    }
-                },
-                plotOptions: {
-                    bar: {
-                        dataLabels: {
-                            position: 'top', // top, center, bottom
-                        },
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                    position: 'top', // top, center, bottom,
-                    formatter: val => val + "",
-                    offsetY: -20,
-                    style: { fontSize: '12px', colors: ["#304758"] }
-                },
-                series: [{
-                    name: 'Publikasi',
-                    data: Object.values(dataPublikasiDosen)
-                }],
-                grid: { borderColor: '#f1f1f1', },
-                xaxis: {
-                    categories: Object.keys(dataPublikasiDosen),
-                    position: 'down',
-                    labels: { offsetY: 0, },
-                    axisBorder: { show: false },
-                    axisTicks: { show: true },
-                    crosshairs: {
-                        fill: {
-                            type: 'gradient',
-                            gradient: {
-                                colorFrom: '#D8E3F0',
-                                colorTo: '#BED1E6',
-                                stops: [0, 100],
-                                opacityFrom: 1,
-                                opacityTo: 1,
-                            }
-                        }
-                    },
-                    tooltip: { enabled: true, offsetY: -35, }
-                },
-                fill: {
-                    gradient: {
-                        shade: 'light',
-                        type: "horizontal",
-                        shadeIntensity: 0.25,
-                        gradientToColors: undefined,
-                        inverseColors: true,
-                        opacityFrom: 1,
-                        opacityTo: 1,
-                        stops: [50, 0, 100, 100]
-                    },
-                },
-                yaxis: {
-                    axisBorder: { show: false },
-                    axisTicks: { show: false, },
-                    labels: {
-                        show: false,
-                        formatter: val => val + " Penelitian"
-                    }
-                },
-            }
-        );
-
-        target.innerHTML = "";
-        chart.render();
-    }
-
-    // column chart with datalabels
-    let targetID = "chartStatistikPenelitian";
-    var BarchartColumnChartColors = getChartColorsArray(targetID);
-    if (BarchartColumnChartColors) {
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-                toolbar: {
-                    show: false,
-                },
-                events: {
-                    dataPointSelection: function(e, context, opts) {
-                        let kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
-                        let targetElement = document.getElementById("chartPenelitianDosen") 
-                        updateChartStatistik(targetElement, kodeDosen)
-                    }
-                }
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        position: 'top', // top, center, bottom
-                    },
-                }
-            },
-            dataLabels: {
-                enabled: true,
-                position: 'top', // top, center, bottom,
-                formatter: function(val) {
-                    return val + "";
-                },
-                offsetY: -20,
-                style: {
-                    fontSize: '12px',
-                    colors: ["#304758"]
-                }
-            },
-            series: [{
-                name: 'Penelitian',
-                data: [<?php foreach ($top_penelitian_all as $cpub) {
-                            echo '"' . $cpub['jumlah_penelitian'] . '",';
-                        }
-
-                        ?>]
-            }],
-            grid: {
-                borderColor: '#f1f1f1',
-            },
-            xaxis: {
-
-                categories: [<?php foreach ($top_penelitian_all as $cpub) {
-                                    echo '"' . $cpub['kode_dosen'] . '",';
-                                }
-
-                                ?>],
-                position: 'down',
-                labels: {
-                    offsetY: 0,
-
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: true
-                },
-                crosshairs: {
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            colorFrom: '#D8E3F0',
-                            colorTo: '#BED1E6',
-                            stops: [0, 100],
-                            opacityFrom: 1,
-                            opacityTo: 1,
-                        }
-                    }
-                },
-                tooltip: {
-                    enabled: true,
-                    offsetY: -35,
-                }
-            },
-            fill: {
-                gradient: {
-                    shade: 'light',
-                    type: "horizontal",
-                    shadeIntensity: 0.25,
-                    gradientToColors: undefined,
-                    inverseColors: true,
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [50, 0, 100, 100]
-                },
-            },
-            yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false,
-                },
-                labels: {
-                    show: false,
-                    formatter: function(val) {
-                        return val + " Penelitian";
-                    }
-                }
-
-            },
-
-        }
-
-        var chart = new ApexCharts( document.getElementById(targetID), options);
-        chart.render();
-    }
-</script>
+    "order_by_tahun_Asc" => $order_by_tahun_Asc,
+    "countPublikasi" => $count_publikasi,
+    "getOrderByTahunInternal" => $getOrderByTahunInternal,
+    "getOrderByTahunEksternal" => $getOrderByTahunEksternal,
+    "getOrderByTahunMandiri" => $getOrderByTahunMandiri,
+    "getOrderByTahunKerjasamaPT" => $getOrderByTahunKerjasamaPT,
+    "getOrderByTahunHilirisasi" => $getOrderByTahunHilirisasi,
+    "top_penelitian_all" => $top_penelitian_all
+]) ?>
