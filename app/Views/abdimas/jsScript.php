@@ -1,5 +1,10 @@
 <script type="text/javascript">
-    const dataPublikasi = {
+    let CHART_STATISTIK_ABDIMAS_FILTER = {
+        kk: <?= $defaultFilterKK ?>,
+        tahun: "Semua",
+    };
+
+    const dataAbdimas = {
         <?php
             foreach($data_tahunan as $d) {
                 echo "'" . $d["kode_dosen"] . "': {";
@@ -16,17 +21,17 @@
         ?>
     }
 
-    <?php
-        echo "const dosenByKK = {";
-        foreach($dosenByKK as $kkDosen => $dosenList) {
-            echo "'" . $kkDosen . "'" . ": [";
-            foreach($dosenList as $dosen) {
-                echo "'" . $dosen . "'" . ", ";
+    const dosenByKK = { 
+        <?php
+            foreach($dosenByKK as $kkDosen => $dosenList) {
+                echo "'" . $kkDosen . "'" . ": [";
+                foreach($dosenList as $dosen) {
+                    echo "'" . $dosen . "'" . ", ";
+                }
+                echo "],";
             }
-            echo "],";
-        }
-        echo "};";
-    ?>
+        ?> 
+    };
 
     const onDataPointSelection = function(e, context, opts) {
         let kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
@@ -34,8 +39,10 @@
         updateChartStatistik(targetElement, kodeDosen)
     }
 
-    function makeChartAbdimas(kkFilter) {
-        document.getElementById("chartStatistikAbdimas_KK").innerHTML = `KK ${kkFilter}`
+    function makeChartAbdimas() {
+        const {kk, tahun} = CHART_STATISTIK_ABDIMAS_FILTER;
+        document.getElementById("chartStatistikAbdimas_KK").innerHTML = `KK ${kk}`;
+        document.getElementById("chartStatistikAbdimas_tahun").innerHTML = tahun;
         const targetElement = document.getElementById("chartStatistikAbdimas");
         targetElement.innerHTML = "";
         new ApexCharts(
@@ -48,28 +55,34 @@
                     events: { dataPointSelection: onDataPointSelection}
                 },
                 plotOptions: {
-                    bar: {
-                        dataLabels: { position: 'top'},
-                    }
+                    bar: { dataLabels: { position: 'top'}, }
                 },
                 dataLabels: {
                     enabled: true,
                     position: 'top', // top, center, bottom,
-                    formatter: function(val) { return val + ""; },
+                    formatter: val => val + "",
                     offsetY: -20,
                     style: { fontSize: '12px', colors: ["#304758"] }
                 },
                 series: [{
                     name: 'abdimas',
-                    data: dosenByKK[kkFilter]
-                            .map(dosen => (
-                                Object.values(dataPublikasi[dosen])
-                                    .reduce((acc, val) => acc + val, 0)
-                            )),
+                    data: dosenByKK[kk].map(dosen => (
+                        Object.entries(dataAbdimas[dosen])
+                            .map((val, idx) => {
+                                const [tahunAbdimas, nAbdimas] = val;
+                                if(tahun == "Semua" || tahunAbdimas == tahun) {
+                                    return nAbdimas
+                                }
+
+                                return 0;
+                            })
+                            .reduce((acc, val) => acc + val, 0)
+                        )
+                    ),
                 }],
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: {
-                    categories: dosenByKK[kkFilter],
+                    categories: dosenByKK[kk],
                     position: 'down',
                     labels: { offsetY: 0, rotate: 270},
                     axisBorder: { show: false },
@@ -142,57 +155,33 @@
             chart: {
                 height: 350,
                 type: 'bar',
-                toolbar: {
-                    show: false,
-                }
+                toolbar: { show: false, }
             },
             plotOptions: {
-                bar: {
-                    dataLabels: {
-                        position: 'top', // top, center, bottom
-                    },
-                }
+                bar: { dataLabels: { position: 'top',} } // top, center, bottom
             },
             dataLabels: {
                 enabled: true,
                 position: 'top', // top, center, bottom,
-                formatter: function(val) {
-                    return val + "";
-                },
+                formatter: val => val + "",
                 offsetY: -20,
-                style: {
-                    fontSize: '12px',
-                    colors: ["#304758"]
-                }
+                style: { fontSize: '12px', colors: ["#304758"] }
             },
             series: [{
                 name: 'abdimas',
-                data: [
-                    <?php foreach ($order_by_tahun_desc as $obt) {
-                        echo '"' . $obt['jumlah_abd'] . '",';
-                    }
-                ?> ]
+                data: [ <?php foreach ($order_by_tahun_desc as $obt) {
+                            echo '"' . $obt['jumlah_abd'] . '",';
+                        } ?> ]
             }],
-            grid: {
-                borderColor: '#f1f1f1',
-            },
+            grid: { borderColor: '#f1f1f1', },
             xaxis: {
-                categories: [<?php 
-                    foreach ($order_by_tahun_desc as $obt) {
-                        echo '"' . $obt['thn'] . '",';
-                    }
-                ?>],
+                categories: [<?php foreach ($order_by_tahun_desc as $obt) {
+                                echo '"' . $obt['thn'] . '",';
+                            } ?>],
                 position: 'down',
-                labels: {
-                    offsetY: 0,
-
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: true
-                },
+                labels: { offsetY: 0, },
+                axisBorder: { show: false },
+                axisTicks: { show: true },
                 crosshairs: {
                     fill: {
                         type: 'gradient',
@@ -205,10 +194,7 @@
                         }
                     }
                 },
-                tooltip: {
-                    enabled: true,
-                    offsetY: -35,
-                }
+                tooltip: { enabled: true, offsetY: -35, }
             },
             fill: {
                 gradient: {
@@ -223,40 +209,20 @@
                 },
             },
             yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false,
-                },
-                labels: {
-                    show: false,
-                    formatter: function(val) {
-                        return val + " Abdimas";
-                    }
-                }
-
+                axisBorder: { show: false },
+                axisTicks: { show: false, },
+                labels: { show: false, formatter: val => val + " Abdimas" }
             },
-
         }
 
-        var chart = new ApexCharts(
-            document.querySelector("#column_chart_datalabel"),
-            options
-        );
-
-        chart.render();
-
+        new ApexCharts(document.querySelector("#column_chart_datalabel"), options).render();
     }
 
     // pie chart
     var PiechartPieColors = getChartColorsArray("pie_chart");
     if (PiechartPieColors) {
         var options = {
-            chart: {
-                height: 320,
-                type: 'pie',
-            },
+            chart: { height: 320, type: 'pie', },
             series: [<?php echo $Abdimas_Inter ?>, <?php echo $Abdimas_Ekster ?>],
             labels: ["Internal", "Eksternal"],
             colors: PiechartPieColors,
@@ -272,94 +238,57 @@
             responsive: [{
                 breakpoint: 600,
                 options: {
-                    chart: {
-                        height: 240
-                    },
-                    legend: {
-                        show: false
-                    },
+                    chart: { height: 240 },
+                    legend: { show: false },
                 }
             }]
 
         }
 
-        var chart = new ApexCharts(
-            document.querySelector("#pie_chart"),
-            options
-        );
-
-        chart.render();
-
+        new ApexCharts( document.querySelector("#pie_chart"), options).render();
     }
 
     // column chart
     var BarchartColumnColors = getChartColorsArray("column_chart");
     if (BarchartColumnColors) {
-
         var options = {
             chart: {
                 height: 350,
                 type: 'bar',
-                toolbar: {
-                    show: false,
-                }
+                toolbar: { show: false, }
             },
             plotOptions: {
-                bar: {
-                    dataLabels: {
-                        position: 'top', // top, center, bottom
-                    },
-                }
+                bar: { dataLabels: { position: 'top', }, }
             },
             dataLabels: {
                 enabled: true,
                 position: 'top', // top, center, bottom,
-                formatter: function(val) {
-                    return val + "";
-                },
+                formatter: val => val + "",
                 offsetY: -20,
-                style: {
-                    fontSize: '12px',
-                    colors: ["#304758"]
-                }
+                style: { fontSize: '12px', colors: ["#304758"] }
             },
             series: [
                 {
                     name: 'Internal',
                     data: [<?php foreach ($order_jenis as $cpub) {
                                 echo '' . $cpub['jumlah_Internal'] . ',';
-                            }
-
-                            ?>]
+                            } ?>]
                 }, {
                     name: 'Eksternal',
                     data: [<?php foreach ($order_jenis as $cpub) {
                                 echo '' . $cpub['jumlah_Eksternal'] . ',';
-                            }
-
-                            ?>]
+                            } ?>]
                 },
             ],
-            grid: {
-                borderColor: '#f1f1f1',
-            },
+            grid: { borderColor: '#f1f1f1', },
             xaxis: {
-                categories: [<?php 
-                    foreach ($order_jenis as $cpub) {
-                        echo '' . $cpub['tahun'] . ',';
-                    }
-                ?>],
+                categories: [<?php foreach ($order_jenis as $cpub) {
+                                echo '' . $cpub['tahun'] . ',';
+                            } ?>],
                 position: 'down',
-                labels: {
-                    offsetY: 0,
-
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: true
-                },
+                labels: { offsetY: 0, },
+                axisBorder: { show: false },
+                axisTicks: { show: true },
                 crosshairs: {
                     fill: {
                         type: 'gradient',
@@ -372,10 +301,7 @@
                         }
                     }
                 },
-                tooltip: {
-                    enabled: true,
-                    offsetY: -35,
-                }
+                tooltip: { enabled: true, offsetY: -35, }
             },
             fill: {
                 gradient: {
@@ -390,33 +316,20 @@
                 },
             },
             yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false,
-                },
-                labels: {
-                    show: false,
-                    formatter: function(val) {
-                        return val + " Abdimas";
-                    }
-                }
-
+                axisBorder: { show: false },
+                axisTicks: { show: false, },
+                labels: { show: false, formatter: val =>  val + " Abdimas" }
             },
-
         }
-        var chart = new ApexCharts(
+        new ApexCharts(
             document.querySelector("#column_chart"),
             options
-        );
-
-        chart.render();
+        ).render();
 
     }
 
     const updateChartStatistik = function(target, newKodeDosen) {
-        const dataPublikasiDosen = dataPublikasi[newKodeDosen];
+        const dataAbdimasDosen = dataAbdimas[newKodeDosen];
         document.getElementById("chartAbdimas__desc").innerHTML = ""
         document.getElementById("chartAbdimas__title").innerHTML = `Statistik Abdimas ${newKodeDosen}`
         target.innerHTML = "";
@@ -444,11 +357,11 @@
                 },
                 series: [{
                     name: 'Publikasi',
-                    data: Object.values(dataPublikasiDosen)
+                    data: Object.values(dataAbdimasDosen)
                 }],
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: {
-                    categories: Object.keys(dataPublikasiDosen),
+                    categories: Object.keys(dataAbdimasDosen),
                     position: 'down',
                     labels: { offsetY: 0, },
                     axisBorder: { show: false },
@@ -482,10 +395,7 @@
                 yaxis: {
                     axisBorder: { show: false },
                     axisTicks: { show: false, },
-                    labels: {
-                        show: false,
-                        formatter: val => val + " Abdimas"
-                    }
+                    labels: { show: false, formatter: val => val + " Abdimas" }
                 },
             }
         ).render();
@@ -522,10 +432,12 @@
             series: [{
                 name: 'Publikasi',
                 data: dosenByKK[Object.keys(dosenByKK)[0]]
-                        .map(dosen => (
-                            Object.values(dataPublikasi[dosen])
-                                .reduce((acc, val) => acc + val, 0)
-                        )),
+                    .map(dosen => (
+                        Object
+                            .values(dataAbdimas[dosen])
+                            .reduce((acc, val) => acc + val, 0)
+                        )
+                ),
             }],
             grid: { borderColor: '#f1f1f1', },
             xaxis: {

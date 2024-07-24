@@ -5,6 +5,19 @@
 <?= $this->include('partials/body') ?>
 
 <?php // Initial PHP
+    $tahunAbdimasTersedia = [];
+    foreach($all_abdimas as $a) { // OPtimizable?
+        $tahunAbdimas = $a["tahun"];
+        $isExist = false;
+        $idx = 0;
+        while(!$isExist && $idx < count($tahunAbdimasTersedia)) {
+            $isExist = $tahunAbdimasTersedia[$idx] == $tahunAbdimas;
+            $idx += 1;
+        }
+
+        if(!$isExist) array_push($tahunAbdimasTersedia, $tahunAbdimas);
+    }
+
     $dosenByKK = [];
     foreach($dosen as $d) {
         $kkDosen = $d["KK"]; // By KK
@@ -276,10 +289,33 @@
                     <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
+                                <div class="float-end d-flex">
                                     <div class="dropdown">
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:&nbsp; </span> 
+                                            <span class="fw-semibold">Tahun:&nbsp; </span> 
+                                            <div class="text-muted d-flex"> 
+                                                <p id="chartStatistikAbdimas_tahun"> Semua </p>
+                                                <i class="mdi mdi-chevron-down ms-1"> </i>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="CHART_STATISTIK_ABDIMAS_FILTER = {...CHART_STATISTIK_ABDIMAS_FILTER,  tahun: 'Semua'}; makeChartAbdimas(); "
+                                            > Semua </button>
+                                            <?php foreach($tahunAbdimasTersedia as $tahun): ?>
+                                                <button 
+                                                    class="dropdown-item" 
+                                                    onclick="CHART_STATISTIK_ABDIMAS_FILTER = {...CHART_STATISTIK_ABDIMAS_FILTER, tahun: '<?= $tahun ?>'}; makeChartAbdimas(); "
+                                                >
+                                                    <?= $tahun ?>
+                                                </button>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fw-semibold">KK:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
                                                 <p id="chartStatistikAbdimas_KK"> KK <?= array_keys($dosenByKK)[0]?></p>
                                                 <i class="mdi mdi-chevron-down ms-1"> </i>
@@ -289,7 +325,7 @@
                                             <?php foreach($dosenByKK as $KK => $_): ?>
                                                 <button 
                                                     class="dropdown-item" 
-                                                    onclick="makeChartAbdimas('<?=$KK?>')"
+                                                    onclick="CHART_STATISTIK_ABDIMAS_FILTER = {...CHART_STATISTIK_ABDIMAS_FILTER, kk: '<?= $KK ?>'}; makeChartAbdimas(); "
                                                 >
                                                     KK <?= $KK ?>
                                                 </button>
@@ -414,6 +450,7 @@
 
 <!-- Pass data needed by script here! -->
 <?= view('abdimas/jsScript', [
+    "defaultFilterKK" => "'" . array_keys($dosenByKK)[0] . "'",
     "dosenByKK" => $dosenByKK,
     "data_tahunan" => $data_tahunan,
     "order_by_tahun_desc" => $order_by_tahun_desc
