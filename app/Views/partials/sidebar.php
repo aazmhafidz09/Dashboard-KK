@@ -60,7 +60,7 @@
                         <span><?= lang('Dosen') ?></span>
                     </a>
                 </li>
-                <?php if(in_groups(["admin", "kk_dsis", "kk_seal", "kk_citi"], user_id())): ?>
+                <?php if(logged_in()): ?>
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="uil-share-alt"></i>
@@ -68,14 +68,16 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="true">
                             <li><a href="/admin"><?= lang('Admin Dashboard') ?></a></li>
-                            <li><a href="javascript: void(0);" class="has-arrow"><?= lang('Input Data') ?></a>
-                                <ul class="sub-menu" aria-expanded="true">
-                                    <li><a href="/admin/publikasi">Publikasi</a></li>
-                                    <li><a href="/admin/penelitian">Penelitian</a></li>
-                                    <li><a href="/admin/abdimas">Abdimas</a></li>
-                                    <li><a href="/admin/haki">Haki</a></li>
-                                </ul>
-                            </li>
+                            <?php if(in_groups(["admin", "kk_dsis", "kk_seal", "kk_citi"], user_id())): ?>
+                                <li><a href="javascript: void(0);" class="has-arrow"><?= lang('Input Data') ?></a>
+                                    <ul class="sub-menu" aria-expanded="true">
+                                        <li><a href="/admin/publikasi">Publikasi</a></li>
+                                        <li><a href="/admin/penelitian">Penelitian</a></li>
+                                        <li><a href="/admin/abdimas">Abdimas</a></li>
+                                        <li><a href="/admin/haki">Haki</a></li>
+                                    </ul>
+                                </li>
+                            <?php endif ?>
                         </ul>
                     </li>
                 <?php endif ?>

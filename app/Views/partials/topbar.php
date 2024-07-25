@@ -208,11 +208,27 @@
                 </div>
             </div> -->
             <?php if (logged_in()) : ?>
-
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="rounded-circle header-profile-user" src="/assets/images/users/user-avatar.jpg" alt="Header Avatar">
-                        <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">Admin</span>
+                        <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">
+                            <?php
+                                $currentRole = "Unknown";
+                                if(in_groups("admin", user_id())) { 
+                                    $currentRole = "Admin"; 
+                                } else if(in_groups("kk_seal", user_id())) { 
+                                    $currentRole = "Admin SEAL"; 
+                                } else if(in_groups("kk_citi", user_id())) { 
+                                    $currentRole = "Admin CITI"; 
+                                } else if(in_groups("kk_dsis", user_id())) { 
+                                    $currentRole = "Admin DSIS"; 
+                                } else if(in_groups("dosen", user_id())) { 
+                                    $currentRole = "Dosen"; 
+                                }
+
+                                echo $currentRole;
+                            ?>
+                        </span>
                         <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
@@ -222,7 +238,7 @@
                         <a class="dropdown-item" href="/admin/publikasi"><i class="uil-copy-alt"></i> <span class="align-middle">Publikasi</span></a>
                         <a class="dropdown-item" href="/admin/penelitian"><i class="uil-align-center-alt"></i> <span class="align-middle">Penelitian</span></a>
                         <a class="dropdown-item" href="/admin/abdimas"><i class="uil-trees"></i> <span class="align-middle">Abdimas</span></a>
-                        <a class="dropdown-item" href="/admin/haki"><i class="uil-file-bookmark-alt"></i> <span class="align-middle">haki</span></a>
+                        <a class="dropdown-item" href="/admin/haki"><i class="uil-file-bookmark-alt"></i> <span class="align-middle">Haki</span></a>
                         <!-- <a class="dropdown-item d-block" href="javascript:void(0)"><i class="uil uil-cog font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Penelitian</span> <span class="badge bg-success-subtle text-success rounded-pill mt-1 ms-2">03</span></a> -->
                         <!-- <a class="dropdown-item" href="auth-lock-screen"><i class="uil uil-lock-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Lock screen</span></a> -->
                         <a class="dropdown-item" href="/logout"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Sign out</span></a>
