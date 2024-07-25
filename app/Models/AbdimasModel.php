@@ -156,6 +156,48 @@ class AbdimasModel extends Model
 
     public function getDataDosenTahunan()
     {
+        /*
+        $sql = "
+            SELECT 
+                kode_dosen,
+                abdimas.tahun, 
+                COUNT(*) AS banyak_abdimas 
+            FROM dosen 
+            LEFT JOIN abdimas 
+                ON ( abdimas.anggota_1 = kode_dosen 
+                    OR abdimas.anggota_2 = kode_dosen 
+                    OR abdimas.anggota_3 = kode_dosen 
+                    OR abdimas.anggota_4 = kode_dosen 
+                    OR abdimas.anggota_5 = kode_dosen 
+                    OR abdimas.anggota_6 = kode_dosen 
+                    OR abdimas.anggota_7 = kode_dosen 
+                    OR abdimas.anggota_8 = kode_dosen 
+                    OR abdimas.ketua = kode_dosen) 
+            GROUP BY abdimas.tahun, kode_dosen
+            ORDER BY kode_dosen, abdimas.tahun
+            ;
+        ";
+
+        $data = [];
+        $results = $this->db->query($sql)->getResultArray();
+        $yearRange = range(2012, date("Y")); // Tel-U was found around 2013, so this should be okay
+        foreach($results as $result) {
+            $year = $result["tahun"];
+            $kode_dosen = $result["kode_dosen"];
+            $yearCount = $result["banyak_abdimas"];
+            if(!isset($data[$kode_dosen])) {
+                $data[$kode_dosen] = [];
+                foreach($yearRange as $y) {
+                    $data[$kode_dosen]['THN_' . $y] = 0;
+                }
+            }
+
+            if(!is_null($year)) {
+                $data[$kode_dosen]['THN_' . $year] = $yearCount;
+            }
+        }
+        dd($data);
+        */
         $query = $this->db->query("SELECT
         dosen.kode_dosen,
         COUNT(CASE WHEN abdimas.tahun = 2000 THEN abdimas.kode_dosen END) AS THN_2000,
