@@ -33,6 +33,12 @@
                                     </div>
                                 <?php endif ?>
 
+                                <?php if (session()->getFlashdata('error')) : ?>
+                                    <div class="alert alert-danger" role="alert">
+                                        <?= session()->getFlashdata('error'); ?>
+                                    </div>
+                                <?php endif ?>
+
                                 <h4 class="card-title">Data Publikasi</h4>
                                 <div>
                                     <a href="/admin/publikasi" class="btn btn-success waves-effect waves-light mb-3" role="button"><i class="mdi mdi-plus me-1"></i>Tambah Publikasi</a>

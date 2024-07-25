@@ -18,9 +18,19 @@
     <!-- Start right Content here -->
     <!-- ============================================================== -->
     <div class="main-content">
-
         <div class="page-content">
             <div class="container-fluid">
+                <?php if (session()->getFlashdata('pesan')) : ?>
+                    <div class="alert alert-success" role="alert">
+                        <?= session()->getFlashdata('pesan'); ?>
+                    </div>
+                <?php endif ?>
+
+                <?php if (session()->getFlashdata('error')) : ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?= session()->getFlashdata('error'); ?>
+                    </div>
+                <?php endif ?>
                 <div class="row">
                     <div class="col-md-6 col-xl-3">
                         <div class="card">
@@ -501,6 +511,32 @@
 </html>
 
 <script type="text/javascript">
+    function getChartColorsArray(chartId) {
+        if (document.getElementById(chartId) !== null) {
+            var colors = document.getElementById(chartId).getAttribute("data-colors");
+            if (colors) {
+                colors = JSON.parse(colors);
+                return colors.map(function(value) {
+                    var newValue = value.replace(" ", "");
+                    if (newValue.indexOf(",") === -1) {
+                        var color = getComputedStyle(document.documentElement).getPropertyValue(newValue);
+                        if (color) return color;
+                        else return newValue;;
+                    } else {
+                        var val = value.split(',');
+                        if (val.length == 2) {
+                            var rgbaColor = getComputedStyle(document.documentElement).getPropertyValue(val[0]);
+                            rgbaColor = "rgba(" + rgbaColor + "," + val[1] + ")";
+                            return rgbaColor;
+                        } else {
+                            return newValue;
+                        }
+                    }
+                });
+            }
+        }
+    }
+
     // column chart with datalabels
     var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel");
     if (BarchartColumnChartColors) {

@@ -8,54 +8,20 @@ use App\Models\PenelitianModel;
 use App\Models\AbdimasModel;
 use App\Models\HakiModel;
 
-class Admin extends BaseController
-{
+class Admin extends BaseController {
     protected $dosenModel;
     protected $publikasiModel;
     protected $penelitianModel;
     protected $abdimasModel;
     protected $hakiModel;
-    public function __construct()
-    {
+
+    public function __construct() {
         $this->dosenModel = new DosenModel();
         $this->publikasiModel = new PublikasiModel();
         $this->penelitianModel = new PenelitianModel();
         $this->abdimasModel = new AbdimasModel();
         $this->hakiModel = new HakiModel();
     }
-
-    // private function userHasPermission($groupList, $noPermissionMsg) {
-    //     $isAllowed = in_groups($groupList, user_id());
-    //     if(!$isAllowed) {
-    //         session()->setFlashdata("warning", $noPermissionMsg);
-    //         return redirect()->to(base_url());
-    //     }
-    //     return isAllowed;
-    // }
-
-    private function hasResourcePermission($resource) {
-        if($resource instanceof PublikasiModel) {
-        }
-        return 1;
-    }
-
-    public function index()
-    {
-        // $dosen = $this->dosenModel->findAll();
-        $data = [
-            'all_publikasi' => $this->publikasiModel->getAllPublikasi(),
-            'all_penelitian' => $this->penelitianModel->getAllPenelitian(),
-            'all_abdimas' => $this->abdimasModel->getAllAbdimas(),
-            'all_haki' => $this->hakiModel->getAllHaki(),
-            'dosen' => $this->dosenModel->getDosen(),
-            'title' => 'Daftar Dosen',
-        ];
-        return view('admin/index', $data);
-    }
-
-    // ****************************************************************************************************
-    // ========== PUBLIKASI ========== 
-    // ****************************************************************************************************
 
     private function getKKPublikasi($publikasi) {
         $kkPublikasi = [];
@@ -75,13 +41,145 @@ class Admin extends BaseController
         return $kkPublikasi;
     }
 
-    public function publikasi()
-    {
-        $isAllowed = in_groups(["admin", "kk_dsis", "kk_seal", "kk_citi"], user_id());
-        if(!$isAllowed) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
-            return redirect()->to(base_url());
+    private function getKKPenelitian($penelitian) {
+        $kkPenelitian = [];
+        $penulis = $penelitian["ketua_peneliti"];
+        if(!(is_null($penulis)) && $penulis != "") {
+            $result = $this->dosenModel->getDosen($penulis);
+            if(!is_null($result)) {
+                $kk = "kk_" . strtolower($result["KK"]);
+                array_push($kkPenelitian, $kk);
+            }
         }
+
+        foreach(range(1, 10) as $nPenulis) {
+            $penulis = $penelitian["anggota_peneliti_" . $nPenulis];
+            if(!(is_null($penulis)) && $penulis != "") {
+                $result = $this->dosenModel->getDosen($penulis);
+                
+                if(!is_null($result)) {
+                    $kk = "kk_" . strtolower($result["KK"]);
+                    if(!in_array($kk, $kkPenelitian)) {
+                        array_push($kkPenelitian, $kk);
+                    }
+                }
+            }
+        }
+        return $kkPenelitian;
+    }
+
+    private function getKKAbdimas($abdimas) {
+        $kkAbdimas = [];
+        $anggota = $abdimas["ketua"];
+        if(!(is_null($anggota)) && $anggota != "") {
+            $result = $this->dosenModel->getDosen($anggota);
+            if(!is_null($result)) {
+                $kk = "kk_" . strtolower($result["KK"]);
+                array_push($kkAbdimas, $kk);
+            }
+        }
+
+        foreach(range(1, 8) as $nAnggota) {
+            $anggota = $abdimas["anggota_" . $nAnggota];
+            if(!(is_null($anggota)) && $anggota != "") {
+                $result = $this->dosenModel->getDosen($anggota);
+                
+                if(!is_null($result)) {
+                    $kk = "kk_" . strtolower($result["KK"]);
+                    if(!in_array($kk, $kkAbdimas)) {
+                        array_push($kkAbdimas, $kk);
+                    }
+                }
+            }
+        }
+        return $kkAbdimas;
+    }
+
+    private function getKKHaki($haki) {
+        $kkHaki = [];
+        $anggota = $haki["ketua"];
+        if(!(is_null($anggota)) && $anggota != "") {
+            $result = $this->dosenModel->getDosen($anggota);
+            if(!is_null($result)) {
+                $kk = "kk_" . strtolower($result["KK"]);
+                array_push($kkHaki, $kk);
+            }
+        }
+
+        foreach(range(1, 9) as $nAnggota) {
+            $anggota = $haki["anggota_" . $nAnggota];
+            if(!(is_null($anggota)) && $anggota != "") {
+                $result = $this->dosenModel->getDosen($anggota);
+                
+                if(!is_null($result)) {
+                    $kk = "kk_" . strtolower($result["KK"]);
+                    if(!in_array($kk, $kkHaki)) {
+                        array_push($kkHaki, $kk);
+                    }
+                }
+            }
+        }
+        return $kkHaki;
+    }
+
+    private function hasResourcePermission($resourceType, $resource) {
+        $resourceType = ucwords($resourceType);
+        $kkResource = null;
+        switch ($resourceType) {
+            case "Penelitian": $kkResource = $this->getKKPenelitian($resource); break;
+            case "Publikasi": $kkResource = $this->getKKPublikasi($resource); break;
+            case "Abdimas": $kkResource = $this->getKKAbdimas($resource); break;
+            case "Haki": $kkResource = $this->getKKHaki($resource); break;
+        }
+
+        $allowedGroups = ["admin"];
+        foreach($kkResource as $kk) array_push($allowedGroups, $kk);
+        return in_groups($allowedGroups, user_id());
+    }
+
+    private function isAdmin() { // Roles considered as Admin: admin, kk_seal, kk_citi, kk_dsis
+        return !in_groups("dosen", user_id());
+    }
+
+    // private function findDuplicate($resourceType, $resource) {
+    //     $resourceType = ucwords($resourceType);
+    //     switch ($resourceType) {
+    //         case "Publikasi": 
+    //             $sql = " SELECT id, judul_publikasi FROM publikasi ";
+    //             $results = $this->publikasiModel->db->query($sql)->getResultArray();
+    //             foreach($results as $result) {
+    //                 $hasDuplicate = (
+    //                     strtolower($this->request->getVar("judul_publikasi")) == 
+    //                     strtolower($result["judul_publikasi"])
+    //                 );
+    //                 if($hasDuplicate) return $result["id"];
+    //             }
+    //             break;
+    //         case "Penelitian": $kkResource = $this->getKKPublikasi($resource); break;
+    //         case "Abdimas": $kkResource = $this->getKKAbdimas($resource); break;
+    //         case "Haki": $kkResource = $this->getKKHaki($resource); break;
+    //     }
+    //     return -1;
+    // }
+
+    public function index() {
+        $data = [
+            'all_publikasi' => $this->publikasiModel->getAllPublikasi(),
+            'all_penelitian' => $this->penelitianModel->getAllPenelitian(),
+            'all_abdimas' => $this->abdimasModel->getAllAbdimas(),
+            'all_haki' => $this->hakiModel->getAllHaki(),
+            'dosen' => $this->dosenModel->getDosen(),
+            'title' => 'Daftar Dosen',
+        ];
+        return view('admin/index', $data);
+    }
+
+    // ##### PUBLIKASI #############################################################################
+    public function publikasi() {
+        if($this->isAdmin()) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
+            return redirect()->to(base_url());
+        };
 
         $data = [
             'validation' => \config\Services::validation(),
@@ -103,18 +201,13 @@ class Admin extends BaseController
 
     public function publikasi_edit($id) {
         $publikasi = $this->publikasiModel->where('id', $id)->first();
-        if($publikasi == null) { // TODO: Make the flash data red in UI
-            session()->setFlashdata('pesan', 'Publikasi tidak ditemukan');
+        if(is_null($publikasi)) { // TODO: Make the flash data red in UI
+            session()->setFlashdata('error', 'Publikasi tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
 
-        $allowedGroups = ["admin"];
-        foreach($this->getKKPublikasi($publikasi) as $kk) {
-            array_push($allowedGroups, $kk);
-        }
-
-        if(!in_groups($allowedGroups, user_id())) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
+        if(!$this->hasResourcePermission( 'publikasi', $publikasi)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
             return redirect()->to(base_url());
         }
 
@@ -138,20 +231,19 @@ class Admin extends BaseController
         return view("admin/update-publikasi", $data);
     }
 
-    public function publikasi_save()
-    {
-        $isAllowed = in_groups(["admin", "kk_dsis", "kk_seal", "kk_citi"], user_id());
-        if(!$isAllowed) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
+    public function publikasi_save() {
+        if($this->isAdmin()) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
             return redirect()->to(base_url());
-        }
+        };
 
         if (!$this->validate([
             'judul_publikasi' => 'required',
             'tahun' => 'required'
         ])) {
-            $validation = \config\Services::validation();
-            return redirect()->to(base_url('/admin/publikasi'))->withInput()->with('validation', $validation);
+            $validation = \config\Services::validation()->getErrors();
+            $firstError = reset($validation);
+            return redirect()->to(base_url('/admin/publikasi'))->withInput()->with('error', $firstError);
         }
 
         // Check for "similar" record
@@ -168,6 +260,12 @@ class Admin extends BaseController
                 return redirect()->to(base_url('/admin/publikasi/update/' . $result["id"]));
             }
         }
+
+        // $duplicateID = $this->hasDuplicateResource();
+        // if($duplicateID > -1) {
+        //     session()->setFlashdata('warning', 'Publikasi serupa ditemukan');
+        //     return redirect()->to(base_url('/admin/publikasi/update/' . $result["id"]));
+        // }
 
         $this->publikasiModel->save([
             'akreditasi_journal_conf' => $this->request->getVar('akreditasi'),
@@ -198,18 +296,13 @@ class Admin extends BaseController
 
     public function handle_publikasi_edit($id) {
         $publikasi = $this->publikasiModel->where('id', $id)->first();
-        if($publikasi == null) { // TODO: Make the flash data red in UI
-            session()->setFlashdata('pesan', 'Publikasi tidak ditemukan');
+        if(is_null($publikasi)) { // TODO: Make the flash data red in UI
+            session()->setFlashdata('error', 'Publikasi tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
 
-        $allowedGroups = ["admin"];
-        foreach($this->getKKPublikasi($publikasi) as $kk) {
-            array_push($allowedGroups, $kk);
-        }
-
-        if(!in_groups($allowedGroups, user_id())) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
+        if(!$this->hasResourcePermission( 'publikasi', $publikasi)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
 
@@ -217,8 +310,9 @@ class Admin extends BaseController
             'judul_publikasi' => 'required',
             'tahun' => 'required'
         ])) {
-            $validation = \config\Services::validation();
-            return redirect()->to('/admin/publikasi')->withInput()->with('validation', $validation);
+            $validation = \config\Services::validation()->getErrors();
+            $firstError = reset($validation);
+            return redirect()->to(base_url('/admin/publikasi'))->withInput()->with('error', $firstError);
         }
 
         $this->publikasiModel->update($id, [
@@ -250,18 +344,13 @@ class Admin extends BaseController
 
     public function publikasi_delete($id){
         $publikasi = $this->publikasiModel->where('id', $id)->first();
-        if($publikasi == null) { // TODO: Make the flash data red in UI
-            session()->setFlashdata('pesan', 'Publikasi tidak ditemukan');
+        if(is_null($publikasi)) { // TODO: Make the flash data red in UI
+            session()->setFlashdata('error', 'Publikasi tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
 
-        $allowedGroups = ["admin"];
-        foreach($this->getKKPublikasi($publikasi) as $kk) {
-            array_push($allowedGroups, $kk);
-        }
-
-        if(!in_groups($allowedGroups, user_id())) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
+        if(!$this->hasResourcePermission( 'publikasi', $publikasi)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
 
@@ -269,51 +358,13 @@ class Admin extends BaseController
         session()->setFlashdata('pesan', 'Publikasi berhasil dihapus');
         return redirect()->to(base_url('/admin'));
     }
-    
 
-
-
-
-
-
-    // ****************************************************************************************************
-    // ========== PENELITIAN ========== 
-    // ****************************************************************************************************
-
-    private function getKKPenelitian($penelitian) {
-        $kkPenelitian = [];
-        $penulis = $penelitian["ketua_peneliti"];
-        if(!(is_null($penulis)) && $penulis != "") {
-            $result = $this->dosenModel->getDosen($penulis);
-            if(!is_null($result)) {
-                $kk = "kk_" . strtolower($result["KK"]);
-                array_push($kkPenelitian, $kk);
-            }
-        }
-
-        foreach(range(1, 10) as $nPenulis) {
-            $penulis = $penelitian["anggota_peneliti_" . $nPenulis];
-            if(!(is_null($penulis)) && $penulis != "") {
-                $result = $this->dosenModel->getDosen($penulis);
-                
-                if(!is_null($result)) {
-                    $kk = "kk_" . strtolower($result["KK"]);
-                    if(!in_array($kk, $kkPenelitian)) {
-                        array_push($kkPenelitian, $kk);
-                    }
-                }
-            }
-        }
-        return $kkPenelitian;
-    }
-
-    public function penelitian()
-    {
-        $isAllowed = in_groups(["admin", "kk_dsis", "kk_seal", "kk_citi"], user_id());
-        if(!$isAllowed) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
+    // ###### PENELITIAN ###########################################################################
+    public function penelitian() {
+        if($this->isAdmin()) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
             return redirect()->to(base_url());
-        }
+        };
 
         $data = [
             'listDosen' => $this->dosenModel->getAllKodeDosen(),
@@ -334,28 +385,16 @@ class Admin extends BaseController
 
     public function penelitian_edit($id) {
         $penelitian = $this->penelitianModel->where('id', $id)->first();
-        if($penelitian == null) { // TODO: Make the flash data red in UI
-            session()->setFlashdata('pesan', 'Publikasi tidak ditemukan');
+        if(is_null($penelitian)) { // TODO: Make the flash data red in UI
+            session()->setFlashdata('error', 'Penelitian tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-
-        $allowedGroups = ["admin"];
-        foreach($this->getKKPenelitian($penelitian) as $kk) {
-            array_push($allowedGroups, $kk);
-        }
-
-        if(!in_groups($allowedGroups, user_id())) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
+        if(!$this->hasResourcePermission( 'penelitian', $penelitian)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk halaman tersebut");
             return redirect()->to(base_url());
         }
 
         helper('form');
-        if($penelitian == null) {
-            // TODO: Make the flash data red in UI
-            session()->setFlashdata('pesan', 'Penelitian tidak ditemukan');
-            return redirect()->to(base_url('/admin'));
-        }
-
         $data = [
             'oldPenelitian' => $penelitian,
             'listDosen' => $this->dosenModel->getAllKodeDosen(),
@@ -374,21 +413,20 @@ class Admin extends BaseController
         return view("admin/update-penelitian", $data);
     }
 
-    public function penelitian_save()
-    {
-        $isAllowed = in_groups(["admin"], user_id());
-        if(!$isAllowed) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
+    public function penelitian_save() {
+        if($this->isAdmin()) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
             return redirect()->to(base_url());
-        }
+        };
 
         if (!$this->validate([
             'jenis' => 'required',
             'judul' => 'required',
             'tahun' => 'required',
         ])) {
-            $validation = \config\Services::validation();
-            return redirect()->to(base_url('/admin/penelitian'));
+            $validation = \config\Services::validation()->getErrors();
+            $firstError = reset($validation);
+            return redirect()->to(base_url('/admin/penelitian'))->withInput()->with('error', $firstError);
         }
 
         // Check for "similar" record
@@ -438,25 +476,24 @@ class Admin extends BaseController
 
     public function handle_penelitian_edit($id) {
         $penelitian = $this->penelitianModel->where('id', $id)->first();
-        if($penelitian == null) { // TODO: Make the flash data red in UI
-            session()->setFlashdata('pesan', 'Penelitian tidak ditemukan');
+        if(is_null($penelitian)) { // TODO: Make the flash data red in UI
+            session()->setFlashdata('error', 'Penelitian tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-
-        $allowedGroups = ["admin"];
-        foreach($this->getKKPenelitian($penelitian) as $kk) {
-            array_push($allowedGroups, $kk);
-        }
-
-        if(!in_groups($allowedGroups, user_id())) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
+        if(!$this->hasResourcePermission( 'penelitian', $penelitian)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
 
-        if($penelitian == null) {
-            // TODO: Make the flash data red in UI
-            session()->setFlashdata('pesan', 'Penelitian tidak ditemukan');
-            return redirect()->to(base_url('/admin'));
+
+        if (!$this->validate([
+            'jenis' => 'required',
+            'judul' => 'required',
+            'tahun' => 'required',
+        ])) {
+            $validation = \config\Services::validation()->getErrors();
+            $firstError = reset($validation);
+            return redirect()->to(base_url('/admin/penelitian'))->withInput()->with('error', $firstError);
         }
 
         $this->penelitianModel->update($id, [
@@ -490,18 +527,12 @@ class Admin extends BaseController
 
     public function penelitian_delete($id) {
         $penelitian = $this->penelitianModel->where('id', $id)->first();
-        if($penelitian == null) { // TODO: Make the flash data red in UI
-            session()->setFlashdata('pesan', 'Penelitian tidak ditemukan');
+        if(is_null($penelitian)) { // TODO: Make the flash data red in UI
+            session()->setFlashdata('error', 'Penelitian tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-
-        $allowedGroups = ["admin"];
-        foreach($this->getKKPenelitian($penelitian) as $kk) {
-            array_push($allowedGroups, $kk);
-        }
-
-        if(!in_groups($allowedGroups, user_id())) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
+        if(!$this->hasResourcePermission( 'penelitian', $penelitian)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
 
@@ -510,52 +541,12 @@ class Admin extends BaseController
         return redirect()->to(base_url('/admin'));
     }
 
-
-
-
-
-
-
-
-
-
-    // ****************************************************************************************************
-    // ========== ABDIMAS ========== 
-    // ****************************************************************************************************
-    private function getKKAbdimas($abdimas) {
-        $kkAbdimas = [];
-        $anggota = $abdimas["ketua"];
-        if(!(is_null($anggota)) && $anggota != "") {
-            $result = $this->dosenModel->getDosen($anggota);
-            if(!is_null($result)) {
-                $kk = "kk_" . strtolower($result["KK"]);
-                array_push($kkAbdimas, $kk);
-            }
-        }
-
-        foreach(range(1, 8) as $nAnggota) {
-            $anggota = $abdimas["anggota_" . $nAnggota];
-            if(!(is_null($anggota)) && $anggota != "") {
-                $result = $this->dosenModel->getDosen($anggota);
-                
-                if(!is_null($result)) {
-                    $kk = "kk_" . strtolower($result["KK"]);
-                    if(!in_array($kk, $kkAbdimas)) {
-                        array_push($kkAbdimas, $kk);
-                    }
-                }
-            }
-        }
-        return $kkAbdimas;
-    }
-
-    public function abdimas()
-    {
-        $isAllowed = in_groups(["admin", "kk_dsis", "kk_seal", "kk_citi"], user_id());
-        if(!$isAllowed) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
+    // ###### ABDIMAS ##############################################################################
+    public function abdimas() {
+        if($this->isAdmin()) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
             return redirect()->to(base_url());
-        }
+        };
 
         $data = [
             "listDosen" => $this->dosenModel->getAllKodeDosen(),
@@ -574,18 +565,12 @@ class Admin extends BaseController
 
     public function abdimas_edit($id) {
         $abdimas = $this->abdimasModel->where('id', $id)->first();
-        if($abdimas == null) { // TODO: Make the flash data red in UI
-            session()->setFlashdata('pesan', 'Abdimas tidak ditemukan');
+        if(is_null($abdimas)) { // TODO: Make the flash data red in UI
+            session()->setFlashdata('error', 'Abdimas tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-
-        $allowedGroups = ["admin"];
-        foreach($this->getKKAbdimas($abdimas) as $kk) {
-            array_push($allowedGroups, $kk);
-        }
-
-        if(!in_groups($allowedGroups, user_id())) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
+        if(!$this->hasResourcePermission( 'abdimas', $abdimas)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
 
@@ -607,14 +592,20 @@ class Admin extends BaseController
         return view("admin/update-abdimas", $data);
     }
 
-    public function abdimas_save()
-    {
+    public function abdimas_save() {
+        if($this->isAdmin()) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
+            return redirect()->to(base_url());
+        };
+
         if (!$this->validate([
             'judul' => 'required',
             'tahun' => 'required',
             'jenis' => 'required'
         ])) {
-            return redirect()->to(base_url('/admin/penelitian'));
+            $validation = \config\Services::validation()->getErrors();
+            $firstError = reset($validation);
+            return redirect()->to(base_url('/admin/abdimas'))->withInput()->with('error', $firstError);
         }
 
         // Check for "similar" record
@@ -662,20 +653,14 @@ class Admin extends BaseController
         return redirect()->to(base_url('/admin'));
     }
 
-    public function abdimas_delete($id){
+    public function abdimas_delete($id) {
         $abdimas = $this->abdimasModel->where('id', $id)->first();
-        if($abdimas == null) { // TODO: Make the flash data red in UI
-            session()->setFlashdata('pesan', 'Abdimas tidak ditemukan');
+        if(is_null($abdimas)) { // TODO: Make the flash data red in UI
+            session()->setFlashdata('error', 'Abdimas tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-
-        $allowedGroups = ["admin"];
-        foreach($this->getKKAbdimas($abdimas) as $kk) {
-            array_push($allowedGroups, $kk);
-        }
-
-        if(!in_groups($allowedGroups, user_id())) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
+        if(!$this->hasResourcePermission( 'abdimas', $abdimas)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
 
@@ -686,19 +671,23 @@ class Admin extends BaseController
 
     public function handle_abdimas_edit($id) {
         $abdimas = $this->abdimasModel->where('id', $id)->first();
-        if($abdimas == null) { // TODO: Make the flash data red in UI
-            session()->setFlashdata('pesan', 'Abdimas tidak ditemukan');
+        if(is_null($abdimas)) { // TODO: Make the flash data red in UI
+            session()->setFlashdata('error', 'Abdimas tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-
-        $allowedGroups = ["admin"];
-        foreach($this->getKKAbdimas($abdimas) as $kk) {
-            array_push($allowedGroups, $kk);
+        if(!$this->hasResourcePermission( 'abdimas', $abdimas)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
+            return redirect()->to(base_url());
         }
 
-        if(!in_groups($allowedGroups, user_id())) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
-            return redirect()->to(base_url());
+        if (!$this->validate([
+            'judul' => 'required',
+            'tahun' => 'required',
+            'jenis' => 'required'
+        ])) {
+            $validation = \config\Services::validation()->getErrors();
+            $firstError = reset($validation);
+            return redirect()->to(base_url('/admin/abdimas'))->withInput()->with('error', $firstError);
         }
 
         $this->abdimasModel->update($id, [
@@ -730,49 +719,12 @@ class Admin extends BaseController
         return redirect()->to(base_url('/admin'));
     }
 
-
-
-
-
-
-
-    // ******************************************************
-    // ========== HAKI ========== 
-    // ******************************************************
-    private function getKKHaki($haki) {
-        $kkHaki = [];
-        $anggota = $haki["ketua"];
-        if(!(is_null($anggota)) && $anggota != "") {
-            $result = $this->dosenModel->getDosen($anggota);
-            if(!is_null($result)) {
-                $kk = "kk_" . strtolower($result["KK"]);
-                array_push($kkHaki, $kk);
-            }
-        }
-
-        foreach(range(1, 9) as $nAnggota) {
-            $anggota = $haki["anggota_" . $nAnggota];
-            if(!(is_null($anggota)) && $anggota != "") {
-                $result = $this->dosenModel->getDosen($anggota);
-                
-                if(!is_null($result)) {
-                    $kk = "kk_" . strtolower($result["KK"]);
-                    if(!in_array($kk, $kkHaki)) {
-                        array_push($kkHaki, $kk);
-                    }
-                }
-            }
-        }
-        return $kkHaki;
-    }
-
-    public function haki()
-    {
-        $isAllowed = in_groups(["admin", "kk_dsis", "kk_seal", "kk_citi"], user_id());
-        if(!$isAllowed) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
+    // ###### HAKI #################################################################################
+    public function haki() {
+        if($this->isAdmin()) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
             return redirect()->to(base_url());
-        }
+        };
 
         $data = [ 
             'listDosen' => $this->dosenModel->getAllKodeDosen(),
@@ -783,18 +735,12 @@ class Admin extends BaseController
     
     public function haki_edit($id) {
         $haki = $this->hakiModel->where('id', $id)->first();
-        if($haki == null) { // TODO: Make the flash data red in UI
-            session()->setFlashdata('pesan', 'haki tidak ditemukan');
+        if(is_null($haki)) { // TODO: Make the flash data red in UI
+            session()->setFlashdata('error', 'Haki tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-
-        $allowedGroups = ["admin"];
-        foreach($this->getKKHaki($haki) as $kk) {
-            array_push($allowedGroups, $kk);
-        }
-
-        if(!in_groups($allowedGroups, user_id())) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
+        if(!$this->hasResourcePermission( 'haki', $haki)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk halaman tersebut");
             return redirect()->to(base_url());
         }
 
@@ -808,15 +754,20 @@ class Admin extends BaseController
         return view("admin/update-haki", $data);
     }
 
-    public function haki_save()
-    {
+    public function haki_save() {
+        if($this->isAdmin()) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan hal tersebut");
+            return redirect()->to(base_url());
+        };
 
         if (!$this->validate([
             'judul' => 'required',
             'tahun' => 'required',
             'jenis' => 'required'
         ])) {
-            return redirect()->to(base_url('/admin/haki'));
+            $validation = \config\Services::validation()->getErrors();
+            $firstError = reset($validation);
+            return redirect()->to(base_url('/admin/haki'))->withInput()->with('error', $firstError);
         }
 
         // Check for "similar" record
@@ -858,17 +809,41 @@ class Admin extends BaseController
         return redirect()->to(base_url('/admin'));
     }
 
-    public function haki_delete($id){
+    public function haki_delete($id) {
+        $haki = $this->hakiModel->where('id', $id)->first();
+        if(is_null($haki)) { // TODO: Make the flash data red in UI
+            session()->setFlashdata('error', 'Haki tidak ditemukan');
+            return redirect()->to(base_url('/admin'));
+        }
+        if(!$this->hasResourcePermission( 'haki', $haki)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk halaman tersebut");
+            return redirect()->to(base_url());
+        }
+
         $this->hakiModel->delete($id);
         session()->setFlashdata('pesan', 'Haki berhasil dihapus');
         return redirect()->to(base_url('/admin'));
     }
 
     public function handle_haki_edit($id) {
-        if($this->hakiModel->where('id', $id)->first() == null) {
-            // TODO: Make the flash data red in UI
-            session()->setFlashdata('pesan', 'Haki tidak ditemukan');
+        $haki = $this->hakiModel->where('id', $id)->first();
+        if(is_null($haki)) { // TODO: Make the flash data red in UI
+            session()->setFlashdata('error', 'Haki tidak ditemukan');
             return redirect()->to(base_url('/admin'));
+        }
+        if(!$this->hasResourcePermission( 'haki', $haki)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk malakukan aksi tersebut");
+            return redirect()->to(base_url());
+        }
+
+        if (!$this->validate([
+            'judul' => 'required',
+            'tahun' => 'required',
+            'jenis' => 'required'
+        ])) {
+            $validation = \config\Services::validation()->getErrors();
+            $firstError = reset($validation);
+            return redirect()->to(base_url('/admin/haki'))->withInput()->with('error', $firstError);
         }
 
         $this->hakiModel->update($id, [
