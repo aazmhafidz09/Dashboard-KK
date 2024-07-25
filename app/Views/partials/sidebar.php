@@ -60,7 +60,7 @@
                         <span><?= lang('Dosen') ?></span>
                     </a>
                 </li>
-                <?php if (logged_in()) : ?>
+                <?php if(in_groups(["admin", "kk_dsis", "kk_seal", "kk_citi"], user_id())): ?>
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="uil-share-alt"></i>
