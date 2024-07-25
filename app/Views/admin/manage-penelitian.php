@@ -37,7 +37,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Input Data Penelitian</h4>
-                                    <p class="card-title-desc">Masukan data <code>penelitian</code> ke dalam <code>form</code> berikut</p>
+                                    <p class="card-title-desc">Masukkan data <code>penelitian</code> ke dalam <code>form</code> berikut</p>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Judul Penelitian</label>
                                         <div class="col-md-10">
@@ -120,7 +120,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <!-- <h4 class="card-title">Data Penulis</h4> -->
-                                    <p class="card-title-desc">Masukan data <code>keanggotaan</code> ke dalam <code>form</code> berikut.</p>
+                                    <p class="card-title-desc">Masukkan data <code>keanggotaan</code> ke dalam <code>form</code> berikut.</p>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Ketua Peneliti</label>
                                         <div class="col-md-10">
@@ -140,7 +140,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <?php foreach(range(1, 4) as $nAnggota): ?>
+                                    <?php foreach(range(1, 10) as $nAnggota): ?>
                                         <div class="mb-3 row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti <?=$nAnggota ?> </label>
                                             <div class="col-md-10">
@@ -173,7 +173,7 @@
                                 <div class="card-body">
 
                                     <!-- <h4 class="card-title">Input Data Publikasi</h4> -->
-                                    <p class="card-title-desc">Masukan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
+                                    <p class="card-title-desc">Masukkan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
 
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Institusi Mitra</label>

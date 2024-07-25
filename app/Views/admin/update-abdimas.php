@@ -11,8 +11,6 @@
 </head>
 
 <?= $this->include('partials/body') ?>
-
-
 <style>
     hr {
         margin-top: 2rem;
@@ -23,14 +21,8 @@
 </style>
 
 <!-- Begin page -->
-
-
-
-<!-- Begin page -->
 <div id="layout-wrapper">
-
     <?= $this->include('partials/menu') ?>
-
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
@@ -49,9 +41,8 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-
                                     <h4 class="card-title">Input Data Abdimas</h4>
-                                    <p class="card-title-desc">Masukan data <code>abdimas</code> ke dalam <code>form</code> berikut</p>
+                                    <p class="card-title-desc">Masukkan data <code>abdimas</code> ke dalam <code>form</code> berikut</p>
 
                                     <div class="mb-3 row">
                                         <label for="Judul-Abdimas" class="col-md-2 col-form-label">Judul Abdimas</label>
@@ -116,7 +107,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <!-- <h4 class="card-title">Data Penulis</h4> -->
-                                    <p class="card-title-desc">Masukan data <code>abdimas</code> ke dalam <code>form</code> berikut.</p>
+                                    <p class="card-title-desc">Masukkan data <code>abdimas</code> ke dalam <code>form</code> berikut.</p>
                                     <div class="mb-3 row">
                                         <label for="Ketua" class="col-md-2 col-form-label">Ketua</label>
                                         <div class="col-md-10">
@@ -133,7 +124,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <?php foreach(range(1, 5) as $anggotaField): ?>
+                                    <?php foreach(range(1, 8) as $anggotaField): ?>
                                         <div class="mb-3 row">
                                             <label 
                                                 for="Anggota_<?=$anggotaField?>" 
@@ -167,7 +158,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <!-- <h4 class="card-title">Input Data Publikasi</h4> -->
-                                    <p class="card-title-desc">Masukan data <code>Abdimas</code> ke dalam <code>form</code> berikut</p>
+                                    <p class="card-title-desc">Masukkan data <code>Abdimas</code> ke dalam <code>form</code> berikut</p>
                                     <div class="mb-3 row">
                                         <label for="Institusi_mitra" class="col-md-2 col-form-label">Institusi Mitra</label>
                                         <div class="col-md-10">

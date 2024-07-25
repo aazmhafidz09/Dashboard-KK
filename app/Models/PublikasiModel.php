@@ -21,6 +21,11 @@ class PublikasiModel extends Model
         'penulis_4', 
         'penulis_5', 
         'penulis_6', 
+        'penulis_7', 
+        'penulis_8', 
+        'penulis_9', 
+        'penulis_10', 
+        'penulis_11', 
         'penulis_all', 
         'tahun'
     ];
@@ -35,7 +40,7 @@ class PublikasiModel extends Model
             return $this->findAll();
         }
 
-        $query = $this->db->query("SELECT * FROM publikasi WHERE penulis_1 = '$kode_dosen'");
+        $query = $this->db->query("SELECT * FROM publikasi WHERE penulis_1 = '$kode_dosen' or penulis_2 = '$kode_dosen' or penulis_3 = '$kode_dosen' or penulis_4 = '$kode_dosen' or penulis_5 = '$kode_dosen' or penulis_6 = '$kode_dosen' or penulis_7 = '$kode_dosen' or penulis_8 = '$kode_dosen' or penulis_9 = '$kode_dosen' or penulis_10 = '$kode_dosen' or penulis_11 = '$kode_dosen' order by tahun DESC");
         return $query->getResultArray();
     }
     public function getJumlahPublikasi($kode_dosen = false)
@@ -43,7 +48,7 @@ class PublikasiModel extends Model
         if ($kode_dosen == false) {
             return $this->findAll();
         }
-        $query = $this->db->query("SELECT COUNT(id) as jumlah_publikasi FROM publikasi WHERE (penulis_1 = '$kode_dosen' or penulis_2 = '$kode_dosen' or penulis_3 = '$kode_dosen' or penulis_4 = '$kode_dosen' or penulis_5 = '$kode_dosen' or penulis_6 = '$kode_dosen')");
+        $query = $this->db->query("SELECT COUNT(id) as jumlah_publikasi FROM publikasi WHERE (penulis_1 = '$kode_dosen' or penulis_2 = '$kode_dosen' or penulis_3 = '$kode_dosen' or penulis_4 = '$kode_dosen' or penulis_5 = '$kode_dosen' or penulis_6 = '$kode_dosen' or penulis_7 = '$kode_dosen' or penulis_8 = '$kode_dosen' or penulis_9 = '$kode_dosen' or penulis_10 = '$kode_dosen' or penulis_11 = '$kode_dosen')");
         return $query->getRow()->jumlah_publikasi;
         // return $query->row()->average_score;
     }

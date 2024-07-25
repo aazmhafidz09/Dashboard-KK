@@ -12,33 +12,22 @@
 
 <?= $this->include('partials/body') ?>
 
-
-
-
-<!-- Begin page -->
-
-
-
 <!-- Begin page -->
 <div id="layout-wrapper">
-
     <?= $this->include('partials/menu') ?>
-
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
     <div class="main-content">
-
         <div class="page-content">
             <div class="container-fluid">
                 <form action="/admin/publikasi_save">
-
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Input Data Publikasi</h4>
-                                    <p class="card-title-desc">Masukan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
+                                    <p class="card-title-desc">Masukkan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Judul Publikasi</label>
                                         <div class="col-md-10">
@@ -84,8 +73,8 @@
                             <div class="card">
                                 <div class="card-body">
                                     <!-- <h4 class="card-title">Data Penulis</h4> -->
-                                    <p class="card-title-desc">Masukan data <code>penulis</code> ke dalam <code>form</code> berikut.</p>
-                                    <?php foreach(range(1, 6) as $nPenulis): ?>
+                                    <p class="card-title-desc">Masukkan data <code>penulis</code> ke dalam <code>form</code> berikut.</p>
+                                    <?php foreach(range(1, 11) as $nPenulis): ?>
                                         <div class="mb-3 row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Penulis <?=$nPenulis?></label>
                                             <div class="col-md-10">
@@ -128,7 +117,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <!-- <h4 class="card-title">Input Data Publikasi</h4> -->
-                                    <p class="card-title-desc">Masukan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
+                                    <p class="card-title-desc">Masukkan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
 
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Institusi Mitra</label>
@@ -190,18 +179,10 @@
 
                                     <div class="mt-4">
                                         <!-- <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Inline forms layout</h5> -->
-
-
                                     </div>
-
-
-
                                 </div>
-
                             </div>
-
                         </div> <!-- end col -->
-
                     </div>
 
                     <div class="row">

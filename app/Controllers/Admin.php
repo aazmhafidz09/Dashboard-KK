@@ -33,6 +33,12 @@ class Admin extends BaseController
     //     return isAllowed;
     // }
 
+    private function hasResourcePermission($resource) {
+        if($resource instanceof PublikasiModel) {
+        }
+        return 1;
+    }
+
     public function index()
     {
         // $dosen = $this->dosenModel->findAll();
@@ -178,6 +184,11 @@ class Admin extends BaseController
             'penulis_4' => $this->request->getVar('penulis_4'),
             'penulis_5' => $this->request->getVar('penulis_5'),
             'penulis_6' => $this->request->getVar('penulis_6'),
+            'penulis_7' => $this->request->getVar('penulis_7'),
+            'penulis_8' => $this->request->getVar('penulis_8'),
+            'penulis_9' => $this->request->getVar('penulis_9'),
+            'penulis_10' => $this->request->getVar('penulis_10'),
+            'penulis_11' => $this->request->getVar('penulis_11'),
             'penulis_all' => $this->request->getVar('semua_penulis'),
             'tahun' => $this->request->getVar('tahun'),
         ]);
@@ -225,6 +236,11 @@ class Admin extends BaseController
             'penulis_4' => $this->request->getVar('penulis_4'),
             'penulis_5' => $this->request->getVar('penulis_5'),
             'penulis_6' => $this->request->getVar('penulis_6'),
+            'penulis_7' => $this->request->getVar('penulis_7'),
+            'penulis_8' => $this->request->getVar('penulis_8'),
+            'penulis_9' => $this->request->getVar('penulis_9'),
+            'penulis_10' => $this->request->getVar('penulis_10'),
+            'penulis_11' => $this->request->getVar('penulis_11'),
             'penulis_all' => $this->request->getVar('semua_penulis'),
             'tahun' => $this->request->getVar('tahun'),
         ]);
@@ -233,14 +249,24 @@ class Admin extends BaseController
     }
 
     public function publikasi_delete($id){
-        $isAllowed = in_groups(["admin"], user_id());
-        if(!$isAllowed) {
-            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
+        $publikasi = $this->publikasiModel->where('id', $id)->first();
+        if($publikasi == null) { // TODO: Make the flash data red in UI
+            session()->setFlashdata('pesan', 'Publikasi tidak ditemukan');
+            return redirect()->to(base_url('/admin'));
+        }
+
+        $allowedGroups = ["admin"];
+        foreach($this->getKKPublikasi($publikasi) as $kk) {
+            array_push($allowedGroups, $kk);
+        }
+
+        if(!in_groups($allowedGroups, user_id())) {
+            session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
             return redirect()->to(base_url());
         }
 
         $this->publikasiModel->delete($id);
-        session()->setFlashdata('pesan', 'Data berhasil dihapus');
+        session()->setFlashdata('pesan', 'Publikasi berhasil dihapus');
         return redirect()->to(base_url('/admin'));
     }
     
@@ -385,6 +411,12 @@ class Admin extends BaseController
             'anggota_peneliti_2' => $this->request->getVar('anggota_2'),
             'anggota_peneliti_3' => $this->request->getVar('anggota_3'),
             'anggota_peneliti_4' => $this->request->getVar('anggota_4'),
+            'anggota_peneliti_5' => $this->request->getVar('anggota_5'),
+            'anggota_peneliti_6' => $this->request->getVar('anggota_6'),
+            'anggota_peneliti_7' => $this->request->getVar('anggota_7'),
+            'anggota_peneliti_8' => $this->request->getVar('anggota_8'),
+            'anggota_peneliti_9' => $this->request->getVar('anggota_9'),
+            'anggota_peneliti_10' => $this->request->getVar('anggota_10'),
             'catatan_rekomendasi' => $this->request->getVar('rekomendasi'),
             'jenis' => $this->request->getVar('jenis'),
             'judul_penelitian' => $this->request->getVar('judul'),
@@ -400,7 +432,7 @@ class Admin extends BaseController
             'tgl_pengesahan' => $this->request->getVar('tgl_pengesahan')
         ]);
 
-        session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+        session()->setFlashdata('pesan', 'Penelitian berhasil ditambahkan');
         return redirect()->to(base_url('/admin'));
     }
 
@@ -432,6 +464,12 @@ class Admin extends BaseController
             'anggota_peneliti_2' => $this->request->getVar('anggota_2'),
             'anggota_peneliti_3' => $this->request->getVar('anggota_3'),
             'anggota_peneliti_4' => $this->request->getVar('anggota_4'),
+            'anggota_peneliti_5' => $this->request->getVar('anggota_5'),
+            'anggota_peneliti_6' => $this->request->getVar('anggota_6'),
+            'anggota_peneliti_7' => $this->request->getVar('anggota_7'),
+            'anggota_peneliti_8' => $this->request->getVar('anggota_8'),
+            'anggota_peneliti_9' => $this->request->getVar('anggota_9'),
+            'anggota_peneliti_10' => $this->request->getVar('anggota_10'),
             'catatan_rekomendasi' => $this->request->getVar('rekomendasi'),
             'jenis' => $this->request->getVar('jenis'),
             'judul_penelitian' => $this->request->getVar('judul'),
@@ -468,7 +506,7 @@ class Admin extends BaseController
         }
 
         $this->penelitianModel->delete($id);
-        session()->setFlashdata('pesan', 'Data berhasil dihapus');
+        session()->setFlashdata('pesan', 'Penelitian berhasil dihapus');
         return redirect()->to(base_url('/admin'));
     }
 
@@ -602,6 +640,9 @@ class Admin extends BaseController
             'anggota_3' => $this->request->getVar('anggota_3'),
             'anggota_4' => $this->request->getVar('anggota_4'),
             'anggota_5' => $this->request->getVar('anggota_5'),
+            'anggota_6' => $this->request->getVar('anggota_6'),
+            'anggota_7' => $this->request->getVar('anggota_7'),
+            'anggota_8' => $this->request->getVar('anggota_8'),
             'alamat_mitra' => $this->request->getVar('alamat_mitra'),
             'catatan' => $this->request->getVar('catatan'),
             'jenis' => $this->request->getVar('jenis'),
@@ -619,7 +660,7 @@ class Admin extends BaseController
             'tgl_pengesahan' => $this->request->getVar('tgl_pengesahan')
         ]);
 
-        session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+        session()->setFlashdata('pesan', 'Abdimas berhasil ditambahkan');
         return redirect()->to(base_url('/admin'));
     }
 
@@ -641,7 +682,7 @@ class Admin extends BaseController
         }
 
         $this->abdimasModel->delete($id);
-        session()->setFlashdata('pesan', 'Data berhasil dihapus');
+        session()->setFlashdata('pesan', 'Abdimas berhasil dihapus');
         return redirect()->to(base_url('/admin'));
     }
 
@@ -668,6 +709,9 @@ class Admin extends BaseController
             'anggota_3' => $this->request->getVar('anggota_3'),
             'anggota_4' => $this->request->getVar('anggota_4'),
             'anggota_5' => $this->request->getVar('anggota_5'),
+            'anggota_6' => $this->request->getVar('anggota_6'),
+            'anggota_7' => $this->request->getVar('anggota_7'),
+            'anggota_8' => $this->request->getVar('anggota_8'),
             'alamat_mitra' => $this->request->getVar('alamat_mitra'),
             'catatan' => $this->request->getVar('catatan'),
             'jenis' => $this->request->getVar('jenis'),
@@ -751,7 +795,6 @@ class Admin extends BaseController
             array_push($allowedGroups, $kk);
         }
 
-        dd($allowedGroups);
         if(!in_groups($allowedGroups, user_id())) {
             session()->setFlashdata("warning", "Anda tidak memiliki akses untuk halaman tersebut");
             return redirect()->to(base_url());
@@ -813,13 +856,13 @@ class Admin extends BaseController
             'no_sertifikat' => $this->request->getVar('no_sertifikat'),
             'tahun' => $this->request->getVar('tahun'),
         ]);
-        session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+        session()->setFlashdata('pesan', 'Haki berhasil ditambahkan');
         return redirect()->to(base_url('/admin'));
-
     }
+
     public function haki_delete($id){
         $this->hakiModel->delete($id);
-        session()->setFlashdata('pesan', 'Data berhasil dihapus');
+        session()->setFlashdata('pesan', 'Haki berhasil dihapus');
         return redirect()->to(base_url('/admin'));
     }
 
