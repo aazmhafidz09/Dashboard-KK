@@ -63,8 +63,8 @@
                                             <input 
                                                 class="form-control" 
                                                 type="text" 
-                                                placeholder="Judul Penelitian" 
-                                                id="Judul-Publikasi" 
+                                                placeholder="Nama kegiatan" 
+                                                id="nama_kegiatan" 
                                                 name="nama_kegiatan"
                                                 value="<?= esc($oldPenelitian["nama_kegiatan"]) ?>"
                                             >
@@ -127,10 +127,10 @@
                                                 class="form-control" 
                                                 type="text" 
                                                 placeholder="Ketua Peneliti" 
-                                                id="Judul-Publikasi" 
+                                                id="ketua_penelitian" 
                                                 name="ketua"
                                             >
-                                                <option value="" > Ketua </option>
+                                                <option value="" > </option>
                                                 <?php foreach ($listDosen as $dosen): ?>
                                                     <option 
                                                         value="<?=$dosen?>" 
@@ -150,11 +150,11 @@
                                                     class="form-control" 
                                                     type="text" 
                                                     placeholder="Anggota Peneliti <?= $nAnggota?>" 
-                                                    id="Judul-Publikasi" 
+                                                    id="anggota_<?=$nAnggota?>Penelitian" 
                                                     name="anggota_<?=$nAnggota?>"
                                                     class="form-control" 
                                                 >
-                                                    <option value="" > Peneliti <?=$nAnggota?> </option>
+                                                    <option value="" >  </option>
                                                     <?php foreach ($listDosen as $dosen): ?>
                                                         <option 
                                                             value="<?=$dosen?>" 
@@ -186,7 +186,8 @@
                                             <input 
                                                 class="form-control" 
                                                 type="text" 
-                                                id="Judul-Publikasi" 
+                                                id="institusiMitra" 
+                                                placeholder="Nama institusi mitra"
                                                 name="mitra"
                                                 value="<?= esc($oldPenelitian["mitra"]) ?>"
                                             >
@@ -198,7 +199,8 @@
                                             <input 
                                                 class="form-control" 
                                                 type="text" 
-                                                id="Judul-Publikasi" 
+                                                id="lab_riset" 
+                                                placeholder="Nama lab riset"
                                                 name="lab_riset"
                                                 value="<?= esc($oldPenelitian["lab_riset"]) ?>"
                                             >
@@ -210,7 +212,8 @@
                                             <input 
                                                 class="form-control" 
                                                 type="text" 
-                                                id="Judul-Publikasi" 
+                                                id="roadmap" 
+                                                placeholder="Kesesuaian dengan roadmap"
                                                 name="roadmap"
                                                 value="<?= esc($oldPenelitian["kesesuaian_roadmap"]) ?>"
                                             >
@@ -245,7 +248,8 @@
                                             <input 
                                                 class="form-control" 
                                                 type="text" 
-                                                id="Judul-Publikasi" 
+                                                id="mk_relevan" 
+                                                placeholder="Nama mata kuliah relevan"
                                                 name="mk_relevan"
                                                 value="<?= esc($oldPenelitian["mk_relevan"]) ?>"
                                             >

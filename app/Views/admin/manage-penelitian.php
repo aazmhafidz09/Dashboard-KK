@@ -56,8 +56,8 @@
                                             <input 
                                                 class="form-control" 
                                                 type="text" 
-                                                placeholder="Judul Penelitian" 
-                                                id="Judul-Publikasi" 
+                                                placeholder="Nama Kegiatan" 
+                                                id="nama_kegiatan" 
                                                 name="nama_kegiatan"
                                             >
                                         </div>
@@ -128,10 +128,10 @@
                                                 class="form-control" 
                                                 type="text" 
                                                 placeholder="Ketua Peneliti" 
-                                                id="Judul-Publikasi" 
+                                                id="ketua_penelitian" 
                                                 name="ketua"
                                             >
-                                                <option value="" > Ketua </option>
+                                                <option value="" > </option>
                                                 <?php foreach ($listDosen as $dosen): ?>
                                                     <option value="<?=$dosen?>" > 
                                                         <?=$dosen?> 
@@ -148,11 +148,11 @@
                                                     class="form-control" 
                                                     type="text" 
                                                     placeholder="Anggota Peneliti <?= $nAnggota?>" 
-                                                    id="Judul-Publikasi" 
+                                                    id="anggota_<?=$nAnggota?>Penelitian" 
                                                     name="anggota_<?=$nAnggota?>"
                                                     class="form-control" 
                                                 >
-                                                    <option value="" > Peneliti <?=$nAnggota?> </option>
+                                                    <option value="" > </option>
                                                     <?php foreach ($listDosen as $dosen): ?>
                                                         <option value="<?=$dosen?>" > 
                                                             <?=$dosen?> 
@@ -181,35 +181,38 @@
                                             <input 
                                                 class="form-control" 
                                                 type="text" 
-                                                id="Judul-Publikasi" 
+                                                id="institusi_mitra" 
+                                                placeholder="Nama Institusi Mitra"
                                                 name="mitra"
                                             >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">laboratorium Riset</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Laboratorium Riset</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
                                                 type="text" 
-                                                id="Judul-Publikasi" 
+                                                id="lab_riset" 
+                                                placeholder="Nama Laboratorium Riset"
                                                 name="lab_riset"
                                             >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">kesesuaian roadmap</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Kesesuaian roadmap</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
                                                 type="text" 
-                                                id="Judul-Publikasi" 
+                                                placeholder="Kesesuaian dengan roadmap"
+                                                id="roadmap" 
                                                 name="roadmap"
                                             >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">catatan rekomendasi</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Catatan rekomendasi</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control" type="text" id="Judul-Publikasi" name="rekomendasi"></textarea>
                                         </div>
@@ -225,12 +228,13 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">mata kuliah relevan</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Mata kuliah relevan</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
                                                 type="text" 
-                                                id="Judul-Publikasi" 
+                                                id="mk_relevan" 
+                                                placeholder="Nama mata kuliah relevan"
                                                 name="mk_relevan"
                                             >
                                         </div>

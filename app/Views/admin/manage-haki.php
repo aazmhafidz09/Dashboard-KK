@@ -33,7 +33,7 @@
                                         <label for="Judul_Publikasi" class="col-md-2 col-form-label">Judul Haki</label>
                                         <div class="col-md-10">
                                             <input 
-                                                class="form-control" 
+                                                class="form-control control-label" 
                                                 type="text" 
                                                 placeholder="Judul" 
                                                 id="Judul_haki" 
@@ -98,7 +98,7 @@
                                                 id="anggota" 
                                                 name="ketua"
                                             >
-                                                <option value="" > Pengusul 1 </option>
+                                                <option value="" > </option>
                                                 <?php foreach ($listDosen as $dosen): ?>
                                                     <option value="<?=$dosen?>" > 
                                                         <?=$dosen?> 
@@ -118,7 +118,7 @@
                                                     id="Judul-Publikasi" 
                                                     name="anggota_<?= $nAnggota?>"
                                                 >
-                                                    <option value="" > Pengusul <?=$nAnggota + 1?> </option>
+                                                    <option value="" > </option>
                                                     <?php foreach ($listDosen as $dosen): ?>
                                                         <option value="<?=$dosen?>" > 
                                                             <?=$dosen?> 

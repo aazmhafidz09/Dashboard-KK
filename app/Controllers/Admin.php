@@ -562,7 +562,6 @@ class Admin extends BaseController
             'jenisAbdimas' => [
                 "EKSTERNAL",
                 "INTERNAL",
-                "INTERNAL & EKSTERNAL",
             ],
             'statusAbdimas' => [
                 "Didanai",
@@ -597,7 +596,6 @@ class Admin extends BaseController
             'jenisAbdimas' => [
                 "EKSTERNAL",
                 "INTERNAL",
-                "INTERNAL & EKSTERNAL",
             ],
             'statusAbdimas' => [
                 "Didanai",
@@ -897,32 +895,3 @@ class Admin extends BaseController
         return redirect()->to(base_url('/admin'));
     }
 }
-
-/*
-    INSERT INTO auth_permissions(name, description)
-    VALUES
-    ("update_publikasi_SEAL", "Update data publikasi KK SEAL"),
-    ("update_publikasi_DSIS", "Update data publikasi KK DSIS"),
-    ("update_publikasi_CITI", "Update data publikasi KK DSIS"),
-    ("update_penelitian_SEAL", "Update data penelitian KK SEAL"),
-    ("update_penelitian_DSIS", "Update data penelitian KK DSIS"),
-    ("update_penelitian_CITI", "Update data penelitian KK CITI"),
-    ("update_haki_SEAL", "Update data haki KK SEAL"),
-    ("update_haki_DSIS", "Update data haki KK DSIS"),
-    ("update_haki_CITI", "Update data haki KK CITI"),
-    ("update_abdimas_SEAL", "Update data abdimas KK SEAL"),
-    ("update_abdimas_DSIS", "Update data abdimas KK DSIS"),
-    ("update_abdimas_CITI", "Update data abdimas KK CITI"),
-    ("delete_publikasi_SEAL", "Delete data publikasi KK SEAL"),
-    ("delete_publikasi_DSIS", "Delete data publikasi KK DSIS"),
-    ("delete_publikasi_CITI", "Delete data publikasi KK CITI"),
-    ("delete_penelitian_SEAL", "Delete data penelitian KK SEAL"),
-    ("delete_penelitian_DSIS", "Delete data penelitian KK DSIS"),
-    ("delete_penelitian_CITI", "Delete data penelitian KK CITI"),
-    ("delete_haki_SEAL", "Delete data haki KK SEAL"),
-    ("delete_haki_DSIS", "Delete data haki KK DSIS"),
-    ("delete_haki_CITI", "Delete data haki KK CITI"),
-    ("delete_abdimas_SEAL", "Delete data abdimas KK SEAL"),
-    ("delete_abdimas_DSIS", "Delete data abdimas KK DSIS"),
-    ("delete_abdimas_CITI", "Delete data abdimas KK CITI");
-*/

@@ -43,6 +43,7 @@
                                                 class="form-control" 
                                                 type="text" 
                                                 id="Judul-Publikasi" 
+                                                placeholder="Judul publikasi"
                                                 name="judul_publikasi"
                                                 value="<?= 
                                                     // Load value based on what was in DB on first display
@@ -105,7 +106,7 @@
                                                     id="Judul-Publikasi" 
                                                     name="penulis_<?= $nPenulis?>"
                                                 >
-                                                    <option value="" > Penulis <?=$nPenulis?> </option>
+                                                    <option value="" > </option>
                                                     <?php foreach ($listDosen as $dosen): ?>
                                                         <option 
                                                             value="<?=$dosen?>" 

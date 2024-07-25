@@ -124,7 +124,7 @@
                                         <label for="Ketua" class="col-md-2 col-form-label">Ketua</label>
                                         <div class="col-md-10">
                                             <select class="form-control" list="datalistOptions" id="Ketua" placeholder="kode dosen" name="ketua">
-                                                <option value=""> Ketua </option>
+                                                <option value=""> </option>
                                                 <?php foreach ($listDosen as $dosen): ?>
                                                     <option 
                                                         value="<?=$dosen?>"
@@ -147,7 +147,7 @@
 
                                             <div class="col-md-10">
                                                 <select class="form-control" id="Anggota_<?=$anggotaField?>" name="anggota_<?=$anggotaField?>">
-                                                    <option value=""> Anggota <?=$anggotaField?> </option>
+                                                    <option value=""> </option>
                                                     <?php foreach ($listDosen as $dosen): ?>
                                                         <option 
                                                             value="<?=$dosen?>"

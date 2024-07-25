@@ -34,6 +34,7 @@
                                             <input 
                                                 class="form-control" 
                                                 type="text" 
+                                                placeholder="Judul publikasi"
                                                 id="Judul-Publikasi" 
                                                 name="judul_publikasi"
                                             >
@@ -85,7 +86,7 @@
                                                     id="Judul-Publikasi" 
                                                     name="penulis_<?= $nPenulis?>"
                                                 >
-                                                    <option value="" > Penulis <?=$nPenulis?> </option>
+                                                    <option value="" > </option>
                                                     <?php foreach ($listDosen as $dosen): ?>
                                                         <option value="<?=$dosen?>" > 
                                                             <?=$dosen?> 

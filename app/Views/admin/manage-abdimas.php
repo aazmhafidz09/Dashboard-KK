@@ -87,7 +87,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-2 row">
-                                        <label for="status" class="col-md-2 col-form-label">status</label>
+                                        <label for="status" class="col-md-2 col-form-label">Status</label>
                                         <div class="col-md-10">
                                             <select id="abdimas_status" class="form-select" name="status">
                                                 <?php foreach($statusAbdimas as $status): ?>
@@ -112,7 +112,7 @@
                                         <label for="Ketua" class="col-md-2 col-form-label"> Ketua </label>
                                         <div class="col-md-10">
                                             <select class="form-control" list="datalistOptions" id="Ketua" placeholder="kode dosen" name="ketua">
-                                                <option value="" > Ketua </option>
+                                                <option value="" > </option>
                                                 <?php foreach ($listDosen as $dosen): ?>
                                                     <option value="<?=$dosen?>" > <?=$dosen?> </option>
                                                 <?php endforeach; ?>
@@ -130,7 +130,7 @@
 
                                             <div class="col-md-10">
                                                 <select class="form-control" id="Anggota_<?=$nAnggota?>" name="anggota_<?=$nAnggota?>">
-                                                    <option value="" class="text-dim"> Anggota <?= $nAnggota?> </option>
+                                                    <option value="" class="text-dim"> </option>
                                                     <?php foreach ($listDosen as $dosen): ?>
                                                         <option value="<?=$dosen?>" > <?=$dosen?> </option>
                                                     <?php endforeach; ?>
