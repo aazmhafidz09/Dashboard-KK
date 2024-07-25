@@ -58,6 +58,18 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Nama Kegiatan</label>
+                                        <div class="col-md-10">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="Nama kegiatan" 
+                                                id="Judul-Publikasi" 
+                                                name="nama_kegiatan"
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
                                         <label for="Tahun" class="col-md-2 col-form-label">Tahun</label>
                                         <div class="col-md-10">
                                             <input 
