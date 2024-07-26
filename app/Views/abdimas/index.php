@@ -128,13 +128,28 @@
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                        <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fw-semibold">KK:&nbsp; </span> 
+                                            <div class="text-muted d-flex"> 
+                                                <p id="chartAbdimasPerTahun__KK"> Semua </p>
+                                                <i class="mdi mdi-chevron-down ms-1"> </i>
+                                            </div>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_ABDIMAS_PER_TAHUN = {...FILTER_ABDIMAS_PER_TAHUN, kk: ''}; onAbdimasPerTahunFilterUpdate(); "
+                                            > 
+                                                Semua
+                                            </button>
+                                            <?php foreach($dosenByKK as $KK => $_): ?>
+                                                <button 
+                                                    class="dropdown-item" 
+                                                    onclick="FILTER_ABDIMAS_PER_TAHUN = {...FILTER_ABDIMAS_PER_TAHUN, kk: '<?= $KK ?>'}; onAbdimasPerTahunFilterUpdate(); "
+                                                >
+                                                    KK <?= $KK ?>
+                                                </button>
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -150,7 +165,7 @@
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
                                     <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->
-                                    <div id="column_chart_datalabel" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="chartAbdimasTahunan" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -159,20 +174,6 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <h4 class="card-title mb-4">Total Abdimas</h4>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
@@ -208,13 +209,28 @@
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                        <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fw-semibold">KK:&nbsp; </span> 
+                                            <div class="text-muted d-flex"> 
+                                                <p id="chartAbdimasPerJenisTahunan__KK"> Semua </p>
+                                                <i class="mdi mdi-chevron-down ms-1"> </i>
+                                            </div>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_ABDIMAS_PER_JENIS_TAHUNAN = {...FILTER_ABDIMAS_PER_JENIS_TAHUNAN, kk: ''}; onAbdimasPerJenisTahunanFilterUpdate(); "
+                                            > 
+                                                Semua
+                                            </button>
+                                            <?php foreach($dosenByKK as $KK => $_): ?>
+                                                <button 
+                                                    class="dropdown-item" 
+                                                    onclick="FILTER_ABDIMAS_PER_JENIS_TAHUNAN = {...FILTER_ABDIMAS_PER_JENIS_TAHUNAN, kk: '<?= $KK ?>'}; onAbdimasPerJenisTahunanFilterUpdate(); "
+                                                >
+                                                    KK <?= $KK ?>
+                                                </button>
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -235,7 +251,7 @@
                                 </div>
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
-                                    <div id="column_chart" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="chartAbdimasPerJenisTahunan" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -294,19 +310,19 @@
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">Tahun:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
-                                                <p id="chartStatistikAbdimas_tahun"> Semua </p>
+                                                <p id="chartAbdimasPerDosen__tahun"> Semua </p>
                                                 <i class="mdi mdi-chevron-down ms-1"> </i>
                                             </div>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
                                             <button 
                                                 class="dropdown-item" 
-                                                onclick="CHART_STATISTIK_ABDIMAS_FILTER = {...CHART_STATISTIK_ABDIMAS_FILTER,  tahun: 'Semua'}; makeChartAbdimas(); "
+                                                onclick="FILTER_ABDIMAS_PER_DOSEN = {...FILTER_ABDIMAS_PER_DOSEN,  tahun: 'Semua'}; onAbdimasPerDosenFilterUpdate(); "
                                             > Semua </button>
                                             <?php foreach($tahunAbdimasTersedia as $tahun): ?>
                                                 <button 
                                                     class="dropdown-item" 
-                                                    onclick="CHART_STATISTIK_ABDIMAS_FILTER = {...CHART_STATISTIK_ABDIMAS_FILTER, tahun: '<?= $tahun ?>'}; makeChartAbdimas(); "
+                                                    onclick="FILTER_ABDIMAS_PER_DOSEN = {...FILTER_ABDIMAS_PER_DOSEN, tahun: '<?= $tahun ?>'}; onAbdimasPerDosenFilterUpdate(); "
                                                 >
                                                     <?= $tahun ?>
                                                 </button>
@@ -317,7 +333,7 @@
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">KK:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
-                                                <p id="chartStatistikAbdimas_KK"> KK <?= array_keys($dosenByKK)[0]?></p>
+                                                <p id="chartAbdimasPerDosen__KK"> KK <?= array_keys($dosenByKK)[0]?></p>
                                                 <i class="mdi mdi-chevron-down ms-1"> </i>
                                             </div>
                                         </a>
@@ -325,7 +341,7 @@
                                             <?php foreach($dosenByKK as $KK => $_): ?>
                                                 <button 
                                                     class="dropdown-item" 
-                                                    onclick="CHART_STATISTIK_ABDIMAS_FILTER = {...CHART_STATISTIK_ABDIMAS_FILTER, kk: '<?= $KK ?>'}; makeChartAbdimas(); "
+                                                    onclick="FILTER_ABDIMAS_PER_DOSEN = {...FILTER_ABDIMAS_PER_DOSEN, kk: '<?= $KK ?>'}; onAbdimasPerDosenFilterUpdate(); "
                                                 >
                                                     KK <?= $KK ?>
                                                 </button>
@@ -337,7 +353,7 @@
                                 <h4 class="card-title mb-4">Statistik Abdimas</h4>
                                 <div class="mt-3">
                                     <!-- <div id="column_chart_datalabel_1" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div> -->
-                                    <div id="chartStatistikAbdimas" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="chartAbdimasPerDosen" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -438,8 +454,8 @@
 <script src="assets/js/pages/dashboard.init.js"></script>
 <script src="assets/js/pages/ecommerce-datatables.init.js"></script>
 <!-- apexcharts init -->
-<!-- <script src="assets/js/pages/apexcharts.init.js"></script> -->
-
+<!-- <script src="assets/js/pages/apexcharts.init.js"></script>
+> --
 <script src="assets/libs/chart.js/Chart.bundle.min.js"></script>
 <script src="assets/js/pages/chartjs.init.js"></script>
 
@@ -451,7 +467,9 @@
 <!-- Pass data needed by script here! -->
 <?= view('abdimas/jsScript', [
     "defaultFilterKK" => "'" . array_keys($dosenByKK)[0] . "'",
+    "tahun_abdimas_tersedia" => $tahunAbdimasTersedia,
     "dosenByKK" => $dosenByKK,
     "data_tahunan" => $data_tahunan,
+    "annualAbdimasByTypeAndKK" => $annualDataByTypeAndKK,
     "order_by_tahun_desc" => $order_by_tahun_desc
 ]) ?>

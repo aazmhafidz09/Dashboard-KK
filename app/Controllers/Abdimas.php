@@ -49,6 +49,7 @@ class Abdimas extends BaseController
 
             // Get Data Tahunan
             'data_tahunan' => $this->abdimasModel->getDataDosenTahunan(),
+            'annualDataByTypeAndKK' => $this->abdimasModel->getAnnualAbdimasByTypeAndKK(),
 
             // Get All Data Abdimas
             'all_abdimas' => $this->abdimasModel->getAllAbdimas(),
