@@ -77,6 +77,7 @@
                                         <li><a href="/admin/haki">Haki</a></li>
                                     </ul>
                                 </li>
+                                <li><a href="/admin/import"><?= lang('Impor data') ?></a></li>
                             <?php endif ?>
                         </ul>
                     </li>

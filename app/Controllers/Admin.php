@@ -828,7 +828,7 @@ class Admin extends BaseController {
     public function handle_haki_edit($id) {
         $haki = $this->hakiModel->where('id', $id)->first();
         if(is_null($haki)) { // TODO: Make the flash data red in UI
-            session()->setFlashdata('error', 'Haki tidak ditemukan');
+            sessAon()->setFlashdata('error', 'Haki tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
         if(!$this->hasResourcePermission( 'haki', $haki)) {
@@ -868,5 +868,9 @@ class Admin extends BaseController {
         ]);
         session()->setFlashdata('pesan', 'Haki berhasil diperbarui');
         return redirect()->to(base_url('/admin'));
+    }
+
+    public function import(){
+        return view("admin/import");
     }
 }
