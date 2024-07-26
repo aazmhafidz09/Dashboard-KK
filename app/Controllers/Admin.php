@@ -176,7 +176,7 @@ class Admin extends BaseController {
 
     // ##### PUBLIKASI #############################################################################
     public function publikasi() {
-        if($this->isAdmin()) {
+        if(!$this->isAdmin()) {
             session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
             return redirect()->to(base_url());
         };
@@ -232,7 +232,7 @@ class Admin extends BaseController {
     }
 
     public function publikasi_save() {
-        if($this->isAdmin()) {
+        if(!$this->isAdmin()) {
             session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
             return redirect()->to(base_url());
         };
@@ -361,7 +361,7 @@ class Admin extends BaseController {
 
     // ###### PENELITIAN ###########################################################################
     public function penelitian() {
-        if($this->isAdmin()) {
+        if(!$this->isAdmin()) {
             session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
             return redirect()->to(base_url());
         };
@@ -414,7 +414,7 @@ class Admin extends BaseController {
     }
 
     public function penelitian_save() {
-        if($this->isAdmin()) {
+        if(!$this->isAdmin()) {
             session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
             return redirect()->to(base_url());
         };
@@ -543,7 +543,7 @@ class Admin extends BaseController {
 
     // ###### ABDIMAS ##############################################################################
     public function abdimas() {
-        if($this->isAdmin()) {
+        if(!$this->isAdmin()) {
             session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
             return redirect()->to(base_url());
         };
@@ -593,7 +593,7 @@ class Admin extends BaseController {
     }
 
     public function abdimas_save() {
-        if($this->isAdmin()) {
+        if(!$this->isAdmin()) {
             session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
             return redirect()->to(base_url());
         };
@@ -721,7 +721,7 @@ class Admin extends BaseController {
 
     // ###### HAKI #################################################################################
     public function haki() {
-        if($this->isAdmin()) {
+        if(!$this->isAdmin()) {
             session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
             return redirect()->to(base_url());
         };
@@ -755,7 +755,7 @@ class Admin extends BaseController {
     }
 
     public function haki_save() {
-        if($this->isAdmin()) {
+        if(!$this->isAdmin()) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan hal tersebut");
             return redirect()->to(base_url());
         };
