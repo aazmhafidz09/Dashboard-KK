@@ -108,7 +108,7 @@
                 xaxis: {
                     categories: labels,
                     position: 'down',
-                    labels: { offsetY: 0, rotate: 270, rotateAlways: true},
+                    labels: { offsetY: 0, rotate: 270},
                     axisBorder: { show: false },
                     axisTicks: { show: true },
                     crosshairs: {
