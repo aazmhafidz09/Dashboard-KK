@@ -97,8 +97,8 @@
                                     <div id="growth-chart" data-colors='["--bs-warning"]'></div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Buku ?></span></h4>
-                                    <p class="text-muted mb-0">Buku</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Desain_Industri ?></span></h4>
+                                    <p class="text-muted mb-0">Desain Industri</p>
                                 </div>
                                 <!-- <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>10.51%</span> since last week </p> -->
                             </div>
@@ -176,14 +176,14 @@
                                     <div id="growth-chart" data-colors='["--bs-warning"]'></div>
                                 </div>
                                 <div>
-                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $hakiYearNow_Buku ?></span></h4>
-                                    <p class="text-muted mb-0">Buku</p>
+                                    <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $hakiYearNow_desain_industri ?></span></h4>
+                                    <p class="text-muted mb-0">Desain Industri</p>
                                 </div>
-                                <?php if ($peningkatan_haki_buku >= 0) : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_haki_buku ?> Buku</span> dari tahun sebelumnya
+                                <?php if ($peningkatan_haki_desain_industri >= 0) : ?>
+                                    <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i><?php echo $peningkatan_haki_desain_industri ?> Desain</span> dari tahun sebelumnya
                                     </p>
                                 <?php else : ?>
-                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_haki_buku ?> Buku</span>dari tahun sebelumnya
+                                    <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i><?php echo $peningkatan_haki_desain_industri ?> Desain</span>dari tahun sebelumnya
                                     </p>
                                 <?php endif ?>
                             </div>
@@ -197,13 +197,28 @@
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                        <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fw-semibold">KK:&nbsp; </span> 
+                                            <div class="text-muted d-flex"> 
+                                                <p id="chartHakiPerTahun__KK"> Semua </p>
+                                                <i class="mdi mdi-chevron-down ms-1"> </i>
+                                            </div>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_HAKI_PER_TAHUN = {...FILTER_HAKI_PER_TAHUN, kk: ''}; onHakiPerTahunFilterUpdate(); "
+                                            > 
+                                                Semua
+                                            </button>
+                                            <?php foreach($dosenByKK as $KK => $_): ?>
+                                                <button 
+                                                    class="dropdown-item" 
+                                                    onclick="FILTER_HAKI_PER_TAHUN = {...FILTER_HAKI_PER_TAHUN, kk: '<?= $KK ?>'}; onHakiPerTahunFilterUpdate(); "
+                                                >
+                                                    KK <?= $KK ?>
+                                                </button>
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -219,7 +234,7 @@
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
                                     <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->
-                                    <div id="column_chart_datalabel" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="chartHakiPerTahun" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -228,20 +243,6 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <h4 class="card-title mb-4">Total Haki</h4>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
@@ -277,16 +278,32 @@
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                        <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fw-semibold">KK:&nbsp; </span> 
+                                            <div class="text-muted d-flex"> 
+                                                <p id="chartHakiPerJenisTahunan__KK"> Semua </p>
+                                                <i class="mdi mdi-chevron-down ms-1"> </i>
+                                            </div>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_HAKI_PER_JENIS_TAHUNAN = {...FILTER_HAKI_PER_JENIS_TAHUNAN, kk: ''}; onHakiPerJenisTahunanFilterUpdate(); "
+                                            > 
+                                                Semua
+                                            </button>
+                                            <?php foreach($dosenByKK as $KK => $_): ?>
+                                                <button 
+                                                    class="dropdown-item" 
+                                                    onclick="FILTER_HAKI_PER_JENIS_TAHUNAN = {...FILTER_HAKI_PER_JENIS_TAHUNAN, kk: '<?= $KK ?>'}; onHakiPerJenisTahunanFilterUpdate(); "
+                                                >
+                                                    KK <?= $KK ?>
+                                                </button>
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
                                 </div>
+
                                 <h4 class="card-title mb-4">Statistik HaKi</h4>
 
                                 <div class="mt-1">
@@ -305,13 +322,13 @@
                                             <h3><span data-plugin="counterup"><?php echo $hakiYearNow_Merek ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Merek</span></h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $hakiYearNow_Buku ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Buku</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $hakiYearNow_desain_industri ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Desain Industri</span></h3>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
-                                    <div id="column_chart" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="chartHakiPerJenisTahunan" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -330,23 +347,7 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <h4 class="card-title mb-4">Top Selling Products</h4>
-
-
                                 <div class="row align-items-center g-0 mt-3">
                                     <div class="col-sm-3">
                                         <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Haki </p>
@@ -368,19 +369,6 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class=" dropdown-toggle" href="#" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="text-muted">All Members<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
-                                            <a class="dropdown-item" href="#">Locations</a>
-                                            <a class="dropdown-item" href="#">Revenue</a>
-                                            <a class="dropdown-item" href="#">Join Date</a>
-                                        </div>
-                                    </div>
-                                </div>
                                 <h4 class="card-title mb-4">Haki Terbanyak</h4>
 
                                 <div data-simplebar style="max-height: 339px;">
@@ -472,19 +460,19 @@
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">Tahun:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
-                                                <p id="chartStatistikHaki_tahun"> Semua </p>
+                                                <p id="chartHakiPerDosen__tahun"> Semua </p>
                                                 <i class="mdi mdi-chevron-down ms-1"> </i>
                                             </div>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
                                             <button 
                                                 class="dropdown-item" 
-                                                onclick="CHART_STATISTIK_HAKI_FILTER = {...CHART_STATISTIK_HAKI_FILTER,  tahun: 'Semua'}; makeChartHaki(); "
+                                                onclick="FILTER_HAKI_PER_DOSEN = {...FILTER_HAKI_PER_DOSEN,  tahun: 'Semua'}; onHakiPerDosenFilterUpdate(); "
                                             > Semua </button>
                                             <?php foreach($tahunHakiTersedia as $tahun): ?>
                                                 <button 
                                                     class="dropdown-item" 
-                                                    onclick="CHART_STATISTIK_HAKI_FILTER = {...CHART_STATISTIK_HAKI_FILTER, tahun: '<?= $tahun ?>'}; makeChartHaki(); "
+                                                    onclick="FILTER_HAKI_PER_DOSEN = {...FILTER_HAKI_PER_DOSEN, tahun: '<?= $tahun ?>'}; onHakiPerDosenFilterUpdate(); "
                                                 >
                                                     <?= $tahun ?>
                                                 </button>
@@ -495,7 +483,7 @@
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">KK:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
-                                                <p id="chartStatistikHaki_KK"> KK <?= array_keys($dosenByKK)[0]?></p>
+                                                <p id="chartHakiPerDosen__KK"> KK <?= array_keys($dosenByKK)[0]?></p>
                                                 <i class="mdi mdi-chevron-down ms-1"> </i>
                                             </div>
                                         </a>
@@ -503,7 +491,7 @@
                                             <?php foreach($dosenByKK as $KK => $_): ?>
                                                 <button 
                                                     class="dropdown-item" 
-                                                    onclick="CHART_STATISTIK_HAKI_FILTER = {...CHART_STATISTIK_HAKI_FILTER, kk: '<?= $KK ?>'}; makeChartHaki(); "
+                                                    onclick="FILTER_HAKI_PER_DOSEN = {...FILTER_HAKI_PER_DOSEN, kk: '<?= $KK ?>'}; onHakiPerDosenFilterUpdate(); "
                                                 >
                                                     KK <?= $KK ?>
                                                 </button>
@@ -516,7 +504,7 @@
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
                                     <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->
-                                    <div id="chartStatistikHaki" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="chartHakiPerDosen" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -635,11 +623,12 @@
     "defaultFilterKK" => "'" . array_keys($dosenByKK)[0] . "'",
     "dosenByKK" => $dosenByKK,
     "data_tahunan" => $data_tahunan,
+    "annualHakiByTypeAndKK" => $annualHakiByTypeAndKK,
     "order_by_tahun_Asc" => $order_by_tahun_Asc,
     "hakiCipta" => $Haki_Cipta,
     "hakiPaten" => $Haki_Paten,
     "hakiMerek" => $Haki_Merek,
-    "hakiBuku" => $Haki_Buku,
+    "hakiDesainIndustri" => $Haki_Desain_Industri,
     "getOrderByTahunAllJenis" => $getOrderByTahunAllJenis,
     "top_haki_all" => $top_haki_all,
     "count_haki_all" => $count_haki_all,

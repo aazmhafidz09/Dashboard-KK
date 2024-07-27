@@ -1,9 +1,12 @@
 <script type="text/javascript">
-    let CHART_STATISTIK_HAKI_FILTER = {
+    let FILTER_HAKI_PER_TAHUN = { kk: <?= $defaultFilterKK ?>}
+    let FILTER_HAKI_PER_JENIS_TAHUNAN = { kk: <?= $defaultFilterKK ?>}
+    let FILTER_HAKI_PER_DOSEN = {
         kk: <?= $defaultFilterKK ?>,
         tahun: "Semua",
     };
 
+    const displayedHakiTypes = ["HAK CIPTA", "PATEN", "MEREK", "DESAIN INDUSTRI"];
     const dataHaki = {
         <?php
             foreach($data_tahunan as $d) {
@@ -21,6 +24,39 @@
         ?>
     }
 
+    const dataHakiAnyKKTahunan = [
+        {
+            name: 'Hak Cipta',
+            data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+                        echo '' . $cpub['Hak_Cipta'] . ',';
+                    } ?>]
+        }, 
+        {
+            name: 'Paten',
+            data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+                        echo '' . $cpub['Paten'] . ',';
+                    } ?>]
+        }, 
+        {
+            name: 'Merek',
+            data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+                        echo '' . $cpub['Merek'] . ',';
+                    } ?>]
+        }, 
+        {
+            name: 'Desain Industri',
+            data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+                        echo '' . $cpub['Desain_Industri'] . ',';
+                    } ?>]
+        }
+    ]
+
+    const dataHakiAnyKind = {
+        <?php foreach ($order_by_tahun_Asc as $obt) {
+            echo '"' . $obt['thn'] . '": '. $obt['jumlah_haki'] . ',';
+        } ?>
+    }
+
     const dosenByKK = { 
         <?php
             foreach($dosenByKK as $kkDosen => $dosenList) {
@@ -33,19 +69,153 @@
         ?> 
     };
 
+    const dataHakiPerKKTahunan = { "CITI": {}, "SEAL": {}, "DSIS": {} };
+    <?php foreach($annualHakiByTypeAndKK as $row): ?>
+        if(!dataHakiPerKKTahunan['<?= $row["kk"] ?>'].hasOwnProperty('<?= $row["tahun"] ?>')) {
+            dataHakiPerKKTahunan['<?= $row["kk"] ?>'][<?= $row["tahun"] ?>] = {};
+        }
+
+        dataHakiPerKKTahunan['<?= $row["kk"] ?>'][<?= $row["tahun"] ?>]['<?= $row["jenis"] ?>'] = <?= $row["nHaki"] ?>;
+    <?php endforeach ?>
+
     const onDataPointSelection = function(e, context, opts) {
+        return 1; // No op for now
         let kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
-        let targetElement = document.getElementById("chartHakiDosen") 
+        let targetElement = document.getElementById("chartHakiPerDosen") 
         updateChartStatistik(targetElement, kodeDosen)
     }
 
-    function makeChartHaki() {
-        const {kk, tahun} = CHART_STATISTIK_HAKI_FILTER;
-        document.getElementById("chartStatistikHaki_KK").innerHTML = `KK ${kk}`;
-        document.getElementById("chartStatistikHaki_tahun").innerHTML = tahun;
-        const targetElement = document.getElementById("chartStatistikHaki");
-        targetElement.innerHTML = "";
-        new ApexCharts(
+    function makeChartHakiPerTahun(targetElement, labels, values) {
+        new ApexCharts( 
+            targetElement,
+            {
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    toolbar: { show: false, },
+                },
+                plotOptions: {
+                    bar: { dataLabels: { position: 'top', }, }
+                },
+                dataLabels: {
+                    enabled: true,
+                    position: 'top', // top, center, bottom,
+                    formatter: val => val + "",
+                    offsetY: -20,
+                    style: { fontSize: '12px', colors: ["#304758"] }
+                },
+                series: [{ name: 'haki', data: values }],
+                grid: { borderColor: '#f1f1f1', },
+                xaxis: {
+                    categories: labels,
+                    position: 'down',
+                    labels: { offsetY: 0, },
+                    axisBorder: { show: false },
+                    axisTicks: { show: true },
+                    crosshairs: {
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                colorFrom: '#D8E3F0',
+                                colorTo: '#BED1E6',
+                                stops: [0, 100],
+                                opacityFrom: 1,
+                                opacityTo: 1,
+                            }
+                        }
+                    },
+                    tooltip: { enabled: true, offsetY: -35, }
+                },
+                fill: {
+                    gradient: {
+                        shade: 'light',
+                        type: "horizontal",
+                        shadeIntensity: 0.25,
+                        gradientToColors: undefined,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [50, 0, 100, 100]
+                    },
+                },
+                yaxis: {
+                    axisBorder: { show: false },
+                    axisTicks: { show: false, },
+                    labels: {
+                        show: false,
+                        formatter: val => val + " Haki"
+                    }
+                },
+        }).render();
+    }
+
+    function makeChartHakiPerJenisTahunan(targetElement, labels, values) {
+        new ApexCharts( 
+            targetElement,
+            {
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    toolbar: { show: false, }
+                },
+                plotOptions: {
+                    bar: { dataLabels: { position: 'top', }, }
+                },
+                dataLabels: {
+                    enabled: true,
+                    position: 'top', // top, center, bottom,
+                    formatter: val => val + "",
+                    offsetY: -20,
+                    style: { fontSize: '12px', colors: ["#304758"] }
+                },
+                series: values,
+                grid: { borderColor: '#f1f1f1', },
+                xaxis: {
+                    categories: labels,
+                    position: 'down',
+                    labels: { offsetY: 0, },
+                    axisBorder: { show: false },
+                    axisTicks: { show: true },
+                    crosshairs: {
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                colorFrom: '#D8E3F0',
+                                colorTo: '#BED1E6',
+                                stops: [0, 100],
+                                opacityFrom: 1,
+                                opacityTo: 1,
+                            }
+                        }
+                    },
+                    tooltip: { enabled: true, offsetY: -35, }
+                },
+                fill: {
+                    gradient: {
+                        shade: 'light',
+                        type: "horizontal",
+                        shadeIntensity: 0.25,
+                        gradientToColors: undefined,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [50, 0, 100, 100]
+                    },
+                },
+                yaxis: {
+                    axisBorder: { show: false },
+                    axisTicks: { show: false, },
+                    labels: {
+                        show: false,
+                        formatter: val => val + " Haki"
+                    }
+                },
+            }
+        ).render();
+    }
+
+    function makeChartHakiPerDosen(targetElement, labels, values) {
+        new ApexCharts( 
             targetElement,
             {
                 chart: {
@@ -64,25 +234,10 @@
                     offsetY: -20,
                     style: { fontSize: '12px', colors: ["#304758"] }
                 },
-                series: [{
-                    name: 'abdimas',
-                    data: dosenByKK[kk].map(dosen => (
-                        Object.entries(dataHaki[dosen])
-                            .map((val, idx) => {
-                                const [tahunHaki, nHaki] = val;
-                                if(tahun == "Semua" || tahunHaki == tahun) {
-                                    return nHaki
-                                }
-
-                                return 0;
-                            })
-                            .reduce((acc, val) => acc + val, 0)
-                        )
-                    ),
-                }],
+                series: [{ name: 'abdimas', data:  values }],
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: {
-                    categories: dosenByKK[kk],
+                    categories: labels,
                     position: 'down',
                     labels: { offsetY: 0, rotate: 270, rotateAlways: true},
                     axisBorder: { show: false },
@@ -121,6 +276,82 @@
             }
         ).render();
     }
+
+    function onHakiPerDosenFilterUpdate() {
+        const {kk, tahun} = FILTER_HAKI_PER_DOSEN;
+        document.getElementById("chartHakiPerDosen__KK").innerHTML = `KK ${kk}`;
+        document.getElementById("chartHakiPerDosen__tahun").innerHTML = tahun;
+        const chartLabels = dosenByKK[kk]
+        const chartValues = dosenByKK[kk].map(dosen => (
+            Object.entries(dataHaki[dosen])
+                .map((val, idx) => {
+                    const [tahunHaki, nHaki] = val;
+                    return tahun == "Semua" || tahunHaki == tahun? nHaki: 0;
+                })
+                .reduce((acc, val) => acc + val, 0)
+            )
+        )
+
+        const targetElement = document.getElementById("chartHakiPerDosen");
+        targetElement.innerHTML = "";
+        makeChartHakiPerDosen(targetElement, chartLabels, chartValues);
+    }
+
+    function onHakiPerJenisTahunanFilterUpdate() {
+        const {kk} = FILTER_HAKI_PER_JENIS_TAHUNAN;
+        const chartLabels = [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+                                echo '' . $cpub['tahun'] . ',';
+                            } ?>]   
+
+        let chartValues = dataHakiAnyKKTahunan;
+        document.getElementById("chartHakiPerJenisTahunan__KK").innerHTML = 'Semua';
+        if(kk != "") {
+            document.getElementById("chartHakiPerJenisTahunan__KK").innerHTML = `KK ${kk}`;
+            chartValues = (
+                displayedHakiTypes
+                    .map(hakiType => ({
+                        name: hakiType,
+                        data: chartLabels
+                                .map(hakiYear => {
+                                    hakiPerYear = dataHakiPerKKTahunan[kk][hakiYear]
+                                    return (
+                                        (
+                                            hakiPerYear == undefined ||
+                                            hakiPerYear[hakiType] == undefined
+                                        )
+                                        ? 0: hakiPerYear[hakiType]
+                                    )
+                                })
+                    }))
+            )
+        }
+
+        const targetElement = document.getElementById("chartHakiPerJenisTahunan");
+        targetElement.innerHTML = "";
+        makeChartHakiPerJenisTahunan(targetElement, chartLabels, chartValues);
+    }
+
+    function onHakiPerTahunFilterUpdate() {
+        const {kk} = FILTER_HAKI_PER_TAHUN;
+        document.getElementById("chartHakiPerTahun__KK").innerHTML = `Semua`;
+        let chartLabels = Object.keys(dataHakiAnyKind)
+        let chartValues = Object.values(dataHakiAnyKind)
+
+        if(kk != "") {
+            document.getElementById("chartHakiPerTahun__KK").innerHTML = `KK ${kk}`;
+            chartLabels = Object.keys(dataHakiPerKKTahunan[kk])
+            chartValues = Object.values(dataHakiPerKKTahunan[kk])
+                                .map(HakiType => (
+                                    Object.values(HakiType)
+                                          .reduce((acc, val) => acc + val, 0)
+                                ))
+        }
+
+        const targetElement = document.getElementById("chartHakiPerTahun");
+        targetElement.innerHTML = "";
+        makeChartHakiPerTahun(targetElement, chartLabels, chartValues);
+    }
+
     function getChartColorsArray(chartId) {
         if (document.getElementById(chartId) !== null) {
             var colors = document.getElementById(chartId).getAttribute("data-colors");
@@ -146,299 +377,90 @@
             }
         }
     }
-    // column chart with datalabels
-    var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel");
-    if (BarchartColumnChartColors) {
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-                toolbar: { show: false, },
-            },
-            plotOptions: {
-                bar: { dataLabels: { position: 'top', }, }
-            },
-            dataLabels: {
-                enabled: true,
-                position: 'top', // top, center, bottom,
-                formatter: val => val + "",
-                offsetY: -20,
-                style: { fontSize: '12px', colors: ["#304758"] }
-            },
-            series: [{
-                name: 'publikasi',
-                data: [ <?php foreach ($order_by_tahun_Asc as $obt) {
-                            echo '"' . $obt['jumlah_haki'] . '",';
-                        } ?> ]
-            }],
-            grid: { borderColor: '#f1f1f1', },
-            xaxis: {
-                categories: [<?php foreach ($order_by_tahun_Asc as $obt) {
-                                echo '"' . $obt['thn'] . '",';
-                            } ?>],
-                position: 'down',
-                labels: { offsetY: 0, },
-                axisBorder: { show: false },
-                axisTicks: { show: true },
-                crosshairs: {
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            colorFrom: '#D8E3F0',
-                            colorTo: '#BED1E6',
-                            stops: [0, 100],
-                            opacityFrom: 1,
-                            opacityTo: 1,
-                        }
-                    }
-                },
-                tooltip: { enabled: true, offsetY: -35, }
-            },
-            fill: {
-                gradient: {
-                    shade: 'light',
-                    type: "horizontal",
-                    shadeIntensity: 0.25,
-                    gradientToColors: undefined,
-                    inverseColors: true,
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [50, 0, 100, 100]
-                },
-            },
-            yaxis: {
-                axisBorder: { show: false },
-                axisTicks: { show: false, },
-                labels: {
-                    show: false,
-                    formatter: val => val + " Haki"
-                }
-            },
-        }
-
-        new ApexCharts( document.querySelector("#column_chart_datalabel"), options).render();
-    }
-
-
-    // pie chart
-    var PiechartPieColors = getChartColorsArray("pie_chart");
-    if (PiechartPieColors) {
-        var options = {
-            chart: { height: 320, type: 'pie', },
-            series: [
-                <?php echo $Haki_Cipta ?>, <?php echo $Haki_Paten ?>, 
-                <?php echo $Haki_Merek ?>, <?php echo $Haki_Buku ?>
-            ],
-            labels: ["Hak Cipta", "Paten", "Merek", "Buku"],
-            colors: PiechartPieColors,
-            legend: {
-                show: true,
-                position: 'bottom',
-                horizontalAlign: 'center',
-                verticalAlign: 'middle',
-                floating: false,
-                fontSize: '14px',
-                offsetX: 0
-            },
-            responsive: [{
-                breakpoint: 600,
-                options: {
-                    chart: { height: 240 },
-                    legend: { show: false },
-                }
-            }]
-
-        }
-
-        new ApexCharts( document.querySelector("#pie_chart"), options).render();
-    }
-
-    // column chart
-    var BarchartColumnColors = getChartColorsArray("column_chart");
-    if (BarchartColumnColors) {
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-                toolbar: { show: false, }
-            },
-            plotOptions: {
-                bar: { dataLabels: { position: 'top', }, }
-            },
-            dataLabels: {
-                enabled: true,
-                position: 'top', // top, center, bottom,
-                formatter: val => val + "",
-                offsetY: -20,
-                style: { fontSize: '12px', colors: ["#304758"] }
-            },
-            series: [{
-                name: 'Hak Cipta',
-                data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
-                            echo '' . $cpub['Hak_Cipta'] . ',';
-                        } ?>]
-            }, {
-                name: 'Paten',
-                data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
-                            echo '' . $cpub['Paten'] . ',';
-                        } ?>]
-            }, {
-                name: 'Merek',
-                data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
-                            echo '' . $cpub['Merek'] . ',';
-                        } ?>]
-            }, {
-                name: 'Buku',
-                data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
-                            echo '' . $cpub['Buku'] . ',';
-                        } ?>]
-            }, ],
-            grid: { borderColor: '#f1f1f1', },
-            xaxis: {
-                categories: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
-                                echo '' . $cpub['tahun'] . ',';
-                            } ?>],
-                position: 'down',
-                labels: { offsetY: 0, },
-                axisBorder: { show: false },
-                axisTicks: { show: true },
-                crosshairs: {
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            colorFrom: '#D8E3F0',
-                            colorTo: '#BED1E6',
-                            stops: [0, 100],
-                            opacityFrom: 1,
-                            opacityTo: 1,
-                        }
-                    }
-                },
-                tooltip: { enabled: true, offsetY: -35, }
-            },
-            fill: {
-                gradient: {
-                    shade: 'light',
-                    type: "horizontal",
-                    shadeIntensity: 0.25,
-                    gradientToColors: undefined,
-                    inverseColors: true,
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [50, 0, 100, 100]
-                },
-            },
-            yaxis: {
-                axisBorder: { show: false },
-                axisTicks: { show: false, },
-                labels: {
-                    show: false,
-                    formatter: val => val + " Haki"
-                }
-            },
-        }
-
-        new ApexCharts( document.querySelector("#column_chart"), options).render();
-    }
-
-    // column chart with datalabels
-    let targetID = "chartStatistikHaki"
-    var BarchartColumnChartColors = getChartColorsArray(targetID);
-    if (BarchartColumnChartColors) {
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-                toolbar: { show: false, },
-            },
-            plotOptions: {
-                bar: { dataLabels: { position: 'top', }, }
-            },
-            dataLabels: {
-                enabled: true,
-                position: 'top', // top, center, bottom,
-                formatter: val => val + "",
-                offsetY: -20,
-                style: { fontSize: '12px', colors: ["#304758"] }
-            },
-            series: [{
-                name: 'Publikasi',
-                data: dosenByKK[Object.keys(dosenByKK)[0]]
-                    .map(dosen => (
-                        Object
-                            .values(dataHaki[dosen])
-                            .reduce((acc, val) => acc + val, 0)
-                        )
-                ),
-            }],
-            grid: { borderColor: '#f1f1f1', },
-            xaxis: {
-                categories: dosenByKK[Object.keys(dosenByKK)[0]],
-                position: 'down',
-                labels: { offsetY: 0, rotate: 270, rotateAlways: true},
-                axisBorder: { show: false },
-                axisTicks: { show: true },
-                crosshairs: {
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            colorFrom: '#D8E3F0',
-                            colorTo: '#BED1E6',
-                            stops: [0, 100],
-                            opacityFrom: 1,
-                            opacityTo: 1,
-                        }
-                    }
-                },
-                tooltip: { enabled: true, offsetY: -35, }
-            },
-            fill: {
-                gradient: {
-                    shade: 'light',
-                    type: "horizontal",
-                    shadeIntensity: 0.25,
-                    gradientToColors: undefined,
-                    inverseColors: true,
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [50, 0, 100, 100]
-                },
-            },
-            yaxis: {
-                axisBorder: { show: false },
-                axisTicks: { show: false, },
-                labels: {
-                    show: false,
-                    formatter: val => val + " Haki"
-                }
-            },
-        }
-        new ApexCharts(document.getElementById(targetID), options).render();
-    }
 
     // Bar chart
     var BarchartBarColors = getChartColorsArray("bar_chart");
     if (BarchartBarColors) {
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-                toolbar: { show: false, }
-            },
-            plotOptions: {
-                bar: { horizontal: true, }
-            },
-            dataLabels: { enabled: false },
-            series: [{
-                data: [<?php foreach ($count_haki_all as $cpub) {
-                            echo '' . $cpub['jumlah_haki'] . ',';
-                        } ?>]
-            }],
-            colors: BarchartBarColors,
-            grid: { borderColor: '#f1f1f1', },
-            xaxis: { categories: ['Hak Cipta', 'Paten', 'Merek'], }
-        }
+        new ApexCharts( 
+            document.getElementById("bar_chart"), 
+            {
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    toolbar: { show: false, }
+                },
+                plotOptions: {
+                    bar: { horizontal: true, }
+                },
+                dataLabels: { enabled: false },
+                series: [{
+                    data: [<?php foreach ($count_haki_all as $cpub) {
+                                echo '' . $cpub['jumlah_haki'] . ',';
+                            } ?>]
+                }],
+                colors: BarchartBarColors,
+                grid: { borderColor: '#f1f1f1', },
+                xaxis: { categories: displayedHakiTypes, }
+            }
+        ).render();
 
-        new ApexCharts( document.querySelector("#bar_chart"), options).render();
     }
+
+    var PiechartPieColors = getChartColorsArray("pie_chart");
+    if (PiechartPieColors) {
+        new ApexCharts( 
+            document.getElementById("pie_chart"), 
+        {
+                chart: { height: 320, type: 'pie', },
+                series: [
+                    <?php echo $Haki_Cipta ?>, <?php echo $Haki_Paten ?>, 
+                    <?php echo $Haki_Merek ?>, <?php echo $Haki_Desain_Industri ?>
+                ],
+                labels: displayedHakiTypes,
+                colors: PiechartPieColors,
+                legend: {
+                    show: true,
+                    position: 'bottom',
+                    horizontalAlign: 'center',
+                    verticalAlign: 'middle',
+                    floating: false,
+                    fontSize: '14px',
+                    offsetX: 0
+                },
+                responsive: [{
+                    breakpoint: 600,
+                    options: {
+                        chart: { height: 240 },
+                        legend: { show: false },
+                    }
+                }]
+
+            }
+        ).render();
+    }
+
+    makeChartHakiPerTahun(
+        document.getElementById("chartHakiPerTahun"),
+        Object.keys(dataHakiAnyKind),
+        Object.values(dataHakiAnyKind),
+    )
+    makeChartHakiPerJenisTahunan(
+        document.getElementById("chartHakiPerJenisTahunan"),
+        [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
+            echo '' . $cpub['tahun'] . ',';
+        } ?>],
+        dataHakiAnyKKTahunan
+    )
+    makeChartHakiPerDosen(
+        document.getElementById("chartHakiPerDosen"),
+        dosenByKK[Object.keys(dosenByKK)[0]],
+        dosenByKK[Object.keys(dosenByKK)[0]]
+            .map(dosen => (
+                Object
+                    .values(dataHaki[dosen])
+                    .reduce((acc, val) => acc + val, 0)
+                )
+        ),
+    )
+
 </script>

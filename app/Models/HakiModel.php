@@ -86,9 +86,9 @@ class HakiModel extends Model
         $query = $this->db->query("SELECT COUNT(*) AS haki_merek FROM haki WHERE jenis = 'MEREK'");
         return $query->getRow()->haki_merek;
     }
-    public function getHakiBuku()
+    public function getHakiDesainIndustri()
     {
-        $query = $this->db->query("SELECT COUNT(*) AS haki_buku FROM haki WHERE jenis = 'BUKU'");
+        $query = $this->db->query("SELECT COUNT(*) AS haki_buku FROM haki WHERE jenis = 'DESAIN INDUSTRI'");
         return $query->getRow()->haki_buku;
     }
 
@@ -108,9 +108,9 @@ class HakiModel extends Model
         $query = $this->db->query("SELECT COUNT(*) AS haki_merek FROM haki WHERE tahun = YEAR(NOW()) and jenis = 'MEREK'");
         return $query->getRow()->haki_merek;
     }
-    public function getHakiYearNowBuku()
+    public function getHakiYearNowDesainIndustri()
     {
-        $query = $this->db->query("SELECT COUNT(*) AS haki_buku FROM haki WHERE tahun = YEAR(NOW()) and jenis = 'BUKU'");
+        $query = $this->db->query("SELECT COUNT(*) AS haki_buku FROM haki WHERE tahun = YEAR(NOW()) and jenis = 'DESAIN INDUSTRI'");
         return $query->getRow()->haki_buku;
     }
 
@@ -149,12 +149,12 @@ class HakiModel extends Model
         ");
         return $query->getRow()->peningkatan_data;
     }
-    public function getPeningkatanHakiBuku()
+    public function getPeningkatanHakiDesainIndustri()
     {
         $query = $this->db->query("SELECT 
-        (SELECT COUNT(*) FROM haki WHERE jenis = 'BUKU' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
-        (SELECT COUNT(*) FROM haki WHERE jenis = 'BUKU' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
-        (SELECT COUNT(*) FROM haki WHERE jenis = 'BUKU' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM haki WHERE jenis = 'BUKU' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
+        (SELECT COUNT(*) FROM haki WHERE jenis = 'DESAIN INDUSTRI' AND tahun = YEAR(NOW())) AS tahun_sekarang, 
+        (SELECT COUNT(*) FROM haki WHERE jenis = 'DESAIN INDUSTRI' AND tahun = YEAR(NOW()) - 1) AS tahun_sebelumnya, 
+        (SELECT COUNT(*) FROM haki WHERE jenis = 'DESAIN INDUSTRI' AND tahun = YEAR(NOW())) - (SELECT COUNT(*) FROM haki WHERE jenis = 'DESAIN INDUSTRI' AND tahun = YEAR(NOW()) - 1) AS peningkatan_data
         FROM haki 
         LIMIT 1
         ");
@@ -193,11 +193,11 @@ class HakiModel extends Model
         SUM(CASE WHEN jenis = 'Hak Cipta' THEN 1 ELSE 0 END) AS Hak_Cipta,
         SUM(CASE WHEN jenis = 'Paten' THEN 1 ELSE 0 END) AS Paten,
         SUM(CASE WHEN jenis = 'Merek' THEN 1 ELSE 0 END) AS Merek,
-        SUM(CASE WHEN jenis = 'Buku' THEN 1 ELSE 0 END) AS Buku
+        SUM(CASE WHEN jenis = 'Desain Industri' THEN 1 ELSE 0 END) AS Desain_Industri
     FROM
         haki
     WHERE
-        tahun BETWEEN 2010 AND YEAR(CURDATE())
+        tahun BETWEEN 2000 AND YEAR(CURDATE())
     GROUP BY
         tahun;");
         return $query->getResultArray();
@@ -289,8 +289,7 @@ class HakiModel extends Model
             $kode_dosen = $result["kode_dosen"];
             $yearCount = $result["banyak_haki"];
             if(!isset($data[$kode_dosen])) {
-                // Unnecessary, but for the sake of pertaining uniformity, let it slide
-                $data[$kode_dosen] = [ "kode_dosen" => $kode_dosen ];
+                $data[$kode_dosen] = [ "kode_dosen" => $kode_dosen ]; // Unnecessary, but for the sake of pertaining uniformity, let it slide
                 foreach($yearRange as $y) {
                     $data[$kode_dosen]['THN_' . $y] = 0;
                 }
@@ -300,5 +299,41 @@ class HakiModel extends Model
         }
 
         return $data;
+    }
+
+    public function getAnnualHakiByTypeAndKK() {
+        $sql = "   
+            WITH 
+                kk_haki AS (
+                    SELECT DISTINCT
+                        h.id,
+                        d.kk,
+                        h.tahun,
+                        h.jenis
+                    FROM haki AS h
+                    JOIN dosen AS d
+                        ON (
+                            d.kode_dosen = h.ketua
+                            OR d.kode_dosen = h.anggota_1
+                            OR d.kode_dosen = h.anggota_2
+                            OR d.kode_dosen = h.anggota_3
+                            OR d.kode_dosen = h.anggota_4
+                            OR d.kode_dosen = h.anggota_5
+                            OR d.kode_dosen = h.anggota_6
+                            OR d.kode_dosen = h.anggota_7
+                            OR d.kode_dosen = h.anggota_8
+                            OR d.kode_dosen = h.anggota_9
+                        )
+                )
+            SELECT
+                kh.kk AS kk,
+                kh.jenis AS jenis,
+                kh.tahun AS tahun, 
+                COUNT(*) AS nHaki
+            FROM kk_haki AS kh
+            GROUP BY kh.kk, kh.jenis, kh.tahun;
+        ";
+
+        return $this->db->query($sql)->getResultArray();
     }
 }
