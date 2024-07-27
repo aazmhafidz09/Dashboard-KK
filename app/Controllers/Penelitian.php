@@ -79,6 +79,7 @@ class Penelitian extends BaseController
             'getOrderByTahunKerjasamaPT' => $this->penelitianModel->getOrderByTahunKerjasamaPT(),
             'getOrderByTahunHilirisasi' => $this->penelitianModel->getOrderByTahunHilirisasi(),
             
+            'annualPenelitianByTypeAndKK' => $this->penelitianModel->getAnnualPenelitianByTypeAndKK(),
         ];
         
         // dd($data['data_tahunan']);

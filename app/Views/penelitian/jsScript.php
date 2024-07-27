@@ -1,9 +1,14 @@
 <script type="text/javascript">
-    let CHART_STATISTIK_PENELITIAN_FILTER = {
+    let FILTER_PENELITIAN_PER_TAHUN = { kk: <?= $defaultFilterKK ?>}
+    let FILTER_PENELITIAN_PER_JENIS_TAHUNAN = { kk: <?= $defaultFilterKK ?>}
+    let FILTER_PENELITIAN_PER_DOSEN = {
         kk: <?= $defaultFilterKK ?>,
         tahun: "Semua",
     };
 
+    const displayedPenelitianTypes = [
+        "INTERNAL", "EKSTERNAL", "MANDIRI", "KERJASAMA PERGURUAN TINGGI", "HILIRISASI",  //"MANDIRI"
+    ];
     const dataPenelitian = {
         <?php
             foreach($data_tahunan as $d) {
@@ -33,29 +38,71 @@
         ?> 
     };
 
+    const dataPenelitianPerKKTahunan = { "CITI": {}, "SEAL": {}, "DSIS": {} };
+    <?php foreach($annualPenelitianByTypeAndKK as $row): ?>
+        if(!dataPenelitianPerKKTahunan['<?= $row["kk"] ?>'].hasOwnProperty('<?= $row["tahun"] ?>')) {
+            dataPenelitianPerKKTahunan['<?= $row["kk"] ?>'][<?= $row["tahun"] ?>] = {};
+        }
+
+        dataPenelitianPerKKTahunan['<?= $row["kk"] ?>'][<?= $row["tahun"] ?>]['<?= strtoupper($row["jenis"]) ?>'] = <?= $row["nPenelitian"] ?>;
+    <?php endforeach ?>
+
+    const dataPenelitianAnyKKTahunan = [
+        {
+            name: 'Eksternal',
+            data: [<?php foreach ($getOrderByTahunEksternal as $cpub) {
+                        echo '' . $cpub['jumlah_pen'] . ',';
+                    } ?>]
+        }, 
+        {
+        name: 'Internal',
+        data: [<?php foreach ($getOrderByTahunInternal as $cpub) {
+                    echo '' . $cpub['jumlah_pen'] . ',';
+                } ?>]
+        }, 
+        {
+            name: 'Mandiri',
+            data: [<?php foreach ($getOrderByTahunMandiri as $cpub) {
+                        echo '' . $cpub['jumlah_pen'] . ',';
+                    } ?>]
+        }, 
+        {
+            name: 'Kerja Sama PT',
+            data: [<?php foreach ($getOrderByTahunKerjasamaPT as $cpub) {
+                        echo '' . $cpub['jumlah_pen'] . ',';
+                    } ?>]
+        }, 
+        {
+            name: 'Hilirisasi',
+            data: [<?php foreach ($getOrderByTahunHilirisasi as $cpub) {
+                        echo '' . $cpub['jumlah_pen'] . ',';
+                    } ?>]
+        }, 
+    ];
+
+    const dataPenelitianAnyKind = {
+        <?php foreach ($order_by_tahun_Asc as $obt) {
+            echo '"' . $obt['thn']. '":' . $obt['jumlah_pen'] . ',';
+        } ?>
+    }
+
     const onDataPointSelection = function(e, context, opts) {
         let kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
         let targetElement = document.getElementById("chartPenelitianDosen") 
         updateChartStatistik(targetElement, kodeDosen)
     }
-
-    function makeChartPenelitian() {
-        const {kk, tahun} = CHART_STATISTIK_PENELITIAN_FILTER;
-        document.getElementById("chartStatistikPenelitian_KK").innerHTML = `KK ${kk}`;
-        document.getElementById("chartStatistikPenelitian_tahun").innerHTML = tahun;
-        const targetElement = document.getElementById("chartStatistikPenelitian");
-        targetElement.innerHTML = "";
-        new ApexCharts(
+    
+    function makeChartPenelitianPerTahun(targetElement, labels, values) {
+        new ApexCharts( 
             targetElement,
             {
                 chart: {
                     height: 350,
                     type: 'bar',
-                    toolbar: { show: false, },
-                    events: { dataPointSelection: onDataPointSelection}
+                    toolbar: { show: false, }
                 },
                 plotOptions: {
-                    bar: { dataLabels: { position: 'top'}, }
+                    bar: { dataLabels: { position: 'top', }, } // top, center, bottom
                 },
                 dataLabels: {
                     enabled: true,
@@ -64,27 +111,12 @@
                     offsetY: -20,
                     style: { fontSize: '12px', colors: ["#304758"] }
                 },
-                series: [{
-                    name: 'abdimas',
-                    data: dosenByKK[kk].map(dosen => (
-                        Object.entries(dataPenelitian[dosen])
-                            .map((val, idx) => {
-                                const [tahunPenelitian, nPenelitian] = val;
-                                if(tahun == "Semua" || tahunPenelitian == tahun) {
-                                    return nPenelitian
-                                }
-
-                                return 0;
-                            })
-                            .reduce((acc, val) => acc + val, 0)
-                        )
-                    ),
-                }],
+                series: [{ name: 'penelitian', data: values }],
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: {
-                    categories: dosenByKK[kk],
+                    categories: labels,
                     position: 'down',
-                    labels: { offsetY: 0, rotate: 270, rotateAlways: true},
+                    labels: { offsetY: 0, },
                     axisBorder: { show: false },
                     axisTicks: { show: true },
                     crosshairs: {
@@ -122,6 +154,215 @@
         ).render();
     }
 
+    function makeChartPenelitianPerJenisTahunan(targetElement, labels, values) {
+        new ApexCharts( 
+            targetElement, 
+            {
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    toolbar: { show: false, }
+                },
+                plotOptions: {
+                    bar: { dataLabels: { position: 'top',}} // top, center, bottom
+                },
+                dataLabels: {
+                    enabled: true,
+                    position: 'top', // top, center, bottom,
+                    formatter: val => val + "",
+                    offsetY: -20,
+                    style: { fontSize: '12px', colors: ["#304758"] }
+                },
+                series: values,
+                grid: { borderColor: '#f1f1f1', },
+                xaxis: {
+                    categories: labels,
+                    position: 'down',
+                    labels: { offsetY: 0, },
+                    axisBorder: { show: false },
+                    axisTicks: { show: true },
+                    crosshairs: {
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                colorFrom: '#D8E3F0',
+                                colorTo: '#BED1E6',
+                                stops: [0, 100],
+                                opacityFrom: 1,
+                                opacityTo: 1,
+                            }
+                        }
+                    },
+                    tooltip: { enabled: true, offsetY: -35, }
+                },
+                fill: {
+                    gradient: {
+                        shade: 'light',
+                        type: "horizontal",
+                        shadeIntensity: 0.25,
+                        gradientToColors: undefined,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [50, 0, 100, 100]
+                    },
+                },
+                yaxis: {
+                    axisBorder: { show: false },
+                    axisTicks: { show: false, },
+                    labels: { show: false, formatter: val => val + " Penelitian"}
+                },
+
+            }
+        ).render();
+    }
+
+    function makeChartPenelitianPerDosen(targetElement, labels, values) {
+        new ApexCharts(
+            targetElement,  
+            {
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    toolbar: { show: false, },
+                    events: { dataPointSelection: onDataPointSelection}
+                },
+                plotOptions: {
+                    bar: { dataLabels: { position: 'top',}, } // top, center, bottom
+                },
+                dataLabels: {
+                    enabled: true,
+                    position: 'top', // top, center, bottom,
+                    formatter: val => val + "",
+                    offsetY: -20,
+                    style: { fontSize: '12px', colors: ["#304758"] }
+                },
+                series: [{
+                    name: 'Publikasi',
+                    data: values
+                }],
+                grid: { borderColor: '#f1f1f1', },
+                xaxis: {
+                    categories: labels,
+                    position: 'down',
+                    labels: { offsetY: 0, },
+                    axisBorder: { show: false },
+                    axisTicks: { show: true },
+                    crosshairs: {
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                colorFrom: '#D8E3F0',
+                                colorTo: '#BED1E6',
+                                stops: [0, 100],
+                                opacityFrom: 1,
+                                opacityTo: 1,
+                            }
+                        }
+                    },
+                    tooltip: { enabled: true, offsetY: -35, }
+                },
+                fill: {
+                    gradient: {
+                        shade: 'light',
+                        type: "horizontal",
+                        shadeIntensity: 0.25,
+                        gradientToColors: undefined,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [50, 0, 100, 100]
+                    },
+                },
+                yaxis: {
+                    axisBorder: { show: false },
+                    axisTicks: { show: false, },
+                    labels: {
+                        show: false,
+                        formatter: val => val + " Penelitian"
+                    }
+                },
+            }
+        ).render();
+    }
+
+    function onPenelitianPerDosenFilterUpdate() {
+        const {kk, tahun} = FILTER_PENELITIAN_PER_DOSEN;
+        document.getElementById("chartPenelitianPerDosen__KK").innerHTML = `KK ${kk}`;
+        document.getElementById("chartPenelitianPerDosen__tahun").innerHTML = tahun;
+        const targetElement = document.getElementById("chartPenelitianPerDosen");
+        targetElement.innerHTML = "";
+
+        const chartLabels = dosenByKK[kk];
+        const chartValues = dosenByKK[kk].map(dosen => (
+            Object.entries(dataPenelitian[dosen])
+                .map((val, idx) => {
+                    const [tahunPenelitian, nPenelitian] = val;
+                    return tahun == "Semua" || tahunPenelitian == tahun ? nPenelitian: 0;
+                })
+                .reduce((acc, val) => acc + val, 0)
+            )
+        )
+
+        makeChartPenelitianPerDosen( targetElement, chartLabels, chartValues);
+    }
+
+    function onPenelitianPerTahunFilterUpdate() {
+        const {kk} = FILTER_PENELITIAN_PER_TAHUN;
+        document.getElementById("chartPenelitianPerTahun__KK").innerHTML = `Semua`;
+        let chartLabels = Object.keys(dataPenelitianAnyKind);
+        let chartValues = Object.values(dataPenelitianAnyKind);
+
+        if(kk != "") {
+            document.getElementById("chartPenelitianPerTahun__KK").innerHTML = `KK ${kk}`;
+            chartLabels = Object.keys(dataPenelitianPerKKTahunan[kk])
+            chartValues = Object.values(dataPenelitianPerKKTahunan[kk])
+                                .map(abdimasType => (
+                                    Object.values(abdimasType)
+                                          .reduce((acc, val) => acc + val, 0)
+                                ))
+        }
+
+        const targetElement = document.getElementById("chartPenelitianPerTahun");
+        targetElement.innerHTML = "";
+        makeChartPenelitianPerTahun(targetElement, chartLabels, chartValues);
+
+    }
+
+    function onPenelitianPerJenisTahunanFilterUpdate() {
+        const {kk} = FILTER_PENELITIAN_PER_JENIS_TAHUNAN;
+        const chartLabels = [<?php foreach ($order_by_tahun_Asc as $cpub) {
+                                echo '' . $cpub['thn'] . ',';
+                            } ?>]   
+
+        let chartValues = dataPenelitianAnyKKTahunan;
+        document.getElementById("chartPenelitianPerJenisTahunan__KK").innerHTML = 'Semua';
+        if(kk != "") {
+            document.getElementById("chartPenelitianPerJenisTahunan__KK").innerHTML = `KK ${kk}`;
+            chartValues = (
+                displayedPenelitianTypes
+                    .map(penelitianType => ({
+                        name: penelitianType,
+                        data: chartLabels
+                                .map(penelitianYear => {
+                                    penelitianPerYear = dataPenelitianPerKKTahunan[kk][penelitianYear]
+                                    return (
+                                        (
+                                            penelitianPerYear == undefined ||
+                                            penelitianPerYear[penelitianType] == undefined
+                                        )
+                                        ? 0: penelitianPerYear[penelitianType]
+                                    )
+                                })
+                    }))
+            )
+        }
+
+        const targetElement = document.getElementById("chartPenelitianPerJenisTahunan");
+        targetElement.innerHTML = "";
+        makeChartPenelitianPerJenisTahunan(targetElement, chartLabels, chartValues);
+    }
+
     const updateChartStatistik = function(target, newKodeDosen) {
         const dataPublikasiDosen = dataPenelitian[newKodeDosen];
         document.getElementById("chartPenelitian__desc").innerHTML = ""
@@ -133,7 +374,6 @@
                     height: 350,
                     type: 'bar',
                     toolbar: { show: false, },
-                    events: { dataPointSelection: onDataPointSelection}
                 },
                 plotOptions: {
                     bar: { dataLabels: { position: 'top',}, } // top, center, bottom
@@ -191,309 +431,93 @@
                     }
                 },
             }
-        );
+        )
 
         target.innerHTML = "";
         chart.render();
     }
 
-    var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel");
-    if (BarchartColumnChartColors) {
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-                toolbar: { show: false, }
-            },
-            plotOptions: {
-                bar: { dataLabels: { position: 'top', }, } // top, center, bottom
-            },
-            dataLabels: {
-                enabled: true,
-                position: 'top', // top, center, bottom,
-                formatter: val => val + "",
-                offsetY: -20,
-                style: { fontSize: '12px', colors: ["#304758"] }
-            },
-            series: [{
-                name: 'penelitian',
-                data: [ <?php foreach ($order_by_tahun_Asc as $obt) {
-                            echo '"' . $obt['jumlah_pen'] . '",';
-                        } ?> ] // 8, 14, 15, 15, 17, 22, 38, 39, 56, 42
-            }],
-            grid: { borderColor: '#f1f1f1', },
-            xaxis: {
-                categories: [<?php foreach ($order_by_tahun_Asc as $obt) {
-                                echo '"' . $obt['thn'] . '",';
-                            } ?>],
-                position: 'down',
-                labels: { offsetY: 0, },
-                axisBorder: { show: false },
-                axisTicks: { show: true },
-                crosshairs: {
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            colorFrom: '#D8E3F0',
-                            colorTo: '#BED1E6',
-                            stops: [0, 100],
-                            opacityFrom: 1,
-                            opacityTo: 1,
-                        }
-                    }
+    // Bar chart
+    const BarchartBarColors = getChartColorsArray("bar_chart");
+    if (BarchartBarColors) {
+        new ApexCharts( 
+            document.getElementById("bar_chart"), 
+            {
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    toolbar: { show: false, }
                 },
-                tooltip: { enabled: true, offsetY: -35, }
-            },
-            fill: {
-                gradient: {
-                    shade: 'light',
-                    type: "horizontal",
-                    shadeIntensity: 0.25,
-                    gradientToColors: undefined,
-                    inverseColors: true,
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [50, 0, 100, 100]
+                plotOptions: {
+                    bar: { horizontal: true, }
                 },
-            },
-            yaxis: {
-                axisBorder: { show: false },
-                axisTicks: { show: false, },
-                labels: { show: false, formatter: val => val + " Penelitian" }
-            },
-        }
-        new ApexCharts( document.querySelector("#column_chart_datalabel"), options).render();
-
+                dataLabels: { enabled: false },
+                series: [{
+                    data: [<?php foreach ($count_publikasi as $cpub) {
+                                echo '' . $cpub['jumlah_pen'] . ',';
+                            } ?>]
+                }],
+                colors: BarchartBarColors,
+                grid: { borderColor: '#f1f1f1', },
+                xaxis: { categories: ['Eksternal', 'Hilirisasi', 'Internal', 'Kemitraan', 'Kerja Sama PT', 'Mandiri'], }
+            }
+        ).render();
     }
 
     // pie chart
-    var PiechartPieColors = getChartColorsArray("pie_chart");
+    const PiechartPieColors = getChartColorsArray("pie_chart");
     if (PiechartPieColors) {
-        var options = {
-            chart: { height: 320, type: 'pie', },
-            series: [<?php foreach ($count_publikasi as $cpub) {
-                        echo '' . $cpub['jumlah_pen'] . ',';
-                    } ?>],
-            labels: [<?php foreach ($count_publikasi as $cpub) {
-                        echo '"' . $cpub['jenis_pen'] . '",';
-                    } ?>],
-            colors: PiechartPieColors,
-            legend: {
-                show: true,
-                position: 'bottom',
-                horizontalAlign: 'center',
-                verticalAlign: 'middle',
-                floating: false,
-                fontSize: '14px',
-                offsetX: 0
-            },
-            responsive: [{
-                breakpoint: 600,
-                options: {
-                    chart: { height: 240 },
-                    legend: { show: false },
-                }
-            }]
-
-        }
-
-        new ApexCharts( document.querySelector("#pie_chart"), options).render();
-    }
-
-
-    // column chart
-    var BarchartColumnColors = getChartColorsArray("column_chart");
-    if (BarchartColumnColors) {
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-                toolbar: { show: false, }
-            },
-            plotOptions: {
-                bar: { dataLabels: { position: 'top',}} // top, center, bottom
-            },
-            dataLabels: {
-                enabled: true,
-                position: 'top', // top, center, bottom,
-                formatter: val => val + "",
-                offsetY: -20,
-                style: { fontSize: '12px', colors: ["#304758"] }
-            },
-            series: [{
-                name: 'Eksternal',
-                data: [<?php foreach ($getOrderByTahunEksternal as $cpub) {
+        new ApexCharts( 
+            document.getElementById("pie_chart"), 
+            {
+                chart: { height: 320, type: 'pie', },
+                series: [<?php foreach ($count_publikasi as $cpub) {
                             echo '' . $cpub['jumlah_pen'] . ',';
-                        } ?>]
-            }, {
-                name: 'Internal',
-                data: [<?php foreach ($getOrderByTahunInternal as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        } ?>]
-            }, {
-                name: 'Mandiri',
-                data: [<?php foreach ($getOrderByTahunMandiri as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        } ?>]
-            }, {
-                name: 'Kerja Sama PT',
-                data: [<?php foreach ($getOrderByTahunKerjasamaPT as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        } ?>]
-            }, {
-                name: 'Hilirisasi',
-                data: [<?php foreach ($getOrderByTahunHilirisasi as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        } ?>]
-            }, ],
-            grid: { borderColor: '#f1f1f1', },
-            xaxis: {
-                categories: [<?php foreach ($getOrderByTahunEksternal as $cpub) {
-                                echo '' . $cpub['thn'] . ',';
-                            } ?>],
-                position: 'down',
-                labels: { offsetY: 0, },
-                axisBorder: { show: false },
-                axisTicks: { show: true },
-                crosshairs: {
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            colorFrom: '#D8E3F0',
-                            colorTo: '#BED1E6',
-                            stops: [0, 100],
-                            opacityFrom: 1,
-                            opacityTo: 1,
-                        }
+                        } ?>],
+                labels: [<?php foreach ($count_publikasi as $cpub) {
+                            echo '"' . $cpub['jenis_pen'] . '",';
+                        } ?>],
+                colors: PiechartPieColors,
+                legend: {
+                    show: true,
+                    position: 'bottom',
+                    horizontalAlign: 'center',
+                    verticalAlign: 'middle',
+                    floating: false,
+                    fontSize: '14px',
+                    offsetX: 0
+                },
+                responsive: [{
+                    breakpoint: 600,
+                    options: {
+                        chart: { height: 240 },
+                        legend: { show: false },
                     }
-                },
-                tooltip: { enabled: true, offsetY: -35, }
-            },
-            fill: {
-                gradient: {
-                    shade: 'light',
-                    type: "horizontal",
-                    shadeIntensity: 0.25,
-                    gradientToColors: undefined,
-                    inverseColors: true,
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [50, 0, 100, 100]
-                },
-            },
-            yaxis: {
-                axisBorder: { show: false },
-                axisTicks: { show: false, },
-                labels: { show: false, formatter: val => val + " Penelitian"}
-            },
-
-        }
-        new ApexCharts( document.querySelector("#column_chart"), options).render();
+                }]
+            }
+        ).render();
     }
 
-    // Bar chart
-    var BarchartBarColors = getChartColorsArray("bar_chart");
-    if (BarchartBarColors) {
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-                toolbar: { show: false, }
-            },
-            plotOptions: {
-                bar: { horizontal: true, }
-            },
-            dataLabels: { enabled: false },
-            series: [{
-                data: [<?php foreach ($count_publikasi as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        } ?>]
-            }],
-            colors: BarchartBarColors,
-            grid: { borderColor: '#f1f1f1', },
-            xaxis: { categories: ['Eksternal', 'Hilirisasi', 'Internal', 'Kemitraan', 'Kerja Sama PT', 'Mandiri'], }
-        }
+    makeChartPenelitianPerTahun(
+        document.getElementById("chartPenelitianPerTahun"),
+        Object.keys(dataPenelitianAnyKind),
+        Object.values(dataPenelitianAnyKind)
+    )
 
-        new ApexCharts( document.querySelector("#bar_chart"), options).render();
-    }
+    makeChartPenelitianPerJenisTahunan(
+        document.getElementById("chartPenelitianPerJenisTahunan"),
+        [<?php foreach ($getOrderByTahunEksternal as $cpub) {
+            echo '' . $cpub['thn'] . ',';
+        } ?>],
+        dataPenelitianAnyKKTahunan
+    )
 
-    // column chart with datalabels
-    let targetID = "chartStatistikPenelitian";
-    var statistikPenelitian = getChartColorsArray(targetID);
-    if (statistikPenelitian) {
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-                toolbar: { show: false, },
-                events: { dataPointSelection: onDataPointSelection }
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: { position: 'top',}, // top, center, bottom },
-                }
-            },
-            dataLabels: {
-                enabled: true,
-                position: 'top', // top, center, bottom,
-                formatter: val => val + "",
-                offsetY: -20,
-                style: { fontSize: '12px', colors: ["#304758"] }
-            },
-            series: [{
-                name: 'Penelitian',
-                data: dosenByKK[Object.keys(dosenByKK)[0]]
-                    .map(dosen => (
-                        Object
-                            .values(dataPenelitian[dosen])
-                            .reduce((acc, val) => acc + val, 0)
-                        )
-                ),
-
-            }],
-            grid: { borderColor: '#f1f1f1', },
-            xaxis: {
-                categories: dosenByKK[Object.keys(dosenByKK)[0]],
-                position: 'down',
-                labels: { offsetY: 0, rotate: 270, rotateAlways: true},
-                axisBorder: { show: false },
-                axisTicks: { show: true },
-                crosshairs: {
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            colorFrom: '#D8E3F0',
-                            colorTo: '#BED1E6',
-                            stops: [0, 100],
-                            opacityFrom: 1,
-                            opacityTo: 1,
-                        }
-                    }
-                },
-                tooltip: { enabled: true, offsetY: -35, }
-            },
-            fill: {
-                gradient: {
-                    shade: 'light',
-                    type: "horizontal",
-                    shadeIntensity: 0.25,
-                    gradientToColors: undefined,
-                    inverseColors: true,
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [50, 0, 100, 100]
-                },
-            },
-            yaxis: {
-                axisBorder: { show: false },
-                axisTicks: { show: false, },
-                labels: {
-                    show: false,
-                    formatter: val => val + " Penelitian"
-                }
-            },
-        }
-
-        new ApexCharts( document.getElementById(targetID), options).render();
-    }
+    makeChartPenelitianPerDosen(
+        document.getElementById("chartPenelitianPerDosen"),
+        dosenByKK[Object.keys(dosenByKK)[0]],
+        dosenByKK[Object.keys(dosenByKK)[0]].map(dosen => (
+                                Object.values(dataPenelitian[dosen])
+                                    .reduce((acc, val) => acc + val, 0)
+                                ))
+    )
 </script>

@@ -251,13 +251,26 @@
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                        <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fw-semibold">KK:&nbsp; </span> 
+                                            <div class="text-muted d-flex"> 
+                                                <p id="chartPenelitianPerTahun__KK"> Semua </p>
+                                                <i class="mdi mdi-chevron-down ms-1"> </i>
+                                            </div>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_PENELITIAN_PER_TAHUN = {...FILTER_PENELITIAN_PER_TAHUN,  kk: ''}; onPenelitianPerTahunFilterUpdate(); "
+                                            > Semua </button>
+                                            <?php foreach($dosenByKK as $KK => $_): ?>
+                                                <button 
+                                                    class="dropdown-item" 
+                                                    onclick="FILTER_PENELITIAN_PER_TAHUN = {...FILTER_PENELITIAN_PER_TAHUN, kk: '<?= $KK ?>'}; onPenelitianPerTahunFilterUpdate(); "
+                                                >
+                                                    <?= $KK ?>
+                                                </button>
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -274,7 +287,7 @@
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
                                     <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->
-                                    <div id="column_chart_datalabel" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="chartPenelitianPerTahun" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -283,20 +296,6 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <h4 class="card-title mb-4">Total Penelitian</h4>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
@@ -336,13 +335,26 @@
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                        <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fw-semibold">KK:&nbsp; </span> 
+                                            <div class="text-muted d-flex"> 
+                                                <p id="chartPenelitianPerJenisTahunan__KK"> Semua </p>
+                                                <i class="mdi mdi-chevron-down ms-1"> </i>
+                                            </div>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_PENELITIAN_PER_JENIS_TAHUNAN = {...FILTER_PENELITIAN_PER_JENIS_TAHUNAN,  kk: ''}; onPenelitianPerJenisTahunanFilterUpdate(); "
+                                            > Semua </button>
+                                            <?php foreach($dosenByKK as $KK => $_): ?>
+                                                <button 
+                                                    class="dropdown-item" 
+                                                    onclick="FILTER_PENELITIAN_PER_JENIS_TAHUNAN = {...FILTER_PENELITIAN_PER_JENIS_TAHUNAN, kk: '<?= $KK ?>'}; onPenelitianPerJenisTahunanFilterUpdate(); "
+                                                >
+                                                    <?= $KK ?>
+                                                </button>
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -373,7 +385,7 @@
                                 </div>
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
-                                    <div id="column_chart" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="chartPenelitianPerJenisTahunan" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -385,30 +397,14 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Grafik Penelitian</h4>
 
-                                    <div id="pie_chart" data-colors='["--bs-success", "--bs-primary", "--bs-warning" ,"--bs-info", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="pie_chart" data-colors='["--bs-secondary", "--bs-danger", "--bs-warning" ,"--bs-info", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div>
                         </div> <!-- end card-body-->
 
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <h4 class="card-title mb-4">Penelitian</h4>
-
-
                                 <div class="row align-items-center g-0 mt-3">
                                     <div class="col-sm-3">
                                         <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Internal</p>
@@ -431,19 +427,6 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class=" dropdown-toggle" href="#" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="text-muted">All Members<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
-                                            <a class="dropdown-item" href="#">Locations</a>
-                                            <a class="dropdown-item" href="#">Revenue</a>
-                                            <a class="dropdown-item" href="#">Join Date</a>
-                                        </div>
-                                    </div>
-                                </div>
                                 <h4 class="card-title mb-4">Penelitian Terbanyak</h4>
 
                                 <div data-simplebar style="max-height: 339px;">
@@ -542,19 +525,19 @@
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">Tahun:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
-                                                <p id="chartStatistikPenelitian_tahun"> Semua </p>
+                                                <p id="chartPenelitianPerDosen__tahun"> Semua </p>
                                                 <i class="mdi mdi-chevron-down ms-1"> </i>
                                             </div>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
                                             <button 
                                                 class="dropdown-item" 
-                                                onclick="CHART_STATISTIK_PENELITIAN_FILTER = {...CHART_STATISTIK_PENELITIAN_FILTER,  tahun: 'Semua'}; makeChartPenelitian(); "
+                                                onclick="FILTER_PENELITIAN_PER_DOSEN = {...FILTER_PENELITIAN_PER_DOSEN,  tahun: 'Semua'}; onPenelitianPerDosenFilterUpdate(); "
                                             > Semua </button>
                                             <?php foreach($tahunPenelitianTersedia as $tahun): ?>
                                                 <button 
                                                     class="dropdown-item" 
-                                                    onclick="CHART_STATISTIK_PENELITIAN_FILTER = {...CHART_STATISTIK_PENELITIAN_FILTER, tahun: '<?= $tahun ?>'}; makeChartPenelitian(); "
+                                                    onclick="FILTER_PENELITIAN_PER_DOSEN = {...FILTER_PENELITIAN_PER_DOSEN, tahun: '<?= $tahun ?>'}; onPenelitianPerDosenFilterUpdate(); "
                                                 >
                                                     <?= $tahun ?>
                                                 </button>
@@ -565,7 +548,7 @@
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">KK:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
-                                                <p id="chartStatistikPenelitian_KK"> KK <?= array_keys($dosenByKK)[0]?></p>
+                                                <p id="chartPenelitianPerDosen__KK"> KK <?= array_keys($dosenByKK)[0]?></p>
                                                 <i class="mdi mdi-chevron-down ms-1"> </i>
                                             </div>
                                         </a>
@@ -573,7 +556,7 @@
                                             <?php foreach($dosenByKK as $KK => $_): ?>
                                                 <button 
                                                     class="dropdown-item" 
-                                                    onclick="CHART_STATISTIK_PENELITIAN_FILTER = {...CHART_STATISTIK_PENELITIAN_FILTER, kk: '<?= $KK ?>'}; makeChartPenelitian(); "
+                                                    onclick="FILTER_PENELITIAN_PER_DOSEN = {...FILTER_PENELITIAN_PER_DOSEN, kk: '<?= $KK ?>'}; onPenelitianPerDosenFilterUpdate(); "
                                                 >
                                                     KK <?= $KK ?>
                                                 </button>
@@ -587,7 +570,7 @@
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
                                     <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->
                                     <!-- <div id="column_chart_datalabel_1" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div> -->
-                                    <div id="chartStatistikPenelitian" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="chartPenelitianPerDosen" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -707,6 +690,7 @@
     "dosenByKK" => $dosenByKK,
     "data_tahunan" => $data_tahunan,
     "defaultFilterKK" => "'" . array_keys($dosenByKK)[0] . "'",
+    "all_penelitian" => $all_penelitian,
 
     "order_by_tahun_Asc" => $order_by_tahun_Asc,
     "countPublikasi" => $count_publikasi,
@@ -715,5 +699,6 @@
     "getOrderByTahunMandiri" => $getOrderByTahunMandiri,
     "getOrderByTahunKerjasamaPT" => $getOrderByTahunKerjasamaPT,
     "getOrderByTahunHilirisasi" => $getOrderByTahunHilirisasi,
-    "top_penelitian_all" => $top_penelitian_all
+    "top_penelitian_all" => $top_penelitian_all,
+    "annualPenelitianByTypeAndKK" => $annualPenelitianByTypeAndKK
 ]) ?>

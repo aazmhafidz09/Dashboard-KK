@@ -294,7 +294,7 @@ class PenelitianModel extends Model
     }
     public function getOrderByTahunKerjasamaPT()
     {
-        $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_pen FROM penelitian WHERE jenis = 'Kerja Sama PT' GROUP BY tahun ORDER BY tahun ASC;");
+        $query = $this->db->query("SELECT tahun AS thn, COUNT(*) AS jumlah_pen FROM penelitian WHERE jenis = 'Kerjasama Perguruan Tinggi' GROUP BY tahun ORDER BY tahun ASC;");
         return $query->getResultArray();
     }
     public function getOrderByTahunHilirisasi()
@@ -305,5 +305,42 @@ class PenelitianModel extends Model
     public function get_table_fields()
     {
         return $this->db->getFieldNames('penelitian');
+    }
+
+    public function getAnnualPenelitianByTypeAndKK() {
+        $sql = "   
+            WITH 
+                kk_penelitian AS (
+                    SELECT DISTINCT
+                        p.id,
+                        d.kk,
+                        p.tahun,
+                        p.jenis
+                    FROM penelitian AS p
+                    JOIN dosen AS d
+                        ON (
+                            d.kode_dosen = p.ketua_peneliti
+                            OR d.kode_dosen = p.anggota_peneliti_1
+                            OR d.kode_dosen = p.anggota_peneliti_2
+                            OR d.kode_dosen = p.anggota_peneliti_3
+                            OR d.kode_dosen = p.anggota_peneliti_4
+                            OR d.kode_dosen = p.anggota_peneliti_5
+                            OR d.kode_dosen = p.anggota_peneliti_6
+                            OR d.kode_dosen = p.anggota_peneliti_7
+                            OR d.kode_dosen = p.anggota_peneliti_8
+                            OR d.kode_dosen = p.anggota_peneliti_9
+                            OR d.kode_dosen = p.anggota_peneliti_10
+                        )
+                )
+            SELECT
+                kp.kk AS kk,
+                kp.jenis AS jenis,
+                kp.tahun AS tahun, 
+                COUNT(*) AS nPenelitian
+            FROM kk_penelitian AS kp
+            GROUP BY kp.kk, kp.jenis, kp.tahun;
+        ";
+
+        return $this->db->query($sql)->getResultArray();
     }
 }
