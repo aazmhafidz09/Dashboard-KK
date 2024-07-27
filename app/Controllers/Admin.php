@@ -728,7 +728,7 @@ class Admin extends BaseController {
 
         $data = [ 
             'listDosen' => $this->dosenModel->getAllKodeDosen(),
-            'jenisHaki' => [ "PATEN", "HAK CIPTA", "MEREK", "KARYA/BUKU" ] 
+            'jenisHaki' => [ "PATEN", "HAK CIPTA", "MEREK", "DESAIN INDUSTRI" ] 
         ];
         return view('admin/manage-haki', $data);
     }
@@ -748,7 +748,7 @@ class Admin extends BaseController {
         $data = [
             'oldHaki' => $haki,
             'listDosen' => $this->dosenModel->getAllKodeDosen(),
-            'jenisHaki' => [ "PATEN", "HAK CIPTA", "MEREK", "KARYA/BUKU" ]
+            'jenisHaki' => [ "PATEN", "HAK CIPTA", "MEREK", "DESAIN INDUSTRI" ]
         ];
         session()->setFlashdata('pesan', 'haki berhasil diperbarui');
         return view("admin/update-haki", $data);
