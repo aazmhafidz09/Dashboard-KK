@@ -212,15 +212,31 @@
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                        <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fw-semibold">KK:&nbsp; </span> 
+                                            <div class="text-muted d-flex"> 
+                                                <p id="chartPublikasiPerTahun__KK"> Semua </p>
+                                                <i class="mdi mdi-chevron-down ms-1"> </i>
+                                            </div>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_PUBLIKASI_PER_TAHUN = {...FILTER_PUBLIKASI_PER_TAHUN, kk: ''}; onPublikasiPerTahunFilterUpdate(); "
+                                            > 
+                                                Semua
+                                            </button>
+                                            <?php foreach($dosenByKK as $KK => $_): ?>
+                                                <button 
+                                                    class="dropdown-item" 
+                                                    onclick="FILTER_PUBLIKASI_PER_TAHUN = {...FILTER_PUBLIKASI_PER_TAHUN, kk: '<?= $KK ?>'}; onPublikasiPerTahunFilterUpdate(); "
+                                                >
+                                                    KK <?= $KK ?>
+                                                </button>
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
+
                                 </div>
                                 <h4 class="card-title mb-4">Statistik Publikasi</h4>
 
@@ -235,7 +251,7 @@
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
                                     <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->
-                                    <div id="column_chart_datalabel" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="chartPublikasiPerTahun" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -244,20 +260,6 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <h4 class="card-title mb-4">Total Publikasi</h4>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
@@ -296,15 +298,31 @@
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                        <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fw-semibold">KK:&nbsp; </span> 
+                                            <div class="text-muted d-flex"> 
+                                                <p id="chartPublikasiPerJenisTahunan__KK"> Semua </p>
+                                                <i class="mdi mdi-chevron-down ms-1"> </i>
+                                            </div>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_PUBLIKASI_PER_JENIS_TAHUNAN = {...FILTER_PUBLIKASI_PER_JENIS_TAHUNAN, kk: ''}; onPublikasiPerJenisTahunanFilterUpdate(); "
+                                            >
+                                                Semua
+                                            </button>
+                                            <?php foreach($dosenByKK as $KK => $_): ?>
+                                                <button 
+                                                    class="dropdown-item" 
+                                                    onclick="FILTER_PUBLIKASI_PER_JENIS_TAHUNAN = {...FILTER_PUBLIKASI_PER_JENIS_TAHUNAN, kk: '<?= $KK ?>'}; onPublikasiPerJenisTahunanFilterUpdate(); "
+                                                >
+                                                    KK <?= $KK ?>
+                                                </button>
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
+
                                 </div>
                                 <h4 class="card-title mb-4">Statistik Publikasi</h4>
 
@@ -321,7 +339,7 @@
                                             <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Jurnal Nasional</span></h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding Internasional</span></h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
                                             <h3><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding Nasional</span></h3>
@@ -330,7 +348,7 @@
                                 </div>
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
-                                    <div id="column_chart" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="chartPublikasiPerJenisTahunan" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -350,17 +368,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <h4 class="card-title mb-4">Scopus</h4>
@@ -492,19 +499,19 @@
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">Tahun:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
-                                                <p id="chartStatistikPublikasi_tahun"> Semua </p>
+                                                <p id="chartPublikasiPerDosen__tahun"> Semua </p>
                                                 <i class="mdi mdi-chevron-down ms-1"> </i>
                                             </div>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
                                             <button 
                                                 class="dropdown-item" 
-                                                onclick="CHART_STATISTIK_PUBLIKASI_FILTER = {...CHART_STATISTIK_PUBLIKASI_FILTER,  tahun: 'Semua'}; makeChartPublikasi(); "
+                                                onclick="FILTER_PUBLIKASI_PER_DOSEN = {...FILTER_PUBLIKASI_PER_DOSEN,  tahun: 'Semua'}; onPublikasiPerDosenFilterUpdate(); "
                                             > Semua </button>
                                             <?php foreach($tahunPublikasiTersedia as $tahun): ?>
                                                 <button 
                                                     class="dropdown-item" 
-                                                    onclick="CHART_STATISTIK_PUBLIKASI_FILTER = {...CHART_STATISTIK_PUBLIKASI_FILTER, tahun: '<?= $tahun ?>'}; makeChartPublikasi(); "
+                                                    onclick="FILTER_PUBLIKASI_PER_DOSEN = {...FILTER_PUBLIKASI_PER_DOSEN, tahun: '<?= $tahun ?>'}; onPublikasiPerDosenFilterUpdate(); "
                                                 >
                                                     <?= $tahun ?>
                                                 </button>
@@ -515,7 +522,7 @@
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">KK:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
-                                                <p id="chartStatistikPublikasi_KK"> KK <?= array_keys($dosenByKK)[0]?></p>
+                                                <p id="chartPublikasiPerDosen__KK"> KK <?= array_keys($dosenByKK)[0]?></p>
                                                 <i class="mdi mdi-chevron-down ms-1"> </i>
                                             </div>
                                         </a>
@@ -523,7 +530,7 @@
                                             <?php foreach($dosenByKK as $KK => $_): ?>
                                                 <button 
                                                     class="dropdown-item" 
-                                                    onclick="CHART_STATISTIK_PUBLIKASI_FILTER = {...CHART_STATISTIK_PUBLIKASI_FILTER, kk: '<?= $KK ?>'}; makeChartPublikasi(); "
+                                                    onclick="FILTER_PUBLIKASI_PER_DOSEN = {...FILTER_PUBLIKASI_PER_DOSEN, kk: '<?= $KK ?>'}; onPublikasiPerDosenFilterUpdate(); "
                                                 >
                                                     KK <?= $KK ?>
                                                 </button>
@@ -536,7 +543,7 @@
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
                                     <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->
                                     <!-- <div id="column_chart_datalabel_1" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div> -->
-                                    <div id="chartStatistikPublikasi" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="chartPublikasiPerDosen" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -657,4 +664,9 @@
     "defaultFilterKK" => "'" . array_keys($dosenByKK)[0] . "'",
     "dosenByKK" => $dosenByKK,
     "data_tahunan" => $data_tahunan,
+    "annualPublikasiByTypeAndKK" => $annualPublikasiByTypeAndKK,
+    "order_by_tahun_Asc" => $order_by_tahun_Asc,
+    "getOrderByTahunAllJenis" => $getOrderByTahunAllJenis,
+    "count_publikasi_all" => $count_publikasi_all,
+    "akreditasi_jurnal" => $akreditasi_jurnal
 ])?>

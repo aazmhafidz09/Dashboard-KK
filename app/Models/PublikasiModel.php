@@ -309,4 +309,30 @@ class PublikasiModel extends Model
     {
         return $this->db->getFieldNames('publikasi');
     }
+
+    public function getAnnualHakiByTypeAndKK() {
+        // A 'Publikasi' belongs to the first writer's KK
+        $sql = "   
+            WITH 
+                kk_publikasi AS (
+                    SELECT DISTINCT
+                        d.kk,
+                        p.id,
+                        p.tahun,
+                        p.jenis
+                    FROM publikasi AS p
+                    JOIN dosen AS d
+                        ON ( d.kode_dosen = p.penulis_1)
+                )
+            SELECT
+                kp.kk AS kk,
+                kp.jenis AS jenis,
+                kp.tahun AS tahun, 
+                COUNT(*) AS nPublikasi
+            FROM kk_publikasi AS kp
+            GROUP BY kp.kk, kp.jenis, kp.tahun;
+        ";
+
+        return $this->db->query($sql)->getResultArray();
+    }
 }
