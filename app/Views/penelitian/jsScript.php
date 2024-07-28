@@ -47,38 +47,26 @@
         dataPenelitianPerKKTahunan['<?= $row["kk"] ?>'][<?= $row["tahun"] ?>]['<?= strtoupper($row["jenis"]) ?>'] = <?= $row["nPenelitian"] ?>;
     <?php endforeach ?>
 
-    const dataPenelitianAnyKKTahunan = [
-        {
-            name: 'Eksternal',
-            data: [<?php foreach ($getOrderByTahunEksternal as $cpub) {
-                        echo '' . $cpub['jumlah_pen'] . ',';
-                    } ?>]
-        }, 
-        {
-        name: 'Internal',
-        data: [<?php foreach ($getOrderByTahunInternal as $cpub) {
-                    echo '' . $cpub['jumlah_pen'] . ',';
-                } ?>]
-        }, 
-        {
-            name: 'Mandiri',
-            data: [<?php foreach ($getOrderByTahunMandiri as $cpub) {
-                        echo '' . $cpub['jumlah_pen'] . ',';
-                    } ?>]
-        }, 
-        {
-            name: 'Kerja Sama PT',
-            data: [<?php foreach ($getOrderByTahunKerjasamaPT as $cpub) {
-                        echo '' . $cpub['jumlah_pen'] . ',';
-                    } ?>]
-        }, 
-        {
-            name: 'Hilirisasi',
-            data: [<?php foreach ($getOrderByTahunHilirisasi as $cpub) {
-                        echo '' . $cpub['jumlah_pen'] . ',';
-                    } ?>]
-        }, 
-    ];
+    const temp = Object.fromEntries(displayedPenelitianTypes.map(pType => [pType, {}]))
+    <?php foreach($annualPenelitianByType as $row): ?>
+        <?php if(strtoupper($row["jenis"]) != "KEMITRAAN"): ?>
+            temp['<?= strtoupper($row["jenis"]) ?>'][<?= $row["tahun"] ?>] = <?= $row["nPenelitian"] ?>;
+        <?php endif ?>
+    <?php endforeach ?>
+
+    const dataPenelitianPerJenisTahunan = (
+        displayedPenelitianTypes
+            .map(penelitianType => ({
+                name: penelitianType,
+                data: [<?php foreach ($getOrderByTahunEksternal as $cpub) { 
+                            echo '' . $cpub['thn'] . ','; } 
+                        ?>] 
+                        .map(penelitianYear => {
+                            penelitianPerYear = temp[penelitianType][penelitianYear]
+                            return (penelitianPerYear == undefined? 0: penelitianPerYear)
+                        })
+            }))
+    )
 
     const dataPenelitianAnyKind = {
         <?php foreach ($order_by_tahun_Asc as $obt) {
@@ -335,27 +323,28 @@
                                 echo '' . $cpub['thn'] . ',';
                             } ?>]   
 
-        let chartValues = dataPenelitianAnyKKTahunan;
-        document.getElementById("chartPenelitianPerJenisTahunan__KK").innerHTML = 'Semua';
+        document.getElementById("chartPenelitianPerJenisTahunan__KK").innerHTML = `Semua`;
+        let chartValues = dataPenelitianPerJenisTahunan
         if(kk != "") {
             document.getElementById("chartPenelitianPerJenisTahunan__KK").innerHTML = `KK ${kk}`;
             chartValues = (
-                displayedPenelitianTypes
-                    .map(penelitianType => ({
-                        name: penelitianType,
-                        data: chartLabels
-                                .map(penelitianYear => {
-                                    penelitianPerYear = dataPenelitianPerKKTahunan[kk][penelitianYear]
-                                    return (
-                                        (
-                                            penelitianPerYear == undefined ||
-                                            penelitianPerYear[penelitianType] == undefined
+                    displayedPenelitianTypes
+                        .map(penelitianType => ({
+                            name: penelitianType,
+                            data: chartLabels
+                                    .map(penelitianYear => {
+                                        penelitianPerYear = dataPenelitianPerKKTahunan[kk][penelitianYear]
+                                        return (
+                                            (
+                                                penelitianPerYear == undefined ||
+                                                penelitianPerYear[penelitianType] == undefined
+                                            )
+                                            ? 0: penelitianPerYear[penelitianType]
                                         )
-                                        ? 0: penelitianPerYear[penelitianType]
-                                    )
-                                })
-                    }))
-            )
+                                    })
+                        }))
+                )
+
         }
 
         const targetElement = document.getElementById("chartPenelitianPerJenisTahunan");
@@ -459,7 +448,11 @@
                 }],
                 colors: BarchartBarColors,
                 grid: { borderColor: '#f1f1f1', },
-                xaxis: { categories: ['Eksternal', 'Hilirisasi', 'Internal', 'Kemitraan', 'Kerja Sama PT', 'Mandiri'], }
+                xaxis: { 
+                    categories: [<?php foreach ($count_publikasi as $cpub) {
+                                echo '"' . $cpub['jenis_pen'] . '",';
+                                } ?>], 
+                }
             }
         ).render();
     }
@@ -509,7 +502,7 @@
         [<?php foreach ($getOrderByTahunEksternal as $cpub) {
             echo '' . $cpub['thn'] . ',';
         } ?>],
-        dataPenelitianAnyKKTahunan
+        dataPenelitianPerJenisTahunan
     )
 
     makeChartPenelitianPerDosen(

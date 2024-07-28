@@ -397,7 +397,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Grafik Penelitian</h4>
 
-                                    <div id="pie_chart" data-colors='["--bs-secondary", "--bs-danger", "--bs-warning" ,"--bs-info", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="pie_chart" data-colors='["--bs-success", "--bs-primary", "--bs-info", "--bs-warning" , "--bs-danger", "--bs-secondary"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div>
                         </div> <!-- end card-body-->
@@ -700,5 +700,6 @@
     "getOrderByTahunKerjasamaPT" => $getOrderByTahunKerjasamaPT,
     "getOrderByTahunHilirisasi" => $getOrderByTahunHilirisasi,
     "top_penelitian_all" => $top_penelitian_all,
+    "annualPenelitianByType" => $annualPenelitianByType,
     "annualPenelitianByTypeAndKK" => $annualPenelitianByTypeAndKK
 ]) ?>

@@ -198,7 +198,7 @@ class PenelitianModel extends Model
     }
     public function getCountPublikasi()
     {
-        $query = $this->db->query("SELECT jenis AS jenis_pen, COUNT(*) AS jumlah_pen FROM penelitian GROUP BY jenis ORDER BY jumlah_pen ASC");
+        $query = $this->db->query("SELECT jenis AS jenis_pen, COUNT(*) AS jumlah_pen FROM penelitian GROUP BY jenis ORDER BY jumlah_pen DESC");
         return $query->getResultArray();
     }
     public function getCountPublikasiASC()
@@ -305,6 +305,44 @@ class PenelitianModel extends Model
     public function get_table_fields()
     {
         return $this->db->getFieldNames('penelitian');
+    }
+
+    public function getAnnualPenelitianByType() {
+        $sql = "   
+            WITH 
+                kk_penelitian AS (
+                    SELECT DISTINCT
+                        p.id,
+                        p.tahun,
+                        p.jenis,
+                        d.kk
+                    FROM penelitian AS p
+                    JOIN dosen AS d
+                        ON (
+                            d.kode_dosen = p.ketua_peneliti
+                            OR d.kode_dosen = p.anggota_peneliti_1
+                            OR d.kode_dosen = p.anggota_peneliti_2
+                            OR d.kode_dosen = p.anggota_peneliti_3
+                            OR d.kode_dosen = p.anggota_peneliti_4
+                            OR d.kode_dosen = p.anggota_peneliti_5
+                            OR d.kode_dosen = p.anggota_peneliti_6
+                            OR d.kode_dosen = p.anggota_peneliti_7
+                            OR d.kode_dosen = p.anggota_peneliti_8
+                            OR d.kode_dosen = p.anggota_peneliti_9
+                            OR d.kode_dosen = p.anggota_peneliti_10
+                        )
+                )
+            SELECT
+                kp.kk AS kk,
+                kp.jenis AS jenis,
+                kp.tahun AS tahun, 
+                COUNT(*) AS nPenelitian
+            FROM kk_penelitian AS kp
+            GROUP BY kp.jenis, kp.tahun;
+        ";
+
+        return $this->db->query($sql)->getResultArray();
+
     }
 
     public function getAnnualPenelitianByTypeAndKK() {
