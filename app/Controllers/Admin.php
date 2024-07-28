@@ -123,18 +123,59 @@ class Admin extends BaseController {
     }
 
     private function hasResourcePermission($resourceType, $resource) {
-        $resourceType = ucwords($resourceType);
-        $kkResource = null;
+        $resourceType = strtolower($resourceType);
+        $kkResource = [];
         switch ($resourceType) {
-            case "Penelitian": $kkResource = $this->getKKPenelitian($resource); break;
-            case "Publikasi": $kkResource = $this->getKKPublikasi($resource); break;
-            case "Abdimas": $kkResource = $this->getKKAbdimas($resource); break;
-            case "Haki": $kkResource = $this->getKKHaki($resource); break;
+            case "penelitian": $kkResource = $this->getKKPenelitian($resource); break;
+            case "publikasi": $kkResource = $this->getKKPublikasi($resource); break;
+            case "abdimas": $kkResource = $this->getKKAbdimas($resource); break;
+            case "haki": $kkResource = $this->getKKHaki($resource); break;
         }
 
         $allowedGroups = ["admin"];
         foreach($kkResource as $kk) array_push($allowedGroups, $kk);
         return in_groups($allowedGroups, user_id());
+    }
+
+    private function isInvolvedIn($resourceType, $resource) {
+        if(is_null(user())) return false;
+
+        $resourceType = strtolower($resourceType);
+        $isInvolved = false;
+        $kodeDosen = user()->kode_dosen;
+        switch ($resourceType) {
+            case "penelitian": 
+                $isInvolved = in_array($kodeDosen, [
+                    $resource["ketua_peneliti"], $resource["anggota_peneliti_1"],
+                    $resource["anggota_peneliti_2"], $resource["anggota_peneliti_3"],
+                    $resource["anggota_peneliti_4"], $resource["anggota_peneliti_5"],
+                    $resource["anggota_peneliti_6"], $resource["anggota_peneliti_7"],
+                    $resource["anggota_peneliti_8"], $resource["anggota_peneliti_9"],
+                    $resource["anggota_peneliti_10"]
+                ]); break;
+            case "publikasi": 
+                $isInvolved = in_array($kodeDosen, [
+                    $resource["penulis_1"], $resource["penulis_2"], $resource["penulis_3"], 
+                    $resource["penulis_4"], $resource["penulis_5"], $resource["penulis_6"], 
+                    $resource["penulis_7"], $resource["penulis_8"], $resource["penulis_9"], 
+                    $resource["penulis_10"], $resource["penulis_11"]
+                ]); break;
+            case "abdimas": 
+                $isInvolved = in_array($kodeDosen, [
+                    $resource["ketua"], $resource["anggota_1"], $resource["anggota_2"], 
+                    $resource["anggota_3"], $resource["anggota_4"], $resource["anggota_5"],
+                    $resource["anggota_6"], $resource["anggota_7"], $resource["anggota_8"],
+                ]); break;
+            case "haki":
+                $isInvolved = in_array($kodeDosen, [
+                    $resource["ketua"], $resource["anggota_1"],
+                    $resource["anggota_2"], $resource["anggota_3"],
+                    $resource["anggota_4"], $resource["anggota_5"],
+                    $resource["anggota_6"], $resource["anggota_7"],
+                    $resource["anggota_8"], $resource["anggota_9"],
+                ]); break;
+        }
+        return $isInvolved;
     }
 
     private function isAdmin() { // Roles considered as Admin: admin, kk_seal, kk_citi, kk_dsis
@@ -206,7 +247,9 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin'));
         }
 
-        if(!$this->hasResourcePermission( 'publikasi', $publikasi)) {
+        $isProhibited = ( !$this->hasResourcePermission( 'publikasi', $publikasi)
+                        && !$this->isInvolvedIn('publikasi', $publikasi));
+        if($isProhibited) {
             session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
             return redirect()->to(base_url());
         }
@@ -301,7 +344,9 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin'));
         }
 
-        if(!$this->hasResourcePermission( 'publikasi', $publikasi)) {
+        $isProhibited = ( !$this->hasResourcePermission( 'publikasi', $publikasi)
+                        && !$this->isInvolvedIn('publikasi', $publikasi));
+        if($isProhibited) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
@@ -349,7 +394,9 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin'));
         }
 
-        if(!$this->hasResourcePermission( 'publikasi', $publikasi)) {
+        $isProhibited = ( !$this->hasResourcePermission( 'publikasi', $publikasi)
+                        && !$this->isInvolvedIn('publikasi', $publikasi));
+        if($isProhibited) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
@@ -389,7 +436,10 @@ class Admin extends BaseController {
             session()->setFlashdata('error', 'Penelitian tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-        if(!$this->hasResourcePermission( 'penelitian', $penelitian)) {
+
+        $isProhibited = ( !$this->hasResourcePermission( 'penelitian', $penelitian)
+                        && !$this->isInvolvedIn('penelitian', $penelitian));
+        if($isProhibited) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk halaman tersebut");
             return redirect()->to(base_url());
         }
@@ -480,7 +530,10 @@ class Admin extends BaseController {
             session()->setFlashdata('error', 'Penelitian tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-        if(!$this->hasResourcePermission( 'penelitian', $penelitian)) {
+
+        $isProhibited = ( !$this->hasResourcePermission( 'penelitian', $penelitian)
+                        && !$this->isInvolvedIn('penelitian', $penelitian));
+        if($isProhibited) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
@@ -531,7 +584,10 @@ class Admin extends BaseController {
             session()->setFlashdata('error', 'Penelitian tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-        if(!$this->hasResourcePermission( 'penelitian', $penelitian)) {
+
+        $isProhibited = ( !$this->hasResourcePermission( 'penelitian', $penelitian)
+                        && !$this->isInvolvedIn('penelitian', $penelitian));
+        if($isProhibited) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
@@ -569,7 +625,10 @@ class Admin extends BaseController {
             session()->setFlashdata('error', 'Abdimas tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-        if(!$this->hasResourcePermission( 'abdimas', $abdimas)) {
+
+        $isProhibited = ( !$this->hasResourcePermission( 'abdimas', $abdimas)
+                        && !$this->isInvolvedIn('abdimas', $abdimas));
+        if($isProhibited) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
@@ -659,7 +718,10 @@ class Admin extends BaseController {
             session()->setFlashdata('error', 'Abdimas tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-        if(!$this->hasResourcePermission( 'abdimas', $abdimas)) {
+
+        $isProhibited = ( !$this->hasResourcePermission( 'abdimas', $abdimas)
+                        && !$this->isInvolvedIn('abdimas', $abdimas));
+        if($isProhibited) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
@@ -675,7 +737,10 @@ class Admin extends BaseController {
             session()->setFlashdata('error', 'Abdimas tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-        if(!$this->hasResourcePermission( 'abdimas', $abdimas)) {
+
+        $isProhibited = ( !$this->hasResourcePermission( 'abdimas', $abdimas)
+                        && !$this->isInvolvedIn('abdimas', $abdimas));
+        if($isProhibited) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
@@ -739,7 +804,10 @@ class Admin extends BaseController {
             session()->setFlashdata('error', 'Haki tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-        if(!$this->hasResourcePermission( 'haki', $haki)) {
+
+        $isProhibited = ( !$this->hasResourcePermission( 'haki', $haki)
+                        && !$this->isInvolvedIn('haki', $haki));
+        if($isProhibited) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk halaman tersebut");
             return redirect()->to(base_url());
         }
@@ -815,7 +883,10 @@ class Admin extends BaseController {
             session()->setFlashdata('error', 'Haki tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-        if(!$this->hasResourcePermission( 'haki', $haki)) {
+
+        $isProhibited = ( !$this->hasResourcePermission( 'haki', $haki)
+                        && !$this->isInvolvedIn('haki', $haki));
+        if($isProhibited) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk halaman tersebut");
             return redirect()->to(base_url());
         }
@@ -831,7 +902,10 @@ class Admin extends BaseController {
             sessAon()->setFlashdata('error', 'Haki tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
-        if(!$this->hasResourcePermission( 'haki', $haki)) {
+
+        $isProhibited = ( !$this->hasResourcePermission( 'haki', $haki)
+                        && !$this->isInvolvedIn('haki', $haki));
+        if($isProhibited) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk malakukan aksi tersebut");
             return redirect()->to(base_url());
         }

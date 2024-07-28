@@ -226,6 +226,11 @@
                                     $currentRole = "Dosen"; 
                                 }
 
+                                $kodeDosen = user()->kode_dosen;
+                                if(!is_null($kodeDosen) && strlen($kodeDosen) > 0) {
+                                    $currentRole = $kodeDosen . " (" . $currentRole . ")";
+                                }
+
                                 echo $currentRole;
                             ?>
                         </span>
