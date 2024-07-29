@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use App\Models\DosenModel;
+use OpenSpout\Reader\Common\Creator\ReaderFactory;
 
 class AbdimasModel extends Model
 {
@@ -287,5 +289,54 @@ class AbdimasModel extends Model
         ";
 
         return $this->db->query($sql)->getResultArray();
+    }
+
+    public function import($filePath) {
+        // Validation purpose variables
+        $dosenList = (new DosenModel())->getAllKodeDosen();
+        $insertFields = [
+            'tahun', 'jenis', 'nama_kegiatan', 
+            'judul', 'status', 'lab_riset',
+            'ketua', 'anggota_1', 'anggota_2',
+            'anggota_3', 'anggota_4', 'anggota_5',
+            'anggota_6', 'anggota_7', 'anggota_8',
+            'mitra', 'alamat_mitra', 'kesesuaian_roadmap',
+            'permasalahan_masy', 'solusi', 'catatan',
+            'luaran', 'tgl_pengesahan',
+        ];
+        $insertFields = ["x", "y", "x1-xBar", "y - yBar", "C1*D1", "C^2", "a", "b", "c", "d", "e"];
+
+        $rowData = [];
+        $isTableHeader = true;
+        try {
+            $reader = ReaderFactory::createFromFileByMimeType($filePath); // TODO (Security): mime type can be unreliable as it could be spoofed
+            $reader->open($filePath);
+            $sheet = $reader->getSheetIterator()->current(); // Assuming only the first sheet would be used
+            foreach($sheet->getRowIterator() as $row) {
+                if($isTableHeader) {$isTableHeader = false; continue;}
+
+                $rowCells = $row->getCells();
+                if(count($rowCells) != count($insertFields)) {
+                    throw new \Exception("Number of column must match with insert fields");
+                }
+
+                $currentRow = [];
+                for($idx = 0; $idx < count($insertFields); $idx++) {
+                    $currentRow[$insertFields[$idx]] = $rowCells[$idx]->getValue();
+                }
+
+                // Validate
+
+                array_push($rowData, $currentRow);
+            }
+        } catch(\Exception $e) { // TODO: For better UX, return the message too
+            return -1;
+        }
+
+        // Create bulk insert here
+        $reader->close();
+        dd($rowData);
+        $this->db->insert_batch($this->table, $rowData);
+        return 0;
     }
 }

@@ -945,6 +945,57 @@ class Admin extends BaseController {
     }
 
     public function import(){
+        if(!$this->isAdmin()) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
+            return redirect()->to(base_url());
+        };
         return view("admin/import");
+    }
+
+    public function handle_import() {
+        if(!$this->isAdmin()) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan hal tersebut");
+            return redirect()->to(base_url());
+        };
+
+        $files = [
+           "publikasi" => $_FILES['filePublikasi'],
+           "abdimas" => $_FILES['fileAbdimas'],
+           "penelitian" => $_FILES['filePenelitian'],
+           "haki" => $_FILES['fileHaki'],
+        ];
+
+        $importResults = [];
+        foreach($files as $nFile => $file) {
+            $filePath = $file["tmp_name"];
+            if(strlen($filePath) > 0) {
+                switch($nFile) {
+                    case "publikasi": array_push($importResults, $this->publikasiModel->import($filePath)); break;
+                    case "abdimas": array_push($importResults, $this->abdimasModel->import($filePath)); break;
+                    case "penelitian": array_push($importResults, $this->penelitianModel->import($filePath)); break;
+                    case "haki": array_push($importResults, $this->hakiModel->import($filePath)); break;
+                }
+            } else array_push($importResults, -1);
+        }
+
+        dd($importResults);
+        $successMessage = "";
+        for($idx = 0; $idx < count($importResults); $idx++) {
+            if($importResults[$idx] == 0) {
+                $successMessage .= (
+                    ($successMessage == "")
+                    ? $successMessage .= array_keys($files)[$idx]
+                    : $successMessage .= "," . array_keys($files)[$idx]
+                );
+            }
+        }
+
+        if(strlen($successMessage) == 0) {
+            session()->setFlashData("error", "Tidak ada file yang berhasil diimpor");
+            return redirect()->back();
+        }
+
+        session()->setFlashData("pesan", "Impor berhasil untuk: $successMessage");
+        return redirect()->back();
     }
 }

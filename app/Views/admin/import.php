@@ -24,8 +24,18 @@
     <!-- Start right Content here -->
     <!-- ============================================================== -->
     <div class="main-content">
-
         <div class="page-content">
+            <?php if (session()->getFlashdata('pesan')) : ?>
+                <div class="alert alert-success" role="alert">
+                    <?= session()->getFlashdata('pesan'); ?>
+                </div>
+            <?php endif ?>
+
+            <?php if (session()->getFlashdata('error')) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= session()->getFlashdata('error'); ?>
+                </div>
+            <?php endif ?>
             <div class="container-fluid">
 
                 <div class="row mb-4">
@@ -33,7 +43,7 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="text-center">
-                                    <div class="dropdown float-end">
+                                    <!-- <div class="dropdown float-end">
                                         <a class="text-body dropdown-toggle font-size-18" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
                                             <i class="uil uil-ellipsis-v"></i>
                                         </a>
@@ -47,7 +57,7 @@
                                     <div class="clearfix"></div>
                                     <div>
                                         <img src="assets/images/users/avatar-4.jpg" alt="" class="avatar-lg rounded-circle img-thumbnail">
-                                    </div>
+                                    </div> -->
                                     <!--<h5 class="mt-3 mb-1"> Aaz M hafidz Azis</h5>-->
                                     <!--<p class="text-muted">ZHH</p>-->
                                 </div>
@@ -62,29 +72,29 @@
                                         <!--    <p class="mb-1">Nama :</p>-->
                                         <!--    <h5 class="font-size-16">Aazs</h5>-->
                                         <!--</div>-->
-                                        
-                                        <div class="mb-3">
-                                            <label for="formFile" class="form-label">Import Publikasi XLSX</label>
-                                            <input class="form-control" type="file" id="formFile">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="formFile" class="form-label">Import Abdimas XLSX</label>
-                                            <input class="form-control" type="file" id="formFile">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="formFile" class="form-label">Import Penelitian XLSX</label>
-                                            <input class="form-control" type="file" id="formFile">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="formFile" class="form-label">Import Haki XLSX</label>
-                                            <input class="form-control" type="file" id="formFile">
-                                        </div>
-                                        <div class = "d-flex btn-group p-4">
-                                            <input type="submit" class="btn btn-primary" value="Import Data">
-                                            
-                                        </div>
-                                        
-                                        
+                                        <form action="<?=base_url('/admin/handle_import')?>" method="post" enctype="multipart/form-data">
+                                            <?= csrf_field(); ?>
+
+                                            <div class="mb-3">
+                                                <label for="formFile" class="form-label">Import Publikasi XLSX</label>
+                                                <input class="form-control" type="file" id="formFile" name="filePublikasi">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formFile" class="form-label">Import Abdimas XLSX</label>
+                                                <input class="form-control" type="file" id="formFile" name="fileAbdimas">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formFile" class="form-label">Import Penelitian XLSX</label>
+                                                <input class="form-control" type="file" id="formFile" name="filePenelitian">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formFile" class="form-label">Import Haki XLSX</label>
+                                                <input class="form-control" type="file" id="formFile" name="fileHaki">
+                                            </div>
+                                            <div class = "d-flex btn-group p-4">
+                                                <input type="submit" class="btn btn-primary" value="Import Data">
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
