@@ -179,7 +179,7 @@ class Admin extends BaseController {
     }
 
     private function isAdmin() { // Roles considered as Admin: admin, kk_seal, kk_citi, kk_dsis
-        return in_groups(["admin", "kk_dsis", "kk_citi", "kk_dsis"], user_id());
+        return in_groups(["admin", "kk_dsis", "kk_citi", "kk_seal"], user_id());
     }
 
     public function index() {
@@ -1023,5 +1023,22 @@ class Admin extends BaseController {
             session()->setFlashData("pesan", "Impor berhasil untuk: $successMessage");
         }
         return redirect()->to(base_url("/admin/import"));
+    }
+
+    public function download_template($filename) {
+        $BASE_DIR = "assets/xlsxTemplates";
+        switch($filename) {
+            case "publikasi":
+                return $this->response->download(("$BASE_DIR/tPublikasiEXAMPLE.xlsx"), null);
+            case "penelitian":
+                return $this->response->download(("$BASE_DIR/tPenelitianEXAMPLE.xlsx"), null);
+            case "abdimas":
+                return $this->response->download(("$BASE_DIR/tAbdimasEXAMPLE.xlsx"), null);
+            case "haki":
+                return $this->response->download(("$BASE_DIR/tHakiEXAMPLE.xlsx"), null);
+            default:
+                session()->setFlashData("error", "Template `$filename` tidak ditemukan");
+                return redirect()->to(base_url("/admin/import"));
+        }
     }
 }

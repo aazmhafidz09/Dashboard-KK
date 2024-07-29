@@ -123,28 +123,54 @@
                                     <div>
                                         <div class = "p-3">
                                             <!--<h5 class="font-size-16 mb-4">Publikasi</h5>-->
-                                            <h5 class="font-size-16 mb-4" >Penting: fitur ini tidak dimaksudkan untuk Restore data penduduk dan Mengubah struktur dan data</h5>
-                                            <p class="mb-1">Fitur ini dimaksudkan untuk memasukkan data penduduk awal dan data susulan serta mengubah data penduduk yang sudah ada secara masal </p>
-                                            </br>
-                                            </br> Mempersiapkan data dengan bentuk excel untuk Impor ke dalam database SID :</p>
-                                            </br><p> Pastikan format data yang akan diImpor sudah sesuai dengan aturan Impor data:</p>
-                                            <ul>
-                                              <li>Boleh menggunakan tanda ' (petik satu) dalam penggunaan nama</li>
-                                              <li>Kolom Publikasi, Penelitian, Pengabdian menggunakan format excel yang terpisah</li>
-                                              <li>Pada Bagian Publikasi, Field yang wajib diisi yaitu : Tahun dan Judul</li>
-                                              <li>Pada Bagian Penelitian, Field yang wajib diisi yaitu : Tahun, Jenis dan  Judul</li>
-                                              <li>Pada Bagian Abdimas, Field yang wajib diisi yaitu : Tahun dan Judul</li>
-                                              <li>Pada Bagian Haki, Field yang wajib diisi yaitu : Tahun dan Judul </li>
-                                            </ul>
+                                            <h5 class="font-size-16 mb-4" >Penting: fitur ini tidak dimaksudkan untuk restore data dan mengubah struktur dan data</h5>
+                                            <p class="mb-1"> Fitur ini dimaksudkan untuk memasukkan data secara masal. Silakan ikuti langkah berikut untuk menggunakannya: </p>
+                                            <ol>
+                                                <li> Siapkan data dengan bentuk excel untuk diimpor ke dalam database </li>
+                                                <li> Pastikan format data yang akan diimpor sudah sesuai dengan aturan impor data: </li>
+                                                <ul>
+                                                    <!-- <li>Boleh menggunakan tanda ' (petik satu) dalam penggunaan nama</li> -->
+                                                    <li>Kolom Publikasi, Penelitian, Pengabdian menggunakan format excel yang terpisah</li>
+                                                    <li>Pada Bagian Publikasi, Field yang wajib diisi yaitu : Tahun dan Judul</li>
+                                                    <li>Pada Bagian Penelitian, Field yang wajib diisi yaitu : Tahun, Jenis dan  Judul</li>
+                                                    <li>Pada Bagian Abdimas, Field yang wajib diisi yaitu : Tahun dan Judul</li>
+                                                    <li>Pada Bagian Haki, Field yang wajib diisi yaitu : Tahun dan Judul </li>
+                                                </ul>
+                                            </ol>
                                         </div>
                                     </div>
                                     <!--<p class="mb-1 p-3 " >Template format dapat diunduh di link berikut </p>-->
                                     <h5 class="font-size-16 mb-4 p-3 " >Template format dapat diunduh di link berikut</h5>
                                     <div class="d-flex btn-group p-4" role="group" aria-label="Basic outlined example">
-                                      <button type="button" class="btn btn-outline-primary">Publikasi</button>
-                                      <button type="button" class="btn btn-outline-primary">Penelitian</button>
-                                      <button type="button" class="btn btn-outline-primary">Abdimas</button>
-                                      <button type="button" class="btn btn-outline-primary">Haki</button>
+                                        <button 
+                                            type="button" 
+                                            class="btn btn-outline-primary"
+                                            onclick="window.location=`<?= base_url('/admin/download/template/publikasi')?>`"
+                                        > 
+                                            Publikasi
+                                        </button>
+                                        <button 
+                                            type="button" 
+                                            class="btn btn-outline-primary" 
+                                            onclick="window.location=`<?= base_url('/admin/download/template/penelitian')?>`"
+                                        > 
+                                            Penelitian 
+                                        </a>
+                                        </button>
+                                        <button 
+                                            type="button" 
+                                            class="btn btn-outline-primary"
+                                            onclick="window.location=`<?= base_url('/admin/download/template/abdimas')?>`"
+                                        > 
+                                            Abdimas
+                                        </button>
+                                        <button 
+                                            type="button" 
+                                            class="btn btn-outline-primary"
+                                            onclick="window.location=`<?= base_url('/admin/download/template/haki')?>`"
+                                        > 
+                                            Haki
+                                        </button>
                                     </div>
                                 </div>
                             </div>

@@ -461,7 +461,7 @@ class PenelitianModel extends Model
                 foreach($WRITER_FIELDS as $wf) {
                     $writer = $currentRow[$wf];
                     $isValid = ( strlen($writer) == 0 || in_array($writer, $dosenList));
-                    if(!$isValid) throw new \Exception("kode_dosen " . $writer . " tidak terdaftar sebagai dosen di database");
+                    if(!$isValid) throw new \Exception("`kode_dosen` " . $writer . " tidak terdaftar sebagai dosen di database");
                 }
 
                 $isValid = (
