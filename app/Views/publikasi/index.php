@@ -482,7 +482,7 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Kualitas Publikasi</h4>
+                                <h4 class="card-title mb-4">Publikasi</h4>
                                 <div id="bar_chart" data-colors='["--bs-success"]' class="apex-charts" dir="ltr"></div>
                             </div>
                         </div><!--end card-->

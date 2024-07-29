@@ -179,39 +179,45 @@ class Admin extends BaseController {
     }
 
     private function isAdmin() { // Roles considered as Admin: admin, kk_seal, kk_citi, kk_dsis
-        return !in_groups("dosen", user_id());
+        return in_groups(["admin", "kk_dsis", "kk_citi", "kk_dsis"], user_id());
     }
 
-    // private function findDuplicate($resourceType, $resource) {
-    //     $resourceType = ucwords($resourceType);
-    //     switch ($resourceType) {
-    //         case "Publikasi": 
-    //             $sql = " SELECT id, judul_publikasi FROM publikasi ";
-    //             $results = $this->publikasiModel->db->query($sql)->getResultArray();
-    //             foreach($results as $result) {
-    //                 $hasDuplicate = (
-    //                     strtolower($this->request->getVar("judul_publikasi")) == 
-    //                     strtolower($result["judul_publikasi"])
-    //                 );
-    //                 if($hasDuplicate) return $result["id"];
-    //             }
-    //             break;
-    //         case "Penelitian": $kkResource = $this->getKKPublikasi($resource); break;
-    //         case "Abdimas": $kkResource = $this->getKKAbdimas($resource); break;
-    //         case "Haki": $kkResource = $this->getKKHaki($resource); break;
-    //     }
-    //     return -1;
-    // }
-
     public function index() {
-        $data = [
-            'all_publikasi' => $this->publikasiModel->getAllPublikasi(),
-            'all_penelitian' => $this->penelitianModel->getAllPenelitian(),
-            'all_abdimas' => $this->abdimasModel->getAllAbdimas(),
-            'all_haki' => $this->hakiModel->getAllHaki(),
-            'dosen' => $this->dosenModel->getDosen(),
-            'title' => 'Daftar Dosen',
-        ];
+        $data = null;
+        if(in_groups("admin", user_id())) { // All
+            $data = [
+                'all_publikasi' => $this->publikasiModel->getAllPublikasi(),
+                'all_penelitian' => $this->penelitianModel->getAllPenelitian(),
+                'all_abdimas' => $this->abdimasModel->getAllAbdimas(),
+                'all_haki' => $this->hakiModel->getAllHaki(),
+                'title' => 'Daftar Dosen',
+            ];
+        } else if (in_groups(["kk_dsis", "kk_seal", "kk_citi"], user_id())) { // KK specific
+            $kk = (in_groups("kk_dsis", user_id())
+                    ?  "DSIS"
+                    : (
+                        (in_groups("kk_seal", user_id()))
+                        ? "SEAL" : "CITI"
+                    ));
+
+            $data = [
+                'all_publikasi' => $this->publikasiModel->getAllByKK($kk),
+                'all_penelitian' => $this->penelitianModel->getAllByKK($kk),
+                'all_abdimas' => $this->abdimasModel->getAllByKK($kk),
+                'all_haki' => $this->hakiModel->getAllByKK($kk),
+                'title' => 'Daftar Dosen',
+            ];
+        } else { // Dosen specific
+            $kodeDosen = user()->kode_dosen;
+            $data = [
+                'all_publikasi' => $this->publikasiModel->getPublikasi($kodeDosen),
+                'all_penelitian' => $this->penelitianModel->getPenelitian($kodeDosen),
+                'all_abdimas' => $this->abdimasModel->getAbdimas($kodeDosen),
+                'all_haki' => $this->hakiModel->getHaki($kodeDosen),
+                'title' => 'Daftar Dosen',
+            ];
+        }
+
         return view('admin/index', $data);
     }
 
@@ -959,43 +965,63 @@ class Admin extends BaseController {
         };
 
         $files = [
-           "publikasi" => $_FILES['filePublikasi'],
-           "abdimas" => $_FILES['fileAbdimas'],
-           "penelitian" => $_FILES['filePenelitian'],
-           "haki" => $_FILES['fileHaki'],
+           "publikasi" => !isset($_FILES['filePublikasi'])? null: $_FILES['filePublikasi'],
+           "abdimas" => !isset($_FILES['fileAbdimas'])? null: $_FILES['fileAbdimas'],
+           "penelitian" => !isset($_FILES['filePenelitian'])? null: $_FILES['filePenelitian'],
+           "haki" => !isset($_FILES['fileHaki'])? null: $_FILES['fileHaki'],
         ];
 
         $importResults = [];
+        $errorResultMessages = [];
         foreach($files as $nFile => $file) {
-            $filePath = $file["tmp_name"];
+            array_push($errorResultMessages, null);
+
+            $filePath = is_null($file)? "": $file["tmp_name"];
             if(strlen($filePath) > 0) {
+                $result = null;
                 switch($nFile) {
-                    case "publikasi": array_push($importResults, $this->publikasiModel->import($filePath)); break;
-                    case "abdimas": array_push($importResults, $this->abdimasModel->import($filePath)); break;
-                    case "penelitian": array_push($importResults, $this->penelitianModel->import($filePath)); break;
-                    case "haki": array_push($importResults, $this->hakiModel->import($filePath)); break;
+                    case "publikasi": $result = $this->publikasiModel->import($filePath); break;
+                    case "abdimas": $result = $this->abdimasModel->import($filePath); break;
+                    case "penelitian": $result = $this->penelitianModel->import($filePath); break;
+                    case "haki": $result = $this->hakiModel->import($filePath); break;
                 }
+                if(!is_null($result[1])) {
+                    $errorResultMessages[count($errorResultMessages) - 1] = $result[1];
+                }
+                array_push($importResults, $result[0]);
             } else array_push($importResults, -1);
         }
 
-        dd($importResults);
         $successMessage = "";
         for($idx = 0; $idx < count($importResults); $idx++) {
             if($importResults[$idx] == 0) {
-                $successMessage .= (
-                    ($successMessage == "")
-                    ? $successMessage .= array_keys($files)[$idx]
-                    : $successMessage .= "," . array_keys($files)[$idx]
-                );
+                $successMessage .= ( ($successMessage == "")
+                                    ? ucwords(array_keys($files)[$idx])
+                                    : "," . ucwords(array_keys($files)[$idx]));
             }
         }
 
-        if(strlen($successMessage) == 0) {
-            session()->setFlashData("error", "Tidak ada file yang berhasil diimpor");
-            return redirect()->back();
+        $errorMessage = "";
+        for($idx = 0; $idx < count($files); $idx++) {
+            if(!is_null($errorResultMessages[$idx])) {
+                $errorMessage .= (ucwords(array_keys($files)[$idx])
+                                . ": " . $errorResultMessages[$idx] 
+                                . "<br/>");
+            }
         }
 
-        session()->setFlashData("pesan", "Impor berhasil untuk: $successMessage");
-        return redirect()->back();
+        if(strlen($successMessage) == 0 && strlen($errorMessage) == 0) {
+            session()->setFlashData("error", "Tidak ada file yang diimpor");
+            return redirect()->to(base_url("/admin/import"));
+        }
+
+        if($errorMessage != "") {
+            session()->setFlashData("error", "Import gagal untuk:\n" . "<br/>" . $errorMessage);
+        }
+
+        if($successMessage != "") {
+            session()->setFlashData("pesan", "Impor berhasil untuk: $successMessage");
+        }
+        return redirect()->to(base_url("/admin/import"));
     }
 }

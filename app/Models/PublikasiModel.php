@@ -338,20 +338,48 @@ class PublikasiModel extends Model
         return $this->db->query($sql)->getResultArray();
     }
 
+    public function getAllByKK($kk) {
+        // A 'Publikasi' belongs to the first writer's KK
+        $sql = "   
+                SELECT DISTINCT p.*
+                    FROM publikasi AS p
+                    JOIN dosen AS d
+                        ON d.kode_dosen = p.penulis_1
+                            OR d.kode_dosen = p.penulis_2
+                            OR d.kode_dosen = p.penulis_3
+                            OR d.kode_dosen = p.penulis_4
+                            OR d.kode_dosen = p.penulis_5
+                            OR d.kode_dosen = p.penulis_6
+                            OR d.kode_dosen = p.penulis_7
+                            OR d.kode_dosen = p.penulis_8
+                            OR d.kode_dosen = p.penulis_9
+                            OR d.kode_dosen = p.penulis_10
+                            OR d.kode_dosen = p.penulis_11
+                WHERE d.kk = ?
+                ORDER BY p.id DESC
+        ";
+
+        return $this->db->query($sql, [$kk])->getResultArray();
+    }
+
     public function import($filePath) {
         // Validation purpose variables
         $dosenList = (new DosenModel())->getAllKodeDosen();
-        $INSERT_FIELDS = [
-            'tahun', 'jenis', 'nama_kegiatan', 
-            'judul', 'status', 'lab_riset',
-            'ketua', 'anggota_1', 'anggota_2',
-            'anggota_3', 'anggota_4', 'anggota_5',
-            'anggota_6', 'anggota_7', 'anggota_8',
-            'mitra', 'alamat_mitra', 'kesesuaian_roadmap',
-            'permasalahan_masy', 'solusi', 'catatan',
-            'luaran', 'tgl_pengesahan',
+        $insertFields = [ 
+            // Excel format as of 24/07/29: (Please always adjust it to current format)
+            // id | title | year | PENULIS1 | PENULIS2 | PENULIS3 | PENULIS4 | PENULIS5 | PENULIS6 |  PENULIS7 |  PENULIS8 |  PENULIS9 |  PENULIS10 |  PENULIS11 |  LABRISET |  authors | INSTITUSI | JENIS | JOURNAL | AKREDITASI | LINK
+            'judul_publikasi', 'tahun', 'penulis_1', 
+            'penulis_2', 'penulis_3', 'penulis_4',
+            'penulis_5', 'penulis_6', 'penulis_7',
+            'penulis_8', 'penulis_9', 'penulis_10',
+            'penulis_11', 'lab_riset', 'penulis_all',
+            'institusi_mitra', 'jenis', 'nama_journal_conf',
+            'akreditasi_journal_conf', 'link_artikel'
         ];
-        $INSERT_FIELDS = ["x", "y", "x1-xBar", "y - yBar", "C1*D1", "C^2", "a", "b", "c", "d", "e"];
+        $ALLOWED_JENIS = ["jurnal internasional", "jurnal nasional", 
+                        "prosiding internasional", "prosiding nasional", ];
+        $ALLOWED_AKREDITASI = [ "not accredited yet", "q1", "q2", "q3", "q4",
+                        "s1", "s2", "s3", "s4", "s5", "s6", "scopus"];
 
         $rowData = [];
         $isTableHeader = true;
@@ -363,27 +391,60 @@ class PublikasiModel extends Model
                 if($isTableHeader) {$isTableHeader = false; continue;}
 
                 $rowCells = $row->getCells();
-                if(count($rowCells) != count($INSERT_FIELDS)) {
-                    throw new \Exception("Number of column must match with insert fields");
+                if(count($rowCells) - 1 != count($insertFields)) { // Excluding id which exists in template
+                    throw new \Exception("Banyak kolom tidak sesuai kriteria, yakni sebanyak " . (count($insertFields) - 1));
                 }
 
                 $currentRow = [];
-                for($idx = 0; $idx < count($INSERT_FIELDS); $idx++) {
-                    $currentRow[$INSERT_FIELDS[$idx]] = $rowCells[$idx]->getValue();
+                for($idx = 0; $idx < count($insertFields); $idx++) {
+                    $field = $insertFields[$idx];
+                    $value = $rowCells[$idx + 1]->getValue();
+                    $currentRow[$field] = $value;
                 }
 
                 // Validate
+                $isValid = ( // Mandatory fields
+                    is_numeric($currentRow["tahun"])
+                    && strlen($currentRow["judul_publikasi"]) > 0
+                );
+                if(!$isValid) throw new \Exception("`judul_publikasi` dan `tahun` harus diisi");
+
+                $WRITER_FIELDS = array_slice($insertFields, 2, 11);
+                foreach($WRITER_FIELDS as $wf) {
+                    $writer = $currentRow[$wf];
+                    $isValid = ( strlen($writer) == 0 || in_array($writer, $dosenList));
+                    if(!$isValid) throw new \Exception("`kode_dosen` " . $writer . " tidak terdaftar sebagai dosen di database");
+                }
+
+                $isValid = (
+                    strlen($currentRow["jenis"]) == 0 
+                    || in_array(strtolower($currentRow["jenis"]), $ALLOWED_JENIS)
+                );
+                if(!$isValid) throw new \Exception("Jika diisi, `jenis` harus merupakan salah satu dari {'jurnal internasional', 'jurnal nasional', 'prosiding internasional', 'prosiding nasional'}");
+
+                $isValid = (
+                    strlen($currentRow["akreditasi_journal_conf"]) == 0
+                    || in_array(strtolower($currentRow["akreditasi_journal_conf"]), $ALLOWED_AKREDITASI)
+                );
+                if(!$isValid) throw new \Exception("Jika diisi, `akreditasi_journal_conf` harus merupakan salah satu dari {'not accredited yet', 'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'Q1', 'Q2', 'Q3', 'Q4', 'Scopus'}");
+
+                $isValid = (
+                    strlen($currentRow["link_artikel"]) == 0
+                    || filter_var($currentRow["link_artikel"], FILTER_VALIDATE_URL)
+                );
+                if(!$isValid) throw new \Exception("Pastikan `link_artikel` merupakan URL yang valid (contoh: https://www.google.com)");
 
                 array_push($rowData, $currentRow);
             }
-        } catch(\Exception $e) { // TODO: For better UX, return the message too
-            return -1;
-        }
 
-        // Create bulk insert here
-        $reader->close();
-        dd($rowData);
-        $this->db->insert_batch($this->table, $rowData);
-        return 0;
+            $reader->close();
+            if(count($rowData) == 0) throw new \Exception("Tidak ada data yang perlu dimasukkan");
+            $this->db->table($this->table)->insertBatch($rowData);
+        } catch(DatabaseException $e) { // TODO: For better UX, return the message too // 
+            return [-1, $e->getMessage()];
+        } catch(\Exception $e) { // TODO: For better UX, return the message too // 
+            return [-1, $e->getMessage()];
+        }
+        return [0, null];
     }
 }

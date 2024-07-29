@@ -369,7 +369,7 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Haki Terbanyak</h4>
+                                <h4 class="card-title mb-4">Haki</h4>
 
                                 <div data-simplebar style="max-height: 339px;">
                                     <div class="table-responsive">

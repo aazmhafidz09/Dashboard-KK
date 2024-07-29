@@ -91,7 +91,10 @@
                                                 <label for="formFile" class="form-label">Import Haki XLSX</label>
                                                 <input class="form-control" type="file" id="formFile" name="fileHaki">
                                             </div>
-                                            <div class = "d-flex btn-group p-4">
+                                            <div class = "d-flex btn-group pt-4 pb-2">
+                                                <input type="reset" class="btn btn-outline-primary" value="Reset">
+                                            </div>
+                                            <div class = "d-flex btn-group pb-2">
                                                 <input type="submit" class="btn btn-primary" value="Import Data">
                                             </div>
                                         </form>

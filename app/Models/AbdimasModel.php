@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use CodeIgniter\Database\Exceptions\DatabaseException;
 use App\Models\DosenModel;
 use OpenSpout\Reader\Common\Creator\ReaderFactory;
 
@@ -43,7 +44,7 @@ class AbdimasModel extends Model
             return $this->findAll();
         }
 
-        $query = $this->db->query("SELECT * FROM abdimas WHERE (ketua = '$kode_dosen' or anggota_1 = '$kode_dosen' or anggota_2 = '$kode_dosen' or anggota_3 = '$kode_dosen' or anggota_4 = '$kode_dosen' or anggota_5 = '$kode_dosen')");
+        $query = $this->db->query("SELECT * FROM abdimas WHERE (ketua = '$kode_dosen' or anggota_1 = '$kode_dosen' or anggota_2 = '$kode_dosen' or anggota_3 = '$kode_dosen' or anggota_4 = '$kode_dosen' or anggota_5 = '$kode_dosen'  or anggota_6 = '$kode_dosen'  or anggota_7 = '$kode_dosen'  or anggota_8 = '$kode_dosen')");
         return $query->getResultArray();
     }
     public function getJumlahAbdimas($kode_dosen = false)
@@ -51,7 +52,7 @@ class AbdimasModel extends Model
         if ($kode_dosen == false) {
             return $this->findAll();
         }
-        $query = $this->db->query("SELECT COUNT(id) as jumlah_abdimas FROM abdimas WHERE (ketua = '$kode_dosen' or anggota_1 = '$kode_dosen' or anggota_2 = '$kode_dosen' or anggota_3 = '$kode_dosen' or anggota_4 = '$kode_dosen' or anggota_5 = '$kode_dosen')");
+        $query = $this->db->query("SELECT COUNT(id) as jumlah_abdimas FROM abdimas WHERE (ketua = '$kode_dosen' or anggota_1 = '$kode_dosen' or anggota_2 = '$kode_dosen' or anggota_3 = '$kode_dosen' or anggota_4 = '$kode_dosen' or anggota_5 = '$kode_dosen'  or anggota_6 = '$kode_dosen'  or anggota_7 = '$kode_dosen'  or anggota_8 = '$kode_dosen')");
         return $query->getRow()->jumlah_abdimas;
         // return $query->row()->average_score;
     }
@@ -291,10 +292,32 @@ class AbdimasModel extends Model
         return $this->db->query($sql)->getResultArray();
     }
 
+    public function getAllByKK($kk) {
+        $sql = "   
+            SELECT DISTINCT a.*
+                FROM abdimas AS a
+                JOIN dosen AS d
+                    ON d.kode_dosen = a.ketua
+                        OR d.kode_dosen = a.anggota_1
+                        OR d.kode_dosen = a.anggota_2
+                        OR d.kode_dosen = a.anggota_3
+                        OR d.kode_dosen = a.anggota_4
+                        OR d.kode_dosen = a.anggota_5
+                        OR d.kode_dosen = a.anggota_6
+                        OR d.kode_dosen = a.anggota_7
+                        OR d.kode_dosen = a.anggota_8
+                WHERE d.kk = ?
+                ORDER BY a.id DESC
+        ";
+
+        return $this->db->query($sql, [$kk])->getResultArray();
+    }
     public function import($filePath) {
         // Validation purpose variables
         $dosenList = (new DosenModel())->getAllKodeDosen();
-        $insertFields = [
+        $insertFields = [ 
+            // Excel format as of 24/07/29: (Please always adjust it to current format)
+            // id | tahun | jenis | nama_kegiatan | judul | status | lab_riset | ketua | anggota_1 |  anggota_2 |  anggota_3 |  anggota_4 |  anggota_5 |  anggota_6 |  anggota_7 |  anggota_8 | mitra | alamat_mitra | kesesuaian_roadmap | permasalahan_masy | solusi | catatan | luaran | tgl_pengesahan
             'tahun', 'jenis', 'nama_kegiatan', 
             'judul', 'status', 'lab_riset',
             'ketua', 'anggota_1', 'anggota_2',
@@ -304,7 +327,8 @@ class AbdimasModel extends Model
             'permasalahan_masy', 'solusi', 'catatan',
             'luaran', 'tgl_pengesahan',
         ];
-        $insertFields = ["x", "y", "x1-xBar", "y - yBar", "C1*D1", "C^2", "a", "b", "c", "d", "e"];
+        $ALLOWED_JENIS = ["internal", "eksternal"];
+        $ALLOWED_STATUS = ["didanai", "tidak didanai", "closed"];
 
         $rowData = [];
         $isTableHeader = true;
@@ -316,27 +340,59 @@ class AbdimasModel extends Model
                 if($isTableHeader) {$isTableHeader = false; continue;}
 
                 $rowCells = $row->getCells();
-                if(count($rowCells) != count($insertFields)) {
-                    throw new \Exception("Number of column must match with insert fields");
+                if(count($rowCells) - 1 != count($insertFields)) { // Excluding id which exists in template
+                    throw new \Exception("Banyak kolom tidak sesuai kriteria, yakni sebanyak " . (count($insertFields) - 1));
                 }
 
                 $currentRow = [];
                 for($idx = 0; $idx < count($insertFields); $idx++) {
-                    $currentRow[$insertFields[$idx]] = $rowCells[$idx]->getValue();
+                    $field = $insertFields[$idx];
+                    $value = $rowCells[$idx + 1]->getValue();
+                    $currentRow[$field] = (
+                        ($field == "tgl_pengesahan" && !is_string($value))
+                        ? date_format($value, 'Y-m-d H:i:s')
+                        : $value
+                    );
                 }
 
                 // Validate
+                $isValid = ( // Mandatory fields
+                    is_numeric($currentRow["tahun"])
+                    && strlen($currentRow["judul"]) > 0
+                );
+                if(!$isValid) throw new \Exception("`judul` and `tahun` harus diisi");
 
+                $WRITER_FIELDS = array_slice($insertFields, 6, 9);
+                foreach($WRITER_FIELDS as $wf) {
+                    $writer = $currentRow[$wf];
+                    $isValid = ( strlen($writer) == 0 || in_array($writer, $dosenList));
+                    if(!$isValid) throw new \Exception("`kode_dosen` " . $writer . " tidak terdaftar sebagai dosen di database");
+                }
+
+                $isValid = (
+                    strlen($currentRow["jenis"]) == 0 
+                    || in_array(strtolower($currentRow["jenis"]), $ALLOWED_JENIS)
+                );
+                if(!$isValid) throw new \Exception("Jika diisi, `jenis` harus merupakan salah satu dari {'internal', 'eksternal'}");
+
+                $isValid = (
+                    strlen($currentRow["status"]) == 0
+                    || in_array(strtolower($currentRow["status"]), $ALLOWED_STATUS)
+                );
+                if(!$isValid) throw new \Exception("Jika diisi, `status` harus merupakan salah satu dari {'didanai', 'tidak didanai', 'closed'}");
+
+                // TODO: validate 'tgl_pengesahan'
                 array_push($rowData, $currentRow);
             }
-        } catch(\Exception $e) { // TODO: For better UX, return the message too
-            return -1;
-        }
 
-        // Create bulk insert here
-        $reader->close();
-        dd($rowData);
-        $this->db->insert_batch($this->table, $rowData);
-        return 0;
+            $reader->close();
+            if(count($rowData) == 0) throw new \Exception("Tidak ada data yang perlu dimasukkan");
+            $this->db->table($this->table)->insertBatch($rowData);
+        } catch(DatabaseException $e) { // TODO: For better UX, return the message too // 
+            return [-1, $e->getMessage()];
+        } catch(\Exception $e) { // TODO: For better UX, return the message too // 
+            return [-1, $e->getMessage()];
+        }
+        return [0, null];
     }
 }

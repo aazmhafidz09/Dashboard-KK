@@ -41,7 +41,7 @@ class PenelitianModel extends Model
             return $this->findAll();
         }
 
-        $query = $this->db->query("SELECT * FROM penelitian WHERE (ketua_peneliti = '$kode_dosen' or anggota_peneliti_1 = '$kode_dosen' or anggota_peneliti_2 = '$kode_dosen' or anggota_peneliti_3 = '$kode_dosen' or anggota_peneliti_4 = '$kode_dosen')");
+        $query = $this->db->query("SELECT * FROM penelitian WHERE (ketua_peneliti = '$kode_dosen' or anggota_peneliti_1 = '$kode_dosen' or anggota_peneliti_2 = '$kode_dosen' or anggota_peneliti_3 = '$kode_dosen'  or anggota_peneliti_4 = '$kode_dosen' or anggota_peneliti_5 = '$kode_dosen' or anggota_peneliti_6 = '$kode_dosen' or anggota_peneliti_7 = '$kode_dosen' or anggota_peneliti_8 = '$kode_dosen' or anggota_peneliti_9 = '$kode_dosen' or anggota_peneliti_10 = '$kode_dosen')");
         return $query->getResultArray();
     }
     public function getJumlahPenelitian($kode_dosen = false)
@@ -49,7 +49,7 @@ class PenelitianModel extends Model
         if ($kode_dosen == false) {
             return $this->findAll();
         }
-        $query = $this->db->query("SELECT COUNT(id) as jumlah_penelitian FROM penelitian WHERE (ketua_peneliti = '$kode_dosen' or anggota_peneliti_1 = '$kode_dosen' or anggota_peneliti_2 = '$kode_dosen' or anggota_peneliti_3 = '$kode_dosen' or anggota_peneliti_4 = '$kode_dosen')");
+        $query = $this->db->query("SELECT COUNT(id) as jumlah_penelitian FROM penelitian WHERE (ketua_peneliti = '$kode_dosen' or anggota_peneliti_1 = '$kode_dosen' or anggota_peneliti_2 = '$kode_dosen' or anggota_peneliti_3 = '$kode_dosen' or anggota_peneliti_4 = '$kode_dosen'  or anggota_peneliti_5 = '$kode_dosen' or anggota_peneliti_6 = '$kode_dosen' or anggota_peneliti_7 = '$kode_dosen' or anggota_peneliti_8 = '$kode_dosen' or anggota_peneliti_9 = '$kode_dosen' or anggota_peneliti_10 = '$kode_dosen')");
         return $query->getRow()->jumlah_penelitian;
         // return $query->row()->average_score;
     }
@@ -344,7 +344,6 @@ class PenelitianModel extends Model
         ";
 
         return $this->db->query($sql)->getResultArray();
-
     }
 
     public function getAnnualPenelitianByTypeAndKK() {
@@ -384,20 +383,47 @@ class PenelitianModel extends Model
         return $this->db->query($sql)->getResultArray();
     }
 
+    public function getAllByKK($kk) {
+        $sql = "   
+            SELECT DISTINCT p.*
+                FROM penelitian AS p
+                JOIN dosen AS d
+                    ON d.kode_dosen = p.ketua_peneliti
+                        OR d.kode_dosen = p.anggota_peneliti_1
+                        OR d.kode_dosen = p.anggota_peneliti_2
+                        OR d.kode_dosen = p.anggota_peneliti_3
+                        OR d.kode_dosen = p.anggota_peneliti_4
+                        OR d.kode_dosen = p.anggota_peneliti_5
+                        OR d.kode_dosen = p.anggota_peneliti_6
+                        OR d.kode_dosen = p.anggota_peneliti_7
+                        OR d.kode_dosen = p.anggota_peneliti_8
+                        OR d.kode_dosen = p.anggota_peneliti_9
+                        OR d.kode_dosen = p.anggota_peneliti_10
+                WHERE d.kk = ?
+                ORDER BY p.id DESC
+        ";
+
+        return $this->db->query($sql, [$kk])->getResultArray();
+    }
+
     public function import($filePath) {
         // Validation purpose variables
         $dosenList = (new DosenModel())->getAllKodeDosen();
-        $INSERT_FIELDS = [
+        $insertFields = [ 
+            // Excel format as of 24/07/29: (Please always adjust it to current format)
+            // id | tahun | jenis | nama_kegiatan | judul | status | lab_riset | ketua | anggota_1 |  anggota_2 |  anggota_3 |  anggota_4 |  anggota_5 |  anggota_6 |  anggota_7 |  anggota_8 | mitra | alamat_mitra | kesesuaian_roadmap | permasalahan_masy | solusi | catatan | luaran | tgl_pengesahan
             'tahun', 'jenis', 'nama_kegiatan', 
-            'judul', 'status', 'lab_riset',
-            'ketua', 'anggota_1', 'anggota_2',
-            'anggota_3', 'anggota_4', 'anggota_5',
-            'anggota_6', 'anggota_7', 'anggota_8',
-            'mitra', 'alamat_mitra', 'kesesuaian_roadmap',
-            'permasalahan_masy', 'solusi', 'catatan',
-            'luaran', 'tgl_pengesahan',
+            'judul_penelitian', 'status', 'ketua_peneliti', 
+            'anggota_peneliti_1', 'anggota_peneliti_2', 'anggota_peneliti_3', 
+            'anggota_peneliti_4', 'anggota_peneliti_5', 'anggota_peneliti_6', 
+            'anggota_peneliti_7', 'anggota_peneliti_8', 'anggota_peneliti_9', 
+            'anggota_peneliti_10', 'mitra', 'lab_riset', 
+            'kesesuaian_roadmap', 'catatan_rekomendasi', 'luaran', 
+            'mk_relevan', 'tgl_pengesahan',
         ];
-        $INSERT_FIELDS = ["x", "y", "x1-xBar", "y - yBar", "C1*D1", "C^2", "a", "b", "c", "d", "e"];
+        $WRITER_FIELDS = array_slice($insertFields, 5, 11);
+        $ALLOWED_JENIS = ["internal", "eksternal", "mandiri", "kerjasama perguruan tinggi", "kemitraan", "hilirisasi"];
+        $ALLOWED_STATUS = ["didanai", "submit proposal"];
 
         $rowData = [];
         $isTableHeader = true;
@@ -409,27 +435,59 @@ class PenelitianModel extends Model
                 if($isTableHeader) {$isTableHeader = false; continue;}
 
                 $rowCells = $row->getCells();
-                if(count($rowCells) != count($INSERT_FIELDS)) {
-                    throw new \Exception("Number of column must match with insert fields");
+                if(count($rowCells) - 1 != count($insertFields)) { // Excluding id which exists in template
+                    throw new \Exception("Banyak kolom tidak sesuai kriteria, yakni sebanyak " . (count($insertFields) - 1));
                 }
 
                 $currentRow = [];
-                for($idx = 0; $idx < count($INSERT_FIELDS); $idx++) {
-                    $currentRow[$INSERT_FIELDS[$idx]] = $rowCells[$idx]->getValue();
+                for($idx = 0; $idx < count($insertFields); $idx++) {
+                    $field = $insertFields[$idx];
+                    $value = $rowCells[$idx + 1]->getValue();
+                    $currentRow[$field] = (
+                        ($field == "tgl_pengesahan" && !is_string($value))
+                        ? date_format($value, 'Y-m-d H:i:s')
+                        : $value
+                    );
                 }
 
                 // Validate
+                $isValid = ( // Mandatory fields
+                    is_numeric($currentRow["tahun"])
+                    && strlen($currentRow["judul_penelitian"]) > 0
+                    && strlen($currentRow["jenis"]) > 0
+                );
+                if(!$isValid) throw new \Exception("`judul_peneliti`, `tahun`, and `jenis` harus diisi");
 
+                foreach($WRITER_FIELDS as $wf) {
+                    $writer = $currentRow[$wf];
+                    $isValid = ( strlen($writer) == 0 || in_array($writer, $dosenList));
+                    if(!$isValid) throw new \Exception("kode_dosen " . $writer . " tidak terdaftar sebagai dosen di database");
+                }
+
+                $isValid = (
+                    strlen($currentRow["jenis"]) == 0 
+                    || in_array(strtolower($currentRow["jenis"]), $ALLOWED_JENIS)
+                );
+                if(!$isValid) throw new \Exception("Jika diisi, `jenis` harus merupakan salah satu dari {'internal', 'eksternal', 'mandiri', 'kerjasama perguruan tinggi', 'kemitraan', 'hilirisasi'}");
+
+                $isValid = (
+                    strlen($currentRow["status"]) == 0
+                    || in_array(strtolower($currentRow["status"]), $ALLOWED_STATUS)
+                );
+                if(!$isValid) throw new \Exception("Jika diisi, `status` harus merupakan salah satu dari {'didanai', 'submit proposal'}");
+
+                // TODO: validate 'tgl_pengesahan'
                 array_push($rowData, $currentRow);
             }
-        } catch(\Exception $e) { // TODO: For better UX, return the message too
-            return -1;
-        }
 
-        // Create bulk insert here
-        $reader->close();
-        dd($rowData);
-        $this->db->insert_batch($this->table, $rowData);
-        return 0;
+            $reader->close();
+            if(count($rowData) == 0) throw new \Exception("Tidak ada data yang perlu dimasukkan");
+            $this->db->table($this->table)->insertBatch($rowData);
+        } catch(DatabaseException $e) { // TODO: For better UX, return the message too // 
+            return [-1, $e->getMessage()];
+        } catch(\Exception $e) { // TODO: For better UX, return the message too // 
+            return [-1, $e->getMessage()];
+        }
+        return [0, null];
     }
 }

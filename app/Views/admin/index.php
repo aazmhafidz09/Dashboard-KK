@@ -1,11 +1,7 @@
 <?= $this->include('partials/main') ?>
 
 <head>
-
-
-
     <?= $this->include('partials/head-css') ?>
-
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -45,7 +41,7 @@
                                     <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
                                 </div>
 
-                                <table id="datatable" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="datatable" data-ordering='false'  data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>
@@ -68,7 +64,7 @@
                                                 <td><?= $alp['jenis']; ?></td>
                                                 <td><?= $alp['nama_journal_conf']; ?></td>
                                                 <td>
-                                                    <ul class="d-flex list-inline mb-0">
+                                                    <ul class="d-flex list-inline mb-0"  style="gap: 12px;">
                                                         <li class="list-inline-item">
                                                             <button 
                                                                 class="p-0 border-0 bg-transparent text-primary"
@@ -131,7 +127,7 @@
                                     <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
                                 </div>
 
-                                <table id="datatable_1" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="datatable_1" data-ordering='false' data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>
@@ -153,7 +149,7 @@
                                                 <td><?= $alp['judul_penelitian']; ?></td>
 
                                                 <td>
-                                                    <ul class="d-flex list-inline mb-0">
+                                                    <ul class="d-flex list-inline mb-0" style="gap: 12px;">
                                                         <li class="list-inline-item">
                                                             <button 
                                                                 class="p-0 border-0 bg-transparent text-primary"
@@ -209,7 +205,7 @@
                                 </div>
 
 
-                                <table id="datatable_2" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="datatable_2" data-ordering='false' data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>
@@ -231,7 +227,7 @@
                                                 <td><?= $alp['judul']; ?></td>
                                                 <!-- <td><?= $alp['status']; ?></td> -->
                                                 <td>
-                                                    <ul class="d-flex list-inline mb-0">
+                                                    <ul class="d-flex list-inline mb-0"  style="gap: 12px;">
                                                         <li class="list-inline-item">
                                                             <button 
                                                                 class="p-0 border-0 bg-transparent text-primary"
@@ -292,7 +288,7 @@
                                     <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
                                 </div>
 
-                                <table id="datatable_3" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="datatable_3" data-ordering='false' data-ordering='false' data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>
@@ -319,7 +315,7 @@
                                                 <td><?= $alp['no_pendaftaran']; ?></td>
                                                 <td><?= $alp['no_sertifikat']; ?></td>
                                                 <td>
-                                                    <ul class="d-flex list-inline mb-0">
+                                                    <ul class="d-flex list-inline mb-0" style="gap: 12px;">
                                                         <li class="list-inline-item">
                                                             <button 
                                                                 class="p-0 border-0 bg-transparent text-primary"

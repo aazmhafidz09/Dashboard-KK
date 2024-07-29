@@ -339,20 +339,42 @@ class HakiModel extends Model
         return $this->db->query($sql)->getResultArray();
     }
 
+    public function getAllByKK($kk) {
+        $sql = "   
+            SELECT DISTINCT h.*
+                FROM haki AS h
+                JOIN dosen AS d
+                    ON d.kode_dosen = h.ketua
+                        OR d.kode_dosen = h.anggota_1
+                        OR d.kode_dosen = h.anggota_2
+                        OR d.kode_dosen = h.anggota_3
+                        OR d.kode_dosen = h.anggota_4
+                        OR d.kode_dosen = h.anggota_5
+                        OR d.kode_dosen = h.anggota_6
+                        OR d.kode_dosen = h.anggota_7
+                        OR d.kode_dosen = h.anggota_8
+                        OR d.kode_dosen = h.anggota_9
+                WHERE d.kk = ?
+                ORDER BY h.id DESC
+        ";
+        return $this->db->query($sql, [$kk])->getResultArray();
+    }
+
     public function import($filePath) {
         // Validation purpose variables
         $dosenList = (new DosenModel())->getAllKodeDosen();
-        $INSERT_FIELDS = [
-            'tahun', 'jenis', 'nama_kegiatan', 
-            'judul', 'status', 'lab_riset',
-            'ketua', 'anggota_1', 'anggota_2',
-            'anggota_3', 'anggota_4', 'anggota_5',
-            'anggota_6', 'anggota_7', 'anggota_8',
-            'mitra', 'alamat_mitra', 'kesesuaian_roadmap',
-            'permasalahan_masy', 'solusi', 'catatan',
-            'luaran', 'tgl_pengesahan',
+        $insertFields = [ 
+            // Excel format as of 24/07/29: (Please always adjust it to current format)
+            // id | tahun | ketua | anggota_1 | anggota_2 |  anggota_3 |  anggota_4 |  anggota_5 | anggota_6 |  anggota_7 |  anggota_8 |  anggota_9 | jenis | jenis_ciptaan | judul | abstrak | no_pendaftaran | no_sertifikat | catatan
+            'tahun', 'ketua', 'anggota_1', 
+            'anggota_2', 'anggota_3', 'anggota_4', 
+            'anggota_5', 'anggota_6', 'anggota_7', 
+            'anggota_8', 'anggota_9', 'jenis',
+            'jenis_ciptaan', 'judul', 'abstrak',
+            'no_pendaftaran', 'no_sertifikat', 'catatan'
         ];
-        $INSERT_FIELDS = ["x", "y", "x1-xBar", "y - yBar", "C1*D1", "C^2", "a", "b", "c", "d", "e"];
+        $WRITER_FIELDS = array_slice($insertFields, 1, 10);
+        $ALLOWED_JENIS = ["paten", "hak cipta", "merek", "desain industri"];
 
         $rowData = [];
         $isTableHeader = true;
@@ -364,27 +386,48 @@ class HakiModel extends Model
                 if($isTableHeader) {$isTableHeader = false; continue;}
 
                 $rowCells = $row->getCells();
-                if(count($rowCells) != count($INSERT_FIELDS)) {
-                    throw new \Exception("Number of column must match with insert fields");
+                if(count($rowCells) - 1 != count($insertFields)) { // Excluding id which exists in template
+                    throw new \Exception("Banyak kolom tidak sesuai kriteria, yakni sebanyak " . (count($insertFields) - 1));
                 }
 
                 $currentRow = [];
-                for($idx = 0; $idx < count($INSERT_FIELDS); $idx++) {
-                    $currentRow[$INSERT_FIELDS[$idx]] = $rowCells[$idx]->getValue();
+                for($idx = 0; $idx < count($insertFields); $idx++) {
+                    $field = $insertFields[$idx];
+                    $value = $rowCells[$idx + 1]->getValue();
+                    $currentRow[$field] = $value;
                 }
 
                 // Validate
+                $isValid = ( // Mandatory fields
+                    is_numeric($currentRow["tahun"])
+                    && strlen($currentRow["judul"]) > 0
+                );
+                if(!$isValid) throw new \Exception("`judul` and `tahun` harus diisi");
 
+                foreach($WRITER_FIELDS as $wf) {
+                    $writer = $currentRow[$wf];
+                    $isValid = ( strlen($writer) == 0 || in_array($writer, $dosenList));
+                    if(!$isValid) throw new \Exception("kode_dosen " . $writer . " tidak terdaftar sebagai dosen di database");
+                }
+
+                $isValid = (
+                    strlen($currentRow["jenis"]) == 0 
+                    || in_array(strtolower($currentRow["jenis"]), $ALLOWED_JENIS)
+                );
+                if(!$isValid) throw new \Exception("Jika diisi, `jenis` harus merupakan salah satu dari {'paten', 'hak cipta', 'merek', 'desain industri'}");
+
+                // TODO: validate 'tgl_pengesahan'
                 array_push($rowData, $currentRow);
             }
-        } catch(\Exception $e) { // TODO: For better UX, return the message too
-            return -1;
-        }
 
-        // Create bulk insert here
-        $reader->close();
-        dd($rowData);
-        $this->db->insert_batch($this->table, $rowData);
-        return 0;
+            $reader->close();
+            if(count($rowData) == 0) throw new \Exception("Tidak ada data yang perlu dimasukkan");
+            $this->db->table($this->table)->insertBatch($rowData);
+        } catch(DatabaseException $e) { // TODO: For better UX, return the message too // 
+            return [-1, $e->getMessage()];
+        } catch(\Exception $e) { // TODO: For better UX, return the message too // 
+            return [-1, $e->getMessage()];
+        }
+        return [0, null];
     }
 }
