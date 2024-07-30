@@ -427,7 +427,7 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Penelitian Terbanyak</h4>
+                                <h4 class="card-title mb-4">Penelitian</h4>
 
                                 <div data-simplebar style="max-height: 339px;">
                                     <div class="table-responsive">
@@ -453,14 +453,12 @@
                         </div> <!-- end card-->
                     </div><!-- end col -->
 
-                    <div class="col-xl-4">
+                    <!-- <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle" href="#" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <!-- <span class="text-muted">Recent<i class="mdi mdi-chevron-down ms-1"></i></span> -->
-                                        </a>
+                                        <a class="dropdown-toggle" href="#" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </a>
 
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton3">
                                             <a class="dropdown-item" href="#">Recent</a>
@@ -472,16 +470,13 @@
                                 <h4 class="card-title mb-4">Data Penelitian</h4>
 
                                 <ol class="activity-feed mb-0 ps-2" data-simplebar style="height: 339px;">
-
                                     <div class="table-responsive">
                                         <table class="table mb-0">
-
                                             <thead class="table-light">
                                                 <tr>
                                                     <th></th>
                                                     <th>Penelitian</th>
                                                     <th>Jumlah</th>
-                                                    <!-- <th>Username</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -491,21 +486,17 @@
                                                         <th scope="row"><?= $i++; ?></th>
                                                         <td><?= $cpub['jenis_pen']; ?></td>
                                                         <td><?= $cpub['jumlah_pen']; ?></td>
-                                                        <!-- <td>@mdo</td> -->
                                                     </tr>
                                                 <?php endforeach; ?>
-
                                             </tbody>
                                         </table>
                                     </div>
-
                                 </ol>
-
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="col-xl-4">
+                    <div class="col-xl-8">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title mb-4">Data Penelitian </h4>
@@ -604,11 +595,7 @@
                                             <th>Jenis</th>
                                             <th>Nama Kegiatan</th>
                                             <th>Judul Penelitian</th>
-                                            <th>Ketua</th>
-                                            <th>anggota 1</th>
-                                            <th>anggota 2</th>
-                                            <th>anggota 3</th>
-                                            <th>anggota 4</th>
+                                            <th>Peneliti</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -619,11 +606,23 @@
                                                 <td><?= $alp['jenis']; ?></td>
                                                 <td><?= $alp['nama_kegiatan']; ?></td>
                                                 <td><?= $alp['judul_penelitian']; ?></td>
-                                                <td><?= $alp['ketua_peneliti']; ?></td>
-                                                <td><?= $alp['anggota_peneliti_1']; ?></td>
-                                                <td><?= $alp['anggota_peneliti_2']; ?></td>
-                                                <td><?= $alp['anggota_peneliti_3']; ?></td>
-                                                <td><?= $alp['anggota_peneliti_4']; ?></td>
+                                                <td> <?= 
+                                                    implode( ", ", 
+                                                        array_filter([ 
+                                                                $alp['ketua_peneliti'], 
+                                                                $alp['anggota_peneliti_1'],
+                                                                $alp['anggota_peneliti_2'],
+                                                                $alp['anggota_peneliti_3'],
+                                                                $alp['anggota_peneliti_4'],
+                                                                $alp['anggota_peneliti_5'],
+                                                                $alp['anggota_peneliti_6'],
+                                                                $alp['anggota_peneliti_7'],
+                                                                $alp['anggota_peneliti_8'],
+                                                                $alp['anggota_peneliti_9'],
+                                                                $alp['anggota_peneliti_10'],
+                                                            ], function($v) { return strlen($v) > 0; }
+                                                        )); 
+                                                ?> </td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>

@@ -26,13 +26,13 @@
                 <i class="fa fa-fw fa-bars"></i>
             </button>
 
-            <!-- App Search-->
+            <!-- App Search
             <form class="app-search d-none d-lg-block">
                 <div class="position-relative">
                     <input type="text" class="form-control" placeholder="Search...">
                     <span class="uil-search"></span>
                 </div>
-            </form>
+            </form> -->
         </div>
 
         <div class="d-flex">

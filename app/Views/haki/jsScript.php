@@ -143,7 +143,7 @@
                     axisTicks: { show: false, },
                     labels: {
                         show: false,
-                        formatter: val => val + " Haki"
+                        formatter: val => val + ""
                     }
                 },
         }).render();
@@ -207,7 +207,7 @@
                     axisTicks: { show: false, },
                     labels: {
                         show: false,
-                        formatter: val => val + " Haki"
+                        formatter: val => val + ""
                     }
                 },
             }
@@ -271,7 +271,7 @@
                 yaxis: {
                     axisBorder: { show: false },
                     axisTicks: { show: false, },
-                    labels: { show: false, formatter: val => val + " Haki" }
+                    labels: { show: false, formatter: val => val + "" }
                 },
             }
         ).render();

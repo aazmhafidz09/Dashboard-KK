@@ -67,7 +67,7 @@
                             <span><?= lang('Manage') ?></span>
                         </a>
                         <ul class="sub-menu" aria-expanded="true">
-                            <li><a href="/admin"><?= lang('Admin Dashboard') ?></a></li>
+                            <li><a href="/admin"><?= lang('Kelola Data') ?></a></li>
                             <?php if(in_groups(["admin", "kk_dsis", "kk_seal", "kk_citi"], user_id())): ?>
                                 <li><a href="javascript: void(0);" class="has-arrow"><?= lang('Input Data') ?></a>
                                     <ul class="sub-menu" aria-expanded="true">

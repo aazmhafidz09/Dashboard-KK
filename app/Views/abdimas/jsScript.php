@@ -145,7 +145,7 @@
                 yaxis: {
                     axisBorder: { show: false },
                     axisTicks: { show: false, },
-                    labels: { show: false, formatter: val =>  val + " Abdimas" }
+                    labels: { show: false, formatter: val =>  val + "" }
                 },
             }
         ).render();
@@ -207,7 +207,7 @@
                 yaxis: {
                     axisBorder: { show: false },
                     axisTicks: { show: false, },
-                    labels: { show: false, formatter: val => val + " Abdimas" }
+                    labels: { show: false, formatter: val => val + "" }
                 },
             }
         ).render();
@@ -270,7 +270,7 @@
                 yaxis: {
                     axisBorder: { show: false },
                     axisTicks: { show: false, },
-                    labels: { show: false, formatter: val => val + " Abdimas" }
+                    labels: { show: false, formatter: val => val + "" }
                 },
             }
         ).render();
@@ -413,7 +413,7 @@
                 yaxis: {
                     axisBorder: { show: false },
                     axisTicks: { show: false, },
-                    labels: { show: false, formatter: val => val + " Abdimas" }
+                    labels: { show: false, formatter: val => val + "" }
                 },
             }
         ).render();

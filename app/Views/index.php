@@ -1,17 +1,13 @@
 <?= $this->include('partials/main') ?>
 
 <head>
-
-
     <?= $this->include('partials/head-css') ?>
-
 </head>
 
 <?= $this->include('partials/body') ?>
 
 <!-- Begin page -->
 <div id="layout-wrapper">
-
     <?= $this->include('partials/menu') ?>
 
     <!-- ============================================================== -->
@@ -31,9 +27,9 @@
                         <?= session()->getFlashdata('error'); ?>
                     </div>
                 <?php endif ?>
-                <div class="row">
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card">
+                <div class="row mb-3">
+                    <div class="col-md-6 col-xl-3 ">
+                        <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
@@ -56,7 +52,7 @@
                     </div> <!-- end col-->
 
                     <div class="col-md-6 col-xl-3">
-                        <div class="card">
+                        <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="orders-chart" data-colors='["--bs-success"]'> </div>
@@ -77,7 +73,7 @@
                     </div> <!-- end col-->
 
                     <div class="col-md-6 col-xl-3">
-                        <div class="card">
+                        <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
@@ -98,8 +94,7 @@
                     </div> <!-- end col-->
 
                     <div class="col-md-6 col-xl-3">
-
-                        <div class="card">
+                        <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
                                     <div id="growth-chart" data-colors='["--bs-warning"]'></div>
@@ -128,14 +123,7 @@
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
-                                        <!-- <a class="dropdown-toggle text-reset" href="./publikasi" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
                                         <a class="fw-semibold" href="./publikasi">Lihat Lengkap</a>
-                                        <!-- </a> -->
-                                        <!-- <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
-                                        </div> -->
                                     </div>
                                 </div>
                                 <h4 class="card-title mb-4">Statistik Publikasi</h4>
@@ -153,7 +141,7 @@
                                             <h3><span data-plugin="counterup"><?php echo $Publikasi_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Jurnal Nasional</span></h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $Publikasi_Pros ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding</span></h3>
+                                            <h3><span data-plugin="counterup"><?php echo $Publikasi_Pros ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding Internasional</span></h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
                                             <h3><span data-plugin="counterup"><?php echo $Publikasi_Pros_Nas ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Prosiding Nasional</span></h3>
@@ -171,19 +159,6 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <!-- <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class=" dropdown-toggle" href="#" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="text-muted">All Members<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
-                                            <a class="dropdown-item" href="#">Locations</a>
-                                            <a class="dropdown-item" href="#">Revenue</a>
-                                            <a class="dropdown-item" href="#">Join Date</a>
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <h4 class="card-title mb-4">Data Publikasi Dosen</h4>
 
                                 <div data-simplebar style="max-height: 450px;">
@@ -192,16 +167,13 @@
                                             <tbody>
                                                 <?php foreach ($top_publikasi as $tp) : ?>
                                                     <tr>
-                                                        <!-- <td style="width: 20px;"><img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle " alt="..."></td> -->
                                                         <td>
                                                             <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
                                                             <p class="text-muted font-size-13 mb-0"><?= $tp['nama_dosen']; ?></p>
                                                         </td>
-                                                        <!-- <td><span class="badge bg-danger-subtle text-danger font-size-12">#</span></td>g -->
                                                         <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['jumlah_publikasi']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
-
                                             </tbody>
                                         </table>
                                     </div> <!-- enbd table-responsive-->
@@ -216,21 +188,14 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class="fw-semibold" href="./penelitian">Lihat Lengkap</a>
-
-                                    </div>
+                                    <div class="dropdown"> <a class="fw-semibold" href="./penelitian">Lihat Lengkap</a> </div>
                                 </div>
                                 <h4 class="card-title mb-4">Statistik Penelitian</h4>
 
                                 <div class="mt-1">
                                     <ul class="list-inline main-chart mb-0">
-                                        <!-- <li class="list-inline-item chart-border-left me-0 border-0">
-                                            <h3 class="text-primary"><span data-plugin="counterup">42</span><span class="text-muted d-inline-block font-size-15 ms-3">Total Penelitian</span></h3>
-                                        </li> -->
                                         <li class="list-inline-item chart-border-left me-0">
-                                            <h3><span data-plugin="counterup"><?php echo $Penelitian_Inter ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Eksternal</span>
-                                            </h3>
+                                            <h3><span data-plugin="counterup"><?php echo $Penelitian_Inter ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Eksternal</span> </h3>
                                         </li>
                                         <li class="list-inline-item chart-border-left me-0">
                                             <h3><span data-plugin="counterup"><?php echo $Penelitian_Ekster ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Internal</span></h3>
@@ -258,21 +223,7 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class=" dropdown-toggle" href="#" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="text-muted">All Members<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
-                                            <a class="dropdown-item" href="#">Locations</a>
-                                            <a class="dropdown-item" href="#">Revenue</a>
-                                            <a class="dropdown-item" href="#">Join Date</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h4 class="card-title mb-4">Penelitian Terbanyak</h4>
-
+                                <h4 class="card-title mb-4">Penelitian</h4>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
                                         <table class="table table-borderless table-centered table-nowrap">
@@ -288,15 +239,14 @@
                                                         <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['jumlah_penelitian']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
-
                                             </tbody>
                                         </table>
-                                    </div> <!-- enbd table-responsive-->
-                                </div> <!-- data-sidebar-->
-                            </div><!-- end card-body-->
-                        </div> <!-- end card-->
-                    </div> <!-- end Col -->
-                </div> <!-- end row-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-xl-8">
@@ -323,27 +273,13 @@
                                     <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->
                                     <div id="column_chart_datalabel_abdimas" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
                                 </div>
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
-                    </div> <!-- end col-->
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <h4 class="card-title mb-4">Total Abdimas</h4>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
@@ -353,28 +289,25 @@
                                                     <th></th>
                                                     <th>Tahun</th>
                                                     <th>Jumlah Abdimas</th>
-                                                    <!-- <th>Username</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $i = 1 ?>
-
                                                 <?php foreach ($order_by_tahun as $obt) : ?>
                                                     <tr>
                                                         <th scope="row"><?= $i++; ?></th>
                                                         <td><?= $obt['thn']; ?></td>
                                                         <td><?= $obt['jumlah_abd']; ?></td>
                                                     </tr>
-
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
-                                    </div> <!-- enbd table-responsive-->
-                                </div> <!-- data-sidebar-->
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
-                    </div> <!-- end Col -->
-                </div> <!-- end row-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-xl-8">
@@ -409,20 +342,6 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <h4 class="card-title mb-4">Total Haki</h4>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
@@ -432,52 +351,27 @@
                                                     <th></th>
                                                     <th>Tahun</th>
                                                     <th>Jumlah Haki</th>
-                                                    <!-- <th>Username</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $i = 1 ?>
-
                                                 <?php foreach ($order_by_tahun_haki as $obt) : ?>
                                                     <tr>
                                                         <th scope="row"><?= $i++; ?></th>
                                                         <td><?= $obt['thn']; ?></td>
                                                         <td><?= $obt['jumlah_haki']; ?></td>
                                                     </tr>
-
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
-                                    </div> <!-- enbd table-responsive-->
-                                </div> <!-- data-sidebar-->
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
-                    </div> <!-- end Col -->
-                </div> <!-- end row-->
-
-
-                <!-- <div class="col-xl-6">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <h4 class="card-title mb-4">Bar Chart</h4>
-
-                            <canvas id="bar" data-colors='["--bs-success-rgb, 0.8", "--bs-success"]' height="300"></canvas>
-
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div> end col -->
-
-
-
-
-
-
-
-
-            </div> <!-- container-fluid -->
+                </div>
+            </div>
         </div>
-        <!-- End Page-content -->
 
 
         <?= $this->include('partials/footer') ?>
@@ -698,14 +592,14 @@
 
                         ?>]
             }, {
-                name: 'Konferensi Internasional',
+                name: 'Prosiding Internasional',
                 data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                             echo '' . $cpub['jumlah_prosiding_internasional'] . ',';
                         }
 
                         ?>]
             }, {
-                name: 'Konferensi Nasional',
+                name: 'Prosiding Nasional',
                 data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                             echo '' . $cpub['jumlah_prosiding_nasional'] . ',';
                         }

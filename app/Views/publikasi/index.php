@@ -44,9 +44,9 @@
 
         <div class="page-content">
             <div class="container-fluid">
-                <h5>Total</h5>
+                <!-- <h5>Total</h5> -->
                 <div class="row">
-                    <div class="col-md-6 col-xl-3">
+                    <!--<div class="col-md-6 col-xl-3">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
@@ -56,11 +56,9 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Inter ?></span></h4>
                                     <p class="text-muted mb-0">Jurnal Internasional</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>7 Publikasi</span> dari tahun sebelumnya
-                                </p> -->
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div> 
 
                     <div class="col-md-6 col-xl-3">
                         <div class="card">
@@ -72,11 +70,9 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Nas ?></span></h4>
                                     <p class="text-muted mb-0">Jurnal Nasional</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-4 Publikasi</span> dari tahun sebelumnya
-                                </p> -->
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div> 
 
                     <div class="col-md-6 col-xl-3">
                         <div class="card">
@@ -88,11 +84,9 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Pros ?></span></h4>
                                     <p class="text-muted mb-0">Prosiding Internasional</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-2 Publikasi</span> dari tahun sebelumnya
-                                </p> -->
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div> 
 
                     <div class="col-md-6 col-xl-3">
 
@@ -105,11 +99,9 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Pros_Nas ?></span></h4>
                                     <p class="text-muted mb-0">Prosiding Nasional</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>10.51%</span> since last week
-                                </p> -->
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div>  -->
 
 
 
@@ -269,28 +261,25 @@
                                                     <th></th>
                                                     <th>Tahun</th>
                                                     <th>Jumlah Publikasi</th>
-                                                    <!-- <th>Username</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $i = 1 ?>
-
                                                 <?php foreach ($order_by_tahun as $obt) : ?>
                                                     <tr>
                                                         <th scope="row"><?= $i++; ?></th>
                                                         <td><?= $obt['thn']; ?></td>
                                                         <td><?= $obt['jumlah_pen']; ?></td>
                                                     </tr>
-
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
-                                    </div> <!-- enbd table-responsive-->
-                                </div> <!-- data-sidebar-->
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
-                    </div> <!-- end Col -->
-                </div> <!-- end row-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-xl-8">
@@ -355,39 +344,23 @@
                     </div> <!-- end col-->
 
                     <div class="col-xl-4">
-                        <div class="card-body">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-4">Diagram Publikasi</h4>
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">Diagram Publikasi</h4>
 
-                                    <div id="pie_chart" data-colors='["--bs-success", "--bs-primary", "--bs-warning" ,"--bs-info", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
-                                </div>
+                                <div id="pie_chart" data-colors='["--bs-success", "--bs-primary", "--bs-warning" ,"--bs-info", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
                             </div>
-                        </div> <!-- end card-body-->
+                        </div>
 
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
-                                </div>
-
                                 <h4 class="card-title mb-4">Scopus</h4>
-
 
                                 <div class="row align-items-center g-0 mt-3">
                                     <div class="col-sm-3">
                                         <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Scopus </p>
                                     </div>
-
-                                    <div class="col-sm-9">
-                                        <div class="progress mt-1" style="height: 8px;">
-                                            <div class="progress-bar progress-bar bg-primary" role="progressbar" style="width: 52%" aria-valuenow="52" aria-valuemin="0" aria-valuemax="52">
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div> <!-- end row-->
-
-
-
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
                     </div> <!-- end Col -->
@@ -401,7 +374,7 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Publikasi Terbanyak</h4>
+                                <h4 class="card-title mb-4">Publikasi</h4>
 
                                 <div data-simplebar style="max-height: 339px;">
                                     <div class="table-responsive">
@@ -427,13 +400,12 @@
                         </div> <!-- end card-->
                     </div><!-- end col -->
 
-                    <div class="col-xl-4">
+                    <!-- <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
                                         <a class="dropdown-toggle" href="#" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <!-- <span class="text-muted">Recent<i class="mdi mdi-chevron-down ms-1"></i></span> -->
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton3">
@@ -455,7 +427,6 @@
                                                     <th></th>
                                                     <th>Index</th>
                                                     <th>Jumlah</th>
-                                                    <!-- <th>Username</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -465,7 +436,6 @@
                                                         <th scope="row"><?= $i++; ?></th>
                                                         <td><?= $akr['akreditasi']; ?></td>
                                                         <td><?= $akr['jumlah_akr']; ?></td>
-                                                        <!-- <td>@mdo</td> -->
                                                     </tr>
                                                 <?php endforeach; ?>
 
@@ -476,17 +446,17 @@
                                 </ol>
 
                             </div>
+                        </div> -->
+                        <div class="col-xl-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4"> Indeks Publikasi</h4>
+                                    <div id="bar_chart" data-colors='["--bs-success"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div><!--end card-->
                         </div>
                     </div>
 
-                    <div class="col-xl-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title mb-4">Publikasi</h4>
-                                <div id="bar_chart" data-colors='["--bs-success"]' class="apex-charts" dir="ltr"></div>
-                            </div>
-                        </div><!--end card-->
-                    </div>
                 </div>
                 <!-- end row -->
 

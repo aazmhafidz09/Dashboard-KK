@@ -60,12 +60,12 @@
                         echo '' . $cpub['jumlah_jurnal_nasional'] . ',';
                     } ?>]
         }, {
-            name: 'Konferensi Internasional',
+            name: 'Prosiding Internasional',
             data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                         echo '' . $cpub['jumlah_prosiding_internasional'] . ',';
                     } ?>]
         }, {
-            name: 'Konferensi Nasional',
+            name: 'Prosiding Nasional',
             data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                         echo '' . $cpub['jumlah_prosiding_nasional'] . ',';
                     } ?>]
@@ -521,7 +521,10 @@
                 }],
                 colors: BarchartBarColors,
                 grid: { borderColor: '#f1f1f1', },
-                xaxis: { categories: ['Q1', 'Q2', 'Q3', 'Q4', 'S1', 'S2', 'S3', 'S4', 'S5'], }
+                xaxis: { 
+                    categories: ['Q1', 'Q2', 'Q3', 'Q4', 'S1', 'S2', 'S3', 'S4', 'S5'], 
+                    labels: { show: false }
+                },
             }
         ).render();
     }

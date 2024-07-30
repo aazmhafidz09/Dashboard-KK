@@ -270,20 +270,6 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle text-reset" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fw-semibold">Sort By:</span> <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <h4 class="card-title mb-4">Total Abdimas</h4>
                                 <div class="row align-items-center g-0 mt-3">
                                     <div class="col-sm-3">
@@ -387,10 +373,7 @@
                                             <th>Nama Kegiatan</th>
                                             <th>Judul</th>
                                             <th>Status</th>
-                                            <th>Ketua</th>
-                                            <th>Anggota 1</th>
-                                            <th>Anggota 2</th>
-                                            <th>Anggota 3</th>
+                                            <th>Anggota</th>
 
                                         </tr>
                                     </thead>
@@ -402,10 +385,17 @@
                                                 <td><?= $alp['nama_kegiatan']; ?></td>
                                                 <td><?= $alp['judul']; ?></td>
                                                 <td><?= $alp['status']; ?></td>
-                                                <td><?= $alp['ketua']; ?></td>
-                                                <td><?= $alp['anggota_1']; ?></td>
-                                                <td><?= $alp['anggota_2']; ?></td>
-                                                <td><?= $alp['anggota_3']; ?></td>
+                                                <td> <?= 
+                                                    implode( ", ", 
+                                                        array_filter([ 
+                                                            $alp['ketua'], $alp['anggota_1'],
+                                                            $alp['anggota_2'], $alp['anggota_3'],
+                                                            $alp['anggota_4'], $alp['anggota_5'],
+                                                            $alp['anggota_6'], $alp['anggota_7'],
+                                                            $alp['anggota_8']
+                                                            ], function($v) { return strlen($v) > 0; }
+                                                        )); 
+                                                ?> </td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>

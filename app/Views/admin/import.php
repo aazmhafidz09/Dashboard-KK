@@ -123,25 +123,36 @@
                                     <div>
                                         <div class = "p-3">
                                             <!--<h5 class="font-size-16 mb-4">Publikasi</h5>-->
-                                            <h5 class="font-size-16 mb-4" >Penting: fitur ini tidak dimaksudkan untuk restore data dan mengubah struktur dan data</h5>
+                                            <strong class="font-weight-bold font-size-16" > Perhatian! Fitur ini tidak dimaksudkan untuk restore data dan mengubah struktur dan data</strong>
                                             <p class="mb-1"> Fitur ini dimaksudkan untuk memasukkan data secara masal. Silakan ikuti langkah berikut untuk menggunakannya: </p>
                                             <ol>
                                                 <li> Siapkan data dengan bentuk excel untuk diimpor ke dalam database </li>
                                                 <li> Pastikan format data yang akan diimpor sudah sesuai dengan aturan impor data: </li>
                                                 <ul>
                                                     <!-- <li>Boleh menggunakan tanda ' (petik satu) dalam penggunaan nama</li> -->
-                                                    <li>Kolom Publikasi, Penelitian, Pengabdian menggunakan format excel yang terpisah</li>
-                                                    <li>Pada Bagian Publikasi, Field yang wajib diisi yaitu : Tahun dan Judul</li>
-                                                    <li>Pada Bagian Penelitian, Field yang wajib diisi yaitu : Tahun, Jenis dan  Judul</li>
-                                                    <li>Pada Bagian Abdimas, Field yang wajib diisi yaitu : Tahun dan Judul</li>
-                                                    <li>Pada Bagian Haki, Field yang wajib diisi yaitu : Tahun dan Judul </li>
+                                                    <li>Impor data untuk Publikasi, Penelitian, Pengabdian dilakukan menggunakan format excel yang terpisah</li>
+                                                    <li>Pada Bagian Publikasi, kolom yang wajib diisi yaitu <code>tahun</code> dan <code>judul</code></li>
+                                                    <li>Pada Bagian Penelitian, kolom yang wajib diisi yaitu : <code>tahun</code>, <code>jenis</code> dan <code>judul</code></li>
+                                                    <li>Pada Bagian Abdimas, kolom yang wajib diisi yaitu : <code>tahun</code> dan <code>judul</code></li>
+                                                    <li>Pada Bagian Haki, kolom yang wajib diisi yaitu : <code>tahun</code> dan <code>judul</code> </li>
                                                 </ul>
                                             </ol>
                                         </div>
+
+                                        <div class = "p-3 pt-0">
+                                            <!--<h5 class="font-size-16 mb-4">Publikasi</h5>-->
+                                            <strong class="font-weight-bold font-size-16" >Penting! Berikut catatan yang perlu diperhatikan</strong>
+                                            <ul>
+                                                <li> Mohon pastikan file yang diunggah diletakkan pada formulir sesuai dengan apa yang ingin diimpor </li>
+                                                <li> Apabila penulis/anggota berasal dari luar institusi, silakan kosongkan field tersebut </li>
+                                                <li> Siapkan data dengan bentuk excel untuk diimpor ke dalam database </li>
+                                                <li> Siapkan data dengan bentuk excel untuk diimpor ke dalam database </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                     <!--<p class="mb-1 p-3 " >Template format dapat diunduh di link berikut </p>-->
-                                    <h5 class="font-size-16 mb-4 p-3 " >Template format dapat diunduh di link berikut</h5>
-                                    <div class="d-flex btn-group p-4" role="group" aria-label="Basic outlined example">
+                                    <strong class="font-size-16 p-4 pb-0" >Template format dapat dengan menekan tombol berikut: </strong>
+                                    <div class="d-flex btn-group p-4 pt-2" role="group" aria-label="Basic outlined example">
                                         <button 
                                             type="button" 
                                             class="btn btn-outline-primary"

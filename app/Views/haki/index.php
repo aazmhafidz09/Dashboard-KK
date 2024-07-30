@@ -394,13 +394,12 @@
                         </div> <!-- end card-->
                     </div><!-- end col -->
 
-                    <div class="col-xl-4">
+                    <div class="col-xl-8">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
                                         <a class="dropdown-toggle" href="#" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <!-- <span class="text-muted">Recent<i class="mdi mdi-chevron-down ms-1"></i></span> -->
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton3">
@@ -420,7 +419,6 @@
                                                     <th></th>
                                                     <th>Haki</th>
                                                     <th>Jumlah</th>
-                                                    <!-- <th>Username</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -441,14 +439,14 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-4">
+                    <!-- <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title mb-4">Data Haki </h4>
                                 <div id="bar_chart" style="max-height: 339px" data-colors='["--bs-success"]' class="apex-charts" dir="ltr"></div>
                             </div>
-                        </div><!--end card-->
-                    </div>
+                        </div>
+                    </div> -->
                 </div>
 
                 <div class="row">
@@ -529,10 +527,7 @@
                                             <th>Jenis</th>
                                             <!-- <th>Jenis Ciptaan</th> -->
                                             <th>Judul</th>
-                                            <th>Pengusul 1</th>
-                                            <th>Pengusul 2</th>
-                                            <th>Pengusul 3</th>
-                                            <th>Pengusul 4</th>
+                                            <th>Pengusul </th>
                                             <th>No Pendaftaran</th>
                                             <th>No Sertifikat</th>
                                         </tr>
@@ -547,10 +542,17 @@
                                                 <td><?= $alp['jenis']; ?></td>
 
                                                 <td><?= $alp['judul']; ?></td>
-                                                <td><?= $alp['ketua']; ?></td>
-                                                <td><?= $alp['anggota_1']; ?></td>
-                                                <td><?= $alp['anggota_2']; ?></td>
-                                                <td><?= $alp['anggota_3']; ?></td>
+                                                <td> <?= 
+                                                    implode( ", ", 
+                                                        array_filter([ 
+                                                            $alp['ketua'], $alp['anggota_1'],
+                                                            $alp['anggota_2'], $alp['anggota_3'],
+                                                            $alp['anggota_4'], $alp['anggota_5'],
+                                                            $alp['anggota_6'], $alp['anggota_7'],
+                                                            $alp['anggota_8'], $alp['anggota_9']
+                                                            ], function($v) { return strlen($v) > 0; }
+                                                        )); 
+                                                ?> </td>
                                                 <td><?= $alp['no_pendaftaran']; ?></td>
                                                 <td><?= $alp['no_sertifikat']; ?></td>
                                             </tr>

@@ -42,7 +42,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <!-- <div class="col-md-6">
                                         <div class="form-inline float-md-end mb-3">
                                             <div class="search-box ms-2">
                                                 <div class="position-relative">
@@ -50,9 +50,8 @@
                                                     <i class="mdi mdi-magnify search-icon"></i>
                                                 </div>
                                             </div>
-
                                         </div>
-                                    </div>
+                                    </div> -->
 
 
                                 </div>
@@ -62,10 +61,10 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col" style="width: 50px;">
-                                                    <div class="form-check font-size-16">
+                                                    <!-- <div class="form-check font-size-16">
                                                         <input type="checkbox" class="form-check-input" id="contacusercheck">
                                                         <label class="form-check-label" for="contacusercheck"></label>
-                                                    </div>
+                                                    </div> -->
                                                 </th>
                                                 <th scope="col">Nama</th>
                                                 <th scope="col">Kode Dosen</th>
@@ -89,7 +88,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="row mt-4">
+                                <!-- <div class="row mt-4">
                                     <div class="col-sm-6">
                                         <div>
                                             <p class="mb-sm-0">Showing 1 to 10 of 12 entries</p>
@@ -98,25 +97,17 @@
                                     <div class="col-sm-6">
                                         <div class="float-sm-end">
                                             <ul class="pagination mb-sm-0 ">
-                                                <li class="page-item disabled">
-                                                    <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
-                                                </li>
-                                                <li class="page-item active">
-                                                    <a href="#" class="page-link">1</a>
-                                                </li>
-                                                <li class="page-item ">
-                                                    <a href="#" class="page-link">2</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a href="#" class="page-link">3</a>
-                                                </li>
+                                                <li class="page-item disabled"> <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a> </li>
+                                                <li class="page-item active"> <a href="#" class="page-link">1</a> </li>
+                                                <li class="page-item "> <a href="#" class="page-link">2</a> </li>
+                                                <li class="page-item"> <a href="#" class="page-link">3</a> </li>
                                                 <li class="page-item">
                                                     <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

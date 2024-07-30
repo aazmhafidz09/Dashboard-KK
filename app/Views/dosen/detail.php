@@ -33,17 +33,6 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="text-center">
-                                    <div class="dropdown float-end">
-                                        <a class="text-body dropdown-toggle font-size-18" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
-                                            <i class="uil uil-ellipsis-v"></i>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="#">Edit</a>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Remove</a>
-                                        </div>
-                                    </div>
                                     <div class="clearfix"></div>
                                     <div>
                                         <img src="assets/images/users/avatar-4.jpg" alt="" class="avatar-lg rounded-circle img-thumbnail">
@@ -57,10 +46,10 @@
                                 <div class="text-muted">
                                     <h5 class="font-size-16">Kelompok Keahlian :</h5>
                                     <p> <?= $dosen["KK"] ?></p>
-                                    <div class="table-responsive mt-4">
+                                    <div class="mt-4">
                                         <div>
-                                            <p class="mb-1">Nama :</p>
-                                            <h5 class="font-size-16"><?= $dosen['nama_dosen']; ?></h5>
+                                            <h5 class="mb-1 font-size-16">Nama :</h5>
+                                            <p class=""><?= $dosen['nama_dosen']; ?></p>
                                         </div>
                                         <!-- <div class="mt-4">
                                             <p class="mb-1">Mobile :</p>
@@ -84,7 +73,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="mt-3">
-                                                    <p class="text-muted mb-2">Total Publikasi</p>
+                                                    <p class="text-muted mb-2"># Publikasi</p>
                                                     <h3 class="font-size-16 mb-0"><?php echo $jumlah_publikasi ?></h3>
                                                 </div>
                                             </div>
@@ -98,7 +87,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="mt-3">
-                                                    <p class="text-muted mb-2">Total Penelitian</p>
+                                                    <p class="text-muted mb-2"> # Penelitian</p>
                                                     <h3 class="font-size-16 mb-0"><?php echo $jumlah_penelitian ?></h3>
                                                 </div>
                                             </div>
@@ -181,7 +170,6 @@
                                         </div> -->
 
                                         <div>
-                                            <h5 class="font-size-16 mb-4">Publikasi</h5>
 
                                             <div class="table-responsive">
                                                 <table class="table table-nowrap table-hover mb-0">
@@ -190,8 +178,7 @@
                                                             <th scope="col">No</th>
                                                             <th scope="col">Judul</th>
                                                             <th scope="col">Tahun</th>
-                                                            <th scope="col"> Tautan </th>
-                                                            <th scope="col" style="width: 120px;">Action</th>
+                                                            <th scope="col">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -203,24 +190,20 @@
                                                                     <a 
                                                                         href="<?= $pb["link_artikel"] == ""? "#": $pb["link_artikel"]?>" 
                                                                         class="text-reset "
-                                                                    >
-                                                                        <?= $pb['judul_publikasi']; ?>
-                                                                    </a>
+                                                                    > <?= (
+                                                                            (strlen($pb['judul_publikasi']) <= 50)
+                                                                            ? $pb['judul_publikasi']
+                                                                            : substr($pb['judul_publikasi'], 0, 50) . "..."
+                                                                    ); ?> </a>
                                                                 </td>
                                                                 <td> <?= $pb['tahun']; ?> </td>
-                                                                <td> <?= $pb['link_artikel']; ?><!-- <span class="badge bg-primary-subtle font-size-12">Open</span> --> </td>
-                                                                <td>
-                                                                    <div class="dropdown">
-                                                                        <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
-                                                                            <i class="uil uil-ellipsis-v"></i>
-                                                                        </a>
-
-                                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                                            <a class="dropdown-item" href="#">Action</a>
-                                                                            <a class="dropdown-item" href="#">Another action</a>
-                                                                            <a class="dropdown-item" href="#">Something else here</a>
-                                                                        </div>
-                                                                    </div>
+                                                                <td class="position-relative"> 
+                                                                    <button 
+                                                                        class="position-absolute start-0 end-0 border-0 bg-transparent text-primary"
+                                                                        onclick="window.location = '<?=base_url('#')?>'"
+                                                                    >
+                                                                        <i class="uil uil-eye font-size-18"></i>
+                                                                    </button>
                                                                 </td>
                                                             </tr>
                                                         <?php endforeach; ?>
@@ -233,7 +216,6 @@
                                 </div>
                                 <div class="tab-pane" id="penelitian" role="tabpanel">
                                     <div>
-                                        <h5 class="font-size-16 mb-3">Penelitian</h5>
 
                                         <div class="table-responsive">
                                             <table class="table table-nowrap table-hover mb-0">
@@ -242,8 +224,8 @@
                                                         <th scope="col">No</th>
                                                         <th scope="col">Judul</th>
                                                         <th scope="col">Tahun</th>
-                                                        <th scope="col">Jenis</th>
-                                                        <th scope="col" style="width: 120px;">Action</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col" style="width: 120px;">Mitra</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -251,26 +233,14 @@
                                                     <?php foreach ($penelitian as $pn) : ?>
                                                         <tr>
                                                             <th scope="row"><?= $i++; ?></th>
-                                                            <td><a href="#" class="text-reset "><?= $pn['judul_penelitian']; ?></a></td>
+                                                            <td><p href="#" class="text-reset "><?= $pn['judul_penelitian']; ?></p></td>
                                                             <td>
                                                                 <?= $pn['tahun']; ?>
                                                             </td>
                                                             <td>
                                                                 <?= $pn['status']; ?><!-- <span class="badge bg-primary-subtle font-size-12">Open</span> -->
                                                             </td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
-                                                                        <i class="uil uil-ellipsis-v"></i>
-                                                                    </a>
-
-                                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                                        <a class="dropdown-item" href="#">Action</a>
-                                                                        <a class="dropdown-item" href="#">Another action</a>
-                                                                        <a class="dropdown-item" href="#">Something else here</a>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
+                                                            <td> <?= $pn['mitra'] ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
 
@@ -281,7 +251,6 @@
                                 </div>
                                 <div class="tab-pane" id="abdimas" role="tabpanel">
                                     <div>
-                                        <h5 class="font-size-16 mb-3">Abdimas</h5>
 
                                         <div class="table-responsive">
                                             <table class="table table-nowrap table-hover mb-0">
@@ -290,8 +259,8 @@
                                                         <th scope="col">No</th>
                                                         <th scope="col">Judul</th>
                                                         <th scope="col">Tahun</th>
-                                                        <th scope="col">Jenis</th>
-                                                        <th scope="col" style="width: 120px;">Action</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col" style="width: 120px;">Mitra</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -299,26 +268,14 @@
                                                     <?php foreach ($abdimas as $ab) : ?>
                                                         <tr>
                                                             <th scope="row"><?= $i++; ?></th>
-                                                            <td><a href="#" class="text-reset "><?= $ab['judul']; ?></a></td>
+                                                            <td><p href="#" class="text-reset "><?= $ab['judul']; ?></p></td>
                                                             <td>
                                                                 <?= $ab['tahun']; ?>
                                                             </td>
                                                             <td>
                                                                 <?= $ab['status']; ?><!-- <span class="badge bg-primary-subtle font-size-12">Open</span> -->
                                                             </td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
-                                                                        <i class="uil uil-ellipsis-v"></i>
-                                                                    </a>
-
-                                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                                        <a class="dropdown-item" href="#">Action</a>
-                                                                        <a class="dropdown-item" href="#">Another action</a>
-                                                                        <a class="dropdown-item" href="#">Something else here</a>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
+                                                            <td> <?= $ab['mitra'] ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
@@ -328,7 +285,6 @@
                                 </div>
                                 <div class="tab-pane" id="haki" role="tabpanel">
                                     <div>
-                                        <h5 class="font-size-16 mb-3">Haki</h5>
 
                                         <div class="table-responsive">
                                             <table class="table table-nowrap table-hover mb-0">
@@ -346,26 +302,14 @@
                                                     <?php foreach ($haki as $hk) : ?>
                                                         <tr>
                                                             <th scope="row"><?= $i++; ?></th>
-                                                            <td><a href="#" class="text-reset "><?= $hk['judul']; ?></a></td>
+                                                            <td><p href="#" class="text-reset "><?= $hk['judul']; ?></p></td>
                                                             <td>
                                                                 <?= $hk['tahun']; ?>
                                                             </td>
                                                             <td>
                                                                 <?= $hk['jenis']; ?><!-- <span class="badge bg-primary-subtle font-size-12">Open</span> -->
                                                             </td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
-                                                                        <i class="uil uil-ellipsis-v"></i>
-                                                                    </a>
-
-                                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                                        <a class="dropdown-item" href="#">Action</a>
-                                                                        <a class="dropdown-item" href="#">Another action</a>
-                                                                        <a class="dropdown-item" href="#">Something else here</a>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
+                                                            <td> </td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

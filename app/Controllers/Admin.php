@@ -218,6 +218,7 @@ class Admin extends BaseController {
             ];
         }
 
+        $data["isAdmin"] = $this->isAdmin();
         return view('admin/index', $data);
     }
 
