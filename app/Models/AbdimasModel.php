@@ -234,7 +234,8 @@ class AbdimasModel extends Model
     WHERE
         tahun BETWEEN 2010 AND YEAR(CURDATE())
     GROUP BY
-        tahun;");
+        tahun;
+    ");
         return $query->getResultArray();
     }
 

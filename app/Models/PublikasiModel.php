@@ -268,7 +268,7 @@ class PublikasiModel extends Model
 
     public function getCountPublikasiAll()
     {
-        $query = $this->db->query("SELECT jenis AS jenis_pen, COUNT(*) AS jumlah_pen FROM publikasi WHERE jenis != 'Q2' GROUP BY jenis ORDER BY jumlah_pen DESC LIMIT 4");
+        $query = $this->db->query("SELECT jenis AS jenis_pen, COUNT(*) AS jumlah_pen FROM publikasi WHERE jenis IN ('Prosiding Internasional', 'Prosiding Nasional', 'Jurnal Internasional', 'Jurnal Nasional') GROUP BY jenis ORDER BY jumlah_pen DESC");
         return $query->getResultArray();
     }
 
