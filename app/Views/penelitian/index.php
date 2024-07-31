@@ -59,9 +59,9 @@
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
-                <!-- <h5>Total</h5> -->
                 <div class="row">
-                    <!-- <div class="col-xl">
+                    <h5>Total</h5>
+                    <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
@@ -129,7 +129,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
 
                     <h5>Tahun <?php echo date("Y"); ?></h5>
                     <div class="col-xl">
@@ -281,7 +281,6 @@
                                         <li class="list-inline-item chart-border-left me-0 border-0">
                                             <h3 class="text-primary"><span data-plugin="counterup"><?php echo $count_penelitian ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Total Penelitian</span></h3>
                                         </li>
-
                                     </ul>
                                 </div>
                                 <div class="mt-3">
@@ -289,9 +288,9 @@
                                     <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->
                                     <div id="chartPenelitianPerTahun" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
                                 </div>
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
-                    </div> <!-- end col-->
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="col-xl-4">
                         <div class="card">
@@ -305,21 +304,17 @@
                                                     <th></th>
                                                     <th>Tahun</th>
                                                     <th>Jumlah Penelitian</th>
-                                                    <!-- <th>Username</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $i = 1 ?>
-
                                                 <?php foreach ($order_by_tahun as $obt) : ?>
                                                     <tr>
                                                         <th scope="row"><?= $i++; ?></th>
                                                         <td><?= $obt['thn']; ?></td>
                                                         <td><?= $obt['jumlah_pen']; ?></td>
                                                     </tr>
-
                                                 <?php endforeach; ?>
-
                                             </tbody>
                                         </table>
                                     </div> <!-- enbd table-responsive-->
@@ -709,6 +704,8 @@
     "getOrderByTahunKerjasamaPT" => $getOrderByTahunKerjasamaPT,
     "getOrderByTahunHilirisasi" => $getOrderByTahunHilirisasi,
     "top_penelitian_all" => $top_penelitian_all,
+
+    "availablePenelitianYear"  => $tahunPenelitianTersedia,
     "annualPenelitianByType" => $annualPenelitianByType,
     "annualPenelitianByTypeAndKK" => $annualPenelitianByTypeAndKK
 ]) ?>

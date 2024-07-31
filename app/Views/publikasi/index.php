@@ -44,9 +44,9 @@
 
         <div class="page-content">
             <div class="container-fluid">
-                <!-- <h5>Total</h5> -->
+                <h5>Total</h5>
                 <div class="row">
-                    <!--<div class="col-md-6 col-xl-3">
+                    <div class="col-md-6 col-xl-3">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
@@ -101,9 +101,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>  -->
-
-
+                    </div> 
 
                     <h5>Tahun <?php echo date("Y"); ?></h5>
                     <div class="col-md-6 col-xl-3">
