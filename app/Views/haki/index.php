@@ -528,6 +528,7 @@
                                             <th>Pengusul </th>
                                             <th>No Pendaftaran</th>
                                             <th>No Sertifikat</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
 
@@ -553,6 +554,14 @@
                                                 ?> </td>
                                                 <td><?= $alp['no_pendaftaran']; ?></td>
                                                 <td><?= $alp['no_sertifikat']; ?></td>
+                                                <td class="position-relative"> 
+                                                    <button 
+                                                        class="position-absolute start-0 end-0 border-0 bg-transparent text-primary"
+                                                        onclick="window.location = '<?=base_url('#')?>'"
+                                                    >
+                                                        <i class="uil uil-eye font-size-18"></i>
+                                                    </button>
+                                                </td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>

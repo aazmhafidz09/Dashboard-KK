@@ -597,6 +597,7 @@
                                             <th>Jenis</th>
                                             <th>Status</th>
                                             <th>Peneliti</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -624,6 +625,14 @@
                                                             ], function($v) { return strlen($v) > 0; }
                                                         )); 
                                                 ?> </td>
+                                                <td class="position-relative"> 
+                                                    <button 
+                                                        class="position-absolute start-0 end-0 border-0 bg-transparent text-primary"
+                                                        onclick="window.location = '<?=base_url('#')?>'"
+                                                    >
+                                                        <i class="uil uil-eye font-size-18"></i>
+                                                    </button>
+                                                </td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>
