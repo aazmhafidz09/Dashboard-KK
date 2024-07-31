@@ -42,9 +42,9 @@
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
-                <h5>Total</h5>
+                <!-- <h5>Total</h5> -->
                 <div class="row">
-                    <div class="col-md-6 col-xl-3">
+                    <!-- <div class="col-md-6 col-xl-3">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
@@ -54,10 +54,9 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Cipta ?></span></h4>
                                     <p class="text-muted mb-0">Hak Cipta</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>7 Haki</span> dari tahun sebelumnya </p> -->
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div> 
 
                     <div class="col-md-6 col-xl-3">
                         <div class="card">
@@ -69,10 +68,10 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Paten ?></span></h4>
                                     <p class="text-muted mb-0">Paten</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-4 Haki</span> dari tahun sebelumnya </p> -->
+                                
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div> 
 
                     <div class="col-md-6 col-xl-3">
                         <div class="card">
@@ -84,10 +83,10 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Merek ?></span></h4>
                                     <p class="text-muted mb-0">Merek</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-2 Haki</span> dari tahun sebelumnya </p> -->
+                                
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div> 
 
                     <div class="col-md-6 col-xl-3">
 
@@ -100,10 +99,10 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Desain_Industri ?></span></h4>
                                     <p class="text-muted mb-0">Desain Industri</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>10.51%</span> since last week </p> -->
+                                
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div> -->
                     <h5>Tahun <?php echo date("Y"); ?></h5>
                     <div class="col-md-6 col-xl-3">
                         <div class="card">
@@ -525,7 +524,6 @@
                                         <tr>
                                             <th>Tahun</th>
                                             <th>Jenis</th>
-                                            <!-- <th>Jenis Ciptaan</th> -->
                                             <th>Judul</th>
                                             <th>Pengusul </th>
                                             <th>No Pendaftaran</th>

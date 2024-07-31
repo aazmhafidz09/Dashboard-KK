@@ -159,7 +159,7 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Data Publikasi Dosen</h4>
+                                <h4 class="card-title mb-4">Publikasi Dosen</h4>
 
                                 <div data-simplebar style="max-height: 450px;">
                                     <div class="table-responsive">

@@ -144,9 +144,9 @@
                                             <strong class="font-weight-bold font-size-16" >Penting! Berikut catatan yang perlu diperhatikan</strong>
                                             <ul>
                                                 <li> Mohon pastikan file yang diunggah diletakkan pada formulir sesuai dengan apa yang ingin diimpor </li>
-                                                <li> Apabila penulis/anggota berasal dari luar institusi, silakan kosongkan field tersebut </li>
-                                                <li> Siapkan data dengan bentuk excel untuk diimpor ke dalam database </li>
-                                                <li> Siapkan data dengan bentuk excel untuk diimpor ke dalam database </li>
+                                                <li> Apabila penulis/anggota tidak ada atau berasal dari luar fakultas informatika, silakan kosongkan field tersebut </li>
+                                                <li> Pada field yang meminta data tanggal, masukan tanggal yang valid dengan format <code>MM/DD/YYYY</code></li>
+                                                <li> Untuk setiap baris data, setidaknya sertakan satu ketua / anggota yang terlibat</li>
                                             </ul>
                                         </div>
                                     </div>

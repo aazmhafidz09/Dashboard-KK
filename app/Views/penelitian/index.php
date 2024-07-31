@@ -59,9 +59,9 @@
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
-                <h5>Total</h5>
+                <!-- <h5>Total</h5> -->
                 <div class="row">
-                    <div class="col-xl">
+                    <!-- <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div>
 
                     <div class="col-xl">
                         <div class="card">
@@ -88,7 +88,7 @@
 
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div>
 
                     <div class="col-xl">
                         <div class="card">
@@ -102,7 +102,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div>
 
                     <div class="col-xl">
                         <div class="card">
@@ -116,7 +116,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div>
                     <div class="col-xl">
                         <div class="card">
                             <div class="card-body">
@@ -129,7 +129,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div> -->
 
                     <h5>Tahun <?php echo date("Y"); ?></h5>
                     <div class="col-xl">
@@ -592,20 +592,21 @@
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>
-                                            <th>Jenis</th>
                                             <th>Nama Kegiatan</th>
                                             <th>Judul Penelitian</th>
+                                            <th>Jenis</th>
+                                            <th>Status</th>
                                             <th>Peneliti</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i = 1 ?>
                                         <?php foreach ($all_penelitian as $alp) : ?>
                                             <tr>
                                                 <td><?= $alp['tahun']; ?></td>
-                                                <td><?= $alp['jenis']; ?></td>
                                                 <td><?= $alp['nama_kegiatan']; ?></td>
                                                 <td><?= $alp['judul_penelitian']; ?></td>
+                                                <td><?= $alp['jenis']; ?></td>
+                                                <td><?= $alp['status']; ?></td>
                                                 <td> <?= 
                                                     implode( ", ", 
                                                         array_filter([ 

@@ -40,9 +40,9 @@
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
-                <h5>Total</h5>
+                <!-- <h5>Total</h5> -->
                 <div class="row">
-                    <div class="col-md-6 col-xl">
+                    <!-- <div class="col-md-6 col-xl">
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
@@ -52,10 +52,9 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_Inter ?></span></h4>
                                     <p class="text-muted mb-0">Internal</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>7 Publikasi</span> dari tahun sebelumnya </p> -->
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div>
 
                     <div class="col-md-6 col-xl">
                         <div class="card">
@@ -67,10 +66,9 @@
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_Ekster ?></span></h4>
                                     <p class="text-muted mb-0">Eksternal</p>
                                 </div>
-                                <!-- <p class="text-muted mt-3 mb-0"><span class="text-danger me-1"><i class="mdi mdi-arrow-down-bold me-1"></i>-4 Publikasi</span> dari tahun sebelumnya </p> -->
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div> -->
 
                     <h5>Tahun <?php echo date("Y"); ?></h5>
                     <div class="col-md-6 col-xl">
@@ -98,7 +96,7 @@
                                 <?php endif ?>
                             </div>
                         </div>
-                    </div> <!-- end col-->
+                    </div>
 
                     <div class="col-md-6 col-xl">
                         <div class="card">

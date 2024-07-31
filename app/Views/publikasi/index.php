@@ -450,7 +450,7 @@
                         <div class="col-xl-8">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4"> Indeks Publikasi</h4>
+                                    <h4 class="card-title mb-4"> Peringkat Publikasi</h4>
                                     <div id="bar_chart" data-colors='["--bs-success"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div><!--end card-->
@@ -547,7 +547,7 @@
                                             <th>Judul Publikasi</th>
                                             <th>Jenis</th>
                                             <th>Jurnal/konferensi</th>
-                                            <th>Akreditasi Jurnal</th>
+                                            <th>Peringkat Jurnal</th>
                                             <th>Penulis</th>
 
                                         </tr>
