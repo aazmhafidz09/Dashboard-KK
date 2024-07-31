@@ -131,10 +131,20 @@
                                                 <ul>
                                                     <!-- <li>Boleh menggunakan tanda ' (petik satu) dalam penggunaan nama</li> -->
                                                     <li>Impor data untuk Publikasi, Penelitian, Pengabdian dilakukan menggunakan format excel yang terpisah</li>
-                                                    <li>Pada Bagian Publikasi, kolom yang wajib diisi yaitu <code>tahun</code> dan <code>judul</code></li>
-                                                    <li>Pada Bagian Penelitian, kolom yang wajib diisi yaitu : <code>tahun</code>, <code>jenis</code> dan <code>judul</code></li>
-                                                    <li>Pada Bagian Abdimas, kolom yang wajib diisi yaitu : <code>tahun</code> dan <code>judul</code></li>
-                                                    <li>Pada Bagian Haki, kolom yang wajib diisi yaitu : <code>tahun</code> dan <code>judul</code> </li>
+                                                    <li>
+                                                        Pada Bagian Publikasi, kolom yang wajib diisi yaitu <code>tahun</code>, <code>penulis_all</code>,
+                                                        <code>jenis</code>, dan <code>judul</code>
+                                                    </li>
+                                                    <li>
+                                                        Pada Bagian Penelitian, kolom yang wajib diisi yaitu : <code>tahun</code>, <code>jenis</code>, 
+                                                        <code>judul</code>, dan <code> status </code></li>
+                                                    <li>
+                                                        Pada Bagian Abdimas, kolom yang wajib diisi yaitu : <code>tahun</code>, <code>jenis</code>,
+                                                        <code>status</code>, dan <code>judul</code>
+                                                    </li>
+                                                    <li>
+                                                        Pada Bagian Haki, kolom yang wajib diisi yaitu : <code>tahun</code>, <code>jenis</code>, dan <code>judul</code> 
+                                                    </li>
                                                 </ul>
                                             </ol>
                                         </div>
@@ -145,7 +155,7 @@
                                             <ul>
                                                 <li> Mohon pastikan file yang diunggah diletakkan pada formulir sesuai dengan apa yang ingin diimpor </li>
                                                 <li> Apabila penulis/anggota tidak ada atau berasal dari luar fakultas informatika, silakan kosongkan field tersebut </li>
-                                                <li> Pada field yang meminta data tanggal, masukan tanggal yang valid dengan format <code>MM/DD/YYYY</code></li>
+                                                <li> Gunakan format <code>MM/DD/YYYY</code> pada field yang meminta data tanggal </li>
                                                 <li> Untuk setiap baris data, setidaknya sertakan satu ketua / anggota yang terlibat</li>
                                             </ul>
                                         </div>

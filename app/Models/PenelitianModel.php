@@ -427,11 +427,13 @@ class PenelitianModel extends Model
 
         $rowData = [];
         $isTableHeader = true;
+        $nRow = 0;
         try {
             $reader = ReaderFactory::createFromFileByMimeType($filePath); // TODO (Security): mime type can be unreliable as it could be spoofed
             $reader->open($filePath);
             $sheet = $reader->getSheetIterator()->current(); // Assuming only the first sheet would be used
             foreach($sheet->getRowIterator() as $row) {
+                $nRow++;
                 if($isTableHeader) {$isTableHeader = false; continue;}
 
                 $rowCells = $row->getCells();
@@ -443,50 +445,54 @@ class PenelitianModel extends Model
                 for($idx = 0; $idx < count($insertFields); $idx++) {
                     $field = $insertFields[$idx];
                     $value = $rowCells[$idx + 1]->getValue();
-                    $currentRow[$field] = (
-                        ($field == "tgl_pengesahan" && !is_string($value))
-                        ? date_format($value, 'Y-m-d H:i:s')
-                        : $value
-                    );
+
+                    if($field != "tgl_pengesahan") {
+                        $currentRow[$field] = $value;
+                    } else if($value instanceof \DateTimeImmutable) {
+                        $currentRow[$field] = date_format($value, 'd-m-Y');
+                    } else {
+                        throw new \Exception("`tgl_pengesahan` tidak valid. Pastikan tanggal valid dan menggunakan format yang sesuai");
+                    }
                 }
 
-                // Validate
-                $isValid = ( // Mandatory fields
-                    is_numeric($currentRow["tahun"])
-                    && strlen($currentRow["judul_penelitian"]) > 0
-                    && strlen($currentRow["jenis"]) > 0
-                );
-                if(!$isValid) throw new \Exception("`judul_peneliti`, `tahun`, and `jenis` harus diisi");
+                // Some mandatory fields
+                $isValid = ( is_numeric($currentRow["tahun"])
+                            && strlen($currentRow["judul_penelitian"]) > 0
+                            && strlen($currentRow["status"]) > 0
+                            && strlen($currentRow["jenis"]) > 0);
+                if(!$isValid) throw new \Exception("`judul_peneliti`, `tahun`, `status`, dan `jenis` harus diisi");
 
+                $hasWriter = false;
                 foreach($WRITER_FIELDS as $wf) {
                     $writer = $currentRow[$wf];
-                    $isValid = ( strlen($writer) == 0 || in_array($writer, $dosenList));
+                    $isValid = strlen($writer) == 0 || in_array($writer, $dosenList);
+                    $hasWriter = $hasWriter || strlen($writer) > 0;
                     if(!$isValid) throw new \Exception("`kode_dosen` " . $writer . " tidak terdaftar sebagai dosen di database");
                 }
 
-                $isValid = (
-                    strlen($currentRow["jenis"]) == 0 
-                    || in_array(strtolower($currentRow["jenis"]), $ALLOWED_JENIS)
-                );
+                $isValid = $hasWriter;
+                if(!$isValid) throw new \Exception("Sertakan setidaknya salah satu anggota yang terlibat");
+
+                $isValid = ( strlen($currentRow["jenis"]) == 0 
+                            || in_array(strtolower($currentRow["jenis"]), $ALLOWED_JENIS));
                 if(!$isValid) throw new \Exception("Jika diisi, `jenis` harus merupakan salah satu dari {'internal', 'eksternal', 'mandiri', 'kerjasama perguruan tinggi', 'kemitraan', 'hilirisasi'}");
 
-                $isValid = (
-                    strlen($currentRow["status"]) == 0
-                    || in_array(strtolower($currentRow["status"]), $ALLOWED_STATUS)
-                );
+                $isValid = ( strlen($currentRow["status"]) == 0
+                            || in_array(strtolower($currentRow["status"]), $ALLOWED_STATUS));
                 if(!$isValid) throw new \Exception("Jika diisi, `status` harus merupakan salah satu dari {'didanai', 'submit proposal'}");
 
-                // TODO: validate 'tgl_pengesahan'
                 array_push($rowData, $currentRow);
             }
 
             $reader->close();
             if(count($rowData) == 0) throw new \Exception("Tidak ada data yang perlu dimasukkan");
             $this->db->table($this->table)->insertBatch($rowData);
-        } catch(DatabaseException $e) { // TODO: For better UX, return the message too // 
+        } catch(DatabaseException $e) {
             return [-1, $e->getMessage()];
-        } catch(\Exception $e) { // TODO: For better UX, return the message too // 
-            return [-1, $e->getMessage()];
+        } catch(\Exception $e) {
+            return [-1, "(Baris ${nRow}) " . $e->getMessage()];
+        } catch(\Throwable $e) {
+            return [-1, "Maaf, suatu kesalahan yang tidak diketahui terjadi, pastikan anda telah mengikuti seluruh panduan. Apabila merasa sudah, silakan kontak tim pengembang"];
         }
         return [0, null];
     }

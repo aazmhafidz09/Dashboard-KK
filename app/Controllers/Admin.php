@@ -1005,7 +1005,7 @@ class Admin extends BaseController {
         $errorMessage = "";
         for($idx = 0; $idx < count($files); $idx++) {
             if(!is_null($errorResultMessages[$idx])) {
-                $errorMessage .= (ucwords(array_keys($files)[$idx])
+                $errorMessage .= ("<strong>" . ucwords(array_keys($files)[$idx]) . "</strong>"
                                 . ": " . $errorResultMessages[$idx] 
                                 . "<br/>");
             }

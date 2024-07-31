@@ -380,14 +380,17 @@ class PublikasiModel extends Model
                         "prosiding internasional", "prosiding nasional", ];
         $ALLOWED_AKREDITASI = [ "not accredited yet", "q1", "q2", "q3", "q4",
                         "s1", "s2", "s3", "s4", "s5", "s6", "scopus"];
+        $WRITER_FIELDS = array_slice($insertFields, 2, 11);
 
         $rowData = [];
         $isTableHeader = true;
+        $nRow = 0;
         try {
             $reader = ReaderFactory::createFromFileByMimeType($filePath); // TODO (Security): mime type can be unreliable as it could be spoofed
             $reader->open($filePath);
             $sheet = $reader->getSheetIterator()->current(); // Assuming only the first sheet would be used
             foreach($sheet->getRowIterator() as $row) {
+                $nRow++;
                 if($isTableHeader) {$isTableHeader = false; continue;}
 
                 $rowCells = $row->getCells();
@@ -402,36 +405,34 @@ class PublikasiModel extends Model
                     $currentRow[$field] = $value;
                 }
 
-                // Validate
-                $isValid = ( // Mandatory fields
-                    is_numeric($currentRow["tahun"])
-                    && strlen($currentRow["judul_publikasi"]) > 0
-                );
-                if(!$isValid) throw new \Exception("`judul_publikasi` dan `tahun` harus diisi");
+                // Some mandatory fields
+                $isValid = ( is_numeric($currentRow["tahun"])
+                            && strlen($currentRow["judul_publikasi"]) > 0
+                            && strlen($currentRow["jenis"]) > 0
+                            && strlen($currentRow["penulis_all"]) > 0);
+                if(!$isValid) throw new \Exception("`judul_publikasi`, `tahun`, `jenis`, dan `penulis_all` harus diisi");
 
-                $WRITER_FIELDS = array_slice($insertFields, 2, 11);
+                $hasWriter = false;
                 foreach($WRITER_FIELDS as $wf) {
                     $writer = $currentRow[$wf];
-                    $isValid = ( strlen($writer) == 0 || in_array($writer, $dosenList));
+                    $isValid = strlen($writer) == 0 || in_array($writer, $dosenList);
+                    $hasWriter = $hasWriter || strlen($writer) > 0;
                     if(!$isValid) throw new \Exception("`kode_dosen` " . $writer . " tidak terdaftar sebagai dosen di database");
                 }
 
-                $isValid = (
-                    strlen($currentRow["jenis"]) == 0 
-                    || in_array(strtolower($currentRow["jenis"]), $ALLOWED_JENIS)
-                );
+                $isValid = $hasWriter;
+                if(!$isValid) throw new \Exception("Sertakan setidaknya salah satu ketua atau anggota yang terlibat");
+
+                $isValid = ( strlen($currentRow["jenis"]) == 0 
+                            || in_array(strtolower($currentRow["jenis"]), $ALLOWED_JENIS));
                 if(!$isValid) throw new \Exception("Jika diisi, `jenis` harus merupakan salah satu dari {'jurnal internasional', 'jurnal nasional', 'prosiding internasional', 'prosiding nasional'}");
 
-                $isValid = (
-                    strlen($currentRow["akreditasi_journal_conf"]) == 0
-                    || in_array(strtolower($currentRow["akreditasi_journal_conf"]), $ALLOWED_AKREDITASI)
-                );
+                $isValid = ( strlen($currentRow["akreditasi_journal_conf"]) == 0
+                            || in_array(strtolower($currentRow["akreditasi_journal_conf"]), $ALLOWED_AKREDITASI));
                 if(!$isValid) throw new \Exception("Jika diisi, `akreditasi_journal_conf` harus merupakan salah satu dari {'not accredited yet', 'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'Q1', 'Q2', 'Q3', 'Q4', 'Scopus'}");
 
-                $isValid = (
-                    strlen($currentRow["link_artikel"]) == 0
-                    || filter_var($currentRow["link_artikel"], FILTER_VALIDATE_URL)
-                );
+                $isValid = ( strlen($currentRow["link_artikel"]) == 0
+                            || filter_var($currentRow["link_artikel"], FILTER_VALIDATE_URL));
                 if(!$isValid) throw new \Exception("Pastikan `link_artikel` merupakan URL yang valid (contoh: https://www.google.com)");
 
                 array_push($rowData, $currentRow);
@@ -440,10 +441,12 @@ class PublikasiModel extends Model
             $reader->close();
             if(count($rowData) == 0) throw new \Exception("Tidak ada data yang perlu dimasukkan");
             $this->db->table($this->table)->insertBatch($rowData);
-        } catch(DatabaseException $e) { // TODO: For better UX, return the message too // 
+        } catch(DatabaseException $e) {
             return [-1, $e->getMessage()];
-        } catch(\Exception $e) { // TODO: For better UX, return the message too // 
-            return [-1, $e->getMessage()];
+        } catch(\Exception $e) {
+            return [-1, "(Baris ${nRow}) " . $e->getMessage()];
+        } catch(\Throwable $e) {
+            return [-1, "Maaf, suatu kesalahan yang tidak diketahui terjadi, pastikan anda telah mengikuti seluruh panduan. Apabila merasa sudah, silakan kontak tim pengembang"];
         }
         return [0, null];
     }

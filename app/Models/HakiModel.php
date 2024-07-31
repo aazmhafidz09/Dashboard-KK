@@ -378,11 +378,13 @@ class HakiModel extends Model
 
         $rowData = [];
         $isTableHeader = true;
+        $nRow = 0;
         try {
             $reader = ReaderFactory::createFromFileByMimeType($filePath); // TODO (Security): mime type can be unreliable as it could be spoofed
             $reader->open($filePath);
             $sheet = $reader->getSheetIterator()->current(); // Assuming only the first sheet would be used
             foreach($sheet->getRowIterator() as $row) {
+                $nRow++;
                 if($isTableHeader) {$isTableHeader = false; continue;}
 
                 $rowCells = $row->getCells();
@@ -397,36 +399,40 @@ class HakiModel extends Model
                     $currentRow[$field] = $value;
                 }
 
-                // Validate
-                $isValid = ( // Mandatory fields
-                    is_numeric($currentRow["tahun"])
-                    && strlen($currentRow["judul"]) > 0
-                );
-                if(!$isValid) throw new \Exception("`judul` and `tahun` harus diisi");
+                // Some mandatory fields
+                $isValid = ( is_numeric($currentRow["tahun"])
+                            && strlen($currentRow["jenis"]) > 0
+                            && strlen($currentRow["judul"]) > 0);
+                if(!$isValid) throw new \Exception("`judul`, `jenis`, dan `tahun` harus diisi");
 
+                $hasWriter = false;
                 foreach($WRITER_FIELDS as $wf) {
                     $writer = $currentRow[$wf];
-                    $isValid = ( strlen($writer) == 0 || in_array($writer, $dosenList));
+                    $isValid = strlen($writer) == 0 || in_array($writer, $dosenList);
+                    $hasWriter = $hasWriter || strlen($writer) > 0;
                     if(!$isValid) throw new \Exception("`kode_dosen` " . $writer . " tidak terdaftar sebagai dosen di database");
                 }
 
+                $isValid = $hasWriter;
+                if(!$isValid) throw new \Exception("Sertakan setidaknya salah satu ketua atau anggota yang terlibat");
+
                 $isValid = (
                     strlen($currentRow["jenis"]) == 0 
-                    || in_array(strtolower($currentRow["jenis"]), $ALLOWED_JENIS)
-                );
+                    || in_array(strtolower($currentRow["jenis"]), $ALLOWED_JENIS));
                 if(!$isValid) throw new \Exception("Jika diisi, `jenis` harus merupakan salah satu dari {'paten', 'hak cipta', 'merek', 'desain industri'}");
 
-                // TODO: validate 'tgl_pengesahan'
                 array_push($rowData, $currentRow);
             }
 
             $reader->close();
             if(count($rowData) == 0) throw new \Exception("Tidak ada data yang perlu dimasukkan");
             $this->db->table($this->table)->insertBatch($rowData);
-        } catch(DatabaseException $e) { // TODO: For better UX, return the message too // 
+        } catch(DatabaseException $e) {
             return [-1, $e->getMessage()];
-        } catch(\Exception $e) { // TODO: For better UX, return the message too // 
-            return [-1, $e->getMessage()];
+        } catch(\Exception $e) {
+            return [-1, "(Baris ${nRow}) " . $e->getMessage()];
+        } catch(\Throwable $e) {
+            return [-1, "Maaf, suatu kesalahan yang tidak diketahui terjadi, pastikan anda telah mengikuti seluruh panduan. Apabila merasa sudah, silakan kontak tim pengembang"];
         }
         return [0, null];
     }
