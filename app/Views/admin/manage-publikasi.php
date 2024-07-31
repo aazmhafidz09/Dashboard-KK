@@ -86,7 +86,11 @@
                                                     id="Judul-Publikasi" 
                                                     name="penulis_<?= $nPenulis?>"
                                                 >
-                                                    <option value="" > </option>
+                                                    <?php if($nPenulis == 1): ?>
+                                                        <option value=""> (Penulis eksternal) </option>
+                                                    <?php else: ?>
+                                                        <option value=""> (Kosong / penulis eksternal) </option>
+                                                    <?php endif ?>
                                                     <?php foreach ($listDosen as $dosen): ?>
                                                         <option value="<?=$dosen?>" > 
                                                             <?=$dosen?> 

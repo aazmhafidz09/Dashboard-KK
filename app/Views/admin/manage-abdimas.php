@@ -112,7 +112,7 @@
                                         <label for="Ketua" class="col-md-2 col-form-label"> Ketua </label>
                                         <div class="col-md-10">
                                             <select class="form-control" list="datalistOptions" id="Ketua" placeholder="kode dosen" name="ketua">
-                                                <option value="" > </option>
+                                                <option value=""> (Ketua eksternal) </option>
                                                 <?php foreach ($listDosen as $dosen): ?>
                                                     <option value="<?=$dosen?>" > <?=$dosen?> </option>
                                                 <?php endforeach; ?>
@@ -130,7 +130,7 @@
 
                                             <div class="col-md-10">
                                                 <select class="form-control" id="Anggota_<?=$nAnggota?>" name="anggota_<?=$nAnggota?>">
-                                                    <option value="" class="text-dim"> </option>
+                                                    <option value=""> (Kosong / anggota eksternal) </option>
                                                     <?php foreach ($listDosen as $dosen): ?>
                                                         <option value="<?=$dosen?>" > <?=$dosen?> </option>
                                                     <?php endforeach; ?>

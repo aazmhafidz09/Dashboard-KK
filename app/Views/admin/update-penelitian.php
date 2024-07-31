@@ -130,7 +130,7 @@
                                                 id="ketua_penelitian" 
                                                 name="ketua"
                                             >
-                                                <option value="" > </option>
+                                                <option value=""> (Ketua eksternal) </option>
                                                 <?php foreach ($listDosen as $dosen): ?>
                                                     <option 
                                                         value="<?=$dosen?>" 
@@ -154,7 +154,7 @@
                                                     name="anggota_<?=$nAnggota?>"
                                                     class="form-control" 
                                                 >
-                                                    <option value="" >  </option>
+                                                    <option value=""> (Kosong / anggota eksternal) </option>
                                                     <?php foreach ($listDosen as $dosen): ?>
                                                         <option 
                                                             value="<?=$dosen?>" 

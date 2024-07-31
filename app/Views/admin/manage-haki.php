@@ -98,7 +98,7 @@
                                                 id="anggota" 
                                                 name="ketua"
                                             >
-                                                <option value="" > </option>
+                                                <option value=""> (Pengusul eksternal) </option>
                                                 <?php foreach ($listDosen as $dosen): ?>
                                                     <option value="<?=$dosen?>" > 
                                                         <?=$dosen?> 
@@ -118,7 +118,7 @@
                                                     id="Judul-Publikasi" 
                                                     name="anggota_<?= $nAnggota?>"
                                                 >
-                                                    <option value="" > </option>
+                                                    <option value=""> (Kosong / pengusul eksternal) </option>
                                                     <?php foreach ($listDosen as $dosen): ?>
                                                         <option value="<?=$dosen?>" > 
                                                             <?=$dosen?> 
