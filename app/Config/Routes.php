@@ -37,12 +37,16 @@ $routes->get('/index', 'Home::index');
 
 $routes->get('/dosen/(:segment)', 'Dosen::detail/$1');
 
+$routes->get('/publikasi/view/(:segment)', "Publikasi::detail/$1");
 $routes->get('/admin/publikasi/update/(:segment)', 'Admin::publikasi_edit/$1');
 $routes->get('/admin/publikasi/delete/(:segment)', 'Admin::publikasi_delete/$1');
+$routes->get('/penelitian/view/(:segment)', "Penelitian::detail/$1");
 $routes->get('/admin/penelitian/update/(:segment)', 'Admin::penelitian_edit/$1');
 $routes->get('/admin/penelitian/delete/(:segment)', 'Admin::penelitian_delete/$1');
+$routes->get('/haki/view/(:segment)', "Haki::detail/$1");
 $routes->get('/admin/haki/update/(:segment)', 'Admin::haki_edit/$1');
 $routes->get('/admin/haki/delete/(:segment)', 'Admin::haki_delete/$1');
+$routes->get('/abdimas/view/(:segment)', "Abdimas::detail/$1");
 $routes->get('/admin/abdimas/update/(:segment)', 'Admin::abdimas_edit/$1');
 $routes->get('/admin/abdimas/delete/(:segment)', 'Admin::abdimas_delete/$1');
 $routes->get('/admin/download/template/(:segment)', 'Admin::download_template/$1');

@@ -67,9 +67,21 @@ class Abdimas extends BaseController
         // dd($dosen);
         return view('abdimas/index', $data);
     }
-    public function delete($id){
-        $this->abdimasModel->delete($id);
 
-        return redirect()->to('abdimas');
+    public function detail($id) {
+        $abdimas = $this->abdimasModel->getById($id);
+        if(count($abdimas) == 0) {
+            session()->setFlashData("error", "Abdimas tidak ditemukan");
+            return redirect()->to(base_url());
+        }
+        dd($abdimas);
+        return view("abdimas/detail", $abdimas);
     }
+
+    // public function delete($id){
+    //     $this->abdimasModel->delete($id);
+
+    //     return redirect()->to('abdimas');
+    // }
+
 }

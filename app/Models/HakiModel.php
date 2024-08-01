@@ -30,6 +30,12 @@ class HakiModel extends Model
         'tahun'
     ];
 
+    public function getById($id) {
+        return $this->db
+                    ->query("SELECT * FROM haki WHERE id=?", [$id])
+                    ->getResultArray();
+    }
+
     public function getHaki($kode_dosen = false)
     {
         if ($kode_dosen == false) return $this->findAll();

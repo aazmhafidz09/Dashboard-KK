@@ -79,42 +79,22 @@ class Publikasi extends BaseController
         return view('publikasi/index', $data);
     }
 
-    public function delete($id){
-        $this->PublikasiModel->delete($id);
-        return redirect()->to('/admin/manage-publikasi');
+    public function detail($id) {
+        $publikasi = $this->publikasiModel->getById($id);
+        if(count($publikasi) == 0) {
+            session()->setFlashData("error", "Publikasi tidak ditemukan");
+            return redirect()->to(base_url());
+        }
+        dd($publikasi);
+        return view("haki/detail", $publikasi);
+
     }
-    public function DetailPublikasi(){
-        $data=['all_publikasi' => $this->publikasiModel->getAllPublikasi()];
-        return redirect()->to('/temp/index');
-    }
-
-
-    // public function detail($kode_dosen)
-    // {
-    //     $data = [
-    //         'title' => 'Detail Dosen',
-    //         'dosen' => $this->dosenModel->getDosen($kode_dosen),
-    //         'publikasi' => $this->publikasiModel->getPublikasi($kode_dosen),
-    //         'jumlah_publikasi' => $this->publikasiModel->getJumlahPublikasi($kode_dosen),
-    //         'jumlah_publikasi_1' => $this->publikasiModel->getJumlahPublikasi_1($kode_dosen),
-    //         'penelitian' => $this->penelitianModel->getPenelitian($kode_dosen),
-    //         'jumlah_penelitian' => $this->penelitianModel->getJumlahPenelitian($kode_dosen),
-    //         'jumlah_ketua_peneliti' => $this->penelitianModel->getJumlahKetuaPeneliti($kode_dosen),
-    //         'abdimas' => $this->abdimasModel->getAbdimas($kode_dosen),
-    //         'jumlah_abdimas' => $this->abdimasModel->getJumlahAbdimas($kode_dosen),
-    //         'jumlah_ketua' => $this->abdimasModel->getJumlahKetua($kode_dosen),
-    //         'haki' => $this->hakiModel->getHaki($kode_dosen),
-    //         'jumlah_haki' => $this->hakiModel->getJumlahHaki($kode_dosen),
-    //         'jumlah_ketua_haki' => $this->hakiModel->getJumlahKetuaHaki($kode_dosen)
-
-    //     ];
-    //     // echo $data['jumlah_publikasi'];
-    //     return view('dosen/detail', $data);
+    // public function delete($id){
+    //     $this->PublikasiModel->delete($id);
+    //     return redirect()->to('/admin/manage-publikasi');
     // }
-    // public function test($kode_dosen)
-    // {
-    //     $jumlah_publikasi = $this->publikasiModel->getJumlahPublikasi($kode_dosen);
-
-    //     echo ($jumlah_publikasi);
+    // public function DetailPublikasi(){
+    //     $data=['all_publikasi' => $this->publikasiModel->getAllPublikasi()];
+    //     return redirect()->to('/temp/index');
     // }
 }

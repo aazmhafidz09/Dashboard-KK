@@ -35,6 +35,12 @@ class PenelitianModel extends Model
         'tgl_pengesahan'
     ];
 
+    public function getById($id) {
+        return $this->db
+                    ->query("SELECT * FROM penelitian WHERE id=?", [$id])
+                    ->getResultArray();
+    }
+
     public function getPenelitian($kode_dosen = false)
     {
         if ($kode_dosen == false) {

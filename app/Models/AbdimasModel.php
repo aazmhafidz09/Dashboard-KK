@@ -38,6 +38,12 @@ class AbdimasModel extends Model
         'tgl_pengesahan'
     ];
 
+    public function getById($id) {
+        return $this->db
+                    ->query("SELECT * FROM abdimas WHERE id=?", [$id])
+                    ->getResultArray();
+    }
+
     public function getAbdimas($kode_dosen = false)
     {
         if ($kode_dosen == false) {

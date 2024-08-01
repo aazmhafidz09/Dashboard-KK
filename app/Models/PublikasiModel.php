@@ -31,6 +31,13 @@ class PublikasiModel extends Model
         'penulis_all', 
         'tahun'
     ];
+
+    public function getById($id) {
+        return $this->db
+                    ->query("SELECT * FROM publikasi WHERE id=?", [$id])
+                    ->getResultArray();
+    }
+
     public function getPublikasi_all()
     {
         return $this->findAll();
