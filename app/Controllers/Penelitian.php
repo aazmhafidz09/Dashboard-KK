@@ -95,8 +95,7 @@ class Penelitian extends BaseController
             session()->setFlashData("error", "Penelitian tidak ditemukan");
             return redirect()->to(base_url());
         }
-        dd($penelitian);
-        return view("haki/detail", $penelitian);
+        return view("penelitian/detail", ["penelitian" => $penelitian[0]]);
 
     }
 }

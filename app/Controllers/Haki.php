@@ -81,7 +81,6 @@ class Haki extends BaseController
             session()->setFlashData("error", "Haki tidak ditemukan");
             return redirect()->to(base_url());
         }
-        dd($haki);
-        return view("haki/detail", $haki);
+        return view("haki/detail", ["haki" => $haki[0]]);
     }
 }

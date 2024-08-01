@@ -85,9 +85,8 @@ class Publikasi extends BaseController
             session()->setFlashData("error", "Publikasi tidak ditemukan");
             return redirect()->to(base_url());
         }
-        dd($publikasi);
-        return view("haki/detail", $publikasi);
 
+        return view("publikasi/detail", ["publikasi" => $publikasi[0]]);
     }
     // public function delete($id){
     //     $this->PublikasiModel->delete($id);

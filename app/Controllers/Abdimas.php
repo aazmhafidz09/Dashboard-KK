@@ -74,8 +74,7 @@ class Abdimas extends BaseController
             session()->setFlashData("error", "Abdimas tidak ditemukan");
             return redirect()->to(base_url());
         }
-        dd($abdimas);
-        return view("abdimas/detail", $abdimas);
+        return view("abdimas/detail", ["abdimas" => $abdimas[0]]);
     }
 
     // public function delete($id){
