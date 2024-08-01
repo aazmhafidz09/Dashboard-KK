@@ -4,15 +4,18 @@
 </head>
 
 <?php // Initial PHP
+    $tahunPenelitianTersedia = [];
+    $dosenKetuaByTahun = [];
     $dosenKetuaByKK = [];
     $dosenByKK = [];
     foreach($dosen as $d) {
-        $kkDosen = $d["KK"]; // By KK
+        $kkDosen = $d["KK"];
         $kodeDosen = $d["kode_dosen"];
         if(isset($dosenByKK[$kkDosen])) {
             array_push($dosenByKK[$kkDosen], $kodeDosen);
             $dosenKetuaByKK[$kkDosen][$kodeDosen] = 0;
         } else {
+            $dosenKetuaByTahun[$kodeDosen] = [];
             $dosenByKK[$kkDosen] = [$kodeDosen];
             $dosenKetuaByKK[$kkDosen] = [
                 $kodeDosen => 0
@@ -20,20 +23,26 @@
         }
     }
 
-    $tahunPenelitianTersedia = [];
     foreach($all_penelitian as $a) { // OPtimizable?
+        $tahunPenelitian = $a["tahun"];
         $ketuaPeneliti = $a["ketua_peneliti"];
-        if(!is_null($ketuaPeneliti)) {
+
+        if(strlen($ketuaPeneliti) > 0) {
             foreach($dosenByKK as $kk => $dList) {
                 foreach($dList as $d) {
                     if($d == $ketuaPeneliti) {
+                        if(isset($dosenKetuaByTahun[$ketuaPeneliti][$tahunPenelitian])) {
+                            $dosenKetuaByTahun[$ketuaPeneliti][$tahunPenelitian] += 1;
+                        } else {
+                            $dosenKetuaByTahun[$ketuaPeneliti][$tahunPenelitian] = 1;
+                        }
+
                         $dosenKetuaByKK[$kk][$ketuaPeneliti] += 1;
                     }
                 }
             }
         }
 
-        $tahunPenelitian = $a["tahun"];
         $isExist = false;
         $idx = 0;
         while(!$isExist && $idx < count($tahunPenelitianTersedia)) {
@@ -43,8 +52,6 @@
 
         if(!$isExist) array_push($tahunPenelitianTersedia, $tahunPenelitian);
     }
-
-    // dd($dosenKetuaByKK);
 ?>
 
 <?= $this->include('partials/body') ?>
@@ -567,6 +574,10 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
+                                <div id="dosenKetuaPenelitian" class="float-end" style="display: none">
+                                    <label> Hanya Ketua Penelitian &nbsp;</label>
+                                    <input id="dosenKetuaPenelitianToggle" type="checkbox" onchange="onPenelitianDosenFilterUpdate();"/>
+                                </div>
                                 <div data-simplebar style="max-height: 339px;">
                                     <h4 id="chartPenelitian__title" class="card-title mb-4">Statistik Penelitian Dosen Pertahun</h4>
                                     <p id="chartPenelitian__desc"> Klik pada salah satu dosen untuk melihat statistik penelitian dosen tersebut</p>
@@ -706,6 +717,7 @@
     "top_penelitian_all" => $top_penelitian_all,
 
     "availablePenelitianYear"  => $tahunPenelitianTersedia,
+    "dosenKetuaByYear"  => $dosenKetuaByTahun,
     "annualPenelitianByType" => $annualPenelitianByType,
-    "annualPenelitianByTypeAndKK" => $annualPenelitianByTypeAndKK
+    "annualPenelitianByTypeAndKK" => $annualPenelitianByTypeAndKK,
 ]) ?>

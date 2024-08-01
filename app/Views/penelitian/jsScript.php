@@ -5,10 +5,13 @@
         kk: <?= $defaultFilterKK ?>,
         tahun: "Semua",
     };
+    let FILTER_PENELITIAN_DOSEN = {
+        kodeDosen: "",
+        ketuaOnly: false
+    }
 
-    const displayedPenelitianTypes = [
-        "INTERNAL", "EKSTERNAL", "MANDIRI", "KERJASAMA PERGURUAN TINGGI", "HILIRISASI",  //"MANDIRI"
-    ];
+    const displayedPenelitianTypes = [ "INTERNAL", "EKSTERNAL", "MANDIRI", 
+                                    "KERJASAMA PERGURUAN TINGGI", "HILIRISASI"];
     const dataPenelitian = {
         <?php
             foreach($data_tahunan as $d) {
@@ -18,7 +21,7 @@
                     $pos = strpos($label, $pattern);
                     if($pos !== false) {
                         $year = substr($label, $pos + strlen($pattern));
-                        echo "'" . $year . "': " . $d[$pattern . $year] . ",";
+                        echo "'$year': " . $d[$pattern . $year] . ",";
                     }
                 }
                 echo "},";
@@ -27,27 +30,49 @@
     }
 
     const dosenByKK = { 
-        <?php
-            foreach($dosenByKK as $kkDosen => $dosenList) {
-                echo "'" . $kkDosen . "'" . ": [";
+        <?php foreach($dosenByKK as $kkDosen => $dosenList) {
+                echo "'$kkDosen':[";
                 foreach($dosenList as $dosen) {
-                    echo "'" . $dosen . "'" . ", ";
+                    echo "'$dosen',";
                 }
                 echo "],";
-            }
-        ?> 
+        } ?> 
     };
 
-    const dataPenelitianPerKKTahunan = { "CITI": {}, "SEAL": {}, "DSIS": {} };
-    <?php foreach($annualPenelitianByTypeAndKK as $row): ?>
-        if(!dataPenelitianPerKKTahunan['<?= $row["kk"] ?>'].hasOwnProperty('<?= $row["tahun"] ?>')) {
-            dataPenelitianPerKKTahunan['<?= $row["kk"] ?>'][<?= $row["tahun"] ?>] = {};
+    const availablePenelitianYears = [ 
+        <?php foreach($availablePenelitianYear as $y): echo "$y,"; endforeach ?>
+    ].sort()
+
+    const dataPenelitianPerKKTahunan = {};
+    const dataKetuaPenelitian = {}
+    Object.entries(dosenByKK)
+        .forEach(([kk, dosenList]) => {
+            dataPenelitianPerKKTahunan[kk] = {}
+            dosenList.forEach(dosen => {
+                dataKetuaPenelitian[dosen] = {}
+            })
+        })
+
+    let temp = [ <?php foreach($annualPenelitianByTypeAndKK as $row): ?>
+            <?php 
+                $kk = $row['kk']; 
+                $tahun = $row['tahun']; 
+                $jenis = strtoupper($row['jenis']);
+                $nPenelitian = $row['nPenelitian'];
+                echo "{'kk': '$kk' , 'tahun': $tahun, 'jenis': '$jenis', 'nPenelitian': $nPenelitian},";
+            ?>
+        <?php endforeach ?>
+    ]
+    temp.forEach(data => {
+        const {kk, tahun, jenis, nPenelitian} = data; 
+        if(!dataPenelitianPerKKTahunan[kk].hasOwnProperty(tahun)) {
+            dataPenelitianPerKKTahunan[kk][tahun] = {};
         }
+        
+        dataPenelitianPerKKTahunan[kk][tahun][jenis] = nPenelitian;
+    })
 
-        dataPenelitianPerKKTahunan['<?= $row["kk"] ?>'][<?= $row["tahun"] ?>]['<?= strtoupper($row["jenis"]) ?>'] = <?= $row["nPenelitian"] ?>;
-    <?php endforeach ?>
-
-    const temp = Object.fromEntries(displayedPenelitianTypes.map(pType => [pType, {}]))
+    temp = Object.fromEntries(displayedPenelitianTypes.map(pType => [pType, {}]))
     <?php foreach($annualPenelitianByType as $row): ?>
         <?php if(strtoupper($row["jenis"]) != "KEMITRAAN"): ?>
             temp['<?= strtoupper($row["jenis"]) ?>'][<?= $row["tahun"] ?>] = <?= $row["nPenelitian"] ?>;
@@ -58,9 +83,7 @@
         displayedPenelitianTypes
             .map(penelitianType => ({
                 name: penelitianType,
-                data: [<?php foreach ($getOrderByTahunEksternal as $cpub) { 
-                            echo '' . $cpub['thn'] . ','; } 
-                        ?>] 
+                data: availablePenelitianYears 
                         .map(penelitianYear => {
                             penelitianPerYear = temp[penelitianType][penelitianYear]
                             return (penelitianPerYear == undefined? 0: penelitianPerYear)
@@ -74,12 +97,16 @@
         } ?>
     }
 
-    const onDataPointSelection = function(e, context, opts) {
-        let kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
-        let targetElement = document.getElementById("chartPenelitianDosen") 
-        updateChartStatistik(targetElement, kodeDosen)
-    }
-    
+    const dosenKetuaByTahun = {
+        <?php foreach($dosenKetuaByYear as $d => $annualData){
+            echo "'$d': {";
+            foreach($annualData as $year => $nKetua) {
+                echo "$year: $nKetua, ";
+            }
+            echo "},";
+        } ?>
+    };
+
     function makeChartPenelitianPerTahun(targetElement, labels, values) {
         new ApexCharts( 
             targetElement,
@@ -136,7 +163,7 @@
                 yaxis: {
                     axisBorder: { show: false },
                     axisTicks: { show: false, },
-                    labels: { show: false, formatter: val => val + " Penelitian" }
+                    labels: { show: false, formatter: val => val + "" }
                 },
             }
         ).render();
@@ -198,9 +225,8 @@
                 yaxis: {
                     axisBorder: { show: false },
                     axisTicks: { show: false, },
-                    labels: { show: false, formatter: val => val + " Penelitian"}
+                    labels: { show: false, formatter: val => val + ""}
                 },
-
             }
         ).render();
     }
@@ -267,13 +293,97 @@
                     axisTicks: { show: false, },
                     labels: {
                         show: false,
-                        formatter: val => val + " Penelitian"
+                        formatter: val => val + ""
                     }
                 },
             }
         ).render();
     }
 
+    function makeChartPenelitianDosen(targetElement, labels, values) {
+        new ApexCharts(
+            targetElement,  
+            {
+                chart: {
+                    animated: false,
+                    height: 350,
+                    type: 'bar',
+                    toolbar: { show: false, },
+                },
+                plotOptions: {
+                    bar: { dataLabels: { position: 'top',}, } // top, center, bottom
+                },
+                dataLabels: {
+                    enabled: true,
+                    position: 'top', // top, center, bottom,
+                    formatter: val => val + "",
+                    offsetY: -20,
+                    style: { fontSize: '12px', colors: ["#304758"] }
+                },
+                series: [{ name: 'Publikasi', data: values }],
+                grid: { borderColor: '#f1f1f1', },
+                xaxis: {
+                    categories: labels,
+                    position: 'down',
+                    labels: { offsetY: 0, },
+                    axisBorder: { show: false },
+                    axisTicks: { show: true },
+                    crosshairs: {
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                colorFrom: '#D8E3F0',
+                                colorTo: '#BED1E6',
+                                stops: [0, 100],
+                                opacityFrom: 1,
+                                opacityTo: 1,
+                            }
+                        }
+                    },
+                    tooltip: { enabled: true, offsetY: -35, }
+                },
+                fill: {
+                    gradient: {
+                        shade: 'light',
+                        type: "horizontal",
+                        shadeIntensity: 0.25,
+                        gradientToColors: undefined,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [50, 0, 100, 100]
+                    },
+                },
+                yaxis: {
+                    axisBorder: { show: false },
+                    axisTicks: { show: false, },
+                    labels: {
+                        show: false,
+                        formatter: val => val + ""
+                    }
+                },
+            }
+        ).render();
+    }
+
+    const onDataPointSelection = function(e, context, opts) {
+        const kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex];
+
+        if(kodeDosen != FILTER_PENELITIAN_DOSEN.kodeDosen) {
+            document.getElementById("dosenKetuaPenelitianToggle").checked = false;
+            document.getElementById("dosenKetuaPenelitian") .style.display = "block";
+            document.getElementById("chartPenelitian__desc").innerHTML = ""
+            document.getElementById("chartPenelitian__title").innerHTML = `Statistik Penelitian ${kodeDosen}`
+
+            FILTER_PENELITIAN_DOSEN.kodeDosen = kodeDosen;
+            FILTER_PENELITIAN_DOSEN.ketuaOnly = false;
+            const targetElement = document.getElementById("chartPenelitianDosen");
+            const dataPublikasiDosen = dataPenelitian[kodeDosen];
+            targetElement.innerHTML = "";
+            makeChartPenelitianDosen(targetElement, Object.keys(dataPublikasiDosen), Object.values(dataPublikasiDosen))
+        }
+    }
+    
     function onPenelitianPerDosenFilterUpdate() {
         const {kk, tahun} = FILTER_PENELITIAN_PER_DOSEN;
         document.getElementById("chartPenelitianPerDosen__KK").innerHTML = `KK ${kk}`;
@@ -335,10 +445,8 @@
                                     .map(penelitianYear => {
                                         penelitianPerYear = dataPenelitianPerKKTahunan[kk][penelitianYear]
                                         return (
-                                            (
-                                                penelitianPerYear == undefined ||
-                                                penelitianPerYear[penelitianType] == undefined
-                                            )
+                                            ( penelitianPerYear == undefined 
+                                                || penelitianPerYear[penelitianType] == undefined)
                                             ? 0: penelitianPerYear[penelitianType]
                                         )
                                     })
@@ -352,78 +460,23 @@
         makeChartPenelitianPerJenisTahunan(targetElement, chartLabels, chartValues);
     }
 
-    const updateChartStatistik = function(target, newKodeDosen) {
-        const dataPublikasiDosen = dataPenelitian[newKodeDosen];
-        document.getElementById("chartPenelitian__desc").innerHTML = ""
-        document.getElementById("chartPenelitian__title").innerHTML = `Statistik Penelitian ${newKodeDosen}`
-        const chart = new ApexCharts(
-            target,  
-            {
-                chart: {
-                    height: 350,
-                    type: 'bar',
-                    toolbar: { show: false, },
-                },
-                plotOptions: {
-                    bar: { dataLabels: { position: 'top',}, } // top, center, bottom
-                },
-                dataLabels: {
-                    enabled: true,
-                    position: 'top', // top, center, bottom,
-                    formatter: val => val + "",
-                    offsetY: -20,
-                    style: { fontSize: '12px', colors: ["#304758"] }
-                },
-                series: [{
-                    name: 'Publikasi',
-                    data: Object.values(dataPublikasiDosen)
-                }],
-                grid: { borderColor: '#f1f1f1', },
-                xaxis: {
-                    categories: Object.keys(dataPublikasiDosen),
-                    position: 'down',
-                    labels: { offsetY: 0, },
-                    axisBorder: { show: false },
-                    axisTicks: { show: true },
-                    crosshairs: {
-                        fill: {
-                            type: 'gradient',
-                            gradient: {
-                                colorFrom: '#D8E3F0',
-                                colorTo: '#BED1E6',
-                                stops: [0, 100],
-                                opacityFrom: 1,
-                                opacityTo: 1,
-                            }
-                        }
-                    },
-                    tooltip: { enabled: true, offsetY: -35, }
-                },
-                fill: {
-                    gradient: {
-                        shade: 'light',
-                        type: "horizontal",
-                        shadeIntensity: 0.25,
-                        gradientToColors: undefined,
-                        inverseColors: true,
-                        opacityFrom: 1,
-                        opacityTo: 1,
-                        stops: [50, 0, 100, 100]
-                    },
-                },
-                yaxis: {
-                    axisBorder: { show: false },
-                    axisTicks: { show: false, },
-                    labels: {
-                        show: false,
-                        formatter: val => val + " Penelitian"
-                    }
-                },
-            }
-        )
+    function onPenelitianDosenFilterUpdate() {
+        FILTER_PENELITIAN_DOSEN.ketuaOnly = !FILTER_PENELITIAN_DOSEN.ketuaOnly;
+        const {kodeDosen, ketuaOnly} = FILTER_PENELITIAN_DOSEN;
+        const targetElement = document.getElementById("chartPenelitianDosen");
+        targetElement.innerHTML = "";
 
-        target.innerHTML = "";
-        chart.render();
+        const dataPublikasiDosen = dataPenelitian[kodeDosen];
+        const chartLabels = Object.keys(dataPublikasiDosen);
+        const chartValues = (
+            (!ketuaOnly)
+            ? Object.values(dataPublikasiDosen)
+            : chartLabels.map(year => {
+                    const nPenelitian = dosenKetuaByTahun[kodeDosen][year];
+                    return nPenelitian == undefined? 0: nPenelitian;
+                })
+        );
+        makeChartPenelitianDosen(targetElement, chartLabels, chartValues);
     }
 
     // Bar chart
@@ -499,9 +552,7 @@
 
     makeChartPenelitianPerJenisTahunan(
         document.getElementById("chartPenelitianPerJenisTahunan"),
-        [<?php foreach ($getOrderByTahunEksternal as $cpub) {
-            echo '' . $cpub['thn'] . ',';
-        } ?>],
+        availablePenelitianYears,
         dataPenelitianPerJenisTahunan
     )
 
