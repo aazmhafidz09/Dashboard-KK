@@ -197,13 +197,13 @@
                                                                     ); ?> </a>
                                                                 </td>
                                                                 <td> <?= $pb['tahun']; ?> </td>
-                                                                <td class="position-relative"> 
-                                                                    <button 
-                                                                        class="position-absolute start-0 end-0 border-0 bg-transparent text-primary"
-                                                                        onclick="window.location = '<?=base_url('#')?>'"
+                                                                <td class="d-flex justify-content-center"> 
+                                                                    <a 
+                                                                        class=""
+                                                                        href="<?=base_url("/publikasi/view/" . $pb['id'])?>"
                                                                     >
                                                                         <i class="uil uil-eye font-size-18"></i>
-                                                                    </button>
+                                                                    </a>
                                                                 </td>
                                                             </tr>
                                                         <?php endforeach; ?>
@@ -216,7 +216,6 @@
                                 </div>
                                 <div class="tab-pane" id="penelitian" role="tabpanel">
                                     <div>
-
                                         <div class="table-responsive">
                                             <table class="table table-nowrap table-hover mb-0">
                                                 <thead>

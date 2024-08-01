@@ -68,12 +68,12 @@
                                                 <td>
                                                     <ul class="d-flex list-inline mb-0"  style="gap: 12px;">
                                                         <li class="list-inline-item">
-                                                            <button 
+                                                            <a 
                                                                 class="p-0 border-0 bg-transparent text-primary"
-                                                                onclick="window.location = '<?=base_url('#')?>'"
+                                                                href="<?=base_url("/publikasi/view/" . $alp["id"])?>"
                                                             >
                                                                 <i class="uil uil-eye font-size-18"></i>
-                                                            </button>
+                                                            </a>
                                                         </li>
                                                         <li class="list-inline-item">
                                                             <button 
@@ -100,14 +100,12 @@
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col"> </div>
                                     <div class="col-auto">
                                         <a href="/publikasi" class="btn btn-success waves-effect waves-light mb-3" role="button"></i>Lihat Selengkapnya</a>
-                                        <!-- <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span class="d-none d-sm-inline-block me-2">Send</span> <i class="mdi mdi-send float-end"></i></button> -->
                                     </div>
-                                </div>
-
+                                </div> -->
                             </div>
                         </div>
                     </div> <!-- end col -->
@@ -155,12 +153,12 @@
                                                 <td>
                                                     <ul class="d-flex list-inline mb-0" style="gap: 12px;">
                                                         <li class="list-inline-item">
-                                                            <button 
+                                                            <a 
                                                                 class="p-0 border-0 bg-transparent text-primary"
-                                                                onclick="window.location = '<?=base_url('#')?>'"
+                                                                href="<?=base_url("/penelitian/view/" . $alp["id"])?>"
                                                             >
                                                                 <i class="uil uil-eye font-size-18"></i>
-                                                            </button>
+                                                            </a>
                                                         </li>
                                                         <li class="list-inline-item">
                                                             <button 
@@ -184,13 +182,12 @@
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col"> </div>
                                     <div class="col-auto">
                                         <a href="/penelitian" class="btn btn-success waves-effect waves-light mb-3" role="button"></i>Lihat Selengkapnya</a>
-                                        <!-- <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span class="d-none d-sm-inline-block me-2">Send</span> <i class="mdi mdi-send float-end"></i></button> -->
                                     </div>
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>
@@ -235,12 +232,12 @@
                                                 <td>
                                                     <ul class="d-flex list-inline mb-0"  style="gap: 12px;">
                                                         <li class="list-inline-item">
-                                                            <button 
+                                                            <a 
                                                                 class="p-0 border-0 bg-transparent text-primary"
-                                                                onclick="window.location = '<?=base_url('#')?>'"
+                                                                href="<?=base_url("/abdimas/view/" . $alp["id"])?>"
                                                             >
                                                                 <i class="uil uil-eye font-size-18"></i>
-                                                            </button>
+                                                            </a>
                                                         </li>
                                                         <li class="list-inline-item">
                                                             <button 
@@ -264,15 +261,12 @@
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col"> </div>
                                     <div class="col-auto">
                                         <a href="/abdimas" class="btn btn-success waves-effect waves-light mb-3" role="button"></i>Lihat Selengkapnya</a>
-                                        <!-- <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span class="d-none d-sm-inline-block me-2">Send</span> <i class="mdi mdi-send float-end"></i></button> -->
                                     </div>
-                                </div>
-
-
+                                </div> -->
                             </div>
                         </div>
                     </div> <!-- end col -->
@@ -326,12 +320,12 @@
                                                 <td>
                                                     <ul class="d-flex list-inline mb-0" style="gap: 12px;">
                                                         <li class="list-inline-item">
-                                                            <button 
+                                                            <a 
                                                                 class="p-0 border-0 bg-transparent text-primary"
-                                                                onclick="window.location = '<?=base_url('#')?>'"
+                                                                href="<?=base_url("/haki/view/" . $alp["id"])?>"
                                                             >
                                                                 <i class="uil uil-eye font-size-18"></i>
-                                                            </button>
+                                                            </a>
                                                         </li>
                                                         <li class="list-inline-item">
                                                             <button 
@@ -355,13 +349,12 @@
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col"> </div>
                                     <div class="col-auto">
                                         <a href="/haki" class="btn btn-success waves-effect waves-light mb-3" role="button"></i>Lihat Selengkapnya</a>
-                                        <!-- <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span class="d-none d-sm-inline-block me-2">Send</span> <i class="mdi mdi-send float-end"></i></button> -->
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div> <!-- end col -->

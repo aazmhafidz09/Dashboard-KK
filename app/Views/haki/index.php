@@ -556,12 +556,12 @@
                                                 <td><?= $alp['no_pendaftaran']; ?></td>
                                                 <td><?= $alp['no_sertifikat']; ?></td>
                                                 <td class="position-relative"> 
-                                                    <button 
-                                                        class="position-absolute start-0 end-0 border-0 bg-transparent text-primary"
-                                                        onclick="window.location = '<?=base_url('#')?>'"
+                                                    <a 
+                                                        class="position-absolute start-0 end-0"
+                                                        href="<?=base_url('/haki/view/' . $alp['id'])?>"
                                                     >
                                                         <i class="uil uil-eye font-size-18"></i>
-                                                    </button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

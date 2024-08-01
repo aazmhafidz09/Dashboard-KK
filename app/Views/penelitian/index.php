@@ -634,7 +634,7 @@
                                                 <td class="position-relative"> 
                                                     <button 
                                                         class="position-absolute start-0 end-0 border-0 bg-transparent text-primary"
-                                                        onclick="window.location = '<?=base_url('#')?>'"
+                                                        onclick="window.location = '<?=base_url('/penelitian/view/' . $alp['id'])?>'"
                                                     >
                                                         <i class="uil uil-eye font-size-18"></i>
                                                     </button>
