@@ -170,7 +170,7 @@
                     offsetY: -20,
                     style: { fontSize: '12px', colors: ["#304758"] }
                 },
-                series: [{ name: 'abdimas', data: values }],
+                series: [{ name: 'Abdimas', data: values }],
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: {
                     categories: labels,
@@ -233,7 +233,7 @@
                     offsetY: -20,
                     style: { fontSize: '12px', colors: ["#304758"] }
                 },
-                series: [{ name: 'abdimas', data: values }],
+                series: [{ name: 'Abdimas', data: values }],
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: {
                     categories: labels, 
@@ -376,7 +376,7 @@
                     offsetY: -20,
                     style: { fontSize: '12px', colors: ["#304758"] }
                 },
-                series: [{ name: 'Publikasi', data: Object.values(dataAbdimasDosen) }],
+                series: [{ name: 'Abdimas', data: Object.values(dataAbdimasDosen) }],
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: {
                     categories: Object.keys(dataAbdimasDosen),

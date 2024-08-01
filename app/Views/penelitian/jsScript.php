@@ -126,7 +126,7 @@
                     offsetY: -20,
                     style: { fontSize: '12px', colors: ["#304758"] }
                 },
-                series: [{ name: 'penelitian', data: values }],
+                series: [{ name: 'Penelitian', data: values }],
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: {
                     categories: labels,
@@ -252,7 +252,7 @@
                     style: { fontSize: '12px', colors: ["#304758"] }
                 },
                 series: [{
-                    name: 'Publikasi',
+                    name: 'Penelitian',
                     data: values
                 }],
                 grid: { borderColor: '#f1f1f1', },
@@ -320,7 +320,7 @@
                     offsetY: -20,
                     style: { fontSize: '12px', colors: ["#304758"] }
                 },
-                series: [{ name: 'Publikasi', data: values }],
+                series: [{ name: 'Penelitian', data: values }],
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: {
                     categories: labels,

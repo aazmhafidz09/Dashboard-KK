@@ -104,7 +104,7 @@
                     offsetY: -20,
                     style: { fontSize: '12px', colors: ["#304758"] }
                 },
-                series: [{ name: 'haki', data: values }],
+                series: [{ name: 'Haki', data: values }],
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: {
                     categories: labels,
@@ -234,7 +234,7 @@
                     offsetY: -20,
                     style: { fontSize: '12px', colors: ["#304758"] }
                 },
-                series: [{ name: 'abdimas', data:  values }],
+                series: [{ name: 'Haki', data:  values }],
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: {
                     categories: labels,

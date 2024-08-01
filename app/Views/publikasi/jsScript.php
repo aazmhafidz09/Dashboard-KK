@@ -142,7 +142,7 @@
                     axisTicks: { show: false, },
                     labels: {
                         show: false,
-                        formatter: val => val + " Publikasi"
+                        formatter: val => val + ""
                     }
                 },
             }
@@ -207,7 +207,7 @@
                     axisTicks: { show: false, },
                     labels: {
                         show: false,
-                        formatter: val => val + " Publikasi"
+                        formatter: val => val + ""
                     }
                 },
             }
@@ -277,7 +277,7 @@
                     axisTicks: { show: false, },
                     labels: {
                         show: false,
-                        formatter: val => val + " Publikasi"
+                        formatter: val => val + ""
                     }
                 },
             }
@@ -431,7 +431,7 @@
                     axisTicks: { show: false, },
                     labels: {
                         show: false,
-                        formatter: val => val + " Publikasi"
+                        formatter: val => val + ""
                     }
                 },
             }
