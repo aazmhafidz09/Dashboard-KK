@@ -28,7 +28,7 @@
                     </div>
                 <?php endif ?>
                 <div class="row mb-3">
-                    <div class="col-md-6 col-xl-3 ">
+                    <div class="col-md-6 col-xl-3 mb-xl-0 mb-md-3">
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
@@ -51,7 +51,7 @@
                         </div>
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-md-6 col-xl-3 mb-xl-0 mb-md-3">
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
@@ -72,7 +72,7 @@
                         </div>
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-md-6 col-xl-3 mb-xl-0 mb-md-3">
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
@@ -93,7 +93,7 @@
                         </div>
                     </div> <!-- end col-->
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-md-6 col-xl-3 mb-xl-0 mb-md-3">
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
@@ -438,9 +438,7 @@
             chart: {
                 height: 350,
                 type: 'bar',
-                toolbar: {
-                    show: false,
-                }
+                toolbar: { show: false, }
             },
             plotOptions: {
                 bar: {
@@ -452,44 +450,25 @@
             dataLabels: {
                 enabled: true,
                 position: 'top', // top, center, bottom,
-                formatter: function(val) {
-                    return val + "";
-                },
+                formatter: val =>  val + "",
                 offsetY: -20,
-                style: {
-                    fontSize: '12px',
-                    colors: ["#304758"]
-                }
+                style: { fontSize: '12px', colors: ["#304758"] }
             },
             series: [{
-                name: 'penelitian',
-                data: [
-                    <?php foreach ($order_by_tahun_Asc as $obt) {
-                        echo '"' . $obt['jumlah_pen'] . '",';
-                    }
-
-                    ?>
-                    // 8, 14, 15, 15, 17, 22, 38, 39, 56, 42
-                ]
+                name: 'Penelitian',
+                data: [ <?php foreach ($order_by_tahun_Asc as $obt) {
+                            echo '"' . $obt['jumlah_pen'] . '",';
+                        } ?> ]
             }],
-            grid: {
-                borderColor: '#f1f1f1',
-            },
+            grid: { borderColor: '#f1f1f1', },
             xaxis: {
                 categories: [
                     <?php foreach ($order_by_tahun_Asc as $obt) { echo '"' . $obt['thn'] . '",'; } ?>
                 ],
                 position: 'down',
-                labels: {
-                    offsetY: 0,
-
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: true
-                },
+                labels: { offsetY: 0, },
+                axisBorder: { show: false },
+                axisTicks: { show: true },
                 crosshairs: {
                     fill: {
                         type: 'gradient',
@@ -502,10 +481,7 @@
                         }
                     }
                 },
-                tooltip: {
-                    enabled: true,
-                    offsetY: -35,
-                }
+                tooltip: { enabled: true, offsetY: -35, }
             },
             fill: {
                 gradient: {
@@ -520,21 +496,13 @@
                 },
             },
             yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false,
-                },
+                axisBorder: { show: false },
+                axisTicks: { show: false, },
                 labels: {
                     show: false,
-                    formatter: function(val) {
-                        return val + " Penelitian";
-                    }
+                    formatter: val => val + "",
                 }
-
             },
-
         }
 
         var chart = new ApexCharts(
@@ -549,14 +517,11 @@
     // column chart
     var BarchartColumnColors = getChartColorsArray("column_chart");
     if (BarchartColumnColors) {
-
         var options = {
             chart: {
                 height: 350,
                 type: 'bar',
-                toolbar: {
-                    show: false,
-                }
+                toolbar: { show: false, }
             },
             plotOptions: {
                 bar: {
@@ -568,63 +533,40 @@
             dataLabels: {
                 enabled: true,
                 position: 'top', // top, center, bottom,
-                formatter: function(val) {
-                    return val + "";
-                },
+                formatter: val => val + "",
                 offsetY: -20,
-                style: {
-                    fontSize: '12px',
-                    colors: ["#304758"]
-                }
+                style: { fontSize: '12px', colors: ["#304758"] }
             },
             series: [{
                 name: 'Jurnal Internasional',
                 data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                             echo '' . $cpub['jumlah_jurnal_internasional'] . ',';
-                        }
-
-                        ?>]
+                        } ?>]
             }, {
                 name: 'Jurnal Nasional',
                 data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                             echo '' . $cpub['jumlah_jurnal_nasional'] . ',';
-                        }
-
-                        ?>]
+                        } ?>]
             }, {
                 name: 'Prosiding Internasional',
                 data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                             echo '' . $cpub['jumlah_prosiding_internasional'] . ',';
-                        }
-
-                        ?>]
+                        } ?>]
             }, {
                 name: 'Prosiding Nasional',
                 data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                             echo '' . $cpub['jumlah_prosiding_nasional'] . ',';
-                        }
-
-                        ?>]
+                        } ?>]
             }, ],
-            grid: {
-                borderColor: '#f1f1f1',
-            },
+            grid: { borderColor: '#f1f1f1', },
             xaxis: {
-
                 categories: [
                     <?php foreach ($getOrderByTahunAllJenis as $cpub) { echo '' . $cpub['tahun'] . ','; } ?> 
                 ],
                 position: 'down',
-                labels: {
-                    offsetY: 0,
-
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: true
-                },
+                labels: { offsetY: 0, },
+                axisBorder: { show: false },
+                axisTicks: { show: true },
                 crosshairs: {
                     fill: {
                         type: 'gradient',
@@ -637,10 +579,7 @@
                         }
                     }
                 },
-                tooltip: {
-                    enabled: true,
-                    offsetY: -35,
-                }
+                tooltip: { enabled: true, offsetY: -35, }
             },
             fill: {
                 gradient: {
@@ -655,30 +594,20 @@
                 },
             },
             yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false,
-                },
+                axisBorder: { show: false },
+                axisTicks: { show: false, },
                 labels: {
                     show: false,
-                    formatter: function(val) {
-                        return val + " Publikasi";
-                    }
+                    formatter: val => val + ""
                 }
-
             },
-
         }
-        var chart = new ApexCharts(
+        new ApexCharts(
             document.querySelector("#column_chart"),
             options
-        );
-
-        chart.render();
-
+        ).render();
     }
+
     // column chart with datalabels
     var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel_abdimas");
     if (BarchartColumnChartColors) {
@@ -686,9 +615,7 @@
             chart: {
                 height: 350,
                 type: 'bar',
-                toolbar: {
-                    show: false,
-                }
+                toolbar: { show: false, }
             },
             plotOptions: {
                 bar: {
@@ -700,47 +627,25 @@
             dataLabels: {
                 enabled: true,
                 position: 'top', // top, center, bottom,
-                formatter: function(val) {
-                    return val + "";
-                },
+                formatter: val => val + "",
                 offsetY: -20,
-                style: {
-                    fontSize: '12px',
-                    colors: ["#304758"]
-                }
+                style: { fontSize: '12px', colors: ["#304758"] }
             },
             series: [{
-                name: 'abdimas',
-                data: [
-                    <?php foreach ($order_by_tahun_desc as $obt) {
-                        echo '"' . $obt['jumlah_abd'] . '",';
-                    }
-
-                    ?>
-                ]
+                name: 'Abdimas',
+                data: [ <?php foreach ($order_by_tahun_desc as $obt) {
+                            echo '"' . $obt['jumlah_abd'] . '",';
+                        } ?> ]
             }],
-            grid: {
-                borderColor: '#f1f1f1',
-            },
+            grid: { borderColor: '#f1f1f1', },
             xaxis: {
-                categories: [
-                    <?php foreach ($order_by_tahun_desc as $obt) {
-                        echo '"' . $obt['thn'] . '",';
-                    }
-
-                    ?>
-                ],
+                categories: [ <?php foreach ($order_by_tahun_desc as $obt) {
+                                echo '"' . $obt['thn'] . '",';
+                            } ?> ],
                 position: 'down',
-                labels: {
-                    offsetY: 0,
-
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: true
-                },
+                labels: { offsetY: 0, },
+                axisBorder: { show: false },
+                axisTicks: { show: true },
                 crosshairs: {
                     fill: {
                         type: 'gradient',
@@ -753,10 +658,7 @@
                         }
                     }
                 },
-                tooltip: {
-                    enabled: true,
-                    offsetY: -35,
-                }
+                tooltip: { enabled: true, offsetY: -35, }
             },
             fill: {
                 gradient: {
@@ -771,30 +673,19 @@
                 },
             },
             yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false,
-                },
+                axisBorder: { show: false },
+                axisTicks: { show: false, },
                 labels: {
                     show: false,
-                    formatter: function(val) {
-                        return val + " Abdimas";
-                    }
+                    formatter: val => val + "",
                 }
-
             },
-
         }
 
-        var chart = new ApexCharts(
+        new ApexCharts(
             document.querySelector("#column_chart_datalabel_abdimas"),
             options
-        );
-
-        chart.render();
-
+        ).render();
     }
 
     var BarchartColumnChartColors = getChartColorsArray("column_chart_datalabel_haki");
@@ -803,9 +694,7 @@
             chart: {
                 height: 350,
                 type: 'bar',
-                toolbar: {
-                    show: false,
-                }
+                toolbar: { show: false, }
             },
             plotOptions: {
                 bar: {
@@ -817,45 +706,25 @@
             dataLabels: {
                 enabled: true,
                 position: 'top', // top, center, bottom,
-                formatter: function(val) {
-                    return val + "";
-                },
+                formatter: val => val + "",
                 offsetY: -20,
-                style: {
-                    fontSize: '12px',
-                    colors: ["#304758"]
-                }
+                style: { fontSize: '12px', colors: ["#304758"] }
             },
             series: [{
-                name: 'publikasi',
-                data: [
-                    <?php foreach ($order_by_tahun_Asc_haki as $obt) {
-                        echo '"' . $obt['jumlah_haki'] . '",';
-                    }
-
-                    ?>
-                ]
+                name: 'Haki',
+                data: [ <?php foreach ($order_by_tahun_Asc_haki as $obt) {
+                            echo '"' . $obt['jumlah_haki'] . '",';
+                        } ?> ]
             }],
-            grid: {
-                borderColor: '#f1f1f1',
-            },
+            grid: { borderColor: '#f1f1f1', },
             xaxis: {
-                categories: [
-                    <?php foreach ($order_by_tahun_Asc_haki as $obt) { 
-                        echo '"' . $obt['thn'] . '",'; } 
-                    ?>
-                ],
+                categories: [ <?php foreach ($order_by_tahun_Asc_haki as $obt) { 
+                                echo '"' . $obt['thn'] . '",'; } 
+                            ?> ],
                 position: 'down',
-                labels: {
-                    offsetY: 0,
-
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: true
-                },
+                labels: { offsetY: 0, },
+                axisBorder: { show: false },
+                axisTicks: { show: true },
                 crosshairs: {
                     fill: {
                         type: 'gradient',
@@ -868,10 +737,7 @@
                         }
                     }
                 },
-                tooltip: {
-                    enabled: true,
-                    offsetY: -35,
-                }
+                tooltip: { enabled: true, offsetY: -35, }
             },
             fill: {
                 gradient: {
@@ -886,29 +752,18 @@
                 },
             },
             yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false,
-                },
+                axisBorder: { show: false },
+                axisTicks: { show: false, },
                 labels: {
                     show: false,
-                    formatter: function(val) {
-                        return val + " Haki";
-                    }
+                    formatter: val => val + "",
                 }
-
             },
-
         }
 
-        var chart = new ApexCharts(
+        new ApexCharts(
             document.querySelector("#column_chart_datalabel_haki"),
             options
-        );
-
-        chart.render();
-
+        ).render();
     }
 </script>
