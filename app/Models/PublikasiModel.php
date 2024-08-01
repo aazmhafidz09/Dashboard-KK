@@ -314,34 +314,30 @@ class PublikasiModel extends Model
 
     public function getAnnualHakiByTypeAndKK() {
         // A 'Publikasi' belongs to the first writer's KK
-        $sql = "   
-            WITH 
-                kk_publikasi AS (
-                    SELECT DISTINCT
-                        d.kk,
-                        p.id,
-                        p.tahun,
-                        p.jenis
-                    FROM publikasi AS p
-                    JOIN dosen AS d
-                        ON ( d.kode_dosen = p.penulis_1)
-                )
-            SELECT
-                kp.kk AS kk,
-                kp.jenis AS jenis,
-                kp.tahun AS tahun, 
-                COUNT(*) AS nPublikasi
-            FROM kk_publikasi AS kp
-            GROUP BY kp.kk, kp.jenis, kp.tahun;
-        ";
-
+        $sql = "WITH 
+                    kk_publikasi AS (
+                        SELECT DISTINCT
+                            d.kk,
+                            p.id,
+                            p.tahun,
+                            p.jenis
+                        FROM publikasi AS p
+                        JOIN dosen AS d
+                            ON ( d.kode_dosen = p.penulis_1)
+                    )
+                SELECT
+                    kp.kk AS kk,
+                    kp.jenis AS jenis,
+                    kp.tahun AS tahun, 
+                    COUNT(*) AS nPublikasi
+                FROM kk_publikasi AS kp
+                GROUP BY kp.kk, kp.jenis, kp.tahun; ";
         return $this->db->query($sql)->getResultArray();
     }
 
     public function getAllByKK($kk) {
         // A 'Publikasi' belongs to the first writer's KK
-        $sql = "   
-                SELECT DISTINCT p.*
+        $sql = "SELECT DISTINCT p.*
                     FROM publikasi AS p
                     JOIN dosen AS d
                         ON d.kode_dosen = p.penulis_1
@@ -355,11 +351,42 @@ class PublikasiModel extends Model
                             OR d.kode_dosen = p.penulis_9
                             OR d.kode_dosen = p.penulis_10
                             OR d.kode_dosen = p.penulis_11
-                WHERE d.kk = ?
-                ORDER BY p.id DESC
-        ";
-
+                    WHERE d.kk = ?
+                    ORDER BY p.id DESC ";
         return $this->db->query($sql, [$kk])->getResultArray();
+    }
+
+    public function countAllEachDosen() {
+        $sql = "WITH 
+                    publikasiDosen AS (
+                        SELECT DISTINCT
+                            d.kode_dosen,
+                            d.nama_dosen,
+                            p.id
+                        FROM publikasi AS p
+                        JOIN dosen AS d
+                            ON ( 
+                                d.kode_dosen = p.penulis_1
+                                OR d.kode_dosen = p.penulis_2
+                                OR d.kode_dosen = p.penulis_3
+                                OR d.kode_dosen = p.penulis_4
+                                OR d.kode_dosen = p.penulis_5
+                                OR d.kode_dosen = p.penulis_6
+                                OR d.kode_dosen = p.penulis_7
+                                OR d.kode_dosen = p.penulis_8
+                                OR d.kode_dosen = p.penulis_9
+                                OR d.kode_dosen = p.penulis_10
+                                OR d.kode_dosen = p.penulis_11
+                            )
+                    )
+                SELECT
+                    kode_dosen,
+                    nama_dosen,
+                    COUNT(*) AS nPublikasi
+                FROM publikasiDosen
+                GROUP BY kode_dosen
+                ORDER BY nPublikasi DESC";
+        return $this->db->query($sql)->getResultArray();
     }
 
     public function import($filePath) {

@@ -165,13 +165,16 @@
                                     <div class="table-responsive">
                                         <table class="table table-borderless table-centered table-nowrap">
                                             <tbody>
-                                                <?php foreach ($top_publikasi as $tp) : ?>
+                                                <?php foreach ($nPublikasiEachDosen as $tp) : ?>
                                                     <tr>
                                                         <td>
                                                             <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
                                                             <p class="text-muted font-size-13 mb-0"><?= $tp['nama_dosen']; ?></p>
                                                         </td>
-                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['jumlah_publikasi']; ?></td>
+                                                        <td class="text-muted fw-semibold text-end">
+                                                            <i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i>
+                                                            <?= $tp['nPublikasi']; ?>
+                                                        </td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -223,20 +226,20 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Penelitian</h4>
+                                <h4 class="card-title mb-4">Penelitian Dosen</h4>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
                                         <table class="table table-borderless table-centered table-nowrap">
                                             <tbody>
-                                                <?php foreach ($top_penelitian as $tp) : ?>
+                                                <?php foreach ($nPenelitianEachDosen as $tp) : ?>
                                                     <tr>
-                                                        <!-- <td style="width: 20px;"><img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle " alt="..."></td> -->
-                                                        <td>
-                                                            <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
-                                                            <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?></p>
+                                                        <td style="max-width: 40%;">
+                                                            <strong class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></strong>
+                                                            <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?> </p>
                                                         </td>
-                                                        <!-- <td><span class="badge bg-danger-subtle text-danger font-size-12"><?= $tp['jumlah_penelitian']; ?></span></td> -->
-                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['jumlah_penelitian']; ?></td>
+                                                        <td class="text-muted fw-semibold text-end">
+                                                            <?= $tp['nPenelitian']; ?>
+                                                        </td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -280,24 +283,20 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Total Abdimas</h4>
+                                <h4 class="card-title mb-4"> Abdimas Dosen</h4>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
                                         <table class="table table-borderless table-centered table-nowrap">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th></th>
-                                                    <th>Tahun</th>
-                                                    <th>Jumlah Abdimas</th>
-                                                </tr>
-                                            </thead>
                                             <tbody>
-                                                <?php $i = 1 ?>
-                                                <?php foreach ($order_by_tahun as $obt) : ?>
+                                                <?php foreach ($nAbdimasEachDosen as $tp) : ?>
                                                     <tr>
-                                                        <th scope="row"><?= $i++; ?></th>
-                                                        <td><?= $obt['thn']; ?></td>
-                                                        <td><?= $obt['jumlah_abd']; ?></td>
+                                                        <td style="max-width: 40%;">
+                                                            <strong class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></strong>
+                                                            <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?> </p>
+                                                        </td>
+                                                        <td class="text-muted fw-semibold text-end">
+                                                            <?= $tp['nAbdimas']; ?>
+                                                        </td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -342,24 +341,20 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Total Haki</h4>
+                                <h4 class="card-title mb-4">Haki Dosen</h4>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
                                         <table class="table table-borderless table-centered table-nowrap">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th></th>
-                                                    <th>Tahun</th>
-                                                    <th>Jumlah Haki</th>
-                                                </tr>
-                                            </thead>
                                             <tbody>
-                                                <?php $i = 1 ?>
-                                                <?php foreach ($order_by_tahun_haki as $obt) : ?>
+                                                <?php foreach ($nHakiEachDosen as $tp) : ?>
                                                     <tr>
-                                                        <th scope="row"><?= $i++; ?></th>
-                                                        <td><?= $obt['thn']; ?></td>
-                                                        <td><?= $obt['jumlah_haki']; ?></td>
+                                                        <td style="max-width: 40%;">
+                                                            <strong class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></strong>
+                                                            <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?> </p>
+                                                        </td>
+                                                        <td class="text-muted fw-semibold text-end">
+                                                            <?= $tp['nHaki']; ?>
+                                                        </td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>

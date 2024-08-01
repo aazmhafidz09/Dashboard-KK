@@ -396,6 +396,37 @@ class PenelitianModel extends Model
         return $this->db->query($sql, [$kk])->getResultArray();
     }
 
+    public function countAllEachDosen() {
+        $sql = "WITH 
+                    penelitianDosen AS (
+                        SELECT DISTINCT 
+                            p.id, 
+                            d.nama_dosen,
+                            d.kode_dosen
+                        FROM penelitian AS p
+                        JOIN dosen AS d
+                            ON d.kode_dosen = p.ketua_peneliti
+                                OR d.kode_dosen = p.anggota_peneliti_1
+                                OR d.kode_dosen = p.anggota_peneliti_2
+                                OR d.kode_dosen = p.anggota_peneliti_3
+                                OR d.kode_dosen = p.anggota_peneliti_4
+                                OR d.kode_dosen = p.anggota_peneliti_5
+                                OR d.kode_dosen = p.anggota_peneliti_6
+                                OR d.kode_dosen = p.anggota_peneliti_7
+                                OR d.kode_dosen = p.anggota_peneliti_8
+                                OR d.kode_dosen = p.anggota_peneliti_9
+                                OR d.kode_dosen = p.anggota_peneliti_10
+                    )
+                SELECT
+                    nama_dosen,
+                    kode_dosen,
+                    COUNT(*) AS nPenelitian
+                FROM penelitianDosen
+                GROUP BY kode_dosen
+                ORDER BY nPenelitian DESC";
+        return $this->db->query($sql)->getResultArray();
+    }
+
     public function import($filePath) {
         // Validation purpose variables
         $dosenList = (new DosenModel())->getAllKodeDosen();

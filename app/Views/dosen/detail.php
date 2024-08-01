@@ -97,7 +97,7 @@
                                             <div class="col-6">
                                                 <div class="mt-3">
                                                     <p class="text-muted mb-2"> Abdimas</p>
-                                                    <h3 class="font-size-16 mb-0"><?php echo $jumlah_ketua ?></h3>
+                                                    <h3 class="font-size-16 mb-0"><?php echo $jumlah_abdimas ?></h3>
                                                 </div>
                                             </div>
                                             <div class="col-6">

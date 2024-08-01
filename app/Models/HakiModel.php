@@ -32,20 +32,47 @@ class HakiModel extends Model
 
     public function getHaki($kode_dosen = false)
     {
-        if ($kode_dosen == false) {
-            return $this->findAll();
-        }
-        $query = $this->db->query("SELECT * FROM haki WHERE (ketua = '$kode_dosen' or anggota_1 = '$kode_dosen' or anggota_2 = '$kode_dosen' or anggota_3 = '$kode_dosen' or anggota_4 = '$kode_dosen' or anggota_5 = '$kode_dosen' or anggota_6 = '$kode_dosen' or anggota_7 = '$kode_dosen' or anggota_8 = '$kode_dosen' or anggota_9 = '$kode_dosen')");
+        if ($kode_dosen == false) return $this->findAll();
+
+        $sql = "SELECT 
+                    * 
+                FROM haki 
+                WHERE (ketua = ? 
+                        OR anggota_1 = ? 
+                        OR anggota_2 = ? 
+                        OR anggota_3 = ? 
+                        OR anggota_4 = ? 
+                        OR anggota_5 = ? 
+                        OR anggota_6 = ? 
+                        OR anggota_7 = ? 
+                        OR anggota_8 = ? 
+                        OR anggota_9 = ?)";
+        $query = $this->db->query(
+            $sql, array_map(function() use ($kode_dosen) {return $kode_dosen; } , range(1, 10))
+        );
+
         return $query->getResultArray();
     }
     public function getJumlahHaki($kode_dosen = false)
     {
-        if ($kode_dosen == false) {
-            return $this->findAll();
-        }
-        $query = $this->db->query("SELECT COUNT(id) as jumlah_haki FROM haki WHERE (ketua = '$kode_dosen' or anggota_1 = '$kode_dosen' or anggota_2 = '$kode_dosen' or anggota_3 = '$kode_dosen' or anggota_4 = '$kode_dosen' or anggota_5 = '$kode_dosen' or anggota_6 = '$kode_dosen' or anggota_7 = '$kode_dosen' or anggota_8 = '$kode_dosen' or anggota_9 = '$kode_dosen')");
+        if ($kode_dosen == false) return $this->findAll(); 
+        $sql = "SELECT 
+                    COUNT(id) as jumlah_haki 
+                FROM haki 
+                WHERE (ketua = ?
+                    OR anggota_1 = ? 
+                    OR anggota_2 = ? 
+                    OR anggota_3 = ? 
+                    OR anggota_4 = ? 
+                    OR anggota_5 = ? 
+                    OR anggota_6 = ? 
+                    OR anggota_7 = ? 
+                    OR anggota_8 = ? 
+                    OR anggota_9 = ?)";
+        $query = $this->db->query(
+            $sql, array_map(function() use ($kode_dosen) {return $kode_dosen; } , range(1, 10))
+        );
         return $query->getRow()->jumlah_haki;
-        // return $query->row()->average_score;
     }
     public function getJumlahKetuaHaki($kode_dosen = false)
     {
@@ -262,26 +289,23 @@ class HakiModel extends Model
     }
     
     public function getDataDosenTahunan() {
-        $sql = "
-            SELECT 
-                kode_dosen,
-                haki.tahun, 
-                COUNT(*) AS banyak_haki 
-            FROM dosen 
-            LEFT JOIN haki 
-                ON ( haki.anggota_1 = kode_dosen 
-                    OR haki.anggota_2 = kode_dosen 
-                    OR haki.anggota_3 = kode_dosen 
-                    OR haki.anggota_4 = kode_dosen 
-                    OR haki.anggota_5 = kode_dosen 
-                    OR haki.anggota_6 = kode_dosen 
-                    OR haki.anggota_7 = kode_dosen 
-                    OR haki.anggota_8 = kode_dosen 
-                    OR haki.ketua = kode_dosen) 
-            GROUP BY haki.tahun, kode_dosen
-            ORDER BY kode_dosen, haki.tahun
-            ;
-        ";
+        $sql = "SELECT 
+                    kode_dosen,
+                    haki.tahun, 
+                    COUNT(*) AS banyak_haki 
+                FROM dosen 
+                LEFT JOIN haki 
+                    ON ( haki.anggota_1 = kode_dosen 
+                        OR haki.anggota_2 = kode_dosen 
+                        OR haki.anggota_3 = kode_dosen 
+                        OR haki.anggota_4 = kode_dosen 
+                        OR haki.anggota_5 = kode_dosen 
+                        OR haki.anggota_6 = kode_dosen 
+                        OR haki.anggota_7 = kode_dosen 
+                        OR haki.anggota_8 = kode_dosen 
+                        OR haki.ketua = kode_dosen) 
+                GROUP BY haki.tahun, kode_dosen
+                ORDER BY kode_dosen, haki.tahun; ";
 
         $data = [];
         $results = $this->db->query($sql)->getResultArray();
@@ -304,18 +328,43 @@ class HakiModel extends Model
     }
 
     public function getAnnualHakiByTypeAndKK() {
-        $sql = "   
-            WITH 
-                kk_haki AS (
-                    SELECT DISTINCT
-                        h.id,
-                        d.kk,
-                        h.tahun,
-                        h.jenis
+        $sql = "WITH 
+                    kk_haki AS (
+                        SELECT DISTINCT
+                            h.id,
+                            d.kk,
+                            h.tahun,
+                            h.jenis
+                        FROM haki AS h
+                        JOIN dosen AS d
+                            ON (
+                                d.kode_dosen = h.ketua
+                                OR d.kode_dosen = h.anggota_1
+                                OR d.kode_dosen = h.anggota_2
+                                OR d.kode_dosen = h.anggota_3
+                                OR d.kode_dosen = h.anggota_4
+                                OR d.kode_dosen = h.anggota_5
+                                OR d.kode_dosen = h.anggota_6
+                                OR d.kode_dosen = h.anggota_7
+                                OR d.kode_dosen = h.anggota_8
+                                OR d.kode_dosen = h.anggota_9
+                            )
+                    )
+                SELECT
+                    kh.kk AS kk,
+                    kh.jenis AS jenis,
+                    kh.tahun AS tahun, 
+                    COUNT(*) AS nHaki
+                FROM kk_haki AS kh
+                GROUP BY kh.kk, kh.jenis, kh.tahun; ";
+        return $this->db->query($sql)->getResultArray();
+    }
+
+    public function getAllByKK($kk) {
+        $sql = "SELECT DISTINCT h.*
                     FROM haki AS h
                     JOIN dosen AS d
-                        ON (
-                            d.kode_dosen = h.ketua
+                        ON d.kode_dosen = h.ketua
                             OR d.kode_dosen = h.anggota_1
                             OR d.kode_dosen = h.anggota_2
                             OR d.kode_dosen = h.anggota_3
@@ -325,39 +374,41 @@ class HakiModel extends Model
                             OR d.kode_dosen = h.anggota_7
                             OR d.kode_dosen = h.anggota_8
                             OR d.kode_dosen = h.anggota_9
-                        )
-                )
-            SELECT
-                kh.kk AS kk,
-                kh.jenis AS jenis,
-                kh.tahun AS tahun, 
-                COUNT(*) AS nHaki
-            FROM kk_haki AS kh
-            GROUP BY kh.kk, kh.jenis, kh.tahun;
-        ";
-
-        return $this->db->query($sql)->getResultArray();
+                    WHERE d.kk = ?
+                    ORDER BY h.id DESC ";
+        return $this->db->query($sql, [$kk])->getResultArray();
     }
 
-    public function getAllByKK($kk) {
-        $sql = "   
-            SELECT DISTINCT h.*
-                FROM haki AS h
-                JOIN dosen AS d
-                    ON d.kode_dosen = h.ketua
-                        OR d.kode_dosen = h.anggota_1
-                        OR d.kode_dosen = h.anggota_2
-                        OR d.kode_dosen = h.anggota_3
-                        OR d.kode_dosen = h.anggota_4
-                        OR d.kode_dosen = h.anggota_5
-                        OR d.kode_dosen = h.anggota_6
-                        OR d.kode_dosen = h.anggota_7
-                        OR d.kode_dosen = h.anggota_8
-                        OR d.kode_dosen = h.anggota_9
-                WHERE d.kk = ?
-                ORDER BY h.id DESC
-        ";
-        return $this->db->query($sql, [$kk])->getResultArray();
+    public function countAllEachDosen() {
+        $sql = "WITH 
+                    hakiDosen AS (
+                        SELECT DISTINCT
+                            d.kode_dosen,
+                            d.nama_dosen,
+                            h.id
+                        FROM haki AS h
+                        JOIN dosen AS d
+                            ON (
+                                d.kode_dosen = h.ketua
+                                OR d.kode_dosen = h.anggota_1
+                                OR d.kode_dosen = h.anggota_2
+                                OR d.kode_dosen = h.anggota_3
+                                OR d.kode_dosen = h.anggota_4
+                                OR d.kode_dosen = h.anggota_5
+                                OR d.kode_dosen = h.anggota_6
+                                OR d.kode_dosen = h.anggota_7
+                                OR d.kode_dosen = h.anggota_8
+                                OR d.kode_dosen = h.anggota_9
+                            )
+                    )
+                SELECT
+                    kode_dosen,
+                    nama_dosen,
+                    COUNT(*) as nHaki
+                FROM hakiDosen
+                GROUP BY kode_dosen
+                ORDER BY nHaki DESC; ";
+        return $this->db->query($sql)->getResultArray();
     }
 
     public function import($filePath) {

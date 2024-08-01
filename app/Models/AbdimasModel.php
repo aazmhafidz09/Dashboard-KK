@@ -52,7 +52,7 @@ class AbdimasModel extends Model
         if ($kode_dosen == false) {
             return $this->findAll();
         }
-        $query = $this->db->query("SELECT COUNT(id) as jumlah_abdimas FROM abdimas WHERE (ketua = '$kode_dosen' or anggota_1 = '$kode_dosen' or anggota_2 = '$kode_dosen' or anggota_3 = '$kode_dosen' or anggota_4 = '$kode_dosen' or anggota_5 = '$kode_dosen'  or anggota_6 = '$kode_dosen'  or anggota_7 = '$kode_dosen'  or anggota_8 = '$kode_dosen')");
+        $query = $this->db->query("SELECT COUNT(*) as jumlah_abdimas FROM abdimas WHERE (ketua = '$kode_dosen' or anggota_1 = '$kode_dosen' or anggota_2 = '$kode_dosen' or anggota_3 = '$kode_dosen' or anggota_4 = '$kode_dosen' or anggota_5 = '$kode_dosen'  or anggota_6 = '$kode_dosen'  or anggota_7 = '$kode_dosen'  or anggota_8 = '$kode_dosen')");
         return $query->getRow()->jumlah_abdimas;
         // return $query->row()->average_score;
     }
@@ -259,18 +259,42 @@ class AbdimasModel extends Model
     }
 
     public function getAnnualAbdimasByTypeAndKK() {
-        $sql = "   
-            WITH 
-                kk_abdimas AS (
-                    SELECT DISTINCT
-                        a.id,
-                        d.kk,
-                        a.tahun,
-                        a.jenis
+        $sql = "WITH 
+                    kk_abdimas AS (
+                        SELECT DISTINCT
+                            a.id,
+                            d.kk,
+                            a.tahun,
+                            a.jenis
+                        FROM abdimas AS a
+                        JOIN dosen AS d
+                            ON (
+                                d.kode_dosen = a.ketua
+                                OR d.kode_dosen = a.anggota_1
+                                OR d.kode_dosen = a.anggota_2
+                                OR d.kode_dosen = a.anggota_3
+                                OR d.kode_dosen = a.anggota_4
+                                OR d.kode_dosen = a.anggota_5
+                                OR d.kode_dosen = a.anggota_6
+                                OR d.kode_dosen = a.anggota_7
+                                OR d.kode_dosen = a.anggota_8
+                            )
+                    )
+                SELECT
+                    ka.kk AS kk,
+                    ka.jenis AS jenis,
+                    ka.tahun AS tahun, 
+                    COUNT(*) AS nAbdimas
+                FROM kk_abdimas AS ka
+                GROUP BY ka.kk, ka.jenis, ka.tahun; ";
+        return $this->db->query($sql)->getResultArray();
+    }
+
+    public function getAllByKK($kk) {
+        $sql = "SELECT DISTINCT a.*
                     FROM abdimas AS a
                     JOIN dosen AS d
-                        ON (
-                            d.kode_dosen = a.ketua
+                        ON d.kode_dosen = a.ketua
                             OR d.kode_dosen = a.anggota_1
                             OR d.kode_dosen = a.anggota_2
                             OR d.kode_dosen = a.anggota_3
@@ -279,40 +303,42 @@ class AbdimasModel extends Model
                             OR d.kode_dosen = a.anggota_6
                             OR d.kode_dosen = a.anggota_7
                             OR d.kode_dosen = a.anggota_8
-                        )
-                )
-            SELECT
-                ka.kk AS kk,
-                ka.jenis AS jenis,
-                ka.tahun AS tahun, 
-                COUNT(*) AS nAbdimas
-            FROM kk_abdimas AS ka
-            GROUP BY ka.kk, ka.jenis, ka.tahun;
-        ";
+                    WHERE d.kk = ?
+                    ORDER BY a.id DESC ";
+        return $this->db->query($sql, [$kk])->getResultArray();
+    }
 
+    public function countAllEachDosen() {
+        $sql = "WITH 
+                    abdimasDosen AS (
+                        SELECT DISTINCT
+                            d.kode_dosen,
+                            d.nama_dosen,
+                            a.id
+                        FROM abdimas AS a
+                        JOIN dosen AS d
+                            ON (
+                                d.kode_dosen = a.ketua
+                                OR d.kode_dosen = a.anggota_1
+                                OR d.kode_dosen = a.anggota_2
+                                OR d.kode_dosen = a.anggota_3
+                                OR d.kode_dosen = a.anggota_4
+                                OR d.kode_dosen = a.anggota_5
+                                OR d.kode_dosen = a.anggota_6
+                                OR d.kode_dosen = a.anggota_7
+                                OR d.kode_dosen = a.anggota_8
+                            )
+                    )
+                SELECT
+                    kode_dosen,
+                    nama_dosen,
+                    COUNT(*) AS nAbdimas
+                FROM abdimasDosen
+                GROUP BY kode_dosen
+                ORDER BY nAbdimas DESC";
         return $this->db->query($sql)->getResultArray();
     }
 
-    public function getAllByKK($kk) {
-        $sql = "   
-            SELECT DISTINCT a.*
-                FROM abdimas AS a
-                JOIN dosen AS d
-                    ON d.kode_dosen = a.ketua
-                        OR d.kode_dosen = a.anggota_1
-                        OR d.kode_dosen = a.anggota_2
-                        OR d.kode_dosen = a.anggota_3
-                        OR d.kode_dosen = a.anggota_4
-                        OR d.kode_dosen = a.anggota_5
-                        OR d.kode_dosen = a.anggota_6
-                        OR d.kode_dosen = a.anggota_7
-                        OR d.kode_dosen = a.anggota_8
-                WHERE d.kk = ?
-                ORDER BY a.id DESC
-        ";
-
-        return $this->db->query($sql, [$kk])->getResultArray();
-    }
     public function import($filePath) {
         // Validation purpose variables
         $dosenList = (new DosenModel())->getAllKodeDosen();
