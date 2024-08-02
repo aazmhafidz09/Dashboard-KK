@@ -12,22 +12,15 @@
 
 <?= $this->include('partials/body') ?>
 
-
-
-
 <!-- Begin page -->
 <div id="layout-wrapper">
-
     <?= $this->include('partials/menu') ?>
-
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
     <div class="main-content">
-
         <div class="page-content">
             <div class="container-fluid">
-
                 <div class="row mb-4">
                     <div class="col-xl-4">
                         <div class="card h-100">
@@ -51,18 +44,6 @@
                                             <h5 class="mb-1 font-size-16">Nama :</h5>
                                             <p class=""><?= $dosen['nama_dosen']; ?></p>
                                         </div>
-                                        <!-- <div class="mt-4">
-                                            <p class="mb-1">Mobile :</p>
-                                            <h5 class="font-size-16">012-234-5678</h5>
-                                        </div> -->
-                                        <!-- <div class="mt-4">
-                                            <p class="mb-1">Jumlah Publikasi :</p>
-                                            <h5 class="font-size-16"></h5>
-                                        </div>
-                                        <div class="mt-4">
-                                            <p class="mb-1">Jumlah Publikasi Penulis 1 :</p>
-                                            <h5 class="font-size-16"></h5>
-                                        </div> -->
                                         <hr class="my-4">
                                         <div class="row">
                                             <div class="col-6">
@@ -146,31 +127,7 @@
                             <div class="tab-content p-4">
                                 <div class="tab-pane active" id="publikasi" role="tabpanel">
                                     <div>
-                                        <!-- <div>
-                                            <h5 class="font-size-16 mb-4">Experience</h5>
-
-                                            <ul class="activity-feed mb-0 ps-2">
-                                                <li class="feed-item">
-                                                    <div class="feed-item-list">
-                                                        <p class="text-muted mb-1">2019 - 2020</p>
-                                                        <h5 class="font-size-16">UI/UX Designer</h5>
-                                                        <p>Abc Company</p>
-                                                        <p class="text-muted">To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual</p>
-                                                    </div>
-                                                </li>
-                                                <li class="feed-item">
-                                                    <div class="feed-item-list">
-                                                        <p class="text-muted mb-1">2017 - 2019</p>
-                                                        <h5 class="font-size-16">Graphic Designer</h5>
-                                                        <p>xyz Company</p>
-                                                        <p class="text-muted">It will be as simple as occidental in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental </p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div> -->
-
                                         <div>
-
                                             <div class="table-responsive">
                                                 <table class="table table-nowrap table-hover mb-0">
                                                     <thead>
@@ -178,31 +135,27 @@
                                                             <th scope="col">No</th>
                                                             <th scope="col">Judul</th>
                                                             <th scope="col">Tahun</th>
-                                                            <th scope="col">Action</th>
+                                                            <th scope="col" style="width: 6ch; text-align: center;">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php $i = 1 ?>
                                                         <?php foreach ($publikasi as $pb) : ?>
                                                             <tr>
-                                                                <th scope="row"><?= $i++; ?></th>
+                                                                <td scope="row"><?= $i++; ?></td>
                                                                 <td>
-                                                                    <a 
-                                                                        href="<?= $pb["link_artikel"] == ""? "#": $pb["link_artikel"]?>" 
-                                                                        class="text-reset "
-                                                                    > <?= (
-                                                                            (strlen($pb['judul_publikasi']) <= 50)
-                                                                            ? $pb['judul_publikasi']
-                                                                            : substr($pb['judul_publikasi'], 0, 50) . "..."
-                                                                    ); ?> </a>
+                                                                    <p class="text-reset " > <?= (
+                                                                        (strlen($pb['judul_publikasi']) <= 50)
+                                                                        ? $pb['judul_publikasi']
+                                                                        : substr($pb['judul_publikasi'], 0, 50) . "..."
+                                                                    ); ?> </p>
                                                                 </td>
                                                                 <td> <?= $pb['tahun']; ?> </td>
-                                                                <td class="d-flex justify-content-center"> 
+                                                                <td> 
                                                                     <a 
-                                                                        class=""
+                                                                        style="width: 20px; display: block; margin: auto;"
                                                                         href="<?=base_url("/publikasi/view/" . $pb['id'])?>"
-                                                                    >
-                                                                        <i class="uil uil-eye font-size-18"></i>
+                                                                        class="uil uil-eye font-size-18" >
                                                                     </a>
                                                                 </td>
                                                             </tr>
@@ -224,7 +177,7 @@
                                                         <th scope="col">Judul</th>
                                                         <th scope="col">Tahun</th>
                                                         <th scope="col">Status</th>
-                                                        <th scope="col" style="width: 120px;">Mitra</th>
+                                                        <th scope="col" style="width: 6ch; text-align: center;">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -232,14 +185,22 @@
                                                     <?php foreach ($penelitian as $pn) : ?>
                                                         <tr>
                                                             <th scope="row"><?= $i++; ?></th>
-                                                            <td><p href="#" class="text-reset "><?= $pn['judul_penelitian']; ?></p></td>
                                                             <td>
-                                                                <?= $pn['tahun']; ?>
+                                                                <p class="text-reset "> <?= (
+                                                                    (strlen($pn['judul_penelitian']) <= 40)
+                                                                    ? $pn['judul_penelitian']
+                                                                    : substr($pn['judul_penelitian'], 0, 40) . "..."
+                                                                ); ?> </p>
                                                             </td>
-                                                            <td>
-                                                                <?= $pn['status']; ?><!-- <span class="badge bg-primary-subtle font-size-12">Open</span> -->
+                                                            <td> <?= $pn['tahun']; ?> </td>
+                                                            <td> <?= $pn['status']; ?> </td>
+                                                            <td> 
+                                                                <a 
+                                                                    style="width: 20px; display: block; margin: auto;"
+                                                                    href="<?=base_url("/penelitian/view/" . $pn['id'])?>"
+                                                                    class="uil uil-eye font-size-18">
+                                                                </a>
                                                             </td>
-                                                            <td> <?= $pn['mitra'] ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
 
@@ -250,7 +211,6 @@
                                 </div>
                                 <div class="tab-pane" id="abdimas" role="tabpanel">
                                     <div>
-
                                         <div class="table-responsive">
                                             <table class="table table-nowrap table-hover mb-0">
                                                 <thead>
@@ -259,22 +219,37 @@
                                                         <th scope="col">Judul</th>
                                                         <th scope="col">Tahun</th>
                                                         <th scope="col">Status</th>
-                                                        <th scope="col" style="width: 120px;">Mitra</th>
+                                                        <th scope="col">Mitra</th>
+                                                        <th scope="col" style="width: 6ch; text-align: center;">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php $i = 1 ?>
                                                     <?php foreach ($abdimas as $ab) : ?>
                                                         <tr>
-                                                            <th scope="row"><?= $i++; ?></th>
-                                                            <td><p href="#" class="text-reset "><?= $ab['judul']; ?></p></td>
+                                                            <td scope="row"><?= $i++; ?></td>
                                                             <td>
-                                                                <?= $ab['tahun']; ?>
+                                                                <p class="text-reset "> <?= (
+                                                                    (strlen($ab['judul']) <= 40)
+                                                                    ? $ab['judul']
+                                                                    : substr($ab['judul'], 0, 40) . "..."
+                                                                ); ?> </p>
+                                                            <td> <?= $ab['tahun']; ?> </td>
+                                                            <td> <?= $ab['status']; ?> </td>
+                                                            <td> 
+                                                                <p class="text-reset "> <?= (
+                                                                    (strlen($ab['mitra']) <= 20)
+                                                                    ? $ab['mitra']
+                                                                    : substr($ab['mitra'], 0, 20) . "..."
+                                                                ); ?> </p>
                                                             </td>
-                                                            <td>
-                                                                <?= $ab['status']; ?><!-- <span class="badge bg-primary-subtle font-size-12">Open</span> -->
+                                                            <td> 
+                                                                <a 
+                                                                    style="width: 20px; display: block; margin: auto;"
+                                                                    href="<?=base_url("/abdimas/view/" . $ab['id'])?>"
+                                                                    class="uil uil-eye font-size-18">
+                                                                </a>
                                                             </td>
-                                                            <td> <?= $ab['mitra'] ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
@@ -284,7 +259,6 @@
                                 </div>
                                 <div class="tab-pane" id="haki" role="tabpanel">
                                     <div>
-
                                         <div class="table-responsive">
                                             <table class="table table-nowrap table-hover mb-0">
                                                 <thead>
@@ -293,22 +267,30 @@
                                                         <th scope="col">Judul</th>
                                                         <th scope="col">Tahun</th>
                                                         <th scope="col">Jenis</th>
-                                                        <th scope="col" style="width: 120px;">Action</th>
+                                                        <th scope="col" style="width: 6ch; text-align: center;">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php $i = 1 ?>
                                                     <?php foreach ($haki as $hk) : ?>
                                                         <tr>
-                                                            <th scope="row"><?= $i++; ?></th>
-                                                            <td><p href="#" class="text-reset "><?= $hk['judul']; ?></p></td>
+                                                            <td scope="row"><?= $i++; ?></td>
                                                             <td>
-                                                                <?= $hk['tahun']; ?>
+                                                                <p class="text-reset "> <?= (
+                                                                    (strlen($hk['judul']) <= 40)
+                                                                    ? $hk['judul']
+                                                                    : substr($hk['judul'], 0, 40) . "..."
+                                                                ); ?> </p>
                                                             </td>
-                                                            <td>
-                                                                <?= $hk['jenis']; ?><!-- <span class="badge bg-primary-subtle font-size-12">Open</span> -->
+                                                            <td> <?= $hk['tahun']; ?> </td>
+                                                            <td> <?= $hk['jenis']; ?> </td>
+                                                            <td> 
+                                                                <a 
+                                                                    style="width: 20px; display: block; margin: auto;"
+                                                                    href="<?=base_url("/haki/view/" . $hk['id'])?>"
+                                                                    class="uil uil-eye font-size-18">
+                                                                </a>
                                                             </td>
-                                                            <td> </td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
@@ -320,33 +302,23 @@
                         </div>
                     </div>
                 </div>
-                <!-- end row -->
-
-            </div> <!-- container-fluid -->
+            </div>
         </div>
-        <!-- End Page-content -->
-
 
         <?= $this->include('partials/footer') ?>
     </div>
-    <!-- end main content-->
-
 </div>
 
 <!-- END layout-wrapper -->
-
 <?= $this->include('partials/right-sidebar') ?>
-
 <?= $this->include('partials/vendor-scripts') ?>
 
 <!-- apexcharts -->
 <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
-
 <script src="/assets/js/pages/dashboard.init.js"></script>
 
 <!-- App js -->
 <script src="/assets/js/app.js"></script>
 
 </body>
-
 </html>
