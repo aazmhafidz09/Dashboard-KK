@@ -43,14 +43,9 @@
             }
         }
 
-        $isExist = false;
-        $idx = 0;
-        while(!$isExist && $idx < count($tahunPenelitianTersedia)) {
-            $isExist = $tahunPenelitianTersedia[$idx] == $tahunPenelitian;
-            $idx += 1;
+        if(!in_array($tahunPenelitian, $tahunPenelitianTersedia)) {
+            array_push($tahunPenelitianTersedia, $tahunPenelitian);
         }
-
-        if(!$isExist) array_push($tahunPenelitianTersedia, $tahunPenelitian);
     }
 ?>
 

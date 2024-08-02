@@ -5,19 +5,8 @@
 </head>
 
 <?php // Initial PHP
+    $dosenPenulisPertamaPerTahun = [];
     $tahunPublikasiTersedia = [];
-    foreach($all_publikasi as $a) { // OPtimizable?
-        $tahunPublikasi = $a["tahun"];
-        $isExist = false;
-        $idx = 0;
-        while(!$isExist && $idx < count($tahunPublikasiTersedia)) {
-            $isExist = $tahunPublikasiTersedia[$idx] == $tahunPublikasi;
-            $idx += 1;
-        }
-
-        if(!$isExist) array_push($tahunPublikasiTersedia, $tahunPublikasi);
-    }
-
     $dosenByKK = [];
     foreach($dosen as $d) {
         $kkDosen = $d["KK"]; // By KK
@@ -26,6 +15,21 @@
             array_push($dosenByKK[$kkDosen], $kodeDosen);
         } else {
             $dosenByKK[$kkDosen] = [$kodeDosen];
+            $dosenPenulisPertamaPerTahun[$kodeDosen] = [];
+        }
+    }
+
+    foreach($all_publikasi as $a) { // OPtimizable?
+        $penulisPertama = $a["penulis_1"];
+        $tahunPublikasi = $a["tahun"];
+
+        if(!isset($dosenPenulisPertamaPerTahun[$penulisPertama][$tahunPublikasi])) {
+            $dosenPenulisPertamaPerTahun[$penulisPertama][$tahunPublikasi] = 0;
+        }
+        $dosenPenulisPertamaPerTahun[$penulisPertama][$tahunPublikasi]++;
+
+        if(!in_array($tahunPublikasi, $tahunPublikasiTersedia)) {
+            array_push($tahunPublikasiTersedia, $tahunPublikasi);
         }
     }
 ?>
@@ -521,6 +525,10 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
+                                <div id="dosenKetuaPublikasi" class="float-end" style="display: none">
+                                    <label> Hanya Penulis Pertama &nbsp;</label>
+                                    <input id="dosenKetuaPublikasiToggle" type="checkbox" onchange="onPublikasiDosenFilterUpdate();"/>
+                                </div>
                                 <div data-simplebar style="max-height: 339px;">
                                     <h4 class="card-title mb-4" id="chartPublikasi__title">Statistik Publikasi</h4>
                                     <p id="chartPublikasi__desc"> Klik pada salah satu dosen untuk melihat statistik publikasi dosen tersebut</p>
@@ -645,5 +653,7 @@
     "order_by_tahun_Asc" => $order_by_tahun_Asc,
     "getOrderByTahunAllJenis" => $getOrderByTahunAllJenis,
     "count_publikasi_all" => $count_publikasi_all,
-    "akreditasi_jurnal" => $akreditasi_jurnal
+    "akreditasi_jurnal" => $akreditasi_jurnal,
+    "dosenPenulisPertamaPerTahun" => $dosenPenulisPertamaPerTahun,
+    "availablePublikasiYear" => $tahunPublikasiTersedia
 ])?>

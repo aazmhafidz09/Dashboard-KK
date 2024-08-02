@@ -1,15 +1,17 @@
 <script type="text/javascript">
     let FILTER_PUBLIKASI_PER_TAHUN = { kk: <?= $defaultFilterKK ?>}
     let FILTER_PUBLIKASI_PER_JENIS_TAHUNAN = { kk: <?= $defaultFilterKK ?>}
+    let FILTER_PUBLIKASI_DOSEN = {
+        kodeDosen: "",
+        ketuaOnly: false
+    }
     let FILTER_PUBLIKASI_PER_DOSEN = {
         kk: <?= $defaultFilterKK ?>,
         tahun: "Semua",
     };
 
-    const displayedPublikasiTypes = [
-        "JURNAL INTERNASIONAL", "JURNAL NASIONAL",
-        "PROSIDING INTERNASIONAL", "PROSIDING NASIONAL"
-    ]
+    const displayedPublikasiTypes = [ "JURNAL INTERNASIONAL", "JURNAL NASIONAL",
+                                    "PROSIDING INTERNASIONAL", "PROSIDING NASIONAL" ]
 
     const dataPublikasi = {
         <?php
@@ -20,7 +22,7 @@
                     $pos = strpos($label, $pattern);
                     if($pos !== false) {
                         $year = substr($label, $pos + strlen($pattern));
-                        echo "'" . $year . "': " . $data[$pattern . $year] . ",";
+                        echo "'$year': " . $data[$pattern . $year] . ",";
                     }
                 }
                 echo "},";
@@ -28,26 +30,49 @@
         ?>
     }
 
-    const dataPublikasiPerKKTahunan = { "CITI": {}, "SEAL": {}, "DSIS": {} };
-    <?php foreach($annualPublikasiByTypeAndKK as $row): ?>
-        if(!dataPublikasiPerKKTahunan['<?= $row["kk"] ?>'].hasOwnProperty('<?= $row["tahun"] ?>')) {
-            dataPublikasiPerKKTahunan['<?= $row["kk"] ?>'][<?= $row["tahun"] ?>] = {};
-        }
-
-        dataPublikasiPerKKTahunan['<?= $row["kk"] ?>'][<?= $row["tahun"] ?>]['<?= strtoupper($row["jenis"]) ?>'] = <?= $row["nPublikasi"] ?>;
-    <?php endforeach ?>
-
     const dosenByKK = { 
         <?php
             foreach($dosenByKK as $kkDosen => $dosenList) {
-                echo "'" . $kkDosen . "'" . ": [";
+                echo "'$kkDosen': [";
                 foreach($dosenList as $dosen) {
-                    echo "'" . $dosen . "'" . ", ";
+                    echo "'$dosen',";
                 }
                 echo "],";
             }
         ?> 
     };
+
+    const dataPublikasiPerKKTahunan = {};
+    Object.keys(dosenByKK)
+        .forEach(kk  => { dataPublikasiPerKKTahunan[kk] = {} })
+
+    const dataPenulisPertamaPerTahun = {
+        <?php foreach($dosenPenulisPertamaPerTahun as $d => $annualData){
+            echo "'$d': {";
+            foreach($annualData as $year => $nPenulisPertama) {
+                echo "$year: $nPenulisPertama, ";
+            }
+            echo "},";
+        } ?>
+    };
+
+    let temp = [
+        <?php foreach($annualPublikasiByTypeAndKK as $p) {
+            $kk = $p["kk"];
+            $tahun = $p["tahun"];
+            $jenis = strtoupper($p["jenis"]);
+            $nPublikasi = $p["nPublikasi"];
+            echo "{'kk': '$kk' , 'tahun': $tahun, 'jenis': '$jenis', 'nPublikasi': $nPublikasi},";
+        } ?>
+    ];
+    temp.forEach(data => {
+        const {kk, tahun, jenis, nPublikasi} = data;
+        if(!dataPublikasiPerKKTahunan[kk].hasOwnProperty(tahun)) {
+            dataPublikasiPerKKTahunan[kk][tahun] = {};
+        }
+        
+        dataPublikasiPerKKTahunan[kk][tahun][jenis] = nPublikasi;
+    })
 
     const dataPublikasiAnyKKTahunan = [{
             name: 'Jurnal Internasional',
@@ -79,9 +104,23 @@
     }
 
     const onDataPointSelection = function(e, context, opts) {
-        let kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
-        let targetElement = document.getElementById("chartPublikasiDosen") 
-        updateChartStatistik(targetElement, kodeDosen)
+        const kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
+
+        if(kodeDosen != FILTER_PUBLIKASI_DOSEN.kodeDosen) {
+            document.getElementById("dosenKetuaPublikasiToggle").checked = false;
+            document.getElementById("dosenKetuaPublikasi") .style.display = "block";
+            document.getElementById("chartPublikasi__desc").innerHTML = ""
+            document.getElementById("chartPublikasi__title").innerHTML = `Statistik Publikasi ${kodeDosen}`
+
+            FILTER_PUBLIKASI_DOSEN.kodeDosen = kodeDosen;
+            FILTER_PUBLIKASI_DOSEN.ketuaOnly = false;
+
+            const targetElement = document.getElementById("chartPublikasiDosen");
+            const dataPublikasiDosen = dataPublikasi[kodeDosen];
+            targetElement.innerHTML = "";
+
+            makeChartPublikasiDosen(targetElement, Object.keys(dataPublikasiDosen), Object.values(dataPublikasiDosen))
+        }
     }
 
     function makeChartPublikasiPerTahun(targetElement, labels, values) {
@@ -284,6 +323,72 @@
         ).render();
     }
 
+    function makeChartPublikasiDosen(target, labels, values) {
+        new ApexCharts(
+            target,  
+            {
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    toolbar: { show: false, },
+                },
+                plotOptions: {
+                    bar: { dataLabels: { position: 'top', }, }
+                },
+                dataLabels: {
+                    enabled: true,
+                    position: 'top', // top, center, bottom,
+                    formatter: val => val + "",
+                    offsetY: -20,
+                    style: { fontSize: '12px', colors: ["#304758"] }
+                },
+                series: [{ name: 'Publikasi', data: values }],
+                grid: { borderColor: '#f1f1f1', },
+                xaxis: {
+                    categories: labels,
+                    position: 'down',
+                    labels: { offsetY: 0, rotate:270, rotateAlways: true},
+                    axisBorder: { show: false },
+                    axisTicks: { show: true },
+                    crosshairs: {
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                colorFrom: '#D8E3F0',
+                                colorTo: '#BED1E6',
+                                stops: [0, 100],
+                                opacityFrom: 1,
+                                opacityTo: 1,
+                            }
+                        }
+                    },
+                    tooltip: { enabled: true, offsetY: -35, }
+                },
+                fill: {
+                    gradient: {
+                        shade: 'light',
+                        type: "horizontal",
+                        shadeIntensity: 0.25,
+                        gradientToColors: undefined,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [50, 0, 100, 100]
+                    },
+                },
+                yaxis: {
+                    axisBorder: { show: false },
+                    axisTicks: { show: false, },
+                    labels: {
+                        show: false,
+                        formatter: val => val + ""
+                    }
+                },
+            }
+        ) .render();
+
+    }
+
     function onPublikasiPerTahunFilterUpdate() {
         const {kk} = FILTER_PUBLIKASI_PER_TAHUN;
         document.getElementById("chartPublikasiPerTahun__KK").innerHTML = `Semua`;
@@ -303,8 +408,6 @@
         const targetElement = document.getElementById("chartPublikasiPerTahun");
         targetElement.innerHTML = "";
         makeChartPublikasiPerTahun(targetElement, chartLabels, chartValues);
-
-
     }
 
     function onPublikasiPerJenisTahunanFilterUpdate() {
@@ -365,78 +468,30 @@
         makeChartPublikasiPerDosen( targetElement, chartLabels, chartValues)
     }
 
-    const updateChartStatistik = function(target, newKodeDosen) {
-        const dataPublikasiDosen = dataPublikasi[newKodeDosen];
-        document.getElementById("chartPublikasi__desc").innerHTML = ""
-        document.getElementById("chartPublikasi__title").innerHTML = `Statistik Publikasi ${newKodeDosen}`
-        target.innerHTML = "";
+    function onPublikasiDosenFilterUpdate() {
+        FILTER_PUBLIKASI_DOSEN.ketuaOnly = !FILTER_PUBLIKASI_DOSEN.ketuaOnly
+        const {ketuaOnly, kodeDosen} = FILTER_PUBLIKASI_DOSEN
+        const targetElement = document.getElementById("chartPublikasiDosen");
+        targetElement.innerHTML = "";
 
-        new ApexCharts(
-            target,  
-            {
-                chart: {
-                    height: 350,
-                    type: 'bar',
-                    toolbar: { show: false, },
-                },
-                plotOptions: {
-                    bar: { dataLabels: { position: 'top', }, }
-                },
-                dataLabels: {
-                    enabled: true,
-                    position: 'top', // top, center, bottom,
-                    formatter: val => val + "",
-                    offsetY: -20,
-                    style: { fontSize: '12px', colors: ["#304758"] }
-                },
-                series: [{
-                    name: 'Publikasi',
-                    data: Object.values(dataPublikasiDosen)
-                }],
-                grid: { borderColor: '#f1f1f1', },
-                xaxis: {
-                    categories: Object.keys(dataPublikasiDosen),
-                    position: 'down',
-                    labels: { offsetY: 0, rotate:270, rotateAlways: true},
-                    axisBorder: { show: false },
-                    axisTicks: { show: true },
-                    crosshairs: {
-                        fill: {
-                            type: 'gradient',
-                            gradient: {
-                                colorFrom: '#D8E3F0',
-                                colorTo: '#BED1E6',
-                                stops: [0, 100],
-                                opacityFrom: 1,
-                                opacityTo: 1,
-                            }
-                        }
-                    },
-                    tooltip: { enabled: true, offsetY: -35, }
-                },
-                fill: {
-                    gradient: {
-                        shade: 'light',
-                        type: "horizontal",
-                        shadeIntensity: 0.25,
-                        gradientToColors: undefined,
-                        inverseColors: true,
-                        opacityFrom: 1,
-                        opacityTo: 1,
-                        stops: [50, 0, 100, 100]
-                    },
-                },
-                yaxis: {
-                    axisBorder: { show: false },
-                    axisTicks: { show: false, },
-                    labels: {
-                        show: false,
-                        formatter: val => val + ""
-                    }
-                },
-            }
-        ) .render();
+        const dataPublikasiDosen = dataPublikasi[kodeDosen];
+        const chartLabels = Object.keys(dataPublikasiDosen);
+        const chartValues = (
+            (!ketuaOnly)
+            ? Object.values(dataPublikasiDosen)
+            : chartLabels.map(year => {
+                    const publikasiDosen = dataPenulisPertamaPerTahun[kodeDosen]
+                    if(publikasiDosen == undefined) return 0;
+
+                    const nPublikasi = publikasiDosen[year];
+                    return nPublikasi == undefined? 0: nPublikasi;
+                })
+        );
+
+        targetElement.innerHTML = "";
+        makeChartPublikasiDosen(targetElement, chartLabels, chartValues);
     }
+
     function getChartColorsArray(chartId) {
         if (document.getElementById(chartId) !== null) {
             var colors = document.getElementById(chartId).getAttribute("data-colors");

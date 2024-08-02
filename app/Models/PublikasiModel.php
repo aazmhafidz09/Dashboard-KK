@@ -38,35 +38,57 @@ class PublikasiModel extends Model
                     ->getResultArray();
     }
 
-    public function getPublikasi_all()
-    {
+    public function getPublikasi_all() {
         return $this->findAll();
     }
 
-    public function getPublikasi($kode_dosen = false)
-    {
-        if ($kode_dosen == false) {
-            return $this->findAll();
-        }
+    public function getPublikasi($kode_dosen = false) {
+        if ($kode_dosen == false) return $this->findAll();
 
-        $query = $this->db->query("SELECT * FROM publikasi WHERE penulis_1 = '$kode_dosen' or penulis_2 = '$kode_dosen' or penulis_3 = '$kode_dosen' or penulis_4 = '$kode_dosen' or penulis_5 = '$kode_dosen' or penulis_6 = '$kode_dosen' or penulis_7 = '$kode_dosen' or penulis_8 = '$kode_dosen' or penulis_9 = '$kode_dosen' or penulis_10 = '$kode_dosen' or penulis_11 = '$kode_dosen' order by tahun DESC");
+        $sql = "SELECT 
+                    * 
+                FROM publikasi 
+                WHERE 
+                    penulis_1 = '$kode_dosen' 
+                    OR penulis_2 = '$kode_dosen' 
+                    OR penulis_3 = '$kode_dosen' 
+                    OR penulis_4 = '$kode_dosen' 
+                    OR penulis_5 = '$kode_dosen' 
+                    OR penulis_6 = '$kode_dosen' 
+                    OR penulis_7 = '$kode_dosen' 
+                    OR penulis_8 = '$kode_dosen' 
+                    OR penulis_9 = '$kode_dosen' 
+                    OR penulis_10 = '$kode_dosen' 
+                    OR penulis_11 = '$kode_dosen' 
+                ORDER BY tahun DESC;";
+        $query = $this->db->query($sql);
         return $query->getResultArray();
     }
-    public function getJumlahPublikasi($kode_dosen = false)
-    {
-        if ($kode_dosen == false) {
-            return $this->findAll();
-        }
-        $query = $this->db->query("SELECT COUNT(id) as jumlah_publikasi FROM publikasi WHERE (penulis_1 = '$kode_dosen' or penulis_2 = '$kode_dosen' or penulis_3 = '$kode_dosen' or penulis_4 = '$kode_dosen' or penulis_5 = '$kode_dosen' or penulis_6 = '$kode_dosen' or penulis_7 = '$kode_dosen' or penulis_8 = '$kode_dosen' or penulis_9 = '$kode_dosen' or penulis_10 = '$kode_dosen' or penulis_11 = '$kode_dosen')");
+    public function getJumlahPublikasi($kode_dosen = false) {
+        if ($kode_dosen == false) return $this->findAll();
+        $sql = "SELECT 
+                    COUNT(id) AS jumlah_publikasi 
+                FROM publikasi 
+                WHERE (penulis_1 = '$kode_dosen' 
+                        OR penulis_2 = '$kode_dosen' 
+                        OR penulis_3 = '$kode_dosen' 
+                        OR penulis_4 = '$kode_dosen' 
+                        OR penulis_5 = '$kode_dosen' 
+                        OR penulis_6 = '$kode_dosen' 
+                        OR penulis_7 = '$kode_dosen' 
+                        OR penulis_8 = '$kode_dosen' 
+                        OR penulis_9 = '$kode_dosen' 
+                        OR penulis_10 = '$kode_dosen' 
+                        OR penulis_11 = '$kode_dosen');";
+        $query = $this->db->query($sql);
         return $query->getRow()->jumlah_publikasi;
         // return $query->row()->average_score;
     }
     public function getJumlahPublikasi_1($kode_dosen = false)
     {
-        if ($kode_dosen == false) {
-            return $this->findAll();
-        }
-        $query = $this->db->query("SELECT COUNT(id) as jumlah_publikasi_1 FROM publikasi WHERE (penulis_1 = '$kode_dosen')");
+        if ($kode_dosen == false) return $this->findAll();
+        $sql = "SELECT COUNT(id) AS jumlah_publikasi_1 FROM publikasi WHERE penulis_1 = '$kode_dosen'";
+        $query = $this->db->query($sql);
         return $query->getRow()->jumlah_publikasi_1;
         // return $query->row()->average_score;
     }
@@ -348,16 +370,16 @@ class PublikasiModel extends Model
                     FROM publikasi AS p
                     JOIN dosen AS d
                         ON d.kode_dosen = p.penulis_1
-                            OR d.kode_dosen = p.penulis_2
-                            OR d.kode_dosen = p.penulis_3
-                            OR d.kode_dosen = p.penulis_4
-                            OR d.kode_dosen = p.penulis_5
-                            OR d.kode_dosen = p.penulis_6
-                            OR d.kode_dosen = p.penulis_7
-                            OR d.kode_dosen = p.penulis_8
-                            OR d.kode_dosen = p.penulis_9
-                            OR d.kode_dosen = p.penulis_10
-                            OR d.kode_dosen = p.penulis_11
+                            -- OR d.kode_dosen = p.penulis_2
+                            -- OR d.kode_dosen = p.penulis_3
+                            -- OR d.kode_dosen = p.penulis_4
+                            -- OR d.kode_dosen = p.penulis_5
+                            -- OR d.kode_dosen = p.penulis_6
+                            -- OR d.kode_dosen = p.penulis_7
+                            -- OR d.kode_dosen = p.penulis_8
+                            -- OR d.kode_dosen = p.penulis_9
+                            -- OR d.kode_dosen = p.penulis_10
+                            -- OR d.kode_dosen = p.penulis_11
                     WHERE d.kk = ?
                     ORDER BY p.id DESC ";
         return $this->db->query($sql, [$kk])->getResultArray();

@@ -44,24 +44,17 @@
     ].sort()
 
     const dataPenelitianPerKKTahunan = {};
-    const dataKetuaPenelitian = {}
-    Object.entries(dosenByKK)
-        .forEach(([kk, dosenList]) => {
-            dataPenelitianPerKKTahunan[kk] = {}
-            dosenList.forEach(dosen => {
-                dataKetuaPenelitian[dosen] = {}
-            })
-        })
+    Object.keys(dosenByKK)
+        .forEach(kk => { dataPenelitianPerKKTahunan[kk] = {} })
 
-    let temp = [ <?php foreach($annualPenelitianByTypeAndKK as $row): ?>
-            <?php 
-                $kk = $row['kk']; 
-                $tahun = $row['tahun']; 
-                $jenis = strtoupper($row['jenis']);
-                $nPenelitian = $row['nPenelitian'];
-                echo "{'kk': '$kk' , 'tahun': $tahun, 'jenis': '$jenis', 'nPenelitian': $nPenelitian},";
-            ?>
-        <?php endforeach ?>
+    let temp = [ 
+        <?php foreach($annualPenelitianByTypeAndKK as $row) {
+            $kk = $row['kk']; 
+            $tahun = $row['tahun']; 
+            $jenis = strtoupper($row['jenis']);
+            $nPenelitian = $row['nPenelitian'];
+            echo "{'kk': '$kk' , 'tahun': $tahun, 'jenis': '$jenis', 'nPenelitian': $nPenelitian},";
+        } ?>
     ]
     temp.forEach(data => {
         const {kk, tahun, jenis, nPenelitian} = data; 
@@ -97,7 +90,7 @@
         } ?>
     }
 
-    const dosenKetuaByTahun = {
+    const dataKetuaPenelitianPerTahun = {
         <?php foreach($dosenKetuaByYear as $d => $annualData){
             echo "'$d': {";
             foreach($annualData as $year => $nKetua) {
@@ -305,7 +298,7 @@
             targetElement,  
             {
                 chart: {
-                    animated: false,
+                    animations: { enabled: false },
                     height: 350,
                     type: 'bar',
                     toolbar: { show: false, },
@@ -392,15 +385,14 @@
         targetElement.innerHTML = "";
 
         const chartLabels = dosenByKK[kk];
-        const chartValues = dosenByKK[kk].map(dosen => (
-            Object.entries(dataPenelitian[dosen])
+        const chartValues = dosenByKK[kk].map(dosen => {
+            return Object.entries(dataPenelitian[dosen])
                 .map((val, idx) => {
                     const [tahunPenelitian, nPenelitian] = val;
                     return tahun == "Semua" || tahunPenelitian == tahun ? nPenelitian: 0;
                 })
                 .reduce((acc, val) => acc + val, 0)
-            )
-        )
+        })
 
         makeChartPenelitianPerDosen( targetElement, chartLabels, chartValues);
     }
@@ -438,21 +430,19 @@
         if(kk != "") {
             document.getElementById("chartPenelitianPerJenisTahunan__KK").innerHTML = `KK ${kk}`;
             chartValues = (
-                    displayedPenelitianTypes
-                        .map(penelitianType => ({
-                            name: penelitianType,
-                            data: chartLabels
-                                    .map(penelitianYear => {
-                                        penelitianPerYear = dataPenelitianPerKKTahunan[kk][penelitianYear]
-                                        return (
-                                            ( penelitianPerYear == undefined 
-                                                || penelitianPerYear[penelitianType] == undefined)
-                                            ? 0: penelitianPerYear[penelitianType]
-                                        )
-                                    })
-                        }))
-                )
-
+                displayedPenelitianTypes
+                    .map(penelitianType => ({
+                        name: penelitianType,
+                        data: chartLabels
+                                .map(penelitianYear => {
+                                    penelitianPerYear = dataPenelitianPerKKTahunan[kk][penelitianYear]
+                                    return (
+                                        ( penelitianPerYear == undefined 
+                                            || penelitianPerYear[penelitianType] == undefined)
+                                        ? 0: penelitianPerYear[penelitianType]
+                                    )
+                                })
+                    })))
         }
 
         const targetElement = document.getElementById("chartPenelitianPerJenisTahunan");
@@ -466,13 +456,16 @@
         const targetElement = document.getElementById("chartPenelitianDosen");
         targetElement.innerHTML = "";
 
-        const dataPublikasiDosen = dataPenelitian[kodeDosen];
-        const chartLabels = Object.keys(dataPublikasiDosen);
+        const dataPenelitianDosen = dataPenelitian[kodeDosen];
+        const chartLabels = Object.keys(dataPenelitianDosen);
         const chartValues = (
             (!ketuaOnly)
-            ? Object.values(dataPublikasiDosen)
+            ? Object.values(dataPenelitianDosen)
             : chartLabels.map(year => {
-                    const nPenelitian = dosenKetuaByTahun[kodeDosen][year];
+                    const penelitianDosen = dataKetuaPenelitianPerTahun[kodeDosen]
+                    if(penelitianDosen == undefined) return 0;
+
+                    const nPenelitian = penelitianDosen[year];
                     return nPenelitian == undefined? 0: nPenelitian;
                 })
         );
