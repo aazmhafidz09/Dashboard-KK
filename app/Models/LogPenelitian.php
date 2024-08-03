@@ -9,7 +9,6 @@ class LogPenelitian extends Model {
     protected $allowedFields = [
         "user_id",
         "penelitian_id",
-        "date",
         "action",
         "value_before", 
         "value_after"

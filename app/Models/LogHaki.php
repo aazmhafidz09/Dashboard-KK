@@ -9,7 +9,6 @@ class LogHaki extends Model {
     protected $allowedFields = [
         "user_id",
         "haki_id",
-        "date",
         "action",
         "value_before", 
         "value_after"

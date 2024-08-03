@@ -9,7 +9,6 @@ class LogPublikasi extends Model {
     protected $allowedFields = [
         "user_id",
         "publikasi_id",
-        "date",
         "action",
         "value_before", 
         "value_after"

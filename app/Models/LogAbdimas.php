@@ -9,7 +9,6 @@ class LogAbdimas extends Model {
     protected $allowedFields = [
         "user_id",
         "abdimas_id",
-        "date",
         "action",
         "value_before", 
         "value_after"
