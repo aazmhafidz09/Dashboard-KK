@@ -47,19 +47,21 @@ class PublikasiModel extends Model
         $sql = "SELECT * 
                 FROM publikasi 
                 WHERE 
-                    penulis_1 = '$kode_dosen' 
-                    OR penulis_2 = '$kode_dosen' 
-                    OR penulis_3 = '$kode_dosen' 
-                    OR penulis_4 = '$kode_dosen' 
-                    OR penulis_5 = '$kode_dosen' 
-                    OR penulis_6 = '$kode_dosen' 
-                    OR penulis_7 = '$kode_dosen' 
-                    OR penulis_8 = '$kode_dosen' 
-                    OR penulis_9 = '$kode_dosen' 
-                    OR penulis_10 = '$kode_dosen' 
-                    OR penulis_11 = '$kode_dosen' 
+                    penulis_1 = ? 
+                    OR penulis_2 = ? 
+                    OR penulis_3 = ? 
+                    OR penulis_4 = ? 
+                    OR penulis_5 = ? 
+                    OR penulis_6 = ? 
+                    OR penulis_7 = ? 
+                    OR penulis_8 = ? 
+                    OR penulis_9 = ? 
+                    OR penulis_10 = ? 
+                    OR penulis_11 = ? 
                 ORDER BY tahun DESC;";
-        $query = $this->db->query($sql);
+        $query = $this->db->query(
+            $sql, array_map(function() use ($kode_dosen) {return $kode_dosen; } , range(1, 11))
+        );
         return $query->getResultArray();
     }
 
@@ -67,25 +69,27 @@ class PublikasiModel extends Model
         if ($kode_dosen == false) return $this->findAll();
         $sql = "SELECT COUNT(id) AS jumlah_publikasi 
                 FROM publikasi 
-                WHERE (penulis_1 = '$kode_dosen' 
-                        OR penulis_2 = '$kode_dosen' 
-                        OR penulis_3 = '$kode_dosen' 
-                        OR penulis_4 = '$kode_dosen' 
-                        OR penulis_5 = '$kode_dosen' 
-                        OR penulis_6 = '$kode_dosen' 
-                        OR penulis_7 = '$kode_dosen' 
-                        OR penulis_8 = '$kode_dosen' 
-                        OR penulis_9 = '$kode_dosen' 
-                        OR penulis_10 = '$kode_dosen' 
-                        OR penulis_11 = '$kode_dosen');";
-        $query = $this->db->query($sql);
+                WHERE (penulis_1 = ? 
+                        OR penulis_2 = ? 
+                        OR penulis_3 = ? 
+                        OR penulis_4 = ? 
+                        OR penulis_5 = ? 
+                        OR penulis_6 = ? 
+                        OR penulis_7 = ? 
+                        OR penulis_8 = ? 
+                        OR penulis_9 = ? 
+                        OR penulis_10 = ? 
+                        OR penulis_11 = ?);";
+        $query = $this->db->query(
+            $sql, array_map(function() use ($kode_dosen) {return $kode_dosen; } , range(1, 11))
+        );
         return $query->getRow()->jumlah_publikasi;
     }
 
     public function getJumlahPublikasi_1($kode_dosen = false) {
         if ($kode_dosen == false) return $this->findAll();
-        $sql = "SELECT COUNT(id) AS jumlah_publikasi_1 FROM publikasi WHERE penulis_1 = '$kode_dosen'";
-        $query = $this->db->query($sql);
+        $sql = "SELECT COUNT(id) AS jumlah_publikasi_1 FROM publikasi WHERE penulis_1 = ?";
+        $query = $this->db->query($sql, [$kode_dosen]);
         return $query->getRow()->jumlah_publikasi_1;
     }
     public function getPublikasiTotal() {

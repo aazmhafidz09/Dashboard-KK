@@ -48,16 +48,18 @@ class AbdimasModel extends Model
         if ($kode_dosen == false) return $this->findAll();
         $sql = "SELECT * 
                 FROM abdimas 
-                WHERE (ketua = '$kode_dosen' 
-                    OR anggota_1 = '$kode_dosen' 
-                    OR anggota_2 = '$kode_dosen' 
-                    OR anggota_3 = '$kode_dosen'
-                    OR anggota_4 = '$kode_dosen' 
-                    OR anggota_5 = '$kode_dosen'
-                    OR anggota_6 = '$kode_dosen' 
-                    OR anggota_7 = '$kode_dosen'
-                    OR anggota_8 = '$kode_dosen');";
-        $query = $this->db->query($sql);
+                WHERE (ketua = ?
+                    OR anggota_1 = ?
+                    OR anggota_2 = ?
+                    OR anggota_3 = ?
+                    OR anggota_4 = ?
+                    OR anggota_5 = ?
+                    OR anggota_6 = ?
+                    OR anggota_7 = ?
+                    OR anggota_8 = ?);";
+        $query = $this->db->query(
+            $sql, array_map(function() use ($kode_dosen) {return $kode_dosen; } , range(1, 9))
+        );
         return $query->getResultArray();
     }
 
@@ -65,23 +67,25 @@ class AbdimasModel extends Model
         if ($kode_dosen == false) return $this->findAll(); 
         $sql = "SELECT COUNT(*) AS jumlah_abdimas 
                 FROM abdimas 
-                WHERE (ketua = '$kode_dosen' 
-                        OR anggota_1 = '$kode_dosen' 
-                        OR anggota_2 = '$kode_dosen' 
-                        OR anggota_3 = '$kode_dosen' 
-                        OR anggota_4 = '$kode_dosen' 
-                        OR anggota_5 = '$kode_dosen'  
-                        OR anggota_6 = '$kode_dosen'  
-                        OR anggota_7 = '$kode_dosen'  
-                        OR anggota_8 = '$kode_dosen');";
-        $query = $this->db->query($sql);
+                WHERE (ketua = ? 
+                        OR anggota_1 = ? 
+                        OR anggota_2 = ? 
+                        OR anggota_3 = ? 
+                        OR anggota_4 = ? 
+                        OR anggota_5 = ?  
+                        OR anggota_6 = ?  
+                        OR anggota_7 = ?  
+                        OR anggota_8 = ?);";
+        $query = $this->db->query(
+            $sql, array_map(function() use ($kode_dosen) {return $kode_dosen; } , range(1, 9))
+        );
         return $query->getRow()->jumlah_abdimas;
     }
 
     public function getJumlahKetua($kode_dosen = false) { 
         if ($kode_dosen == false) return $this->findAll();
-        $sql = "SELECT COUNT(id) AS jumlah_ketua FROM abdimas WHERE (ketua = '$kode_dosen');";
-        $query = $this->db->query($sql);
+        $sql = "SELECT COUNT(id) AS jumlah_ketua FROM abdimas WHERE (ketua = ?);";
+        $query = $this->db->query($sql, [$kode_dosen]);
         return $query->getRow()->jumlah_ketua;
     }
 

@@ -46,18 +46,20 @@ class PenelitianModel extends Model
 
         $sql = "SELECT * 
                 FROM penelitian 
-                WHERE (ketua_peneliti = '$kode_dosen' 
-                        OR anggota_peneliti_1 = '$kode_dosen' 
-                        OR anggota_peneliti_2 = '$kode_dosen' 
-                        OR anggota_peneliti_3 = '$kode_dosen' 
-                        OR anggota_peneliti_4 = '$kode_dosen' 
-                        OR anggota_peneliti_5 = '$kode_dosen' 
-                        OR anggota_peneliti_6 = '$kode_dosen' 
-                        OR anggota_peneliti_7 = '$kode_dosen' 
-                        OR anggota_peneliti_8 = '$kode_dosen' 
-                        OR anggota_peneliti_9 = '$kode_dosen' 
-                        OR anggota_peneliti_10 = '$kode_dosen');";
-        $query = $this->db->query($sql);
+                WHERE (ketua_peneliti = ?
+                        OR anggota_peneliti_1 = ?
+                        OR anggota_peneliti_2 = ?
+                        OR anggota_peneliti_3 = ?
+                        OR anggota_peneliti_4 = ?
+                        OR anggota_peneliti_5 = ?
+                        OR anggota_peneliti_6 = ?
+                        OR anggota_peneliti_7 = ?
+                        OR anggota_peneliti_8 = ?
+                        OR anggota_peneliti_9 = ?
+                        OR anggota_peneliti_10 = ?);";
+        $query = $this->db->query(
+            $sql, array_map(function() use ($kode_dosen) {return $kode_dosen; } , range(1, 11))
+        );
         return $query->getResultArray();
     }
 
@@ -65,18 +67,20 @@ class PenelitianModel extends Model
         if ($kode_dosen == false) return $this->findAll();
         $sql = "SELECT COUNT(id) AS jumlah_penelitian 
                 FROM penelitian 
-                WHERE (ketua_peneliti = '$kode_dosen' 
-                        OR anggota_peneliti_1 = '$kode_dosen' 
-                        OR anggota_peneliti_2 = '$kode_dosen' 
-                        OR anggota_peneliti_3 = '$kode_dosen' 
-                        OR anggota_peneliti_4 = '$kode_dosen'  
-                        OR anggota_peneliti_5 = '$kode_dosen' 
-                        OR anggota_peneliti_6 = '$kode_dosen' 
-                        OR anggota_peneliti_7 = '$kode_dosen' 
-                        OR anggota_peneliti_8 = '$kode_dosen' 
-                        OR anggota_peneliti_9 = '$kode_dosen' 
-                        OR anggota_peneliti_10 = '$kode_dosen')";
-        $query = $this->db->query($sql);
+                WHERE (ketua_peneliti = ?
+                        OR anggota_peneliti_1 = ?
+                        OR anggota_peneliti_2 = ?
+                        OR anggota_peneliti_3 = ?
+                        OR anggota_peneliti_4 = ?
+                        OR anggota_peneliti_5 = ?
+                        OR anggota_peneliti_6 = ?
+                        OR anggota_peneliti_7 = ?
+                        OR anggota_peneliti_8 = ?
+                        OR anggota_peneliti_9 = ?
+                        OR anggota_peneliti_10 = ?);";
+        $query = $this->db->query(
+            $sql, array_map(function() use ($kode_dosen) {return $kode_dosen; } , range(1, 11))
+        );
         return $query->getRow()->jumlah_penelitian;
     }
 
@@ -84,8 +88,8 @@ class PenelitianModel extends Model
         if ($kode_dosen == false) return $this->findAll();
         $sql = "SELECT COUNT(id) AS jumlah_ketua_peneliti 
                 FROM penelitian 
-                WHERE (ketua_peneliti = '$kode_dosen');";
-        $query = $this->db->query($sql);
+                WHERE (ketua_peneliti = ?);";
+        $query = $this->db->query($sql, [$kode_dosen]);
         return $query->getRow()->jumlah_ketua_peneliti;
         // return $query->row()->average_score;
     }

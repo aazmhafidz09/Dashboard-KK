@@ -56,11 +56,10 @@ class HakiModel extends Model
         $query = $this->db->query(
             $sql, array_map(function() use ($kode_dosen) {return $kode_dosen; } , range(1, 10))
         );
-
         return $query->getResultArray();
     }
-    public function getJumlahHaki($kode_dosen = false)
-    {
+
+    public function getJumlahHaki($kode_dosen = false) {
         if ($kode_dosen == false) return $this->findAll(); 
         $sql = "SELECT 
                     COUNT(id) as jumlah_haki 
@@ -85,8 +84,8 @@ class HakiModel extends Model
         if ($kode_dosen == false) return $this->findAll();
         $sql = "SELECT COUNT(id) AS jumlah_ketua 
                 FROM haki 
-                WHERE (ketua = '$kode_dosen')";
-        $query = $this->db->query($sql);
+                WHERE (ketua = ?)";
+        $query = $this->db->query($sql, [$kode_dosen]);
         return $query->getRow()->jumlah_ketua;
     }
 
