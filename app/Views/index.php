@@ -22,6 +22,12 @@
                     </div>
                 <?php endif ?>
 
+                <?php if (session()->getFlashdata('warning')) : ?>
+                    <div class="alert alert-warning" role="alert">
+                        <?= session()->getFlashdata('warning'); ?>
+                    </div>
+                <?php endif ?>
+
                 <?php if (session()->getFlashdata('error')) : ?>
                     <div class="alert alert-danger" role="alert">
                         <?= session()->getFlashdata('error'); ?>
@@ -169,7 +175,12 @@
                                                     <tr>
                                                         <td>
                                                             <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
-                                                            <p class="text-muted font-size-13 mb-0"><?= $tp['nama_dosen']; ?></p>
+                                                            <p class="text-muted font-size-13 mb-0"> <?=
+                                                                ((strlen($tp['nama_dosen']) <= 15)
+                                                                ? $tp['nama_dosen']
+                                                                : substr($tp['nama_dosen'], 0, 15) . "...")
+                                                                ?>
+                                                            </p>
                                                         </td>
                                                         <td class="text-muted fw-semibold text-end">
                                                             <i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i>
@@ -235,7 +246,12 @@
                                                     <tr>
                                                         <td style="max-width: 40%;">
                                                             <strong class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></strong>
-                                                            <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?> </p>
+                                                            <p class="text-muted font-size-13 mb-0"> <?=
+                                                                ((strlen($tp['nama_dosen']) <= 15)
+                                                                ? $tp['nama_dosen']
+                                                                : substr($tp['nama_dosen'], 0, 15) . "...")
+                                                                ?>
+                                                            </p>
                                                         </td>
                                                         <td class="text-muted fw-semibold text-end">
                                                             <?= $tp['nPenelitian']; ?>
@@ -292,7 +308,12 @@
                                                     <tr>
                                                         <td style="max-width: 40%;">
                                                             <strong class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></strong>
-                                                            <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?> </p>
+                                                            <p class="text-muted font-size-13 mb-0"> <?=
+                                                                ((strlen($tp['nama_dosen']) <= 15)
+                                                                ? $tp['nama_dosen']
+                                                                : substr($tp['nama_dosen'], 0, 15) . "...")
+                                                                ?>
+                                                            </p>
                                                         </td>
                                                         <td class="text-muted fw-semibold text-end">
                                                             <?= $tp['nAbdimas']; ?>
@@ -350,7 +371,12 @@
                                                     <tr>
                                                         <td style="max-width: 40%;">
                                                             <strong class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></strong>
-                                                            <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?> </p>
+                                                            <p class="text-muted font-size-13 mb-0"> <?=
+                                                                ((strlen($tp['nama_dosen']) <= 15)
+                                                                ? $tp['nama_dosen']
+                                                                : substr($tp['nama_dosen'], 0, 15) . "...")
+                                                                ?>
+                                                            </p>
                                                         </td>
                                                         <td class="text-muted fw-semibold text-end">
                                                             <?= $tp['nHaki']; ?>

@@ -237,8 +237,7 @@
                         <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="/admin/index"><span class="align-middle">Admin Dashboard</span></a>
-
+                        <a class="dropdown-item" href="/admin/index"><span class="align-middle">Kelola Data</span></a>
                         <a class="dropdown-item" href="/dosen"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">Dosen</span></a>
                         <a class="dropdown-item" href="/admin/publikasi"><i class="uil-copy-alt"></i> <span class="align-middle">Publikasi</span></a>
                         <a class="dropdown-item" href="/admin/penelitian"><i class="uil-align-center-alt"></i> <span class="align-middle">Penelitian</span></a>
