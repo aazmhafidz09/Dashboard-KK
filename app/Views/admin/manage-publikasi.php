@@ -108,7 +108,7 @@
                                                 type="text" 
                                                 placeholder="masukan semua penulis" 
                                                 id="Judul-Publikasi" 
-                                                name="semua_penulis"
+                                                name="penulis_all"
                                             >
                                         </div>
                                     </div>
@@ -125,6 +125,18 @@
                                     <p class="card-title-desc">Masukkan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
 
                                     <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Lab Riset</label>
+                                        <div class="col-md-10">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="Lab riset" 
+                                                id="labRiset" 
+                                                name="lab_riset"
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Institusi Mitra</label>
                                         <div class="col-md-10">
                                             <input 
@@ -132,7 +144,7 @@
                                                 type="text" 
                                                 placeholder="institusi mitra" 
                                                 id="Judul-Publikasi" 
-                                                name="mitra"
+                                                name="institusi_mitra"
                                             >
                                         </div>
                                     </div>
@@ -144,7 +156,7 @@
                                                 type="text" 
                                                 placeholder="jurnal/konferensi" 
                                                 id="Judul-Publikasi" 
-                                                name="jurnal_konferensi"
+                                                name="nama_journal_conf"
                                             >
                                         </div>
                                     </div>
@@ -152,7 +164,7 @@
                                     <div class="mb-3 row">
                                         <label class="col-md-2 col-form-label">Akreditasi</label>
                                         <div class="col-md-10">
-                                            <select class="form-select" name="akreditasi">
+                                            <select class="form-select" name="akreditasi_journal_conf">
                                                 <option> not accredited yet </option>
                                                 <?php foreach($akreditasiPublikasi as $akreditasi): ?>
                                                     <option> <?= $akreditasi ?> </option>
@@ -168,7 +180,7 @@
                                                 type="url" 
                                                 placeholder="Link Artikel" 
                                                 id="example-url-input" 
-                                                name="link"
+                                                name="link_artikel"
                                             >
                                         </div>
                                     </div>

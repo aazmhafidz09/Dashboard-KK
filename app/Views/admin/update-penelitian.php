@@ -52,7 +52,7 @@
                                                 type="text" 
                                                 placeholder="Judul Penelitian" 
                                                 id="Judul-Publikasi" 
-                                                name="judul"
+                                                name="judul_penelitian"
                                                 value="<?= esc($oldPenelitian["judul_penelitian"]) ?>"
                                             >
                                         </div>
@@ -128,7 +128,7 @@
                                                 type="text" 
                                                 placeholder="Ketua Peneliti" 
                                                 id="ketua_penelitian" 
-                                                name="ketua"
+                                                name="ketua_peneliti"
                                             >
                                                 <option value=""> (Ketua eksternal) </option>
                                                 <?php foreach ($listDosen as $dosen): ?>
@@ -151,7 +151,7 @@
                                                     type="text" 
                                                     placeholder="Anggota Peneliti <?= $nAnggota?>" 
                                                     id="anggota_<?=$nAnggota?>Penelitian" 
-                                                    name="anggota_<?=$nAnggota?>"
+                                                    name="anggota_peneliti_<?=$nAnggota?>"
                                                     class="form-control" 
                                                 >
                                                     <option value=""> (Kosong / anggota eksternal) </option>
@@ -214,7 +214,7 @@
                                                 type="text" 
                                                 id="roadmap" 
                                                 placeholder="Kesesuaian dengan roadmap"
-                                                name="roadmap"
+                                                name="kesesuaian_roadmap"
                                                 value="<?= esc($oldPenelitian["kesesuaian_roadmap"]) ?>"
                                             >
                                         </div>
@@ -226,7 +226,7 @@
                                                 class="form-control" 
                                                 type="text" 
                                                 id="Judul-Publikasi" 
-                                                name="rekomendasi"
+                                                name="catatan_rekomendasi"
                                             ><?= esc($oldPenelitian["catatan_rekomendasi"])?></textarea>
                                         </div>
                                     </div>

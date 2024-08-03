@@ -179,7 +179,7 @@
                                                 type="text" 
                                                 placeholder="institusi mitra" 
                                                 id="Institusi_mitra" 
-                                                name="institusi_mitra"
+                                                name="mitra"
                                                 value="<?=$oldAbdimas["mitra"]?>"
                                             >
                                         </div>
@@ -218,7 +218,7 @@
                                                 class="form-control" 
                                                 id="permasalahan_masyarakat" 
                                                 rows="3" 
-                                                name="permasalahan_masyarakat"
+                                                name="permasalahan_masy"
                                             ><?=$oldAbdimas["permasalahan_masy"]?></textarea> 
                                         </div>
                                     </div>

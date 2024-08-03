@@ -7,6 +7,10 @@ use App\Models\PublikasiModel;
 use App\Models\PenelitianModel;
 use App\Models\AbdimasModel;
 use App\Models\HakiModel;
+use App\Models\LogPublikasi;
+use App\Models\LogPenelitian;
+use App\Models\LogAbdimas;
+use App\Models\LogHaki;
 
 class Admin extends BaseController {
     protected $dosenModel;
@@ -21,8 +25,15 @@ class Admin extends BaseController {
         $this->penelitianModel = new PenelitianModel();
         $this->abdimasModel = new AbdimasModel();
         $this->hakiModel = new HakiModel();
+
+        // Should these be moved to respective models instead?
+        $this->logPublikasi = new LogPublikasi();
+        $this->logPenelitian = new LogPenelitian();
+        $this->logAbdimas = new LogAbdimas();
+        $this->logHaki = new LogHaki();
     }
 
+    // TODO: Move to their own models instead
     private function getKKPublikasi($publikasi) {
         $kkPublikasi = [];
         foreach(range(1, 11) as $nPenulis) {
@@ -41,6 +52,7 @@ class Admin extends BaseController {
         return $kkPublikasi;
     }
 
+    // TODO: Move to their own models instead
     private function getKKPenelitian($penelitian) {
         $kkPenelitian = [];
         $penulis = $penelitian["ketua_peneliti"];
@@ -68,6 +80,7 @@ class Admin extends BaseController {
         return $kkPenelitian;
     }
 
+    // TODO: Move to their own models instead
     private function getKKAbdimas($abdimas) {
         $kkAbdimas = [];
         $anggota = $abdimas["ketua"];
@@ -95,6 +108,7 @@ class Admin extends BaseController {
         return $kkAbdimas;
     }
 
+    // TODO: Move to their own models instead
     private function getKKHaki($haki) {
         $kkHaki = [];
         $anggota = $haki["ketua"];
@@ -122,6 +136,7 @@ class Admin extends BaseController {
         return $kkHaki;
     }
 
+    // TODO: Move to their own models instead
     private function hasResourcePermission($resourceType, $resource) {
         $resourceType = strtolower($resourceType);
         $kkResource = [];
@@ -137,6 +152,7 @@ class Admin extends BaseController {
         return in_groups($allowedGroups, user_id());
     }
 
+    // TODO: Move to their own models instead
     private function isInvolvedIn($resourceType, $resource) {
         if(is_null(user())) return false;
 
@@ -195,11 +211,8 @@ class Admin extends BaseController {
         } else if (in_groups(["kk_dsis", "kk_seal", "kk_citi"], user_id())) { // KK specific
             $kk = (in_groups("kk_dsis", user_id())
                     ?  "DSIS"
-                    : (
-                        (in_groups("kk_seal", user_id()))
-                        ? "SEAL" : "CITI"
-                    ));
-
+                    : ( (in_groups("kk_seal", user_id()))
+                        ? "SEAL" : "CITI"));
             $data = [
                 'all_publikasi' => $this->publikasiModel->getAllByKK($kk),
                 'all_penelitian' => $this->penelitianModel->getAllByKK($kk),
@@ -311,21 +324,14 @@ class Admin extends BaseController {
             }
         }
 
-        // $duplicateID = $this->hasDuplicateResource();
-        // if($duplicateID > -1) {
-        //     session()->setFlashdata('warning', 'Publikasi serupa ditemukan');
-        //     return redirect()->to(base_url('/admin/publikasi/update/' . $result["id"]));
-        // }
-
         $this->publikasiModel->save([
-            'akreditasi_journal_conf' => $this->request->getVar('akreditasi'),
-            'institusi_mitra' => $this->request->getVar('mitra'),
+            'akreditasi_journal_conf' => $this->request->getVar('akreditasi_journal_conf'),
+            'institusi_mitra' => $this->request->getVar('institusi_mitra'),
             'jenis' => $this->request->getVar('jenis'),
             'judul_publikasi' => $this->request->getVar('judul_publikasi'),
-            'lab_riset' => $this->request->getVar('penulis_all'),
-            'link_artikel' => $this->request->getVar('link'),
-            // 'luaran_riset_abdimas' => $this->request->getVar('luaran'),
-            'nama_journal_conf' => $this->request->getVar('jurnal_konferensi'),
+            'lab_riset' => $this->request->getVar('lab_riset'),
+            'link_artikel' => $this->request->getVar('link_artikel'),
+            'nama_journal_conf' => $this->request->getVar('nama_journal_conf'),
             'penulis_1' => $this->request->getVar('penulis_1'),
             'penulis_2' => $this->request->getVar('penulis_2'),
             'penulis_3' => $this->request->getVar('penulis_3'),
@@ -337,7 +343,7 @@ class Admin extends BaseController {
             'penulis_9' => $this->request->getVar('penulis_9'),
             'penulis_10' => $this->request->getVar('penulis_10'),
             'penulis_11' => $this->request->getVar('penulis_11'),
-            'penulis_all' => $this->request->getVar('semua_penulis'),
+            'penulis_all' => $this->request->getVar('penulis_all'),
             'tahun' => $this->request->getVar('tahun'),
         ]);
         session()->setFlashdata('pesan', 'Publikasi berhasil ditambahkan');
@@ -368,14 +374,13 @@ class Admin extends BaseController {
         }
 
         $this->publikasiModel->update($id, [
-            'akreditasi_journal_conf' => $this->request->getVar('akreditasi'),
-            'institusi_mitra' => $this->request->getVar('mitra'),
+            'akreditasi_journal_conf' => $this->request->getVar('akreditasi_journal_conf'),
+            'institusi_mitra' => $this->request->getVar('institusi_mitra'),
             'jenis' => $this->request->getVar('jenis'),
             'judul_publikasi' => $this->request->getVar('judul_publikasi'),
-            'lab_riset' => $this->request->getVar('penulis_all'),
-            'link_artikel' => $this->request->getVar('link'),
-            // 'luaran_riset_abdimas' => $this->request->getVar('luaran'),
-            'nama_journal_conf' => $this->request->getVar('jurnal_konferensi'),
+            'lab_riset' => $this->request->getVar('lab_riset'),
+            'link_artikel' => $this->request->getVar('link_artikel'),
+            'nama_journal_conf' => $this->request->getVar('nama_journal_conf'),
             'penulis_1' => $this->request->getVar('penulis_1'),
             'penulis_2' => $this->request->getVar('penulis_2'),
             'penulis_3' => $this->request->getVar('penulis_3'),
@@ -387,7 +392,7 @@ class Admin extends BaseController {
             'penulis_9' => $this->request->getVar('penulis_9'),
             'penulis_10' => $this->request->getVar('penulis_10'),
             'penulis_11' => $this->request->getVar('penulis_11'),
-            'penulis_all' => $this->request->getVar('semua_penulis'),
+            'penulis_all' => $this->request->getVar('penulis_all'),
             'tahun' => $this->request->getVar('tahun'),
         ]);
         session()->setFlashdata('pesan', 'Publikasi berhasil diperbarui');
@@ -502,21 +507,21 @@ class Admin extends BaseController {
         }
 
         $this->penelitianModel->save([
-            'anggota_peneliti_1' => $this->request->getVar('anggota_1'),
-            'anggota_peneliti_2' => $this->request->getVar('anggota_2'),
-            'anggota_peneliti_3' => $this->request->getVar('anggota_3'),
-            'anggota_peneliti_4' => $this->request->getVar('anggota_4'),
-            'anggota_peneliti_5' => $this->request->getVar('anggota_5'),
-            'anggota_peneliti_6' => $this->request->getVar('anggota_6'),
-            'anggota_peneliti_7' => $this->request->getVar('anggota_7'),
-            'anggota_peneliti_8' => $this->request->getVar('anggota_8'),
-            'anggota_peneliti_9' => $this->request->getVar('anggota_9'),
-            'anggota_peneliti_10' => $this->request->getVar('anggota_10'),
-            'catatan_rekomendasi' => $this->request->getVar('rekomendasi'),
+            'anggota_peneliti_1' => $this->request->getVar('anggota_peneliti_1'),
+            'anggota_peneliti_2' => $this->request->getVar('anggota_peneliti_2'),
+            'anggota_peneliti_3' => $this->request->getVar('anggota_peneliti_3'),
+            'anggota_peneliti_4' => $this->request->getVar('anggota_peneliti_4'),
+            'anggota_peneliti_5' => $this->request->getVar('anggota_peneliti_5'),
+            'anggota_peneliti_6' => $this->request->getVar('anggota_peneliti_6'),
+            'anggota_peneliti_7' => $this->request->getVar('anggota_peneliti_7'),
+            'anggota_peneliti_8' => $this->request->getVar('anggota_peneliti_8'),
+            'anggota_peneliti_9' => $this->request->getVar('anggota_peneliti_9'),
+            'anggota_peneliti_10' => $this->request->getVar('anggota_peneliti_10'),
+            'catatan_rekomendasi' => $this->request->getVar('catatan_rekomendasi'),
             'jenis' => $this->request->getVar('jenis'),
-            'judul_penelitian' => $this->request->getVar('judul'),
-            'kesesuaian_roadmap' => $this->request->getVar('roadmap'),
-            'ketua_peneliti' => $this->request->getVar('ketua'),
+            'judul_penelitian' => $this->request->getVar('judul_penelitian'),
+            'kesesuaian_roadmap' => $this->request->getVar('kesesuaian_roadmap'),
+            'ketua_peneliti' => $this->request->getVar('ketua_peneliti'),
             'lab_riset' => $this->request->getVar('lab_riset'),
             'luaran' => $this->request->getVar('luaran'),
             'mitra' => $this->request->getVar('mitra'),
@@ -557,21 +562,21 @@ class Admin extends BaseController {
         }
 
         $this->penelitianModel->update($id, [
-            'anggota_peneliti_1' => $this->request->getVar('anggota_1'),
-            'anggota_peneliti_2' => $this->request->getVar('anggota_2'),
-            'anggota_peneliti_3' => $this->request->getVar('anggota_3'),
-            'anggota_peneliti_4' => $this->request->getVar('anggota_4'),
-            'anggota_peneliti_5' => $this->request->getVar('anggota_5'),
-            'anggota_peneliti_6' => $this->request->getVar('anggota_6'),
-            'anggota_peneliti_7' => $this->request->getVar('anggota_7'),
-            'anggota_peneliti_8' => $this->request->getVar('anggota_8'),
-            'anggota_peneliti_9' => $this->request->getVar('anggota_9'),
-            'anggota_peneliti_10' => $this->request->getVar('anggota_10'),
-            'catatan_rekomendasi' => $this->request->getVar('rekomendasi'),
+            'anggota_peneliti_1' => $this->request->getVar('anggota_peneliti_1'),
+            'anggota_peneliti_2' => $this->request->getVar('anggota_peneliti_2'),
+            'anggota_peneliti_3' => $this->request->getVar('anggota_peneliti_3'),
+            'anggota_peneliti_4' => $this->request->getVar('anggota_peneliti_4'),
+            'anggota_peneliti_5' => $this->request->getVar('anggota_peneliti_5'),
+            'anggota_peneliti_6' => $this->request->getVar('anggota_peneliti_6'),
+            'anggota_peneliti_7' => $this->request->getVar('anggota_peneliti_7'),
+            'anggota_peneliti_8' => $this->request->getVar('anggota_peneliti_8'),
+            'anggota_peneliti_9' => $this->request->getVar('anggota_peneliti_9'),
+            'anggota_peneliti_10' => $this->request->getVar('anggota_peneliti_10'),
+            'catatan_rekomendasi' => $this->request->getVar('catatan_rekomendasi'),
             'jenis' => $this->request->getVar('jenis'),
-            'judul_penelitian' => $this->request->getVar('judul'),
-            'kesesuaian_roadmap' => $this->request->getVar('roadmap'),
-            'ketua_peneliti' => $this->request->getVar('ketua'),
+            'judul_penelitian' => $this->request->getVar('judul_penelitian'),
+            'kesesuaian_roadmap' => $this->request->getVar('kesesuaian_roadmap'),
+            'ketua_peneliti' => $this->request->getVar('ketua_peneliti'),
             'lab_riset' => $this->request->getVar('lab_riset'),
             'luaran' => $this->request->getVar('luaran'),
             'mitra' => $this->request->getVar('mitra'),
@@ -706,9 +711,9 @@ class Admin extends BaseController {
             'ketua' => $this->request->getVar('ketua'),
             'lab_riset' => $this->request->getVar('lab_riset'),
             'luaran' => $this->request->getVar('luaran'),
-            'mitra' => $this->request->getVar('institusi_mitra'),
+            'mitra' => $this->request->getVar('mitra'),
             'nama_kegiatan' => $this->request->getVar('nama_kegiatan'),
-            'permasalahan_masy' => $this->request->getVar('permasalahan_masyarakat'),
+            'permasalahan_masy' => $this->request->getVar('permasalahan_masy'),
             'solusi' => $this->request->getVar('solusi'),
             'status' => $this->request->getVar('status'),
             'tahun' => $this->request->getVar('tahun'),
@@ -779,9 +784,9 @@ class Admin extends BaseController {
             'ketua' => $this->request->getVar('ketua'),
             'lab_riset' => $this->request->getVar('lab_riset'),
             'luaran' => $this->request->getVar('luaran'),
-            'mitra' => $this->request->getVar('institusi_mitra'),
+            'mitra' => $this->request->getVar('mitra'),
             'nama_kegiatan' => $this->request->getVar('nama_kegiatan'),
-            'permasalahan_masy' => $this->request->getVar('permasalahan_masyarakat'),
+            'permasalahan_masy' => $this->request->getVar('permasalahan_masy'),
             'solusi' => $this->request->getVar('solusi'),
             'status' => $this->request->getVar('status'),
             'tahun' => $this->request->getVar('tahun'),

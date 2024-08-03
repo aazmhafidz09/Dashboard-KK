@@ -131,7 +131,7 @@
                                                 type="text" 
                                                 placeholder="masukan semua penulis" 
                                                 id="Judul-Publikasi" 
-                                                name="semua_penulis"
+                                                name="penulis_all"
                                                 value="<?= esc($oldPublikasi["penulis_all"]) ?>"
                                             >
                                         </div>
@@ -149,6 +149,19 @@
                                     <p class="card-title-desc">Masukkan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
 
                                     <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Lab Riset</label>
+                                        <div class="col-md-10">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="Lab riset" 
+                                                id="labRiset" 
+                                                name="lab_riset"
+                                                value="<?= esc($oldPublikasi["lab_riset"]) ?>"
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Institusi Mitra</label>
                                         <div class="col-md-10">
                                             <input 
@@ -156,7 +169,7 @@
                                                 type="text" 
                                                 placeholder="institusi mitra" 
                                                 id="Judul-Publikasi" 
-                                                name="mitra"
+                                                name="institusi_mitra"
                                                 value="<?= esc($oldPublikasi["institusi_mitra"]) ?>"
                                             >
                                         </div>
@@ -169,7 +182,7 @@
                                                 type="text" 
                                                 placeholder="jurnal/konferensi" 
                                                 id="Judul-Publikasi" 
-                                                name="jurnal_konferensi"
+                                                name="nama_journal_conf"
                                                 value="<?= esc($oldPublikasi["nama_journal_conf"]) ?>"
                                             >
                                         </div>
@@ -180,7 +193,7 @@
                                         <div class="col-md-10">
                                             <select 
                                                 class="form-select" 
-                                                name="akreditasi"
+                                                name="akreditasi_journal_conf"
                                             >
                                                 <!-- // Handle old selected thing! -->
                                                 <option> not accredited yet </option>
@@ -200,7 +213,7 @@
                                                 type="url" 
                                                 placeholder="Link Artikel" 
                                                 id="example-url-input" 
-                                                name="link"
+                                                name="link_artikel"
                                                 value="<?= esc($oldPublikasi["link_artikel"]) ?>"
                                             >
                                         </div>

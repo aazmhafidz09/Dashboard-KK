@@ -157,7 +157,7 @@
                                                 type="text" 
                                                 placeholder="institusi mitra" 
                                                 id="Institusi_mitra" 
-                                                name="institusi_mitra"
+                                                name="mitra"
                                             >
                                         </div>
                                     </div>
@@ -189,7 +189,7 @@
                                         <label for="permasalahan_masyarakat" class="col-md-2 col-form-label">Permasalahan Masyarakat</label>
                                         <div class="col-md-10">
                                             <!-- <input class="form-control" type="text" placeholder="Permasalahan Masyarakat" id="permasalahan_masyarakat"> -->
-                                            <textarea class="form-control" id="permasalahan_masyarakat" rows="3" name="permasalahan_masyarakat"></textarea>
+                                            <textarea class="form-control" id="permasalahan_masyarakat" rows="3" name="permasalahan_masy"></textarea>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">

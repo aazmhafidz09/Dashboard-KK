@@ -46,7 +46,7 @@
                                                 type="text" 
                                                 placeholder="Judul Penelitian" 
                                                 id="Judul-Publikasi" 
-                                                name="judul"
+                                                name="judul_penelitian"
                                             >
                                         </div>
                                     </div>
@@ -129,7 +129,7 @@
                                                 type="text" 
                                                 placeholder="Ketua Peneliti" 
                                                 id="ketua_penelitian" 
-                                                name="ketua"
+                                                name="ketua_peneliti"
                                             >
                                                 <option value=""> (Ketua eksternal) </option>
                                                 <?php foreach ($listDosen as $dosen): ?>
@@ -149,7 +149,7 @@
                                                     type="text" 
                                                     placeholder="Anggota Peneliti <?= $nAnggota?>" 
                                                     id="anggota_<?=$nAnggota?>Penelitian" 
-                                                    name="anggota_<?=$nAnggota?>"
+                                                    name="anggota_peneliti_<?=$nAnggota?>"
                                                     class="form-control" 
                                                 >
                                                     <option value=""> (Kosong / anggota eksternal) </option>
@@ -207,14 +207,14 @@
                                                 type="text" 
                                                 placeholder="Kesesuaian dengan roadmap"
                                                 id="roadmap" 
-                                                name="roadmap"
+                                                name="kesesuaian_roadmap"
                                             >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Catatan rekomendasi</label>
                                         <div class="col-md-10">
-                                            <textarea class="form-control" type="text" id="Judul-Publikasi" name="rekomendasi"></textarea>
+                                            <textarea class="form-control" type="text" id="Judul-Publikasi" name="catatan_rekomendasi"></textarea>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
