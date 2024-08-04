@@ -155,8 +155,21 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin/publikasi/update/' . $result[0]["id"]));
         }
 
+        $this->logPublikasi->transBegin();
+        unset($newPublikasi["csrf_test_name"]);
         $this->publikasiModel->save($newPublikasi);
-        session()->setFlashdata('pesan', 'Publikasi berhasil ditambahkan');
+        $this->logPublikasi->save([ 
+            "user_id" => user_id(),
+            "publikasi_id" => $this->publikasiModel->db->insertID(),
+            "action" => "C",
+            "value_after" => json_encode($newPublikasi) ]);
+        if($this->logPublikasi->transStatus() === false) {
+            $this->logPublikasi->transRollback();
+            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
+        } else {
+            $this->logPublikasi->transCommit();
+            session()->setFlashdata('pesan', 'Publikasi berhasil ditambahkan');
+        }
         return redirect()->to(base_url('/admin'));
     }
 
@@ -192,8 +205,22 @@ class Admin extends BaseController {
             }
         }
 
+        $this->logPublikasi->transBegin();
+        unset($publikasi["id"], $newPublikasi["csrf_test_name"]);
         $this->publikasiModel->update($id, $newPublikasi);
-        session()->setFlashdata('pesan', 'Publikasi berhasil diperbarui');
+        $this->logPublikasi->save([ 
+            "user_id" => user_id(),
+            "publikasi_id" => $id,
+            "action" => "U",
+            "value_before" => json_encode($publikasi),
+            "value_after" => json_encode($newPublikasi) ]);
+        if($this->logPublikasi->transStatus() === false) {
+            $this->logPublikasi->transRollback();
+            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
+        } else {
+            $this->logPenelitian->transCommit();
+            session()->setFlashdata('pesan', 'Publikasi berhasil diperbarui');
+        }
         return redirect()->to(base_url('/admin'));
     }
 
@@ -209,8 +236,20 @@ class Admin extends BaseController {
             return redirect()->to(base_url());
         }
 
+        $this->logPublikasi->transBegin();
         $this->publikasiModel->delete($id);
-        session()->setFlashdata('pesan', 'Publikasi berhasil dihapus');
+        $this->logPublikasi->save([ 
+            "user_id" => user_id(),
+            "publikasi_id" => $id,
+            "action" => "D",
+            "value_before" => json_encode($publikasi) ]);
+        if($this->logPublikasi->transStatus() === false) {
+            $this->logPublikasi->transRollback();
+            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
+        } else {
+            $this->logPublikasi->transCommit();
+            session()->setFlashdata('pesan', 'Publikasi berhasil dihapus');
+        }
         return redirect()->to(base_url('/admin'));
     }
 
@@ -294,8 +333,21 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin/penelitian/update/' . $result[0]["id"]));
         }
 
+        $this->logPenelitian->transBegin();
+        unset($newPenelitian["csrf_test_name"]);
         $this->penelitianModel->save($newPenelitian);
-        session()->setFlashdata('pesan', 'Penelitian berhasil ditambahkan');
+        $this->logPenelitian->save([ 
+            "user_id" => user_id(),
+            "penelitian_id" => $this->penelitianModel->db->insertID(),
+            "action" => "C",
+            "value_after" => json_encode($newPenelitian) ]);
+        if($this->logPenelitian->transStatus() === false) {
+            $this->logPenelitian->transRollback();
+            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
+        } else {
+            $this->logPenelitian->transCommit();
+            session()->setFlashdata('pesan', 'Penelitian berhasil ditambahkan');
+        }
         return redirect()->to(base_url('/admin'));
     }
 
@@ -332,8 +384,22 @@ class Admin extends BaseController {
             }
         }
 
+        $this->logPenelitian->transBegin();
+        unset($penelitian["id"], $newPenelitian["csrf_test_name"]);
         $this->penelitianModel->update($id, $newPenelitian);
-        session()->setFlashdata('pesan', 'Penelitian berhasil diperbarui');
+        $this->logPenelitian->save([ 
+            "user_id" => user_id(),
+            "penelitian_id" => $id,
+            "action" => "U",
+            "value_before" => json_encode($penelitian),
+            "value_after" => json_encode($newPenelitian) ]);
+        if($this->logPenelitian->transStatus() === false) {
+            $this->logPenelitian->transRollback();
+            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
+        } else {
+            $this->logPenelitian->transCommit();
+            session()->setFlashdata('pesan', 'Penelitian berhasil diperbarui');
+        }
         return redirect()->to(base_url('/admin'));
     }
 
@@ -349,8 +415,20 @@ class Admin extends BaseController {
             return redirect()->to(base_url());
         }
 
+        $this->logPenelitian->transBegin();
         $this->penelitianModel->delete($id);
-        session()->setFlashdata('pesan', 'Penelitian berhasil dihapus');
+        $this->logPenelitian->save([ 
+            "user_id" => user_id(),
+            "penelitian_id" => $id,
+            "action" => "D",
+            "value_before" => json_encode($penelitian) ]);
+        if($this->logPenelitian->transStatus() === false) {
+            $this->logPenelitian->transRollback();
+            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
+        } else {
+            $this->logPenelitian->transCommit();
+            session()->setFlashdata('pesan', 'Penelitian berhasil dihapus');
+        }
         return redirect()->to(base_url('/admin'));
     }
 
@@ -431,8 +509,21 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin/abdimas/update/' . $result[0]["id"]));
         }
 
+        $this->logAbdimas->transBegin();
+        unset($newAbdimas["csrf_test_name"]);
         $this->abdimasModel->save($newAbdimas);
-        session()->setFlashdata('pesan', 'Abdimas berhasil ditambahkan');
+        $this->logAbdimas->save([ 
+            "user_id" => user_id(),
+            "abdimas_id" => $this->abdimasModel->db->insertID(),
+            "action" => "C",
+            "value_after" => json_encode($newAbdimas) ]);
+        if($this->logAbdimas->transStatus() === false) {
+            $this->logAbdimas->transRollback();
+            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
+        } else {
+            $this->logAbdimas->transCommit();
+            session()->setFlashdata('pesan', 'Abdimas berhasil ditambahkan');
+        }
         return redirect()->to(base_url('/admin'));
     }
 
@@ -448,8 +539,20 @@ class Admin extends BaseController {
             return redirect()->to(base_url());
         }
 
+        $this->logAbdimas->transBegin();
         $this->abdimasModel->delete($id);
-        session()->setFlashdata('pesan', 'Abdimas berhasil dihapus');
+        $this->logAbdimas->save([ 
+            "user_id" => user_id(),
+            "abdimas_id" => $id,
+            "action" => "D",
+            "value_before" => json_encode($abdimas) ]);
+        if($this->logAbdimas->transStatus() === false) {
+            $this->logAbdimas->transRollback();
+            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
+        } else {
+            $this->logAbdimas->transCommit();
+            session()->setFlashdata('pesan', 'Abdimas berhasil dihapus');
+        }
         return redirect()->to(base_url('/admin'));
     }
 
@@ -486,10 +589,8 @@ class Admin extends BaseController {
             }
         }
 
-        unset($abdimas["id"]);
-        unset($newAbdimas["csrf_test_name"]);
-
         $this->logAbdimas->transBegin();
+        unset($abdimas["id"], $newAbdimas["csrf_test_name"]);
         $this->abdimasModel->update($id, $newAbdimas);
         $this->logAbdimas->save([ 
             "user_id" => user_id(),
@@ -568,8 +669,21 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin/haki/update/' . $result[0]["id"]));
         }
 
+        $this->logHaki->transBegin();
+        unset($newHaki["csrf_test_name"]);
         $this->hakiModel->save($newHaki);
-        session()->setFlashdata('pesan', 'Haki berhasil ditambahkan');
+        $this->logHaki->save([ 
+            "user_id" => user_id(),
+            "haki_id" => $this->hakiModel->db->insertID(),
+            "action" => "C",
+            "value_after" => json_encode($newHaki) ]);
+        if($this->logHaki->transStatus() === false) {
+            $this->logHaki->transRollback();
+            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
+        } else {
+            $this->logHaki->transCommit();
+            session()->setFlashdata('pesan', 'Haki berhasil ditambahkan');
+        }
         return redirect()->to(base_url('/admin'));
     }
 
@@ -585,8 +699,20 @@ class Admin extends BaseController {
             return redirect()->to(base_url());
         }
 
+        $this->logHaki->transBegin();
         $this->hakiModel->delete($id);
-        session()->setFlashdata('pesan', 'Haki berhasil dihapus');
+        $this->logHaki->save([ 
+            "user_id" => user_id(),
+            "haki_id" => $id,
+            "action" => "D",
+            "value_before" => json_encode($haki) ]);
+        if($this->logHaki->transStatus() === false) {
+            $this->logHaki->transRollback();
+            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
+        } else {
+            $this->logHaki->transCommit();
+            session()->setFlashdata('pesan', 'Haki berhasil dihapus');
+        }
         return redirect()->to(base_url('/admin'));
     }
 
@@ -623,24 +749,22 @@ class Admin extends BaseController {
             }
         }
 
-        // unset($haki["id"]);
-        // unset($newHaki["csrf_test_name"]);
-
-        // $this->logHaki->transBegin();
+        $this->logHaki->transBegin();
+        unset($haki["id"], $newHaki["csrf_test_name"]);
         $this->hakiModel->update($id, $newHaki);
-        // $this->logHaki->save([ 
-        //     "user_id" => user_id(),
-        //     "haki_id" => $id,
-        //     "action" => "U",
-        //     "value_before" => json_encode($haki),
-        //     "value_after" => json_encode($newHaki) ]);
-        // if($this->logHaki->transStatus() === false) {
-        //     $this->logHaki->transRollback();
-        //     session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
-        // } else {
-        //     $this->logHaki->transCommit();
-        //     session()->setFlashdata('pesan', 'Haki berhasil diperbarui');
-        // }
+        $this->logHaki->save([ 
+            "user_id" => user_id(),
+            "haki_id" => $id,
+            "action" => "U",
+            "value_before" => json_encode($haki),
+            "value_after" => json_encode($newHaki) ]);
+        if($this->logHaki->transStatus() === false) {
+            $this->logHaki->transRollback();
+            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
+        } else {
+            $this->logHaki->transCommit();
+            session()->setFlashdata('pesan', 'Haki berhasil diperbarui');
+        }
         return redirect()->to(base_url('/admin'));
     }
 
