@@ -160,7 +160,7 @@
                                             <input 
                                                 class="form-control" 
                                                 type="text" 
-                                                placeholder="institusi mitra" 
+                                                placeholder="Institusi Mitra" 
                                                 id="Institusi_mitra" 
                                                 name="mitra"
                                             >
@@ -172,7 +172,7 @@
                                             <input 
                                                 class="form-control" 
                                                 type="text" 
-                                                placeholder="alamat mitra" 
+                                                placeholder="Alamat Mitra" 
                                                 id="Alamat_mitra" 
                                                 name="alamat_mitra"
                                             >
@@ -246,7 +246,7 @@
                                             <input 
                                                 class="form-control" 
                                                 type="date" 
-                                                placeholder="tanggal pengesahan" 
+                                                placeholder="Tanggal Pengesahan" 
                                                 id="tanggal_pengesahan" 
                                                 name="tgl_pengesahan"
                                             >

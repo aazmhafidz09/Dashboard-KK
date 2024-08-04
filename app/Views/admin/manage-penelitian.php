@@ -177,7 +177,7 @@
                                 <div class="card-body">
 
                                     <!-- <h4 class="card-title">Input Data Publikasi</h4> -->
-                                    <p class="card-title-desc">Masukkan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
+                                    <p class="card-title-desc">Masukkan data <code>penelitian</code> ke dalam <code>form</code> berikut</p>
 
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Institusi Mitra</label>

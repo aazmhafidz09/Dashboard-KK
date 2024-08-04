@@ -205,7 +205,7 @@
                                                 class="form-control" 
                                                 type="text" 
                                                 id="lab_riset" 
-                                                placeholder="Nama lab riset"
+                                                placeholder="Nama Lab Riset"
                                                 name="lab_riset"
                                                 value="<?= esc($oldPenelitian["lab_riset"]) ?>"
                                             >
