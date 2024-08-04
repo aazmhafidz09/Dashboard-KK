@@ -465,4 +465,47 @@ class AbdimasModel extends Model
         }
         return [0, null];
     }
+
+    public function isPermitted($abdimas) {
+        if(is_null(user())) return false;
+
+        // Does current user is involved?
+        $kodeDosen = user()->kode_dosen;
+        $isInvolved = in_array($kodeDosen, [
+            $abdimas["ketua"], $abdimas["anggota_1"],
+            $abdimas["anggota_2"], $abdimas["anggota_3"],
+            $abdimas["anggota_4"], $abdimas["anggota_5"],
+            $abdimas["anggota_6"], $abdimas["anggota_7"],
+            $abdimas["anggota_8"],
+        ]);
+        if($isInvolved) return true;
+
+        // Is current user came from `KK` that involved here?
+        $dosenModel = new DosenModel();
+        $listAnggota = [];
+        if(!is_null($abdimas["ketua"]) && $abdimas["ketua"] != "") {
+            array_push($listAnggota, $abdimas["ketua"]);
+        }
+
+        foreach(range(1, 8) as $nAnggota) {
+            $anggota = $abdimas["anggota_$nAnggota"];
+            if(!is_null($anggota) && $anggota != "") {
+                array_push($listAnggota, $anggota);
+            }
+        }
+
+        $placeholder = implode(',', array_fill(0, count($listAnggota), '?'));
+        $sql = "SELECT DISTINCT CONCAT('kk_', LOWER(kk)) AS kk 
+                FROM dosen 
+                WHERE kode_dosen IN ($placeholder)";
+        $kkAbdimas = array_map(
+            function($val) {return $val["kk"]; },
+            $this->db->query($sql, $listAnggota)->getResultArray()
+        );
+        $allowedGroups = array_merge(["admin"], $kkAbdimas);
+
+        if(in_groups($allowedGroups, user_id())) return true;
+        return false;
+
+    }
 }

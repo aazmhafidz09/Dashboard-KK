@@ -33,167 +33,6 @@ class Admin extends BaseController {
         $this->logHaki = new LogHaki();
     }
 
-    // TODO: Move to their own models instead
-    private function getKKPublikasi($publikasi) {
-        $kkPublikasi = [];
-        foreach(range(1, 11) as $nPenulis) {
-            $penulis = $publikasi["penulis_" . $nPenulis];
-            if(!(is_null($penulis)) && $penulis != "") {
-                $result = $this->dosenModel->getDosen($penulis);
-                
-                if(!is_null($result)) {
-                    $kk = "kk_" . strtolower($result["KK"]);
-                    if(!in_array($kk, $kkPublikasi)) {
-                        array_push($kkPublikasi, $kk);
-                    }
-                }
-            }
-        }
-        return $kkPublikasi;
-    }
-
-    // TODO: Move to their own models instead
-    private function getKKPenelitian($penelitian) {
-        $kkPenelitian = [];
-        $penulis = $penelitian["ketua_peneliti"];
-        if(!(is_null($penulis)) && $penulis != "") {
-            $result = $this->dosenModel->getDosen($penulis);
-            if(!is_null($result)) {
-                $kk = "kk_" . strtolower($result["KK"]);
-                array_push($kkPenelitian, $kk);
-            }
-        }
-
-        foreach(range(1, 10) as $nPenulis) {
-            $penulis = $penelitian["anggota_peneliti_" . $nPenulis];
-            if(!(is_null($penulis)) && $penulis != "") {
-                $result = $this->dosenModel->getDosen($penulis);
-                
-                if(!is_null($result)) {
-                    $kk = "kk_" . strtolower($result["KK"]);
-                    if(!in_array($kk, $kkPenelitian)) {
-                        array_push($kkPenelitian, $kk);
-                    }
-                }
-            }
-        }
-        return $kkPenelitian;
-    }
-
-    // TODO: Move to their own models instead
-    private function getKKAbdimas($abdimas) {
-        $kkAbdimas = [];
-        $anggota = $abdimas["ketua"];
-        if(!(is_null($anggota)) && $anggota != "") {
-            $result = $this->dosenModel->getDosen($anggota);
-            if(!is_null($result)) {
-                $kk = "kk_" . strtolower($result["KK"]);
-                array_push($kkAbdimas, $kk);
-            }
-        }
-
-        foreach(range(1, 8) as $nAnggota) {
-            $anggota = $abdimas["anggota_" . $nAnggota];
-            if(!(is_null($anggota)) && $anggota != "") {
-                $result = $this->dosenModel->getDosen($anggota);
-                
-                if(!is_null($result)) {
-                    $kk = "kk_" . strtolower($result["KK"]);
-                    if(!in_array($kk, $kkAbdimas)) {
-                        array_push($kkAbdimas, $kk);
-                    }
-                }
-            }
-        }
-        return $kkAbdimas;
-    }
-
-    // TODO: Move to their own models instead
-    private function getKKHaki($haki) {
-        $kkHaki = [];
-        $anggota = $haki["ketua"];
-        if(!(is_null($anggota)) && $anggota != "") {
-            $result = $this->dosenModel->getDosen($anggota);
-            if(!is_null($result)) {
-                $kk = "kk_" . strtolower($result["KK"]);
-                array_push($kkHaki, $kk);
-            }
-        }
-
-        foreach(range(1, 9) as $nAnggota) {
-            $anggota = $haki["anggota_" . $nAnggota];
-            if(!(is_null($anggota)) && $anggota != "") {
-                $result = $this->dosenModel->getDosen($anggota);
-                
-                if(!is_null($result)) {
-                    $kk = "kk_" . strtolower($result["KK"]);
-                    if(!in_array($kk, $kkHaki)) {
-                        array_push($kkHaki, $kk);
-                    }
-                }
-            }
-        }
-        return $kkHaki;
-    }
-
-    // TODO: Move to their own models instead
-    private function hasResourcePermission($resourceType, $resource) {
-        $resourceType = strtolower($resourceType);
-        $kkResource = [];
-        switch ($resourceType) {
-            case "penelitian": $kkResource = $this->getKKPenelitian($resource); break;
-            case "publikasi": $kkResource = $this->getKKPublikasi($resource); break;
-            case "abdimas": $kkResource = $this->getKKAbdimas($resource); break;
-            case "haki": $kkResource = $this->getKKHaki($resource); break;
-        }
-
-        $allowedGroups = ["admin"];
-        foreach($kkResource as $kk) array_push($allowedGroups, $kk);
-        return in_groups($allowedGroups, user_id());
-    }
-
-    // TODO: Move to their own models instead
-    private function isInvolvedIn($resourceType, $resource) {
-        if(is_null(user())) return false;
-
-        $resourceType = strtolower($resourceType);
-        $isInvolved = false;
-        $kodeDosen = user()->kode_dosen;
-        switch ($resourceType) {
-            case "penelitian": 
-                $isInvolved = in_array($kodeDosen, [
-                    $resource["ketua_peneliti"], $resource["anggota_peneliti_1"],
-                    $resource["anggota_peneliti_2"], $resource["anggota_peneliti_3"],
-                    $resource["anggota_peneliti_4"], $resource["anggota_peneliti_5"],
-                    $resource["anggota_peneliti_6"], $resource["anggota_peneliti_7"],
-                    $resource["anggota_peneliti_8"], $resource["anggota_peneliti_9"],
-                    $resource["anggota_peneliti_10"]
-                ]); break;
-            case "publikasi": 
-                $isInvolved = in_array($kodeDosen, [
-                    $resource["penulis_1"], $resource["penulis_2"], $resource["penulis_3"], 
-                    $resource["penulis_4"], $resource["penulis_5"], $resource["penulis_6"], 
-                    $resource["penulis_7"], $resource["penulis_8"], $resource["penulis_9"], 
-                    $resource["penulis_10"], $resource["penulis_11"]
-                ]); break;
-            case "abdimas": 
-                $isInvolved = in_array($kodeDosen, [
-                    $resource["ketua"], $resource["anggota_1"], $resource["anggota_2"], 
-                    $resource["anggota_3"], $resource["anggota_4"], $resource["anggota_5"],
-                    $resource["anggota_6"], $resource["anggota_7"], $resource["anggota_8"],
-                ]); break;
-            case "haki":
-                $isInvolved = in_array($kodeDosen, [
-                    $resource["ketua"], $resource["anggota_1"],
-                    $resource["anggota_2"], $resource["anggota_3"],
-                    $resource["anggota_4"], $resource["anggota_5"],
-                    $resource["anggota_6"], $resource["anggota_7"],
-                    $resource["anggota_8"], $resource["anggota_9"],
-                ]); break;
-        }
-        return $isInvolved;
-    }
-
     private function isAdmin() { // Roles considered as Admin: admin, kk_seal, kk_citi, kk_dsis
         return in_groups(["admin", "kk_dsis", "kk_citi", "kk_seal"], user_id());
     }
@@ -267,10 +106,8 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin'));
         }
 
-        $isProhibited = ( !$this->hasResourcePermission( 'publikasi', $publikasi)
-                        && !$this->isInvolvedIn('publikasi', $publikasi));
-        if($isProhibited) {
-            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
+        if(!$this->publikasiModel->isPermitted($publikasi)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
 
@@ -309,43 +146,16 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin/publikasi'))->withInput()->with('error', $firstError);
         }
 
-        // Check for "similar" record
-        $sql = " SELECT id, judul_publikasi FROM publikasi ";
-        $results = $this->publikasiModel->db->query($sql)->getResultArray();
-        foreach($results as $result) {
-            $isSame = (
-                strtolower($this->request->getVar("judul_publikasi")) == 
-                strtolower($result["judul_publikasi"])
-            );
-
-            if($isSame) {
-                session()->setFlashdata('warning', 'Publikasi serupa ditemukan');
-                return redirect()->to(base_url('/admin/publikasi/update/' . $result["id"]));
-            }
+        // Check for "duplicate" record
+        $newPublikasi = $this->request->getVar();
+        $sql = " SELECT id FROM publikasi WHERE judul_publikasi = ?";
+        $result = $this->publikasiModel->db->query($sql, [$newPublikasi["judul_publikasi"]])->getResultArray();
+        if(count($result) > 0) {
+            session()->setFlashdata('warning', 'Publikasi serupa ditemukan');
+            return redirect()->to(base_url('/admin/publikasi/update/' . $result[0]["id"]));
         }
 
-        $this->publikasiModel->save([
-            'akreditasi_journal_conf' => $this->request->getVar('akreditasi_journal_conf'),
-            'institusi_mitra' => $this->request->getVar('institusi_mitra'),
-            'jenis' => $this->request->getVar('jenis'),
-            'judul_publikasi' => $this->request->getVar('judul_publikasi'),
-            'lab_riset' => $this->request->getVar('lab_riset'),
-            'link_artikel' => $this->request->getVar('link_artikel'),
-            'nama_journal_conf' => $this->request->getVar('nama_journal_conf'),
-            'penulis_1' => $this->request->getVar('penulis_1'),
-            'penulis_2' => $this->request->getVar('penulis_2'),
-            'penulis_3' => $this->request->getVar('penulis_3'),
-            'penulis_4' => $this->request->getVar('penulis_4'),
-            'penulis_5' => $this->request->getVar('penulis_5'),
-            'penulis_6' => $this->request->getVar('penulis_6'),
-            'penulis_7' => $this->request->getVar('penulis_7'),
-            'penulis_8' => $this->request->getVar('penulis_8'),
-            'penulis_9' => $this->request->getVar('penulis_9'),
-            'penulis_10' => $this->request->getVar('penulis_10'),
-            'penulis_11' => $this->request->getVar('penulis_11'),
-            'penulis_all' => $this->request->getVar('penulis_all'),
-            'tahun' => $this->request->getVar('tahun'),
-        ]);
+        $this->publikasiModel->save($newPublikasi);
         session()->setFlashdata('pesan', 'Publikasi berhasil ditambahkan');
         return redirect()->to(base_url('/admin'));
     }
@@ -357,9 +167,7 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin'));
         }
 
-        $isProhibited = ( !$this->hasResourcePermission( 'publikasi', $publikasi)
-                        && !$this->isInvolvedIn('publikasi', $publikasi));
-        if($isProhibited) {
+        if(!$this->publikasiModel->isPermitted($publikasi)) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
@@ -373,28 +181,18 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin/publikasi'))->withInput()->with('error', $firstError);
         }
 
-        $this->publikasiModel->update($id, [
-            'akreditasi_journal_conf' => $this->request->getVar('akreditasi_journal_conf'),
-            'institusi_mitra' => $this->request->getVar('institusi_mitra'),
-            'jenis' => $this->request->getVar('jenis'),
-            'judul_publikasi' => $this->request->getVar('judul_publikasi'),
-            'lab_riset' => $this->request->getVar('lab_riset'),
-            'link_artikel' => $this->request->getVar('link_artikel'),
-            'nama_journal_conf' => $this->request->getVar('nama_journal_conf'),
-            'penulis_1' => $this->request->getVar('penulis_1'),
-            'penulis_2' => $this->request->getVar('penulis_2'),
-            'penulis_3' => $this->request->getVar('penulis_3'),
-            'penulis_4' => $this->request->getVar('penulis_4'),
-            'penulis_5' => $this->request->getVar('penulis_5'),
-            'penulis_6' => $this->request->getVar('penulis_6'),
-            'penulis_7' => $this->request->getVar('penulis_7'),
-            'penulis_8' => $this->request->getVar('penulis_8'),
-            'penulis_9' => $this->request->getVar('penulis_9'),
-            'penulis_10' => $this->request->getVar('penulis_10'),
-            'penulis_11' => $this->request->getVar('penulis_11'),
-            'penulis_all' => $this->request->getVar('penulis_all'),
-            'tahun' => $this->request->getVar('tahun'),
-        ]);
+        $newPublikasi = $this->request->getVar();
+        $sql = " SELECT id FROM publikasi WHERE judul_publikasi = ?";
+        $result = $this->publikasiModel->db->query($sql, [$newPublikasi["judul_publikasi"]])->getResultArray();
+        if(count($result) > 0) {
+            $duplicate = $result[0]["id"];
+            if($duplicate != $id) {
+                session()->setFlashdata('warning', 'Publikasi serupa ditemukan');
+                return redirect()->to(base_url("/admin/publikasi/update/$duplicate"));
+            }
+        }
+
+        $this->publikasiModel->update($id, $newPublikasi);
         session()->setFlashdata('pesan', 'Publikasi berhasil diperbarui');
         return redirect()->to(base_url('/admin'));
     }
@@ -406,9 +204,7 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin'));
         }
 
-        $isProhibited = ( !$this->hasResourcePermission( 'publikasi', $publikasi)
-                        && !$this->isInvolvedIn('publikasi', $publikasi));
-        if($isProhibited) {
+        if(!$this->publikasiModel->isPermitted($publikasi)) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
@@ -449,9 +245,7 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin'));
         }
 
-        $isProhibited = ( !$this->hasResourcePermission( 'penelitian', $penelitian)
-                        && !$this->isInvolvedIn('penelitian', $penelitian));
-        if($isProhibited) {
+        if(!$this->penelitianModel->isPermitted($penelitian)) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk halaman tersebut");
             return redirect()->to(base_url());
         }
@@ -483,7 +277,7 @@ class Admin extends BaseController {
 
         if (!$this->validate([
             'jenis' => 'required',
-            'judul' => 'required',
+            'judul_penelitian' => 'required',
             'tahun' => 'required',
         ])) {
             $validation = \config\Services::validation()->getErrors();
@@ -492,46 +286,15 @@ class Admin extends BaseController {
         }
 
         // Check for "similar" record
-        $sql = " SELECT id, judul_penelitian FROM penelitian ";
-        $results = $this->penelitianModel->db->query($sql)->getResultArray();
-        foreach($results as $result) {
-            $isSame = (
-                strtolower($this->request->getVar("judul")) == 
-                strtolower($result["judul_penelitian"])
-            );
-
-            if($isSame) {
-                session()->setFlashdata('warning', 'Penelitian serupa ditemukan');
-                return redirect()->to(base_url('/admin/penelitian/update/' . $result["id"]));
-            }
+        $newPenelitian = $this->request->getVar();
+        $sql = " SELECT id FROM penelitian WHERE judul_penelitian = ?";
+        $result = $this->penelitianModel->db->query($sql, [$newPenelitian["judul_penelitian"]])->getResultArray();
+        if(count($result) > 0) {
+            session()->setFlashdata('warning', 'Penelitian serupa ditemukan');
+            return redirect()->to(base_url('/admin/penelitian/update/' . $result[0]["id"]));
         }
 
-        $this->penelitianModel->save([
-            'anggota_peneliti_1' => $this->request->getVar('anggota_peneliti_1'),
-            'anggota_peneliti_2' => $this->request->getVar('anggota_peneliti_2'),
-            'anggota_peneliti_3' => $this->request->getVar('anggota_peneliti_3'),
-            'anggota_peneliti_4' => $this->request->getVar('anggota_peneliti_4'),
-            'anggota_peneliti_5' => $this->request->getVar('anggota_peneliti_5'),
-            'anggota_peneliti_6' => $this->request->getVar('anggota_peneliti_6'),
-            'anggota_peneliti_7' => $this->request->getVar('anggota_peneliti_7'),
-            'anggota_peneliti_8' => $this->request->getVar('anggota_peneliti_8'),
-            'anggota_peneliti_9' => $this->request->getVar('anggota_peneliti_9'),
-            'anggota_peneliti_10' => $this->request->getVar('anggota_peneliti_10'),
-            'catatan_rekomendasi' => $this->request->getVar('catatan_rekomendasi'),
-            'jenis' => $this->request->getVar('jenis'),
-            'judul_penelitian' => $this->request->getVar('judul_penelitian'),
-            'kesesuaian_roadmap' => $this->request->getVar('kesesuaian_roadmap'),
-            'ketua_peneliti' => $this->request->getVar('ketua_peneliti'),
-            'lab_riset' => $this->request->getVar('lab_riset'),
-            'luaran' => $this->request->getVar('luaran'),
-            'mitra' => $this->request->getVar('mitra'),
-            'mk_relevan' => $this->request->getVar('mk_relevan'),
-            'nama_kegiatan' => $this->request->getVar('nama_kegiatan'),
-            'status' => $this->request->getVar('status'),
-            'tahun' => $this->request->getVar('tahun'),
-            'tgl_pengesahan' => $this->request->getVar('tgl_pengesahan')
-        ]);
-
+        $this->penelitianModel->save($newPenelitian);
         session()->setFlashdata('pesan', 'Penelitian berhasil ditambahkan');
         return redirect()->to(base_url('/admin'));
     }
@@ -543,17 +306,14 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin'));
         }
 
-        $isProhibited = ( !$this->hasResourcePermission( 'penelitian', $penelitian)
-                        && !$this->isInvolvedIn('penelitian', $penelitian));
-        if($isProhibited) {
+        if(!$this->penelitianModel->isPermitted($penelitian)) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
 
-
         if (!$this->validate([
             'jenis' => 'required',
-            'judul' => 'required',
+            'judul_penelitian' => 'required',
             'tahun' => 'required',
         ])) {
             $validation = \config\Services::validation()->getErrors();
@@ -561,31 +321,18 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin/penelitian'))->withInput()->with('error', $firstError);
         }
 
-        $this->penelitianModel->update($id, [
-            'anggota_peneliti_1' => $this->request->getVar('anggota_peneliti_1'),
-            'anggota_peneliti_2' => $this->request->getVar('anggota_peneliti_2'),
-            'anggota_peneliti_3' => $this->request->getVar('anggota_peneliti_3'),
-            'anggota_peneliti_4' => $this->request->getVar('anggota_peneliti_4'),
-            'anggota_peneliti_5' => $this->request->getVar('anggota_peneliti_5'),
-            'anggota_peneliti_6' => $this->request->getVar('anggota_peneliti_6'),
-            'anggota_peneliti_7' => $this->request->getVar('anggota_peneliti_7'),
-            'anggota_peneliti_8' => $this->request->getVar('anggota_peneliti_8'),
-            'anggota_peneliti_9' => $this->request->getVar('anggota_peneliti_9'),
-            'anggota_peneliti_10' => $this->request->getVar('anggota_peneliti_10'),
-            'catatan_rekomendasi' => $this->request->getVar('catatan_rekomendasi'),
-            'jenis' => $this->request->getVar('jenis'),
-            'judul_penelitian' => $this->request->getVar('judul_penelitian'),
-            'kesesuaian_roadmap' => $this->request->getVar('kesesuaian_roadmap'),
-            'ketua_peneliti' => $this->request->getVar('ketua_peneliti'),
-            'lab_riset' => $this->request->getVar('lab_riset'),
-            'luaran' => $this->request->getVar('luaran'),
-            'mitra' => $this->request->getVar('mitra'),
-            'mk_relevan' => $this->request->getVar('mk_relevan'),
-            'nama_kegiatan' => $this->request->getVar('nama_kegiatan'),
-            'status' => $this->request->getVar('status'),
-            'tahun' => $this->request->getVar('tahun'),
-            'tgl_pengesahan' => $this->request->getVar('tgl_pengesahan')
-        ]);
+        $newPenelitian = $this->request->getVar();
+        $sql = " SELECT id FROM penelitian WHERE judul_penelitian = ?";
+        $result = $this->penelitianModel->db->query($sql, [$newPenelitian["judul_penelitian"]])->getResultArray();
+        if(count($result) > 0) {
+            $duplicate = $result[0]["id"];
+            if($duplicate != $id) {
+                session()->setFlashdata('warning', 'Penelitian serupa ditemukan');
+                return redirect()->to(base_url("/admin/penelitian/update/$duplicate"));
+            }
+        }
+
+        $this->penelitianModel->update($id, $newPenelitian);
         session()->setFlashdata('pesan', 'Penelitian berhasil diperbarui');
         return redirect()->to(base_url('/admin'));
     }
@@ -597,9 +344,7 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin'));
         }
 
-        $isProhibited = ( !$this->hasResourcePermission( 'penelitian', $penelitian)
-                        && !$this->isInvolvedIn('penelitian', $penelitian));
-        if($isProhibited) {
+        if(!$this->penelitianModel->isPermitted($penelitian)) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
@@ -638,10 +383,8 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin'));
         }
 
-        $isProhibited = ( !$this->hasResourcePermission( 'abdimas', $abdimas)
-                        && !$this->isInvolvedIn('abdimas', $abdimas));
-        if($isProhibited) {
-            session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
+        if(!$this->abdimasModel->isPermitted($abdimas)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk halaman tersebut");
             return redirect()->to(base_url());
         }
 
@@ -679,47 +422,16 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin/abdimas'))->withInput()->with('error', $firstError);
         }
 
-        // Check for "similar" record
-        $sql = " SELECT id, judul FROM abdimas ";
-        $results = $this->abdimasModel->db->query($sql)->getResultArray();
-        foreach($results as $result) {
-            $isSame = (
-                strtolower($this->request->getVar("judul")) == 
-                strtolower($result["judul"])
-            );
-
-            if($isSame) {
-                session()->setFlashdata('warning', 'Abdimas serupa ditemukan');
-                return redirect()->to(base_url('/admin/abdimas/update/' . $result["id"]));
-            }
+        // Check for "duplicate" record
+        $newAbdimas = $this->request->getVar();
+        $sql = " SELECT id FROM abdimas WHERE judul = ?";
+        $result = $this->abdimasModel->db->query($sql, [$newAbdimas["judul"]])->getResultArray();
+        if(count($result) > 0) {
+            session()->setFlashdata('warning', 'Abdimas serupa ditemukan');
+            return redirect()->to(base_url('/admin/abdimas/update/' . $result[0]["id"]));
         }
 
-        $this->abdimasModel->save([
-            'anggota_1' => $this->request->getVar('anggota_1'),
-            'anggota_2' => $this->request->getVar('anggota_2'),
-            'anggota_3' => $this->request->getVar('anggota_3'),
-            'anggota_4' => $this->request->getVar('anggota_4'),
-            'anggota_5' => $this->request->getVar('anggota_5'),
-            'anggota_6' => $this->request->getVar('anggota_6'),
-            'anggota_7' => $this->request->getVar('anggota_7'),
-            'anggota_8' => $this->request->getVar('anggota_8'),
-            'alamat_mitra' => $this->request->getVar('alamat_mitra'),
-            'catatan' => $this->request->getVar('catatan'),
-            'jenis' => $this->request->getVar('jenis'),
-            'judul' => $this->request->getVar('judul'),
-            'kesesuaian_roadmap' => $this->request->getVar('kesesuaian_roadmap'),
-            'ketua' => $this->request->getVar('ketua'),
-            'lab_riset' => $this->request->getVar('lab_riset'),
-            'luaran' => $this->request->getVar('luaran'),
-            'mitra' => $this->request->getVar('mitra'),
-            'nama_kegiatan' => $this->request->getVar('nama_kegiatan'),
-            'permasalahan_masy' => $this->request->getVar('permasalahan_masy'),
-            'solusi' => $this->request->getVar('solusi'),
-            'status' => $this->request->getVar('status'),
-            'tahun' => $this->request->getVar('tahun'),
-            'tgl_pengesahan' => $this->request->getVar('tgl_pengesahan')
-        ]);
-
+        $this->abdimasModel->save($newAbdimas);
         session()->setFlashdata('pesan', 'Abdimas berhasil ditambahkan');
         return redirect()->to(base_url('/admin'));
     }
@@ -731,9 +443,7 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin'));
         }
 
-        $isProhibited = ( !$this->hasResourcePermission( 'abdimas', $abdimas)
-                        && !$this->isInvolvedIn('abdimas', $abdimas));
-        if($isProhibited) {
+        if(!$this->abdimasModel->isPermitted($abdimas)) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
@@ -750,9 +460,7 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin'));
         }
 
-        $isProhibited = ( !$this->hasResourcePermission( 'abdimas', $abdimas)
-                        && !$this->isInvolvedIn('abdimas', $abdimas));
-        if($isProhibited) {
+        if(!$this->abdimasModel->isPermitted($abdimas)) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
@@ -767,32 +475,35 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin/abdimas'))->withInput()->with('error', $firstError);
         }
 
-        $this->abdimasModel->update($id, [
-            'anggota_1' => $this->request->getVar('anggota_1'),
-            'anggota_2' => $this->request->getVar('anggota_2'),
-            'anggota_3' => $this->request->getVar('anggota_3'),
-            'anggota_4' => $this->request->getVar('anggota_4'),
-            'anggota_5' => $this->request->getVar('anggota_5'),
-            'anggota_6' => $this->request->getVar('anggota_6'),
-            'anggota_7' => $this->request->getVar('anggota_7'),
-            'anggota_8' => $this->request->getVar('anggota_8'),
-            'alamat_mitra' => $this->request->getVar('alamat_mitra'),
-            'catatan' => $this->request->getVar('catatan'),
-            'jenis' => $this->request->getVar('jenis'),
-            'judul' => $this->request->getVar('judul'),
-            'kesesuaian_roadmap' => $this->request->getVar('kesesuaian_roadmap'),
-            'ketua' => $this->request->getVar('ketua'),
-            'lab_riset' => $this->request->getVar('lab_riset'),
-            'luaran' => $this->request->getVar('luaran'),
-            'mitra' => $this->request->getVar('mitra'),
-            'nama_kegiatan' => $this->request->getVar('nama_kegiatan'),
-            'permasalahan_masy' => $this->request->getVar('permasalahan_masy'),
-            'solusi' => $this->request->getVar('solusi'),
-            'status' => $this->request->getVar('status'),
-            'tahun' => $this->request->getVar('tahun'),
-            'tgl_pengesahan' => $this->request->getVar('tgl_pengesahan')
-        ]);
-        session()->setFlashdata('pesan', 'Abdimas berhasil diperbarui');
+        $newAbdimas = $this->request->getVar();
+        $sql = " SELECT id FROM abdimas WHERE judul = ?";
+        $result = $this->hakiModel->db->query($sql, [$newAbdimas["judul"]])->getResultArray();
+        if(count($result) > 0) {
+            $duplicate = $result[0]["id"];
+            if($duplicate != $id) {
+                session()->setFlashdata('warning', 'Abdimas serupa ditemukan');
+                return redirect()->to(base_url("/admin/abdimas/update/$duplicate"));
+            }
+        }
+
+        unset($abdimas["id"]);
+        unset($newAbdimas["csrf_test_name"]);
+
+        $this->logAbdimas->transBegin();
+        $this->abdimasModel->update($id, $newAbdimas);
+        $this->logAbdimas->save([ 
+            "user_id" => user_id(),
+            "abdimas_id" => $id,
+            "action" => "U",
+            "value_before" => json_encode($abdimas),
+            "value_after" => json_encode($newAbdimas) ]);
+        if($this->logAbdimas->transStatus() === false) {
+            $this->logAbdimas->transRollback();
+            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
+        } else {
+            $this->logAbdimas->transCommit();
+            session()->setFlashdata('pesan', 'Abdimas berhasil diperbarui');
+        }
         return redirect()->to(base_url('/admin'));
     }
 
@@ -817,9 +528,7 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin'));
         }
 
-        $isProhibited = ( !$this->hasResourcePermission( 'haki', $haki)
-                        && !$this->isInvolvedIn('haki', $haki));
-        if($isProhibited) {
+        if(!$this->hakiModel->isPermitted($haki)) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk halaman tersebut");
             return redirect()->to(base_url());
         }
@@ -850,41 +559,16 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin/haki'))->withInput()->with('error', $firstError);
         }
 
-        // Check for "similar" record
-        $sql = " SELECT id, judul FROM haki";
-        $results = $this->hakiModel->db->query($sql)->getResultArray();
-        foreach($results as $result) {
-            $isSame = (
-                strtolower($this->request->getVar("judul")) == 
-                strtolower($result["judul"])
-            );
-
-            if($isSame) {
-                session()->setFlashdata('warning', 'Haki serupa ditemukan');
-                return redirect()->to(base_url('/admin/haki/update/' . $result["id"]));
-            }
+        // Check "duplicate" record
+        $newHaki = $this->request->getVar();
+        $sql = " SELECT id FROM haki WHERE judul = ?";
+        $result = $this->hakiModel->db->query($sql, [$newHaki["judul"]])->getResultArray();
+        if(count($result) > 0) {
+            session()->setFlashdata('warning', 'Haki serupa ditemukan');
+            return redirect()->to(base_url('/admin/haki/update/' . $result[0]["id"]));
         }
 
-        $this->hakiModel->save([
-            'abstrak' => $this->request->getVar('abstrak'),
-            'anggota_1' => $this->request->getVar('anggota_1'),
-            'anggota_2' => $this->request->getVar('anggota_2'),
-            'anggota_3' => $this->request->getVar('anggota_3'),
-            'anggota_4' => $this->request->getVar('anggota_4'),
-            'anggota_5' => $this->request->getVar('anggota_5'),
-            'anggota_6' => $this->request->getVar('anggota_6'),
-            'anggota_7' => $this->request->getVar('anggota_7'),
-            'anggota_8' => $this->request->getVar('anggota_8'),
-            'anggota_9' => $this->request->getVar('anggota_9'),
-            'catatan' => $this->request->getVar('catatan'),
-            'jenis' => $this->request->getVar('jenis'),
-            'jenis_ciptaan' => $this->request->getVar('jenis_ciptaan'),
-            'judul' => $this->request->getVar('judul'),
-            'ketua' => $this->request->getVar('ketua'),
-            'no_pendaftaran' => $this->request->getVar('no_pendaftaran'),
-            'no_sertifikat' => $this->request->getVar('no_sertifikat'),
-            'tahun' => $this->request->getVar('tahun'),
-        ]);
+        $this->hakiModel->save($newHaki);
         session()->setFlashdata('pesan', 'Haki berhasil ditambahkan');
         return redirect()->to(base_url('/admin'));
     }
@@ -896,10 +580,8 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin'));
         }
 
-        $isProhibited = ( !$this->hasResourcePermission( 'haki', $haki)
-                        && !$this->isInvolvedIn('haki', $haki));
-        if($isProhibited) {
-            session()->setFlashdata("error", "Anda tidak memiliki akses untuk halaman tersebut");
+        if(!$this->hakiModel->isPermitted($haki)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
 
@@ -910,15 +592,13 @@ class Admin extends BaseController {
 
     public function handle_haki_edit($id) {
         $haki = $this->hakiModel->where('id', $id)->first();
-        if(is_null($haki)) { // TODO: Make the flash data red in UI
-            sessAon()->setFlashdata('error', 'Haki tidak ditemukan');
+        if(is_null($haki)) { 
+            session()->setFlashdata('error', 'Haki tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
 
-        $isProhibited = ( !$this->hasResourcePermission( 'haki', $haki)
-                        && !$this->isInvolvedIn('haki', $haki));
-        if($isProhibited) {
-            session()->setFlashdata("error", "Anda tidak memiliki akses untuk malakukan aksi tersebut");
+        if(!$this->hakiModel->isPermitted($haki)) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
 
@@ -932,27 +612,35 @@ class Admin extends BaseController {
             return redirect()->to(base_url('/admin/haki'))->withInput()->with('error', $firstError);
         }
 
-        $this->hakiModel->update($id, [
-            'abstrak' => $this->request->getVar('abstrak'),
-            'anggota_1' => $this->request->getVar('anggota_1'),
-            'anggota_2' => $this->request->getVar('anggota_2'),
-            'anggota_3' => $this->request->getVar('anggota_3'),
-            'anggota_4' => $this->request->getVar('anggota_4'),
-            'anggota_5' => $this->request->getVar('anggota_5'),
-            'anggota_6' => $this->request->getVar('anggota_6'),
-            'anggota_7' => $this->request->getVar('anggota_7'),
-            'anggota_8' => $this->request->getVar('anggota_8'),
-            'anggota_9' => $this->request->getVar('anggota_9'),
-            'catatan' => $this->request->getVar('catatan'),
-            'jenis' => $this->request->getVar('jenis'),
-            'jenis_ciptaan' => $this->request->getVar('jenis_ciptaan'),
-            'judul' => $this->request->getVar('judul'),
-            'ketua' => $this->request->getVar('ketua'),
-            'no_pendaftaran' => $this->request->getVar('no_pendaftaran'),
-            'no_sertifikat' => $this->request->getVar('no_sertifikat'),
-            'tahun' => $this->request->getVar('tahun'),
-        ]);
-        session()->setFlashdata('pesan', 'Haki berhasil diperbarui');
+        $newHaki = $this->request->getVar();
+        $sql = " SELECT id FROM haki WHERE judul = ?";
+        $result = $this->hakiModel->db->query($sql, [$newHaki["judul"]])->getResultArray();
+        if(count($result) > 0) {
+            $duplicate = $result[0]["id"];
+            if($duplicate != $id) {
+                session()->setFlashdata('warning', 'Haki serupa ditemukan');
+                return redirect()->to(base_url("/admin/haki/update/$duplicate"));
+            }
+        }
+
+        // unset($haki["id"]);
+        // unset($newHaki["csrf_test_name"]);
+
+        // $this->logHaki->transBegin();
+        $this->hakiModel->update($id, $newHaki);
+        // $this->logHaki->save([ 
+        //     "user_id" => user_id(),
+        //     "haki_id" => $id,
+        //     "action" => "U",
+        //     "value_before" => json_encode($haki),
+        //     "value_after" => json_encode($newHaki) ]);
+        // if($this->logHaki->transStatus() === false) {
+        //     $this->logHaki->transRollback();
+        //     session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
+        // } else {
+        //     $this->logHaki->transCommit();
+        //     session()->setFlashdata('pesan', 'Haki berhasil diperbarui');
+        // }
         return redirect()->to(base_url('/admin'));
     }
 

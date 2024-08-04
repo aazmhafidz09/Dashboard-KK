@@ -20,6 +20,11 @@
     <!-- ============================================================== -->
     <div class="main-content">
         <div class="page-content">
+            <?php if (session()->getFlashdata('error')) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= session()->getFlashdata('error'); ?>
+                </div>
+            <?php endif ?>
             <div class="container-fluid">
                 <form action="/admin/haki_save" method="post">
                     <?= csrf_field(); ?>
@@ -47,7 +52,7 @@
                                             <input 
                                                 class="form-control" 
                                                 type="number" 
-                                                placeholder="<?= date("Y") ?>" 
+                                                placeholder="Tahun Haki" 
                                                 min="1"
                                                 id="example-number-input" 
                                                 name="tahun"

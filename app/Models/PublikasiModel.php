@@ -551,4 +551,43 @@ class PublikasiModel extends Model
         }
         return [0, null];
     }
+    
+    public function isPermitted($publikasi) {
+        if(is_null(user())) return false;
+
+        // Does current user is involved?
+        $kodeDosen = user()->kode_dosen;
+        $isInvolved = in_array($kodeDosen, [
+            $publikasi["penulis_1"], $publikasi["penulis_2"],
+            $publikasi["penulis_3"], $publikasi["penulis_4"], 
+            $publikasi["penulis_5"], $publikasi["penulis_6"], 
+            $publikasi["penulis_7"], $publikasi["penulis_8"], 
+            $publikasi["penulis_9"], $publikasi["penulis_10"], 
+            $publikasi["penulis_11"],
+        ]);
+        if($isInvolved) return true;
+
+        // Is current user came from `KK` that involved here?
+        $dosenModel = new DosenModel();
+        $listAnggota = [];
+        foreach(range(1, 11) as $nAnggota) {
+            $anggota = $publikasi["penulis_$nAnggota"];
+            if(!is_null($anggota) && $anggota != "") {
+                array_push($listAnggota, $anggota);
+            }
+        }
+
+        $placeholder = implode(',', array_fill(0, count($listAnggota), '?'));
+        $sql = "SELECT DISTINCT CONCAT('kk_', LOWER(kk)) AS kk 
+                FROM dosen 
+                WHERE kode_dosen IN ($placeholder)";
+        $kkPublikasi = array_map(
+            function($val) {return $val["kk"]; },
+            $this->db->query($sql, $listAnggota)->getResultArray()
+        );
+        $allowedGroups = array_merge(["admin"], $kkPublikasi);
+
+        if(in_groups($allowedGroups, user_id())) return true;
+        return false;
+    }
 }

@@ -20,6 +20,11 @@
     <!-- ============================================================== -->
     <div class="main-content">
         <div class="page-content">
+            <?php if (session()->getFlashdata('error')) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= session()->getFlashdata('error'); ?>
+                </div>
+            <?php endif ?>
             <?php if (session()->getFlashdata('warning')) : ?>
                 <div class="alert alert-warning" role="alert">
                     <?= session()->getFlashdata('warning'); ?>
@@ -65,7 +70,7 @@
                                                 type="number" 
                                                 id="example-number-input" 
                                                 name="tahun"
-                                                placeholder="<?= date("Y") ?>" 
+                                                placeholder="Tahun Publikasi" 
                                                 min="1"
                                                 value="<?= esc($oldPublikasi["tahun"]) ?>"
                                             >

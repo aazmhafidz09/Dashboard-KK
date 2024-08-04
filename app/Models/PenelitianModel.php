@@ -655,4 +655,50 @@ class PenelitianModel extends Model
         }
         return [0, null];
     }
+
+    public function isPermitted($penelitian) {
+        if(is_null(user())) return false;
+
+        // Does current user is involved?
+        $kodeDosen = user()->kode_dosen;
+        $isInvolved = in_array($kodeDosen, [
+            $penelitian["ketua_peneliti"], $penelitian["anggota_peneliti_1"],
+            $penelitian["anggota_peneliti_2"], $penelitian["anggota_peneliti_3"],
+            $penelitian["anggota_peneliti_4"], $penelitian["anggota_peneliti_5"],
+            $penelitian["anggota_peneliti_6"], $penelitian["anggota_peneliti_7"],
+            $penelitian["anggota_peneliti_8"], $penelitian["anggota_peneliti_9"],
+            $penelitian["anggota_peneliti_10"],
+        ]);
+        if($isInvolved) return true;
+
+        // Is current user came from `KK` that involved here?
+        $dosenModel = new DosenModel();
+        $listAnggota = [];
+        if(!is_null($penelitian["ketua_peneliti"]) 
+            && $penelitian["ketua_peneliti"] != "") 
+        {
+            array_push($listAnggota, $penelitian["ketua_peneliti"]);
+        }
+
+        foreach(range(1, 10) as $nAnggota) {
+            $anggota = $penelitian["anggota_peneliti_$nAnggota"];
+            if(!is_null($anggota) && $anggota != "") {
+                array_push($listAnggota, $anggota);
+            }
+        }
+
+        $placeholder = implode(',', array_fill(0, count($listAnggota), '?'));
+        $sql = "SELECT DISTINCT CONCAT('kk_', LOWER(kk)) AS kk 
+                FROM dosen 
+                WHERE kode_dosen IN ($placeholder)";
+        $kkPenelitian = array_map(
+            function($val) {return $val["kk"]; },
+            $this->db->query($sql, $listAnggota)->getResultArray()
+        );
+        $allowedGroups = array_merge(["admin"], $kkPenelitian);
+
+        if(in_groups($allowedGroups, user_id())) return true;
+        return false;
+
+    }
 }

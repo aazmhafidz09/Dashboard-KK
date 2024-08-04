@@ -28,6 +28,11 @@
     <!-- ============================================================== -->
     <div class="main-content">
         <div class="page-content">
+            <?php if (session()->getFlashdata('error')) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= session()->getFlashdata('error'); ?>
+                </div>
+            <?php endif ?>
             <?php if (session()->getFlashdata('warning')) : ?>
                 <div class="alert alert-warning" role="alert">
                     <?= session()->getFlashdata('warning'); ?>
@@ -66,6 +71,7 @@
                                                 placeholder="Nama kegiatan" 
                                                 id="Judul-Publikasi" 
                                                 name="nama_kegiatan"
+                                                value="<?=$oldAbdimas["nama_kegiatan"]?>"
                                             >
                                         </div>
                                     </div>
@@ -75,7 +81,7 @@
                                             <input 
                                                 class="form-control" 
                                                 type="number" 
-                                                placeholder="<?= date("Y") ?>" 
+                                                placeholder="Tahun Abdimas" 
                                                 min="1"
                                                 id="Tahun" 
                                                 name="tahun"
@@ -194,6 +200,19 @@
                                                 id="Alamat_mitra" 
                                                 name="alamat_mitra"
                                                 value="<?=$oldAbdimas["alamat_mitra"]?>"
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="labRiset" class="col-md-2 col-form-label">Laboratorium Riset</label>
+                                        <div class="col-md-10">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="Laboratorium Riset" 
+                                                id="labRiset" 
+                                                name="lab_riset"
+                                                value="<?=$oldAbdimas["lab_riset"]?>"
                                             >
                                         </div>
                                     </div>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 use App\Models\DosenModel;
+use App\Models\LogHaki;
 use OpenSpout\Reader\Common\Creator\ReaderFactory;
 
 class HakiModel extends Model
@@ -530,5 +531,47 @@ class HakiModel extends Model
             return [-1, "Maaf, suatu kesalahan yang tidak diketahui terjadi, pastikan anda telah mengikuti seluruh panduan. Apabila merasa sudah, silakan kontak tim pengembang"];
         }
         return [0, null];
+    }
+
+    public function isPermitted($haki) {
+        if(is_null(user())) return false;
+
+        // Does current user is involved?
+        $kodeDosen = user()->kode_dosen;
+        $isInvolved = in_array($kodeDosen, [
+            $haki["ketua"], $haki["anggota_1"],
+            $haki["anggota_2"], $haki["anggota_3"],
+            $haki["anggota_4"], $haki["anggota_5"],
+            $haki["anggota_6"], $haki["anggota_7"],
+            $haki["anggota_8"], $haki["anggota_9"],
+        ]);
+        if($isInvolved) return true;
+
+        // Is current user came from `KK` that involved here?
+        $dosenModel = new DosenModel();
+        $listAnggota = [];
+        if(!is_null($haki["ketua"]) && $haki["ketua"] != "") {
+            array_push($listAnggota, $haki["ketua"]);
+        }
+
+        foreach(range(1, 9) as $nAnggota) {
+            $anggota = $haki["anggota_$nAnggota"];
+            if(!is_null($anggota) && $anggota != "") {
+                array_push($listAnggota, $anggota);
+            }
+        }
+
+        $placeholder = implode(',', array_fill(0, count($listAnggota), '?'));
+        $sql = "SELECT DISTINCT CONCAT('kk_', LOWER(kk)) AS kk 
+                FROM dosen 
+                WHERE kode_dosen IN ($placeholder)";
+        $kkHaki = array_map(
+            function($val) {return $val["kk"]; },
+            $this->db->query($sql, $listAnggota)->getResultArray()
+        );
+        $allowedGroups = array_merge(["admin"], $kkHaki);
+
+        if(in_groups($allowedGroups, user_id())) return true;
+        return false;
     }
 }

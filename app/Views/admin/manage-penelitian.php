@@ -29,7 +29,11 @@
     <!-- ============================================================== -->
     <div class="main-content">
         <div class="page-content">
-
+            <?php if (session()->getFlashdata('error')) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= session()->getFlashdata('error'); ?>
+                </div>
+            <?php endif ?>
             <div class="container-fluid">
                 <form action="/admin/penelitian_save" method="post">
                     <?= csrf_field(); ?> <div class="row">
@@ -68,7 +72,7 @@
                                             <input 
                                                 class="form-control" 
                                                 type="number" 
-                                                placeholder="<?= date("Y") ?>" 
+                                                placeholder="Tahun Penelitian" 
                                                 min="1"
                                                 id="example-number-input" 
                                                 name="tahun"

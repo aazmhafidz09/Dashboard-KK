@@ -20,6 +20,11 @@
     <!-- ============================================================== -->
     <div class="main-content">
         <div class="page-content">
+            <?php if (session()->getFlashdata('error')) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= session()->getFlashdata('error'); ?>
+                </div>
+            <?php endif ?>
             <div class="container-fluid">
                 <form action="/admin/publikasi_save">
                     <div class="row">
@@ -48,7 +53,7 @@
                                                 type="number" 
                                                 id="example-number-input" 
                                                 name="tahun"
-                                                placeholder="<?= date("Y") ?>" 
+                                                placeholder="Tahun Publikasi" 
                                                 min="1"
                                             >
                                         </div>

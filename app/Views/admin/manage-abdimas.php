@@ -29,6 +29,11 @@
     <!-- ============================================================== -->
     <div class="main-content">
         <div class="page-content">
+            <?php if (session()->getFlashdata('error')) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= session()->getFlashdata('error'); ?>
+                </div>
+            <?php endif ?>
             <div class="container-fluid">
                 <form action="/admin/abdimas_save" method="post">
                     <?= csrf_field(); ?>
@@ -69,7 +74,7 @@
                                             <input 
                                                 class="form-control" 
                                                 type="number" 
-                                                placeholder="<?= date("Y") ?>" 
+                                                placeholder="Tahun Abdimas" 
                                                 min="1"
                                                 id="Tahun" 
                                                 name="tahun"
@@ -170,6 +175,18 @@
                                                 placeholder="alamat mitra" 
                                                 id="Alamat_mitra" 
                                                 name="alamat_mitra"
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="labRiset" class="col-md-2 col-form-label">Laboratorium Riset</label>
+                                        <div class="col-md-10">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder="Laboratorium Riset" 
+                                                id="labRiset" 
+                                                name="lab_riset"
                                             >
                                         </div>
                                     </div>
