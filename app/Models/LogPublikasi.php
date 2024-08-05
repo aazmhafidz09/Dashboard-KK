@@ -30,4 +30,6 @@ class LogPublikasi extends Model {
         return $this->query($sql, [$id])
                     ->getResultArray();
     }
+
+    public function getTableName() {return $this->table; }
 }

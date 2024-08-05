@@ -158,6 +158,7 @@ class Admin extends BaseController {
         $this->logPublikasi->transBegin();
         unset($newPublikasi["csrf_test_name"]);
         $this->publikasiModel->save($newPublikasi);
+        $newPublikasi = array_merge( ["id" => "" . $this->publikasiModel->db->insertID()], $newPublikasi);
         $this->logPublikasi->save([ 
             "user_id" => user_id(),
             "publikasi_id" => $this->publikasiModel->db->insertID(),
@@ -206,8 +207,9 @@ class Admin extends BaseController {
         }
 
         $this->logPublikasi->transBegin();
-        unset($publikasi["id"], $newPublikasi["csrf_test_name"]);
+        unset($newPublikasi["csrf_test_name"]);
         $this->publikasiModel->update($id, $newPublikasi);
+        $newPublikasi = array_merge(["id" => "$id"], $newPublikasi);
         $this->logPublikasi->save([ 
             "user_id" => user_id(),
             "publikasi_id" => $id,
@@ -237,12 +239,12 @@ class Admin extends BaseController {
         }
 
         $this->logPublikasi->transBegin();
-        $this->publikasiModel->delete($id);
         $this->logPublikasi->save([ 
             "user_id" => user_id(),
             "publikasi_id" => $id,
             "action" => "D",
             "value_before" => json_encode($publikasi) ]);
+        $this->publikasiModel->delete($id);
         if($this->logPublikasi->transStatus() === false) {
             $this->logPublikasi->transRollback();
             session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
@@ -336,6 +338,7 @@ class Admin extends BaseController {
         $this->logPenelitian->transBegin();
         unset($newPenelitian["csrf_test_name"]);
         $this->penelitianModel->save($newPenelitian);
+        $newPenelitian = array_merge( ["id" => "" . $this->penelitianModel->db->insertID()], $newPenelitian);
         $this->logPenelitian->save([ 
             "user_id" => user_id(),
             "penelitian_id" => $this->penelitianModel->db->insertID(),
@@ -385,8 +388,9 @@ class Admin extends BaseController {
         }
 
         $this->logPenelitian->transBegin();
-        unset($penelitian["id"], $newPenelitian["csrf_test_name"]);
+        unset($newPenelitian["csrf_test_name"]);
         $this->penelitianModel->update($id, $newPenelitian);
+        $newPenelitian = array_merge(["id" => "$id"], $newPenelitian);
         $this->logPenelitian->save([ 
             "user_id" => user_id(),
             "penelitian_id" => $id,
@@ -416,12 +420,12 @@ class Admin extends BaseController {
         }
 
         $this->logPenelitian->transBegin();
-        $this->penelitianModel->delete($id);
         $this->logPenelitian->save([ 
             "user_id" => user_id(),
             "penelitian_id" => $id,
             "action" => "D",
             "value_before" => json_encode($penelitian) ]);
+        $this->penelitianModel->delete($id);
         if($this->logPenelitian->transStatus() === false) {
             $this->logPenelitian->transRollback();
             session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
@@ -512,6 +516,7 @@ class Admin extends BaseController {
         $this->logAbdimas->transBegin();
         unset($newAbdimas["csrf_test_name"]);
         $this->abdimasModel->save($newAbdimas);
+        $newAbdimas = array_merge( ["id" => "" . $this->abdimasModel->db->insertID()], $newAbdimas);
         $this->logAbdimas->save([ 
             "user_id" => user_id(),
             "abdimas_id" => $this->abdimasModel->db->insertID(),
@@ -540,12 +545,12 @@ class Admin extends BaseController {
         }
 
         $this->logAbdimas->transBegin();
-        $this->abdimasModel->delete($id);
         $this->logAbdimas->save([ 
             "user_id" => user_id(),
             "abdimas_id" => $id,
             "action" => "D",
             "value_before" => json_encode($abdimas) ]);
+        $this->abdimasModel->delete($id);
         if($this->logAbdimas->transStatus() === false) {
             $this->logAbdimas->transRollback();
             session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
@@ -590,8 +595,9 @@ class Admin extends BaseController {
         }
 
         $this->logAbdimas->transBegin();
-        unset($abdimas["id"], $newAbdimas["csrf_test_name"]);
+        unset($newAbdimas["csrf_test_name"]);
         $this->abdimasModel->update($id, $newAbdimas);
+        $newAbdimas = array_merge(["id" => "$id"], $newAbdimas);
         $this->logAbdimas->save([ 
             "user_id" => user_id(),
             "abdimas_id" => $id,
@@ -672,6 +678,7 @@ class Admin extends BaseController {
         $this->logHaki->transBegin();
         unset($newHaki["csrf_test_name"]);
         $this->hakiModel->save($newHaki);
+        $newHaki = array_merge( ["id" => "" . $this->hakiModel->db->insertID()], $newHaki);
         $this->logHaki->save([ 
             "user_id" => user_id(),
             "haki_id" => $this->hakiModel->db->insertID(),
@@ -700,12 +707,12 @@ class Admin extends BaseController {
         }
 
         $this->logHaki->transBegin();
-        $this->hakiModel->delete($id);
         $this->logHaki->save([ 
             "user_id" => user_id(),
             "haki_id" => $id,
             "action" => "D",
             "value_before" => json_encode($haki) ]);
+        $this->hakiModel->delete($id);
         if($this->logHaki->transStatus() === false) {
             $this->logHaki->transRollback();
             session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
@@ -750,8 +757,9 @@ class Admin extends BaseController {
         }
 
         $this->logHaki->transBegin();
-        unset($haki["id"], $newHaki["csrf_test_name"]);
+        unset($newHaki["csrf_test_name"]);
         $this->hakiModel->update($id, $newHaki);
+        $newHaki = array_merge(["id" => "$id"], $newHaki);
         $this->logHaki->save([ 
             "user_id" => user_id(),
             "haki_id" => $id,

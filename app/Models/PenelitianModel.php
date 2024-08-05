@@ -4,6 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 use App\Models\DosenModel;
+use App\Models\LogPenelitian;
 use OpenSpout\Reader\Common\Creator\ReaderFactory;
 
 class PenelitianModel extends Model
@@ -645,7 +646,33 @@ class PenelitianModel extends Model
 
             $reader->close();
             if(count($rowData) == 0) throw new \Exception("Tidak ada data yang perlu dimasukkan");
-            $this->db->table($this->table)->insertBatch($rowData);
+
+            $this->db->transStart();
+            $insertedRow = $this->db->table($this->table)->insertBatch($rowData);
+            $firstInsertId = $this->db->insertId();
+            $insertedIDs = range($firstInsertId, $firstInsertId + $insertedRow - 1);
+
+            $logPenelitian = new LogPenelitian();
+            $logPenelitian->db->table($logPenelitian->getTableName())->insertBatch(
+                array_map(
+                    function($idx) use($insertedIDs, $rowData) { 
+                        return [
+                            "user_id" => user_id(),
+                            "penelitian_id" => $insertedIDs[$idx],
+                            "action" => "C",
+                            "value_after" => json_encode(
+                                array_merge(["id" => "" . $insertedIDs[$idx]], $rowData[$idx]))
+                        ]; 
+                    },
+                    range(0, count($insertedIDs) - 1)
+                )
+            );
+
+            if($this->db->transStatus() == false) {
+                $this->db->transRollback();
+                throw new DatabaseException("Maaf, sebuah kesalahan terjadi ketika transaksi data");
+            }
+            $this->db->transCommit();
         } catch(DatabaseException $e) {
             return [-1, $e->getMessage()];
         } catch(\Exception $e) {
