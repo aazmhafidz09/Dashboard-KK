@@ -15,20 +15,86 @@ class LogPublikasi extends Model {
     ];
 
     public function getAll() {
-        return $this->query("SELECT * FROM LogPublikasi")
+        $table = $this->table;
+        return $this->query("SELECT * FROM $table")
                     ->getResultArray();
     }
 
+    public function getById($id) {
+        $table = $this->table;
+        $sql = "SELECT * FROM $table WHERE id=?";
+        return $this->query($sql, [$id])
+                    ->getRowArray();
+    }
+
     public function getByUserId($id) {
-        $sql = "SELECT * FROM LogPublikasi WHERE user_id=?";
+        $table = $this->table;
+        $sql = "SELECT * FROM $table WHERE user_id=?";
         return $this->query($sql, [$id])
                     ->getResultArray();
     }
 
     public function getByPublikasiId($id) {
-        $sql = "SELECT * FROM LogPublikasi WHERE publikasi_id=?";
+        $table = $this->table;
+        $sql = "SELECT * FROM $table WHERE publikasi_id=?";
         return $this->query($sql, [$id])
                     ->getResultArray();
+    }
+
+    public function getRecentLogs($number = 30) {
+        $table = $this->table;
+        $sql = "SELECT 
+                    lp.id,
+                    lp.publikasi_id,
+                    lp.date,
+                    lp.action,
+                    u.username,
+                    u.email,
+                    d.kode_dosen
+                FROM $table AS lp
+                JOIN users AS u
+                    ON lp.user_id = u.id
+                LEFT JOIN dosen AS d
+                    ON d.kode_dosen = u.kode_dosen
+                ORDER BY lp.date DESC
+                LIMIT $number";
+        return $this->query($sql)->getResultArray();
+    }
+
+    public function getWithUserInfo($id) {
+        $table = $this->table;
+        $sql = "SELECT 
+                    lp.*,
+                    u.username,
+                    u.email,
+                    d.kode_dosen
+                FROM $table AS lp
+                JOIN users AS u
+                    ON lp.user_id = u.id
+                LEFT JOIN dosen AS d
+                    ON d.kode_dosen = u.kode_dosen
+                WHERE lp.id = ?";
+        return $this->query($sql, [$id])
+                    ->getRowArray();
+    }
+
+    public function export() {
+        $table = $this->table;
+        $sql = "SELECT 
+                    lp.id,
+                    lp.publikasi_id,
+                    lp.date,
+                    lp.action,
+                    u.username,
+                    u.email,
+                    d.kode_dosen
+                FROM $table AS lp
+                JOIN users AS u
+                    ON lp.user_id = u.id
+                LEFT JOIN dosen AS d
+                    ON d.kode_dosen = u.kode_dosen
+                ORDER BY lp.date DESC";
+        return $this->query($sql)->getResultArray();
     }
 
     public function getTableName() {return $this->table; }

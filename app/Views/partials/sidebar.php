@@ -81,6 +81,13 @@
                                 <li><a href="/register"><?= lang('Tambah Akun') ?></a></li>
                             <?php endif ?>
                         </ul>
+
+                        <?php if(in_groups(["admin", "kk_dsis", "kk_seal", "kk_citi"], user_id())): ?>
+                            <a href="/admin/log">
+                                <i class="uil-history"></i><span class="badge rounded-pill bg-primary float-end"></span>
+                                <span><?= lang('Log') ?></span>
+                            </a>
+                        <?php endif ?>
                     </li>
                 <?php endif ?>
 

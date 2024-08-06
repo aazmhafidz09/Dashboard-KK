@@ -8,6 +8,7 @@ use App\Models\PenelitianModel;
 use App\Models\AbdimasModel;
 use App\Models\HakiModel;
 use App\Models\DatabaseModel;
+use App\Models\LogAbdimas;
 
 class Temp extends BaseController
 {
@@ -23,6 +24,11 @@ class Temp extends BaseController
         $this->penelitianModel = new PenelitianModel();
         $this->abdimasModel = new AbdimasModel();
         $this->hakiModel = new HakiModel();
+        $this->logAbdimas = new LogAbdimas();
+    }
+
+    public function dummy() {
+        dd($this->logAbdimas->getRecentLogs());
     }
 
     public function Haki()

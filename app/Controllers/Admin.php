@@ -863,8 +863,54 @@ class Admin extends BaseController {
             case "haki":
                 return $this->response->download(("$BASE_DIR/tHakiEXAMPLE.xlsx"), null);
             default:
-                session()->setFlashData("error", "Template `$filename` tidak ditemukan");
+                session()->setFlashData("error", "Template <b>$filename</b> tidak ditemukan");
                 return redirect()->to(base_url("/admin/import"));
         }
+    }
+
+    public function log() {
+        if(!$this->isAdmin()) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
+            return redirect()->to(base_url());
+        };
+
+        return view('admin/log/index', [
+            "logAbdimas" => $this->logAbdimas->getRecentLogs(),
+            "logHaki" => $this->logHaki->getRecentLogs(),
+            "logPenelitian" => $this->logPenelitian->getRecentLogs(),
+            "logPublikasi" => $this->logPublikasi->getRecentLogs()
+        ]);
+    }
+
+    public function download_log($resourceName) {
+        switch($filename) {
+            case "publikasi":
+                return 1;
+            case "penelitian":
+                return 1;
+            case "abdimas":
+                return 1;
+            case "haki":
+                return 1;
+            default:
+                session()->setFlashData("error", "Template `$filename` tidak ditemukan");
+                return redirect()->to(base_url("/admin/logActivity"));
+        }
+
+    }
+    public function show_log($resourceName, $id) {
+        $logData = null;
+        switch($resourceName) {
+            case "publikasi": $logData = $this->logPublikasi->getWithUserInfo($id); break;
+            case "penelitian": $logData = $this->logPenelitian->getWithUserInfo($id); break;
+            case "abdimas": $logData = $this->logAbdimas->getWithUserInfo($id); break;
+            case "haki": $logData = $this->logHaki->getWithUserInfo($id); break;
+        }
+
+        if(is_null($logData)) {
+            session()->setFlashData("error", "Log <b>$resourceName</b> dengan id <b>$id</b> tidak ditemukan");
+            return redirect()->to(base_url("/admin/log"));
+        }
+        return view("admin/log/$resourceName", ["log" => $logData]);
     }
 }
