@@ -96,7 +96,7 @@ class Admin extends BaseController {
                 "Prosiding Nasional"
             ]
         ];
-        return view('admin/manage-publikasi', $data);
+        return view('admin/input/publikasi', $data);
     }
 
     public function publikasi_edit($id) {
@@ -128,7 +128,7 @@ class Admin extends BaseController {
             ]
         ];
         session()->setFlashdata('pesan', 'Publikasi berhasil diperbarui');
-        return view("admin/update-publikasi", $data);
+        return view("admin/update/publikasi", $data);
     }
 
     public function publikasi_save() {
@@ -276,7 +276,7 @@ class Admin extends BaseController {
             'luaranPenelitian' => ["Riset", "Abdimas"]
         ];
 
-        return view( 'admin/manage-penelitian', $data);
+        return view( 'admin/input/penelitian', $data);
     }
 
     public function penelitian_edit($id) {
@@ -307,7 +307,7 @@ class Admin extends BaseController {
             'luaranPenelitian' => ["Riset", "Abdimas"]
         ];
         session()->setFlashdata('pesan', 'Penelitian berhasil diperbarui');
-        return view("admin/update-penelitian", $data);
+        return view("admin/update/penelitian", $data);
     }
 
     public function penelitian_save() {
@@ -455,7 +455,7 @@ class Admin extends BaseController {
                 "Closed",
             ]
         ];
-        return view('admin/manage-abdimas', $data);
+        return view('admin/input/abdimas', $data);
     }
 
     public function abdimas_edit($id) {
@@ -485,7 +485,7 @@ class Admin extends BaseController {
             ]
         ];
         session()->setFlashdata('pesan', 'abdimas berhasil diperbarui');
-        return view("admin/update-abdimas", $data);
+        return view("admin/update/abdimas", $data);
     }
 
     public function abdimas_save() {
@@ -625,7 +625,7 @@ class Admin extends BaseController {
             'listDosen' => $this->dosenModel->getAllKodeDosen(),
             'jenisHaki' => [ "PATEN", "HAK CIPTA", "MEREK", "DESAIN INDUSTRI" ] 
         ];
-        return view('admin/manage-haki', $data);
+        return view('admin/input/haki', $data);
     }
     
     public function haki_edit($id) {
@@ -647,7 +647,7 @@ class Admin extends BaseController {
             'jenisHaki' => [ "PATEN", "HAK CIPTA", "MEREK", "DESAIN INDUSTRI" ]
         ];
         session()->setFlashdata('pesan', 'haki berhasil diperbarui');
-        return view("admin/update-haki", $data);
+        return view("admin/update/haki", $data);
     }
 
     public function haki_save() {
