@@ -12,12 +12,9 @@
 
 <?= $this->include('partials/body') ?>
 
-
-
-
-<!-- Begin page -->
-
-
+<?php
+    $jenisHaki = [ "PATEN", "HAK CIPTA", "MEREK", "DESAIN INDUSTRI" ];
+?>
 
 <!-- Begin page -->
 <div id="layout-wrapper">
@@ -50,7 +47,7 @@
                                     <h4 class="card-title">Input Data Haki</h4>
                                     <p class="card-title-desc">Masukkan data <code>Haki</code> ke dalam <code>form</code> berikut</p>
                                     <div class="mb-3 row">
-                                        <label for="Judul_Publikasi" class="col-md-2 col-form-label">Judul Haki</label>
+                                        <label for="Judul_Publikasi" class="col-md-2 col-form-label">Judul haki</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -77,7 +74,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label">Jenis Haki</label>
+                                        <label class="col-md-2 col-form-label">Jenis haki</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
                                                 <?php foreach($jenisHaki as $jenis): ?>
@@ -89,7 +86,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Jenis Ciptaan</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Jenis ciptaan</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -177,7 +174,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">No Pendaftaran </label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">No pendaftaran </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -190,7 +187,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">No Sertifikat </label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">No sertifikat </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 

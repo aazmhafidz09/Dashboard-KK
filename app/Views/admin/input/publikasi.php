@@ -12,6 +12,15 @@
 
 <?= $this->include('partials/body') ?>
 
+<?php
+    $jenisPublikasi = [ "Jurnal Internasional",
+                        "Jurnal Nasional",
+                        "Prosiding Internasional",
+                        "Prosiding Nasional" ];
+    $akreditasiPublikasi = [ "Q1", "Q2", "Q3", "Q4", 
+                            "S1", "S2", "S3", "S4", "S5", "S6",
+                            "Scopus"];
+?>
 <!-- Begin page -->
 <div id="layout-wrapper">
     <?= $this->include('partials/menu') ?>
@@ -34,7 +43,7 @@
                                     <h4 class="card-title">Input Data Publikasi</h4>
                                     <p class="card-title-desc">Masukkan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Judul Publikasi</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Judul publikasi</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -59,7 +68,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label">Jenis Publikasi</label>
+                                        <label class="col-md-2 col-form-label">Jenis publikasi</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
                                                 <?php foreach($jenisPublikasi as $jenis): ?>
@@ -106,7 +115,7 @@
                                         </div>
                                     <?php endforeach; ?>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Semua Penulis</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Semua penulis</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -130,7 +139,7 @@
                                     <p class="card-title-desc">Masukkan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
 
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Lab Riset</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Lab riset</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -142,7 +151,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Institusi Mitra</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Institusi mitra</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -154,7 +163,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Nama Jurnal/konferensi </label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Nama jurnal/konferensi </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -178,7 +187,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-url-input" class="col-md-2 col-form-label">URL Artikel</label>
+                                        <label for="example-url-input" class="col-md-2 col-form-label">URL artikel</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 

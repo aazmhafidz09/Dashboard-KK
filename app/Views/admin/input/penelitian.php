@@ -12,12 +12,16 @@
 
 <?= $this->include('partials/body') ?>
 
-
-
-
-<!-- Begin page -->
-
-
+<?php
+    $jenisPenelitian = ["Internal",
+                            "Eksternal",
+                            "Mandiri",
+                            "Kerjasama Perguruan Tinggi",
+                            "Kemitraan",
+                            "Hilirisasi" ];
+    $statusPenelitian = ["Didanai", "Submit Proposal"];
+    $luaranPenelitian = ["Riset", "Abdimas"];
+?>
 
 <!-- Begin page -->
 <div id="layout-wrapper">
@@ -43,7 +47,7 @@
                                     <h4 class="card-title">Input Data Penelitian</h4>
                                     <p class="card-title-desc">Masukkan data <code>penelitian</code> ke dalam <code>form</code> berikut</p>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Judul Penelitian</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Judul penelitian</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -55,7 +59,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Nama Kegiatan</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Nama kegiatan</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -80,7 +84,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label">Jenis Penelitian</label>
+                                        <label class="col-md-2 col-form-label">Jenis penelitian</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
                                                 <?php foreach($jenisPenelitian as $jenis): ?>
@@ -126,7 +130,7 @@
                                     <!-- <h4 class="card-title">Data Penulis</h4> -->
                                     <p class="card-title-desc">Masukkan data <code>keanggotaan</code> ke dalam <code>form</code> berikut.</p>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Ketua Peneliti</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Ketua peneliti</label>
                                         <div class="col-md-10">
                                             <select 
                                                 class="form-control" 
@@ -146,7 +150,7 @@
                                     </div>
                                     <?php foreach(range(1, 10) as $nAnggota): ?>
                                         <div class="mb-3 row">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">Anggota Peneliti <?=$nAnggota ?> </label>
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Anggota peneliti <?=$nAnggota ?> </label>
                                             <div class="col-md-10">
                                                 <select 
                                                     class="form-control" 
@@ -180,7 +184,7 @@
                                     <p class="card-title-desc">Masukkan data <code>penelitian</code> ke dalam <code>form</code> berikut</p>
 
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Institusi Mitra</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Institusi mitra</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -192,7 +196,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Laboratorium Riset</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Laboratorium riset</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -244,7 +248,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-date-input" class="col-md-2 col-form-label">Tanggal Pengesahan</label>
+                                        <label for="example-date-input" class="col-md-2 col-form-label">Tanggal pengesahan</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 

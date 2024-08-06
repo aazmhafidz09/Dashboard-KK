@@ -81,21 +81,8 @@ class Admin extends BaseController {
             return redirect()->to(base_url());
         };
 
-        $data = [
-            'validation' => \config\Services::validation(),
-            'listDosen' => $this->dosenModel->getAllKodeDosen(),
-            'akreditasiPublikasi' => [ 
-                "Q1", "Q2", "Q3", "Q4", 
-                "S1", "S2", "S3", "S4", "S5", "S6",
-                "Scopus"
-            ],
-            'jenisPublikasi' => [
-                "Jurnal Internasional",
-                "Jurnal Nasional",
-                "Prosiding Internasional",
-                "Prosiding Nasional"
-            ]
-        ];
+        $data = [ 'validation' => \config\Services::validation(),
+                    'listDosen' => $this->dosenModel->getAllKodeDosen(), ];
         return view('admin/input/publikasi', $data);
     }
 
@@ -112,21 +99,8 @@ class Admin extends BaseController {
         }
 
         helper('form');
-        $data = [
-            'oldPublikasi' => $publikasi,
-            'listDosen' => $this->dosenModel->getAllKodeDosen(),
-            'akreditasiPublikasi' => [ 
-                "Q1", "Q2", "Q3", "Q4", 
-                "S1", "S2", "S3", "S4", "S5", "S6",
-                "Scopus"
-            ],
-            'jenisPublikasi' => [
-                "Jurnal Internasional",
-                "Jurnal Nasional",
-                "Prosiding Internasional",
-                "Prosiding Nasional"
-            ]
-        ];
+        $data = [ 'oldPublikasi' => $publikasi,
+                    'listDosen' => $this->dosenModel->getAllKodeDosen(), ];
         session()->setFlashdata('pesan', 'Publikasi berhasil diperbarui');
         return view("admin/update/publikasi", $data);
     }
@@ -262,20 +236,7 @@ class Admin extends BaseController {
             return redirect()->to(base_url());
         };
 
-        $data = [
-            'listDosen' => $this->dosenModel->getAllKodeDosen(),
-            'jenisPenelitian' => [
-                "Internal",
-                "Eksternal",
-                "Mandiri",
-                "Kerjasama Perguruan Tinggi",
-                "Kemitraan",
-                "Hilirisasi"
-            ],
-            'statusPenelitian' => ["Didanai", "Submit Proposal"],
-            'luaranPenelitian' => ["Riset", "Abdimas"]
-        ];
-
+        $data = [ 'listDosen' => $this->dosenModel->getAllKodeDosen(), ];
         return view( 'admin/input/penelitian', $data);
     }
 
@@ -292,20 +253,8 @@ class Admin extends BaseController {
         }
 
         helper('form');
-        $data = [
-            'oldPenelitian' => $penelitian,
-            'listDosen' => $this->dosenModel->getAllKodeDosen(),
-            'jenisPenelitian' => [
-                "Internal",
-                "Eksternal",
-                "Mandiri",
-                "Kerjasama Perguruan Tinggi",
-                "Kemitraan",
-                "Hilirisasi"
-            ],
-            'statusPenelitian' => ["Didanai", "Submit Proposal"],
-            'luaranPenelitian' => ["Riset", "Abdimas"]
-        ];
+        $data = [ 'oldPenelitian' => $penelitian,
+                    'listDosen' => $this->dosenModel->getAllKodeDosen()];
         session()->setFlashdata('pesan', 'Penelitian berhasil diperbarui');
         return view("admin/update/penelitian", $data);
     }
@@ -443,18 +392,7 @@ class Admin extends BaseController {
             return redirect()->to(base_url());
         };
 
-        $data = [
-            "listDosen" => $this->dosenModel->getAllKodeDosen(),
-            'jenisAbdimas' => [
-                "EKSTERNAL",
-                "INTERNAL",
-            ],
-            'statusAbdimas' => [
-                "Didanai",
-                "Tidak didanai",
-                "Closed",
-            ]
-        ];
+        $data = [ "listDosen" => $this->dosenModel->getAllKodeDosen()];
         return view('admin/input/abdimas', $data);
     }
 
@@ -471,19 +409,8 @@ class Admin extends BaseController {
         }
 
         helper('form');
-        $data = [
-            'listDosen' => $this->dosenModel->getAllKodeDosen(),
-            'oldAbdimas' => $abdimas,
-            'jenisAbdimas' => [
-                "EKSTERNAL",
-                "INTERNAL",
-            ],
-            'statusAbdimas' => [
-                "Didanai",
-                "Tidak didanai",
-                "Closed",
-            ]
-        ];
+        $data = [ 'listDosen' => $this->dosenModel->getAllKodeDosen(),
+                    'oldAbdimas' => $abdimas, ];
         session()->setFlashdata('pesan', 'abdimas berhasil diperbarui');
         return view("admin/update/abdimas", $data);
     }
@@ -621,10 +548,7 @@ class Admin extends BaseController {
             return redirect()->to(base_url());
         };
 
-        $data = [ 
-            'listDosen' => $this->dosenModel->getAllKodeDosen(),
-            'jenisHaki' => [ "PATEN", "HAK CIPTA", "MEREK", "DESAIN INDUSTRI" ] 
-        ];
+        $data = [ 'listDosen' => $this->dosenModel->getAllKodeDosen()];
         return view('admin/input/haki', $data);
     }
     
@@ -641,11 +565,8 @@ class Admin extends BaseController {
         }
 
         helper('form');
-        $data = [
-            'oldHaki' => $haki,
-            'listDosen' => $this->dosenModel->getAllKodeDosen(),
-            'jenisHaki' => [ "PATEN", "HAK CIPTA", "MEREK", "DESAIN INDUSTRI" ]
-        ];
+        $data = [ 'oldHaki' => $haki,
+                    'listDosen' => $this->dosenModel->getAllKodeDosen()];
         session()->setFlashdata('pesan', 'haki berhasil diperbarui');
         return view("admin/update/haki", $data);
     }

@@ -21,6 +21,11 @@
     }
 </style>
 
+<?php
+    $jenisAbdimas = [ "EKSTERNAL", "INTERNAL"];
+    $statusAbdimas = [ "Didanai", "Tidak didanai", "Closed"];
+?>
+
 <!-- Begin page -->
 <div id="layout-wrapper">
     <?= $this->include('partials/menu') ?>

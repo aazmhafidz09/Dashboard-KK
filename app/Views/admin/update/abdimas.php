@@ -20,6 +20,11 @@
     }
 </style>
 
+<?php
+    $jenisAbdimas = [ "EKSTERNAL", "INTERNAL"];
+    $statusAbdimas = [ "Didanai", "Tidak didanai", "Closed"];
+?>
+
 <!-- Begin page -->
 <div id="layout-wrapper">
     <?= $this->include('partials/menu') ?>
@@ -50,7 +55,7 @@
                                     <p class="card-title-desc">Masukkan data <code>abdimas</code> ke dalam <code>form</code> berikut</p>
 
                                     <div class="mb-3 row">
-                                        <label for="Judul-Abdimas" class="col-md-2 col-form-label">Judul Abdimas</label>
+                                        <label for="Judul-Abdimas" class="col-md-2 col-form-label">Judul abdimas</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -63,7 +68,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Nama Kegiatan</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Nama kegiatan</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -90,7 +95,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="jenis" class="col-md-2 col-form-label">Jenis Abdimas</label>
+                                        <label for="jenis" class="col-md-2 col-form-label">Jenis abdimas</label>
                                         <div class="col-md-10">
                                             <select id="jenis" class="form-select" name="jenis">
                                                 <?php foreach($jenisAbdimas as $jenis): ?>
@@ -178,7 +183,7 @@
                                     <!-- <h4 class="card-title">Input Data Publikasi</h4> -->
                                     <p class="card-title-desc">Masukkan data <code>Abdimas</code> ke dalam <code>form</code> berikut</p>
                                     <div class="mb-3 row">
-                                        <label for="Institusi_mitra" class="col-md-2 col-form-label">Institusi Mitra</label>
+                                        <label for="Institusi_mitra" class="col-md-2 col-form-label">Institusi mitra</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -191,7 +196,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="Alamat_mitra" class="col-md-2 col-form-label">Alamat Mitra</label>
+                                        <label for="Alamat_mitra" class="col-md-2 col-form-label">Alamat mitra</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -204,7 +209,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="labRiset" class="col-md-2 col-form-label">Laboratorium Riset</label>
+                                        <label for="labRiset" class="col-md-2 col-form-label">Laboratorium riset</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -217,7 +222,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="kesesuaian_roadmap" class="col-md-2 col-form-label">Kesesuaian Roadmap</label>
+                                        <label for="kesesuaian_roadmap" class="col-md-2 col-form-label">Kesesuaian roadmap</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -230,7 +235,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="permasalahan_masyarakat" class="col-md-2 col-form-label">Permasalahan Masyarakat</label>
+                                        <label for="permasalahan_masyarakat" class="col-md-2 col-form-label">Permasalahan masyarakat</label>
                                         <div class="col-md-10">
                                             <!-- <input class="form-control" type="text" placeholder="Permasalahan Masyarakat" id="permasalahan_masyarakat"> -->
                                             <textarea 
@@ -280,7 +285,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="tanggal_pengesahan" class="col-md-2 col-form-label">Tanggal Pengesahan</label>
+                                        <label for="tanggal_pengesahan" class="col-md-2 col-form-label">Tanggal pengesahan</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
