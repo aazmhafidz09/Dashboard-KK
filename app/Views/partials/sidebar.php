@@ -12,14 +12,14 @@
             </span>
         </a>
 
-        <a href="index" class="logo logo-light">
+        <!-- <a href="index" class="logo logo-light">
             <span class="logo-sm">
-                <img src="/assets/images/logo-sm.png" alt="" height="30">
+                <img src="/assets/images/logo-sm.png" alt="Logo Telkom University" height="30">
             </span>
             <span class="logo-lg">
-                <img src="/assets/images/logo-light.png" alt="" height="50">
+                <img src="/assets/images/logo-KK.png" alt="Logo Telkom University" height="50">
             </span>
-        </a>
+        </a> -->
     </div>
 
     <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
@@ -27,16 +27,12 @@
     </button>
 
     <div data-simplebar class="sidebar-menu-scroll">
-
-        <!--- Sidemenu -->
-        <div id="sidebar-menu">
-            <!-- Left Menu Start -->
-            <ul class="metismenu list-unstyled" id="side-menu">
+        <div id="sidebar-menu"> <!--- Sidemenu -->
+            <ul class="metismenu list-unstyled" id="side-menu"> <!-- Left Menu Start -->
                 <li class="menu-title"><?= lang('Files.Menu') ?></li>
-
                 <li>
                     <a href="/index">
-                        <i class="uil-home-alt"></i><span class="badge rounded-pill bg-primary float-end">01</span>
+                        <i class="uil-home-alt"></i>
                         <span><?= lang('Files.Dashboard') ?></span>
                     </a>
                 </li>
@@ -90,12 +86,7 @@
                         <?php endif ?>
                     </li>
                 <?php endif ?>
-
-
-
             </ul>
-        </div>
-        <!-- Sidebar -->
+        </div> <!-- Sidebar -->
     </div>
-</div>
-<!-- Left Sidebar End -->
+</div> <!-- Left Sidebar End -->

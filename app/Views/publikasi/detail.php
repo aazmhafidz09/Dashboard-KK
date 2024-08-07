@@ -30,7 +30,6 @@
                                         <h3>Keterangan Publikasi</h3>
                                     </div>
                                 </div>
-                                <!-- end row -->
                                 <div class="table-responsive mb-4">
                                     <table id="example" class="table table-striped" style="width:100%">
                                         <thead>
@@ -81,7 +80,7 @@
                                             </button>
                                         <?php else: ?>
                                             <button class="btn btn-secondary" disabled>
-                                                <a class="text-white" href="#"> Tidak tersedia secara daring </a>
+                                                <a class="text-white" href="#"> Lihat publikasi</a>
                                             </button>
                                         <?php endif ?>
                                     </div>
@@ -89,48 +88,34 @@
                             </div>
                         </div>
                     </div>
-                </div> <!-- end row -->
-            </div> <!-- container-fluid -->
-        </div> <!-- End Page-content -->
-
-
+                </div>
+            </div>
+        </div>
         <?= $this->include('partials/footer') ?>
     </div>
     <!-- end main content-->
 
 </div>
 <!-- END layout-wrapper -->
-
 <?= $this->include('partials/right-sidebar') ?>
-
 <?= $this->include('partials/vendor-scripts') ?>
 
 <!-- App js -->
 <script src="assets/js/app.js"></script>
 
 
-
-
-
 <?= $this->include('partials/footer') ?>
-</div>
-<!-- end main content-->
-
-</div>
-<!-- END layout-wrapper -->
+</div> <!-- end main content-->
+</div> <!-- END layout-wrapper -->
 
 <?= $this->include('partials/right-sidebar') ?>
-
 <?= $this->include('partials/vendor-scripts') ?>
 
 <!-- apexcharts -->
 <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
-
 <script src="assets/js/pages/dashboard.init.js"></script>
 
 <!-- App js -->
 <script src="assets/js/app.js"></script>
-
 </body>
-
 </html>
