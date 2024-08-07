@@ -41,13 +41,10 @@ class LogPublikasi extends Model {
                     ->getResultArray();
     }
 
-    public function getRecentLogs($number = 30) {
+    public function getRecentLogs($limit = null) {
         $table = $this->table;
         $sql = "SELECT 
-                    lp.id,
-                    lp.publikasi_id,
-                    lp.date,
-                    lp.action,
+                    lp.*,
                     u.username,
                     u.email,
                     d.kode_dosen
@@ -56,9 +53,11 @@ class LogPublikasi extends Model {
                     ON lp.user_id = u.id
                 LEFT JOIN dosen AS d
                     ON d.kode_dosen = u.kode_dosen
-                ORDER BY lp.date DESC
-                LIMIT $number";
-        return $this->query($sql)->getResultArray();
+                ORDER BY lp.date DESC";
+        
+        if(!is_null($limit)) $sql .= " LIMIT $limit";
+        return $this->query($sql)
+                    ->getResultArray();
     }
 
     public function getWithUserInfo($id) {
@@ -76,25 +75,6 @@ class LogPublikasi extends Model {
                 WHERE lp.id = ?";
         return $this->query($sql, [$id])
                     ->getRowArray();
-    }
-
-    public function export() {
-        $table = $this->table;
-        $sql = "SELECT 
-                    lp.id,
-                    lp.publikasi_id,
-                    lp.date,
-                    lp.action,
-                    u.username,
-                    u.email,
-                    d.kode_dosen
-                FROM $table AS lp
-                JOIN users AS u
-                    ON lp.user_id = u.id
-                LEFT JOIN dosen AS d
-                    ON d.kode_dosen = u.kode_dosen
-                ORDER BY lp.date DESC";
-        return $this->query($sql)->getResultArray();
     }
 
     public function getTableName() {return $this->table; }

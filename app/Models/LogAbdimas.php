@@ -41,29 +41,7 @@ class LogAbdimas extends Model {
                     ->getResultArray();
     }
 
-    public function getRecentLogs($number = 30) {
-        $table = $this->table;
-        $sql = "SELECT 
-                    la.id,
-                    la.abdimas_id,
-                    la.date,
-                    la.action,
-                    u.username,
-                    u.email,
-                    d.kode_dosen
-                FROM $table AS la
-                JOIN users AS u
-                    ON la.user_id = u.id
-                LEFT JOIN dosen AS d
-                    ON d.kode_dosen = u.kode_dosen
-                ORDER BY la.date DESC
-                LIMIT $number";
-
-        return $this->query($sql)
-                    ->getResultArray();
-    }
-
-    public function getWithUserInfo($id) {
+    public function getRecentLogs($limit = null) {
         $table = $this->table;
         $sql = "SELECT 
                     la.*,
@@ -75,9 +53,11 @@ class LogAbdimas extends Model {
                     ON la.user_id = u.id
                 LEFT JOIN dosen AS d
                     ON d.kode_dosen = u.kode_dosen
-                WHERE la.id = ?";
-        return $this->query($sql, [$id])
-                    ->getRowArray();
+                ORDER BY la.date DESC";
+        
+        if(!is_null($limit)) $sql .= " LIMIT $limit";
+        return $this->query($sql)
+                    ->getResultArray();
     }
 
     public function export() {
@@ -97,8 +77,8 @@ class LogAbdimas extends Model {
                     ON d.kode_dosen = u.kode_dosen
                 ORDER BY la.date DESC";
 
-        return $this->query($sql)
-                    ->getResultArray();
+        dd($this->query($sql)
+                    ->getResultArray());
     }
 
     public function getTableName() {return $this->table; }

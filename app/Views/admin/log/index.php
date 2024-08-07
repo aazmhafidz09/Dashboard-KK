@@ -42,22 +42,30 @@
                                 keseluruhan log aktivitas tersebut, silakan akses tombol berikut:
                             </p>
                             <div>
-                                <button 
-                                    type="button"
-                                    class="btn btn-outline-primary" 
-                                >Log Publikasi</button>
-                                <button 
-                                    type="button"
-                                    class="btn btn-outline-primary" 
-                                >Log Penelitian</button>
-                                <button 
-                                    type="button"
-                                    class="btn btn-outline-primary" 
-                                >Log Abdimas</button>
-                                <button 
-                                    type="button"
-                                    class="btn btn-outline-primary" 
-                                >Log Haki</button>
+                                <a href="<?= base_url('/admin/download/log/publikasi') ?>">
+                                    <button 
+                                        type="button"
+                                        class="btn btn-outline-primary" 
+                                    >Log Publikasi</button>
+                                </a>
+                                <a href="<?= base_url('/admin/download/log/penelitian') ?>">
+                                    <button 
+                                        type="button"
+                                        class="btn btn-outline-primary" 
+                                    >Log Penelitian</button>
+                                </a>
+                                <a href="<?= base_url('/admin/download/log/abdimas') ?>">
+                                    <button 
+                                        type="button"
+                                        class="btn btn-outline-primary" 
+                                    >Log Abdimas</button>
+                                </a>
+                                <a href="<?= base_url('/admin/download/log/haki') ?>">
+                                    <button 
+                                        type="button"
+                                        class="btn btn-outline-primary" 
+                                    >Log Haki</button>
+                                </a>
                             </div>
                         </div>
                         <div class="card mb-0">

@@ -41,13 +41,10 @@ class LogHaki extends Model {
                     ->getResultArray();
     }
 
-    public function getRecentLogs($number = 30) {
+    public function getRecentLogs($limit = null) {
         $table = $this->table;
         $sql = "SELECT 
-                    lh.id,
-                    lh.haki_id,
-                    lh.date,
-                    lh.action,
+                    lh.*,
                     u.username,
                     u.email,
                     d.kode_dosen
@@ -56,9 +53,11 @@ class LogHaki extends Model {
                     ON lh.user_id = u.id
                 LEFT JOIN dosen AS d
                     ON d.kode_dosen = u.kode_dosen
-                ORDER BY lh.date DESC
-                LIMIT $number";
-        return $this->query($sql)->getResultArray();
+                ORDER BY lh.date DESC";
+        
+        if(!is_null($limit)) $sql .= " LIMIT $limit";
+        return $this->query($sql)
+                    ->getResultArray();
     }
 
     public function getWithUserInfo($id) {

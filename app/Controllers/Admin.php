@@ -795,30 +795,53 @@ class Admin extends BaseController {
             return redirect()->to(base_url());
         };
 
+        $MAX_N_LOG = 30;
         return view('admin/log/index', [
-            "logAbdimas" => $this->logAbdimas->getRecentLogs(),
-            "logHaki" => $this->logHaki->getRecentLogs(),
-            "logPenelitian" => $this->logPenelitian->getRecentLogs(),
-            "logPublikasi" => $this->logPublikasi->getRecentLogs()
+            "logAbdimas" => $this->logAbdimas->getRecentLogs($MAX_N_LOG),
+            "logHaki" => $this->logHaki->getRecentLogs($MAX_N_LOG),
+            "logPenelitian" => $this->logPenelitian->getRecentLogs($MAX_N_LOG),
+            "logPublikasi" => $this->logPublikasi->getRecentLogs($MAX_N_LOG)
         ]);
     }
 
     public function download_log($resourceName) {
-        switch($filename) {
-            case "publikasi":
-                return 1;
-            case "penelitian":
-                return 1;
-            case "abdimas":
-                return 1;
-            case "haki":
-                return 1;
-            default:
-                session()->setFlashData("error", "Template `$filename` tidak ditemukan");
-                return redirect()->to(base_url("/admin/logActivity"));
+        $log = null;
+        switch($resourceName) {
+            case "publikasi": $log = $this->logPublikasi->getRecentLogs(); break;
+            case "penelitian": $log = $this->logPenelitian->getRecentLogs(); break;
+            case "abdimas": $log = $this->logAbdimas->getRecentLogs(); break;
+            case "haki": $log = $this->logHaki->getRecentLogs(); break;
         }
 
+        if(is_null($log)) {
+            session()->setFlashData("error", "Template `$resourceName` tidak ditemukan");
+            return redirect()->to(base_url("/admin/log"));
+        }
+
+        if(count($log) == 0) {
+            session()->setFlashData("error", "Log untuk `$resourceName` kosong");
+            return redirect()->to(base_url("/admin/log"));
+        }
+
+        $exportDate = date("Y_m_d-H_m_s");
+        $filename = "db_export_log_$resourceName" . "_$exportDate.csv" ;
+        
+        $stream = fopen("php://output", "w");
+        fputcsv($stream, array_keys($log[0]));
+        foreach($log as $l) {
+            fputcsv($stream, array_values($l));
+        }
+
+        fclose($stream);
+        header('Content-type: text/csv');
+        header("Content-disposition: attachment; filename= $filename;");
+
+        // Somehow debug thingy shows up in the CSV
+        // As of time of writing, the following reference is used to remove them
+        // https://forum.codeigniter.com/showthread.php?tid=82555
+        exit; 
     }
+
     public function show_log($resourceName, $id) {
         $logData = null;
         switch($resourceName) {

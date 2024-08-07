@@ -41,13 +41,10 @@ class LogPenelitian extends Model {
                     ->getResultArray();
     }
 
-    public function getRecentLogs($number = 30) {
+    public function getRecentLogs($limit = null) {
         $table = $this->table;
         $sql = "SELECT 
-                    lp.id,
-                    lp.penelitian_id,
-                    lp.date,
-                    lp.action,
+                    lp.*,
                     u.username,
                     u.email,
                     d.kode_dosen
@@ -56,9 +53,11 @@ class LogPenelitian extends Model {
                     ON lp.user_id = u.id
                 LEFT JOIN dosen AS d
                     ON d.kode_dosen = u.kode_dosen
-                ORDER BY lp.date DESC
-                LIMIT $number";
-        return $this->query($sql)->getResultArray();
+                ORDER BY lp.date DESC";
+        
+        if(!is_null($limit)) $sql .= " LIMIT $limit";
+        return $this->query($sql)
+                    ->getResultArray();
     }
 
     public function getWithUserInfo($id) {
