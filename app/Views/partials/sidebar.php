@@ -38,7 +38,7 @@
                 </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="uil-store"></i>
+                        <i class="uil-graph-bar"></i>
                         <span><?= lang('Statistik') ?></span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -77,7 +77,8 @@
                                 <li><a href="/register"><?= lang('Tambah Akun') ?></a></li>
                             <?php endif ?>
                         </ul>
-
+                    </li>
+                    <li>
                         <?php if(in_groups(["admin", "kk_dsis", "kk_seal", "kk_citi"], user_id())): ?>
                             <a href="/admin/log">
                                 <i class="uil-history"></i><span class="badge rounded-pill bg-primary float-end"></span>

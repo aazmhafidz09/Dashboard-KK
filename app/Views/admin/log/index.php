@@ -41,7 +41,7 @@
                                 <code> penelitian</code>, <code>abdimas</code>, dan <code>haki</code>. Untuk mengunduh 
                                 keseluruhan log aktivitas tersebut, silakan akses tombol berikut:
                             </p>
-                            <div>
+                            <div class="d-flex" style="gap: 10px;">
                                 <a href="<?= base_url('/admin/download/log/publikasi') ?>">
                                     <button 
                                         type="button"
@@ -73,25 +73,25 @@
                             <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" data-bs-toggle="tab" href="#publikasi" role="tab">
-                                        <i class="uil uil-user-circle font-size-20"></i>
+                                        <i class="uil uil-clipboard-notes font-size-20"></i>
                                         <span class="d-none d-sm-block">Publikasi</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-bs-toggle="tab" href="#penelitian" role="tab">
-                                        <i class="uil uil-clipboard-notes font-size-20"></i>
+                                        <i class="uil uil-microscope font-size-20"></i>
                                         <span class="d-none d-sm-block">Penelitian</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-bs-toggle="tab" href="#abdimas" role="tab">
-                                        <i class="uil uil-envelope-alt font-size-20"></i>
+                                        <i class="uil uil-users-alt font-size-20"></i>
                                         <span class="d-none d-sm-block">Abdimas</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-bs-toggle="tab" href="#haki" role="tab">
-                                        <i class="uil uil-envelope-alt font-size-20"></i>
+                                        <i class="uil uil-dropbox font-size-20"></i>
                                         <span class="d-none d-sm-block">HaKi</span>
                                     </a>
                                 </li>

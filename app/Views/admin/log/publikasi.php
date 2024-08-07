@@ -97,11 +97,11 @@
                                             <?php if($logAction == "U"): ?>
                                                 <?php foreach($sections as $sName => $sKey): ?>
                                                     <tr class="align-middle">
-                                                        <td><b><?= $sName ?></b></td>
+                                                        <td style="width: 25%"><b><?= $sName ?></b></td>
                                                         <?php if($old[$sKey] == $new[$sKey]): ?>
                                                             <td> <?= $old[$sKey]?> </td>
                                                         <?php else: ?>
-                                                            <td class="m-0 p-0">
+                                                            <td class="m-0 p-0" style="width: 75%;" >
                                                                 <table class=" m-0 p-0 table-striped table h-100">
                                                                     <tr>
                                                                         <td style="width: 7ch";><strong>Sebelum</strong></td>
@@ -119,8 +119,8 @@
                                             <?php else: ?>
                                                 <?php foreach($sections as $sName => $sKey): ?>
                                                     <tr class="align-middle">
-                                                        <td><b><?= $sName ?></b></td>
-                                                        <td> 
+                                                        <td style="width: 25%"><b><?= $sName ?></b></td>
+                                                        <td style="width: 75%;" > 
                                                             <?= (($logAction == "D") ? $old[$sKey] 
                                                                                     : $new[$sKey]) ?> 
                                                         </td>

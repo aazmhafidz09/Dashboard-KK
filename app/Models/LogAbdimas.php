@@ -60,25 +60,21 @@ class LogAbdimas extends Model {
                     ->getResultArray();
     }
 
-    public function export() {
+    public function getWithUserInfo($id) {
         $table = $this->table;
         $sql = "SELECT 
-                    la.id,
-                    la.abdimas_id,
-                    la.date,
-                    la.action,
+                    lh.*,
                     u.username,
                     u.email,
                     d.kode_dosen
-                FROM $table AS la
+                FROM $table AS lh
                 JOIN users AS u
-                    ON la.user_id = u.id
+                    ON lh.user_id = u.id
                 LEFT JOIN dosen AS d
                     ON d.kode_dosen = u.kode_dosen
-                ORDER BY la.date DESC";
-
-        dd($this->query($sql)
-                    ->getResultArray());
+                WHERE lh.id = ?";
+        return $this->query($sql, [$id])
+                    ->getRowArray();
     }
 
     public function getTableName() {return $this->table; }

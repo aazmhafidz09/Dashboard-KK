@@ -100,25 +100,25 @@
                             <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" data-bs-toggle="tab" href="#publikasi" role="tab">
-                                        <i class="uil uil-user-circle font-size-20"></i>
+                                        <i class="uil uil-clipboard-notes font-size-20"></i>
                                         <span class="d-none d-sm-block">Publikasi</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-bs-toggle="tab" href="#penelitian" role="tab">
-                                        <i class="uil uil-clipboard-notes font-size-20"></i>
+                                        <i class="uil uil-microscope font-size-20"></i>
                                         <span class="d-none d-sm-block">Penelitian</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-bs-toggle="tab" href="#abdimas" role="tab">
-                                        <i class="uil uil-envelope-alt font-size-20"></i>
+                                        <i class="uil uil-users-alt font-size-20"></i>
                                         <span class="d-none d-sm-block">Abdimas</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-bs-toggle="tab" href="#haki" role="tab">
-                                        <i class="uil uil-envelope-alt font-size-20"></i>
+                                        <i class="uil uil-dropbox font-size-20"></i>
                                         <span class="d-none d-sm-block">HaKi</span>
                                     </a>
                                 </li>
@@ -135,7 +135,7 @@
                                                             <th scope="col">No</th>
                                                             <th scope="col">Judul</th>
                                                             <th scope="col">Tahun</th>
-                                                            <th scope="col" style="width: 6ch; text-align: center;">Action</th>
+                                                            <th scope="col" style="width: 6ch; text-align: center;">Aksi</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -177,7 +177,7 @@
                                                         <th scope="col">Judul</th>
                                                         <th scope="col">Tahun</th>
                                                         <th scope="col">Status</th>
-                                                        <th scope="col" style="width: 6ch; text-align: center;">Action</th>
+                                                        <th scope="col" style="width: 6ch; text-align: center;">Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -220,7 +220,7 @@
                                                         <th scope="col">Tahun</th>
                                                         <th scope="col">Status</th>
                                                         <th scope="col">Mitra</th>
-                                                        <th scope="col" style="width: 6ch; text-align: center;">Action</th>
+                                                        <th scope="col" style="width: 6ch; text-align: center;">Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -267,7 +267,7 @@
                                                         <th scope="col">Judul</th>
                                                         <th scope="col">Tahun</th>
                                                         <th scope="col">Jenis</th>
-                                                        <th scope="col" style="width: 6ch; text-align: center;">Action</th>
+                                                        <th scope="col" style="width: 6ch; text-align: center;">Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

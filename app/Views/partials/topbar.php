@@ -59,6 +59,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <a class="dropdown-item" href="/admin/index">
+                            <i class="uil uil-share-alt font-size-18 align-middle text-muted me-1"> </i> 
                             <span class="align-middle">Kelola Data</span>
                         </a>
                         <a class="dropdown-item" href="/dosen">
@@ -66,19 +67,19 @@
                             <span class="align-middle">Dosen</span>
                         </a>
                         <a class="dropdown-item" href="/admin/publikasi">
-                            <i class="uil-copy-alt"></i> 
+                            <i class="uil-clipboard-notes font-size-18 align-middle text-muted me-1"></i> 
                             <span class="align-middle">Publikasi</span>
                         </a>
                         <a class="dropdown-item" href="/admin/penelitian">
-                            <i class="uil-align-center-alt"></i> 
+                            <i class="uil-microscope font-size-18 align-middle text-muted me-1"></i> 
                             <span class="align-middle">Penelitian</span>
                         </a>
                         <a class="dropdown-item" href="/admin/abdimas">
-                            <i class="uil-trees"></i> 
+                            <i class="uil-users-alt font-size-18 align-middle text-muted me-1"></i> 
                             <span class="align-middle">Abdimas</span>
                         </a>
                         <a class="dropdown-item" href="/admin/haki">
-                            <i class="uil-file-bookmark-alt"></i> 
+                            <i class="uil-dropbox font-size-18 align-middle text-muted me-1"></i> 
                             <span class="align-middle">Haki</span>
                         </a>
                         <a class="dropdown-item" href="/logout">

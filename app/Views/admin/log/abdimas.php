@@ -14,7 +14,7 @@
 
 <?php
     $sections = [
-        "ID Publikasi" => "id",
+        "ID Abdimas" => "id",
         "Judul" => "judul",
         "Tahun" => "tahun",
         "Ketua" => "ketua",
@@ -66,7 +66,7 @@
                             <div class="card-body">
                                 <div class="row mb-4">
                                     <div class="col-md-12">
-                                        <h2> Log Publikasi</h2>
+                                        <h2> Log Abdimas</h2>
                                         <p class="m-0 p-0">
                                             <strong>Waktu: </strong> 
                                             <?= $log["date"] ?>
@@ -100,11 +100,11 @@
                                             <?php if($logAction == "U"): ?>
                                                 <?php foreach($sections as $sName => $sKey): ?>
                                                     <tr class="align-middle">
-                                                        <td><b><?= $sName ?></b></td>
+                                                        <td style="width: 25%"><b><?= $sName ?></b></td>
                                                         <?php if($old[$sKey] == $new[$sKey]): ?>
-                                                            <td> <?= $old[$sKey]?> </td>
+                                                            <td style="width: 75%"> <?= $old[$sKey]?> </td>
                                                         <?php else: ?>
-                                                            <td class="m-0 p-0">
+                                                            <td class="m-0 p-0" style="width: 60%">
                                                                 <table class=" m-0 p-0 table-striped table h-100">
                                                                     <tr>
                                                                         <td style="width: 7ch";><strong>Sebelum</strong></td>
@@ -122,8 +122,8 @@
                                             <?php else: ?>
                                                 <?php foreach($sections as $sName => $sKey): ?>
                                                     <tr class="align-middle">
-                                                        <td><b><?= $sName ?></b></td>
-                                                        <td> 
+                                                        <td style="width: 25%"><b><?= $sName ?></b></td>
+                                                        <td style="width: 75%;"> 
                                                             <?= (($logAction == "D") ? $old[$sKey] 
                                                                                     : $new[$sKey]) ?> 
                                                         </td>

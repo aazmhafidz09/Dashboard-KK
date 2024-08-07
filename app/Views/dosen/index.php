@@ -42,7 +42,7 @@
                                                 <th scope="col">Nama</th>
                                                 <th scope="col">Kode Dosen</th>
                                                 <th scope="col">Kelompok Keahlian</th>
-                                                <th scope="col" style="width: 200px;">Action</th>
+                                                <th scope="col" style="width: 200px;">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>

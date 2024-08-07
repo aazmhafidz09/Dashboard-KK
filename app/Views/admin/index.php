@@ -50,7 +50,7 @@
                                             <th>Judul Publikasi</th>
                                             <th>Jenis</th>
                                             <th>Jurnal/konferensi</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                             <!-- <th>Akreditasi Jurnal</th> -->
                                             <!-- <th>Penulis</th>    -->
                                         </tr>
@@ -136,7 +136,7 @@
                                             <th>Jenis</th>
                                             <th>Nama Kegiatan</th>
                                             <th>Judul Penelitian</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
 
@@ -216,7 +216,7 @@
                                             <th>Nama Kegiatan</th>
                                             <th>Judul</th>
                                             <!-- <th>Status</th> -->
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -301,7 +301,7 @@
 
                                             <th>No Pendaftaran</th>
                                             <th>No Sertifikat</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
 
