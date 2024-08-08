@@ -98,4 +98,11 @@ class Penelitian extends BaseController
         return view("penelitian/detail", ["penelitian" => $penelitian[0]]);
 
     }
+
+    public function list() { // TODO: manage read access?
+        header("Content-Type: application/json");
+        return json_encode(
+            $this->penelitianModel->getAllPenelitian()
+        );
+    }
 }

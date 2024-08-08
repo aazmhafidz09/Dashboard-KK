@@ -77,6 +77,13 @@ class Abdimas extends BaseController
         return view("abdimas/detail", ["abdimas" => $abdimas[0]]);
     }
 
+    public function list() { // TODO: manage read access?
+        header("Content-Type: application/json");
+        return json_encode(
+            $this->abdimasModel->getAllAbdimas()
+        );
+    }
+
     // public function delete($id){
     //     $this->abdimasModel->delete($id);
 

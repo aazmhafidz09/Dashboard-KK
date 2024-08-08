@@ -34,6 +34,10 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/index', 'Home::index');
 
+$routes->get('/api/publikasi/list', 'Publikasi::list');
+$routes->get('/api/penelitian/list', 'Penelitian::list');
+$routes->get('/api/abdimas/list', 'Abdimas::list');
+$routes->get('/api/haki/list', 'Haki::list');
 
 $routes->get('/dosen/(:segment)', 'Dosen::detail/$1');
 $routes->get('/penelitian/view/(:segment)', "Penelitian::detail/$1");

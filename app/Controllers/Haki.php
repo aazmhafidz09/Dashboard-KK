@@ -60,8 +60,7 @@ class Haki extends BaseController
             // Order Haki 
             'top_haki_all' => $this->hakiModel->getTopHakiAll(),
 
-            // Get All Data Abdimas
-            'all_haki' => $this->hakiModel->getAllHaki(),
+            // Get All Data Abdimas 'all_haki' => $this->hakiModel->getAllHaki(),
 
             // // Top Publikasi 
             'top_haki' => $this->hakiModel->getTopHaki(),
@@ -82,5 +81,12 @@ class Haki extends BaseController
             return redirect()->to(base_url());
         }
         return view("haki/detail", ["haki" => $haki[0]]);
+    }
+
+    public function list() { // TODO: manage read access?
+        header("Content-Type: application/json");
+        return json_encode(
+            $this->hakiModel->getAllHaki()
+        );
     }
 }

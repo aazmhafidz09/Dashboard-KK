@@ -88,6 +88,14 @@ class Publikasi extends BaseController
 
         return view("publikasi/detail", ["publikasi" => $publikasi[0]]);
     }
+
+    public function list() { // TODO: manage read access?
+        header("Content-Type: application/json");
+        return json_encode(
+            $this->publikasiModel->getAllPublikasi()
+        );
+    }
+
     // public function delete($id){
     //     $this->PublikasiModel->delete($id);
     //     return redirect()->to('/admin/manage-publikasi');
