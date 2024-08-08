@@ -6,8 +6,8 @@
 
 <?php // Initial PHP
     $tahunHakiTersedia = [];
-    foreach($all_haki as $a) { // OPtimizable?
-        $tahunHaki = $a["tahun"];
+    foreach($order_by_tahun as $a) { // OPtimizable?
+        $tahunHaki = $a["thn"];
         $isExist = false;
         $idx = 0;
         while(!$isExist && $idx < count($tahunHakiTersedia)) {
@@ -308,9 +308,6 @@
 
                                 <div class="mt-1">
                                     <ul class="list-inline main-chart mb-0">
-                                        <!-- <li class="list-inline-item chart-border-left me-0 border-0">
-                                            <h3 class="text-primary"><span data-plugin="counterup">137</span><span class="text-muted d-inline-block font-size-15 ms-3">Total Haki</span></h3>
-                                        </li> -->
                                         <li class="list-inline-item chart-border-left me-0">
                                             <h3><span data-plugin="counterup"><?php echo $HakiYearNow_Cipta ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Hak Cipta</span>
                                             </h3>
@@ -377,12 +374,10 @@
                                             <tbody>
                                                 <?php foreach ($top_haki as $tp) : ?>
                                                     <tr>
-                                                        <!-- <td style="width: 20px;"><img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle " alt="..."></td> -->
                                                         <td>
                                                             <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
                                                             <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?></p>
                                                         </td>
-                                                        <!-- <td><span class="badge bg-danger-subtle text-danger font-size-12"></span></td> -->
                                                         <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['jumlah_haki']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
@@ -428,7 +423,6 @@
                                                         <th scope="row"><?= $i++; ?></th>
                                                         <td><?= $cpub['jenis_haki']; ?></td>
                                                         <td><?= $cpub['jumlah_haki']; ?></td>
-                                                        <!-- <td>@mdo</td> -->
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -500,8 +494,6 @@
 
                                 <h4 class="card-title mb-4">Statistik HaKi</h4>
                                 <div class="mt-3">
-                                    <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
-                                    <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->
                                     <div id="chartHakiPerDosen" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
@@ -527,13 +519,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-
                                 <h4 class="card-title">Data Haki</h4>
-                                <!-- <p class="card-title-desc">DataTables has most features enabled by
-                                    default, so all you need to do to use it with your own tables is to call
-                                    the construction function: <code>$().DataTable();</code>.
-                                </p> -->
-
                                 <table id="datatable" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
@@ -546,53 +532,14 @@
                                             <th></th>
                                         </tr>
                                     </thead>
-
-                                    <tbody>
-                                        <?php $i = 1 ?>
-
-                                        <?php foreach ($all_haki as $alp) : ?>
-                                            <tr>
-                                                <td><?= $alp['tahun']; ?></td>
-                                                <td><?= $alp['jenis']; ?></td>
-
-                                                <td><?= $alp['judul']; ?></td>
-                                                <td> <?= 
-                                                    implode( ", ", 
-                                                        array_filter([ 
-                                                            $alp['ketua'], $alp['anggota_1'],
-                                                            $alp['anggota_2'], $alp['anggota_3'],
-                                                            $alp['anggota_4'], $alp['anggota_5'],
-                                                            $alp['anggota_6'], $alp['anggota_7'],
-                                                            $alp['anggota_8'], $alp['anggota_9']
-                                                            ], function($v) { return strlen($v) > 0; }
-                                                        )); 
-                                                ?> </td>
-                                                <td><?= $alp['no_pendaftaran']; ?></td>
-                                                <td><?= $alp['no_sertifikat']; ?></td>
-                                                <td class="position-relative"> 
-                                                    <a 
-                                                        class="position-absolute start-0 end-0"
-                                                        href="<?=base_url('/haki/view/' . $alp['id'])?>"
-                                                    >
-                                                        <i class="uil uil-eye font-size-18"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div> <!-- end col -->
                 </div> <!-- end row -->
-
-
-
             </div> <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
-
 
         <?= $this->include('partials/footer') ?>
     </div>

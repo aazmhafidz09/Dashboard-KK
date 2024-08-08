@@ -39,11 +39,10 @@
                                 <?php if($isAdmin): ?>
                                     <div>
                                         <a href="/admin/publikasi" class="btn btn-success waves-effect waves-light mb-3" role="button"><i class="mdi mdi-plus me-1"></i>Tambah Publikasi</a>
-                                        <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
                                     </div>
                                 <?php endif ?>
 
-                                <table id="datatable" data-ordering='false'  data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="dtPublikasi" data-ordering='false'  data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>
@@ -51,54 +50,8 @@
                                             <th>Jenis</th>
                                             <th>Jurnal/konferensi</th>
                                             <th>Aksi</th>
-                                            <!-- <th>Akreditasi Jurnal</th> -->
-                                            <!-- <th>Penulis</th>    -->
                                         </tr>
                                     </thead>
-
-                                    <tbody>
-                                        <?php $i = 1 ?>
-
-                                        <?php foreach ($all_publikasi as $alp) : ?>
-                                            <tr>
-                                                <td><?= $alp['tahun']; ?></td>
-                                                <td><?= $alp['judul_publikasi']; ?></td>
-                                                <td><?= $alp['jenis']; ?></td>
-                                                <td><?= $alp['nama_journal_conf']; ?></td>
-                                                <td>
-                                                    <ul class="d-flex list-inline mb-0"  style="gap: 12px;">
-                                                        <li class="list-inline-item">
-                                                            <a 
-                                                                class="p-0 border-0 bg-transparent text-primary"
-                                                                href="<?=base_url("/publikasi/view/" . $alp["id"])?>"
-                                                            >
-                                                                <i class="uil uil-eye font-size-18"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <button 
-                                                                class="p-0 border-0 bg-transparent text-primary"
-                                                                onclick="window.location = '<?=base_url('admin/publikasi/update/' . $alp['id'])?>'"
-                                                            >
-                                                                <i class="uil uil-pen font-size-18"></i>
-                                                            </button>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <button 
-                                                                class="p-0 border-0 bg-transparent text-danger"
-                                                                onclick="window.location = '<?=base_url('admin/publikasi/delete/' . $alp['id'])?>'"
-                                                            >
-                                                                <i class="uil uil-trash-alt font-size-18"></i>
-                                                            </button>
-                                                        </li>
-
-                                                    </ul>
-                                                </td>
-
-
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
                                 </table>
                                 <!-- <div class="row">
                                     <div class="col"> </div>
@@ -116,12 +69,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-
                                 <h4 class="card-title">Data Penelitian</h4>
-                                <!-- <p class="card-title-desc">DataTables has most features enabled by
-                                    default, so all you need to do to use it with your own tables is to call
-                                    the construction function: <code>$().DataTable();</code>.
-                                </p> -->
                                 <?php if($isAdmin): ?>
                                     <div>
                                         <a href="/admin/penelitian" class="btn btn-success waves-effect waves-light mb-3" role="button"><i class="mdi mdi-plus me-1"></i>Tambah Penelitian</a>
@@ -129,7 +77,7 @@
                                     </div>
                                 <?php endif ?>
 
-                                <table id="datatable_1" data-ordering='false' data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="dtPenelitian" data-ordering='false' data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>
@@ -139,48 +87,6 @@
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-
-                                    <tbody>
-                                        <?php $i = 1 ?>
-
-                                        <?php foreach ($all_penelitian as $alp) : ?>
-                                            <tr>
-                                                <td><?= $alp['tahun']; ?></td>
-                                                <td><?= $alp['jenis']; ?></td>
-                                                <td><?= $alp['nama_kegiatan']; ?></td>
-                                                <td><?= $alp['judul_penelitian']; ?></td>
-
-                                                <td>
-                                                    <ul class="d-flex list-inline mb-0" style="gap: 12px;">
-                                                        <li class="list-inline-item">
-                                                            <a 
-                                                                class="p-0 border-0 bg-transparent text-primary"
-                                                                href="<?=base_url("/penelitian/view/" . $alp["id"])?>"
-                                                            >
-                                                                <i class="uil uil-eye font-size-18"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <button 
-                                                                class="p-0 border-0 bg-transparent text-primary"
-                                                                onclick="window.location = '<?=base_url('admin/penelitian/update/' . $alp['id'])?>'"
-                                                            >
-                                                                <i class="uil uil-pen font-size-18"></i>
-                                                            </button>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <button 
-                                                                class="p-0 border-0 bg-transparent text-danger"
-                                                                onclick="window.location = '<?=base_url('admin/penelitian/delete/' . $alp['id'])?>'"
-                                                            >
-                                                                <i class="uil uil-trash-alt font-size-18"></i>
-                                                            </button>
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
                                 </table>
                                 <!-- <div class="row">
                                     <div class="col"> </div>
@@ -188,7 +94,6 @@
                                         <a href="/penelitian" class="btn btn-success waves-effect waves-light mb-3" role="button"></i>Lihat Selengkapnya</a>
                                     </div>
                                 </div> -->
-
                             </div>
                         </div>
                     </div> <!-- end col -->
@@ -198,7 +103,6 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-
                                 <h4 class="card-title">Data Abdimas</h4>
                                 <?php if($isAdmin): ?>
                                     <div>
@@ -207,59 +111,16 @@
                                     </div>
                                 <?php endif ?>
 
-
-                                <table id="datatable_2" data-ordering='false' data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="dtAbdimas" data-ordering='false' data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>
                                             <th>Jenis</th>
                                             <th>Nama Kegiatan</th>
                                             <th>Judul</th>
-                                            <!-- <th>Status</th> -->
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-
-
-                                        <?php foreach ($all_abdimas as $alp) : ?>
-                                            <tr>
-                                                <td><?= $alp['tahun']; ?></td>
-                                                <td><?= $alp['jenis']; ?></td>
-                                                <td><?= $alp['nama_kegiatan']; ?></td>
-                                                <td><?= $alp['judul']; ?></td>
-                                                <!-- <td><?= $alp['status']; ?></td> -->
-                                                <td>
-                                                    <ul class="d-flex list-inline mb-0"  style="gap: 12px;">
-                                                        <li class="list-inline-item">
-                                                            <a 
-                                                                class="p-0 border-0 bg-transparent text-primary"
-                                                                href="<?=base_url("/abdimas/view/" . $alp["id"])?>"
-                                                            >
-                                                                <i class="uil uil-eye font-size-18"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <button 
-                                                                class="p-0 border-0 bg-transparent text-primary"
-                                                                onclick="window.location = '<?=base_url('admin/abdimas/update/' . $alp['id'])?>'"
-                                                            >
-                                                                <i class="uil uil-pen font-size-18"></i>
-                                                            </button>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <button 
-                                                                class="p-0 border-0 bg-transparent text-danger"
-                                                                onclick="window.location = '<?=base_url('admin/abdimas/delete/' . $alp['id'])?>'"
-                                                            >
-                                                                <i class="uil uil-trash-alt font-size-18"></i>
-                                                            </button>
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
                                 </table>
                                 <!-- <div class="row">
                                     <div class="col"> </div>
@@ -291,12 +152,11 @@
                                     </div>
                                 <?php endif ?>
 
-                                <table id="datatable_3" data-ordering='false' data-ordering='false' data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="dtHaki" data-ordering='false' data-ordering='false' data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>
                                             <th>Jenis</th>
-                                            <!-- <th>Jenis Ciptaan</th> -->
                                             <th>Judul</th>
 
                                             <th>No Pendaftaran</th>
@@ -304,50 +164,6 @@
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-
-                                    <tbody>
-                                        <?php $i = 1 ?>
-
-                                        <?php foreach ($all_haki as $alp) : ?>
-                                            <tr>
-                                                <td><?= $alp['tahun']; ?></td>
-                                                <td><?= $alp['jenis']; ?></td>
-
-                                                <td><?= $alp['judul']; ?></td>
-
-                                                <td><?= $alp['no_pendaftaran']; ?></td>
-                                                <td><?= $alp['no_sertifikat']; ?></td>
-                                                <td>
-                                                    <ul class="d-flex list-inline mb-0" style="gap: 12px;">
-                                                        <li class="list-inline-item">
-                                                            <a 
-                                                                class="p-0 border-0 bg-transparent text-primary"
-                                                                href="<?=base_url("/haki/view/" . $alp["id"])?>"
-                                                            >
-                                                                <i class="uil uil-eye font-size-18"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <button 
-                                                                class="p-0 border-0 bg-transparent text-primary"
-                                                                onclick="window.location = '<?=base_url('admin/haki/update/' . $alp['id'])?>'"
-                                                            >
-                                                                <i class="uil uil-pen font-size-18"></i>
-                                                            </button>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <button 
-                                                                class="p-0 border-0 bg-transparent text-danger"
-                                                                onclick="window.location = '<?=base_url('admin/haki/delete/' . $alp['id'])?>'"
-                                                            >
-                                                                <i class="uil uil-trash-alt font-size-18"></i>
-                                                            </button>
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
                                 </table>
                                 <!-- <div class="row">
                                     <div class="col"> </div>
@@ -407,7 +223,7 @@
 
 <!-- App js -->
 <script src="assets/js/app.js"></script>
-
+<?= view("admin/jsScript") ?>
 </body>
 
 </html>

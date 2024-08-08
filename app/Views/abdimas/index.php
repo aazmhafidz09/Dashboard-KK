@@ -5,9 +5,9 @@
 <?= $this->include('partials/body') ?>
 
 <?php // Initial PHP
-    $tahunAbdimasTersedia = [];
-    foreach($all_abdimas as $a) { // OPtimizable?
-        $tahunAbdimas = $a["tahun"];
+    $tahunAbdimasTersedia = [];#
+    foreach($order_by_tahun as $a) { // OPtimizable?
+        $tahunAbdimas = $a["thn"];
         $isExist = false;
         $idx = 0;
         while(!$isExist && $idx < count($tahunAbdimasTersedia)) {
@@ -161,8 +161,6 @@
                                     </ul>
                                 </div>
                                 <div class="mt-3">
-                                    <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
-                                    <!-- <div id="column_chart_1" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div> -->
                                     <div id="chartAbdimasTahunan" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
@@ -235,9 +233,6 @@
                                 <h4 class="card-title mb-4">Statistik Abdimas</h4>
                                 <div class="mt-1">
                                     <ul class="list-inline main-chart mb-0">
-                                        <!-- <li class="list-inline-item chart-border-left me-0 border-0">
-                                            <h3 class="text-primary"><span data-plugin="counterup">137</span><span class="text-muted d-inline-block font-size-15 ms-3">Total Publikasi</span></h3>
-                                        </li> -->
                                         <li class="list-inline-item chart-border-left me-0">
                                             <h3><span data-plugin="counterup"><?php echo $Abdimas_YearNow_Inter ?></span><span class="text-muted d-inline-block font-size-15 ms-3">Internal</span>
                                             </h3>
@@ -248,7 +243,6 @@
                                     </ul>
                                 </div>
                                 <div class="mt-3">
-                                    <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
                                     <div id="chartAbdimasPerJenisTahunan" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
@@ -375,36 +369,6 @@
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <?php foreach ($all_abdimas as $alp) : ?>
-                                            <tr>
-                                                <td><?= $alp['tahun']; ?></td>
-                                                <td><?= $alp['jenis']; ?></td>
-                                                <td><?= $alp['nama_kegiatan']; ?></td>
-                                                <td><?= $alp['judul']; ?></td>
-                                                <td><?= $alp['status']; ?></td>
-                                                <td> <?= 
-                                                    implode( ", ", 
-                                                        array_filter([ 
-                                                            $alp['ketua'], $alp['anggota_1'],
-                                                            $alp['anggota_2'], $alp['anggota_3'],
-                                                            $alp['anggota_4'], $alp['anggota_5'],
-                                                            $alp['anggota_6'], $alp['anggota_7'],
-                                                            $alp['anggota_8']
-                                                            ], function($v) { return strlen($v) > 0; }
-                                                        )); 
-                                                ?> </td>
-                                                <td class="position-relative"> 
-                                                    <button 
-                                                        class="position-absolute start-0 end-0 border-0 bg-transparent text-primary"
-                                                        onclick="window.location = '<?=base_url('/abdimas/view/' . $alp['id'])?>'"
-                                                    >
-                                                        <i class="uil uil-eye font-size-18"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
                                 </table>
                             </div>
                         </div>

@@ -1,4 +1,53 @@
 <script type="text/javascript">
+    $("document").ready(function() {
+        $("#datatable").DataTable({
+            destroy: true,
+            pageLength: 5,
+            ajax: {
+                url: "/api/penelitian/list",
+                dataSrc: ""
+            },
+            columns: [
+                { data: "tahun" },
+                { data: "nama_kegiatan" },
+                { data: "judul_penelitian" },
+                { data: "jenis" }, 
+                { data: "status" },
+                { 
+                    data: null,
+                    render: function(data, type, row) {
+                        return [ 
+                            "ketua_peneliti", 
+                            "anggota_peneliti_1", 
+                            "anggota_peneliti_2", 
+                            "anggota_peneliti_3", 
+                            "anggota_peneliti_4", 
+                            "anggota_peneliti_5", 
+                            "anggota_peneliti_6", 
+                            "anggota_peneliti_7", 
+                            "anggota_peneliti_8", 
+                            "anggota_peneliti_9", 
+                            "anggota_peneliti_10", 
+                        ]
+                            .map(columnName => row[columnName])
+                            .filter(val => val.length > 0)
+                            .join(", ")
+                    }
+                },
+                { 
+                    data: null,
+                    render: function(data, type, row) {
+                        return [
+                            `<a href="haki/penelitian/${row.id}"`,
+                                "<i class='uil uil-eye font-size-18'></i>",
+                            "</a>",
+                        ].join(" ")
+                    }
+                }
+            ]
+        });
+    })
+
     let FILTER_PENELITIAN_PER_TAHUN = { kk: <?= $defaultFilterKK ?>}
     let FILTER_PENELITIAN_PER_JENIS_TAHUNAN = { kk: <?= $defaultFilterKK ?>}
     let FILTER_PENELITIAN_PER_DOSEN = {
@@ -298,7 +347,7 @@
             targetElement,  
             {
                 chart: {
-                    animations: { enabled: false },
+                    // animations: { enabled: false },
                     height: 350,
                     type: 'bar',
                     toolbar: { show: false, },

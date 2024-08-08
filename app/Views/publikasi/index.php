@@ -368,10 +368,6 @@
                     </div> <!-- end Col -->
                 </div> <!-- end row-->
 
-
-
-
-
                 <div class="row">
                     <div class="col-xl-4">
                         <div class="card">
@@ -402,63 +398,14 @@
                         </div> <!-- end card-->
                     </div><!-- end col -->
 
-                    <!-- <div class="col-xl-4">
+                    <div class="col-xl-8">
                         <div class="card">
                             <div class="card-body">
-                                <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle" href="#" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton3">
-                                            <a class="dropdown-item" href="#">Recent</a>
-                                            <a class="dropdown-item" href="#">By Users</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <h4 class="card-title mb-4">Index Publikasi</h4>
-
-                                <ol class="activity-feed mb-0 ps-2" data-simplebar style="max-height: 339px;">
-
-                                    <div class="table-responsive">
-                                        <table class="table mb-0">
-
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th></th>
-                                                    <th>Index</th>
-                                                    <th>Jumlah</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $i = 1 ?>
-                                                <?php foreach ($akreditasi_jurnal as $akr) :  ?>
-                                                    <tr>
-                                                        <th scope="row"><?= $i++; ?></th>
-                                                        <td><?= $akr['akreditasi']; ?></td>
-                                                        <td><?= $akr['jumlah_akr']; ?></td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </ol>
-
+                                <h4 class="card-title mb-4"> Peringkat Publikasi</h4>
+                                <div id="bar_chart" data-colors='["--bs-success"]' class="apex-charts" dir="ltr"></div>
                             </div>
-                        </div> -->
-                        <div class="col-xl-8">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-4"> Peringkat Publikasi</h4>
-                                    <div id="bar_chart" data-colors='["--bs-success"]' class="apex-charts" dir="ltr"></div>
-                                </div>
-                            </div><!--end card-->
-                        </div>
+                        </div><!--end card-->
                     </div>
-
                 </div>
                 <!-- end row -->
 
@@ -544,7 +491,6 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-
                                 <h4 class="card-title">Data Publikasi</h4>
                                 <table id="datatable" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
@@ -556,33 +502,8 @@
                                             <th>Peringkat Jurnal</th>
                                             <th>Penulis</th>
                                             <th></th>
-
                                         </tr>
                                     </thead>
-
-                                    <tbody>
-                                        <?php $i = 1 ?>
-
-                                        <?php foreach ($all_publikasi as $alp) : ?>
-                                            <tr>
-                                                <td><?= $alp['tahun']; ?></td>
-                                                <td><?= $alp['judul_publikasi']; ?></td>
-                                                <td><?= $alp['jenis']; ?></td>
-                                                <td><?= $alp['nama_journal_conf']; ?></td>
-                                                <td><?= $alp['akreditasi_journal_conf']; ?></td>
-                                                <td><?= $alp['penulis_all']; ?></td>
-                                                <td class="position-relative"> 
-                                                    <button 
-                                                        class="position-absolute start-0 end-0 border-0 bg-transparent text-primary"
-                                                        onclick="window.location = '<?=base_url('/publikasi/view/' . $alp['id'])?>'"
-                                                    >
-                                                        <i class="uil uil-eye font-size-18"></i>
-                                                    </button>
-                                                </td>
-
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
                                 </table>
                             </div>
                         </div>

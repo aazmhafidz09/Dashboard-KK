@@ -1,4 +1,53 @@
 <script type="text/javascript">
+    $("document").ready(function() {
+        $("#datatable").DataTable({
+            destroy: true,
+            pageLength: 5,
+            ajax: {
+                url: "/api/publikasi/list",
+                dataSrc: ""
+            },
+            columns: [
+                { data: "tahun" },
+                { data: "judul_publikasi" },
+                { data: "jenis" },
+                { data: "nama_journal_conf" },
+                { data: "akreditasi_journal_conf" },
+                { 
+                    data: null,
+                    render: function(data, type, row) {
+                        return [ 
+                            "penulis_1", 
+                            "penulis_2", 
+                            "penulis_3", 
+                            "penulis_4", 
+                            "penulis_5", 
+                            "penulis_6", 
+                            "penulis_7", 
+                            "penulis_8", 
+                            "penulis_9", 
+                            "penulis_10", 
+                            "penulis_11", 
+                        ]
+                            .map(columnName => row[columnName])
+                            .filter(val => val.length > 0)
+                            .join(", ")
+                    }
+                },
+                { 
+                    data: null,
+                    render: function(data, type, row) {
+                        return [
+                            `<a href="publikasi/view/${row.id}"`,
+                                "<i class='uil uil-eye font-size-18'></i>",
+                            "</a>",
+                        ].join(" ")
+                    }
+                }
+            ]
+        });
+    })
+
     let FILTER_PUBLIKASI_PER_TAHUN = { kk: <?= $defaultFilterKK ?>}
     let FILTER_PUBLIKASI_PER_JENIS_TAHUNAN = { kk: <?= $defaultFilterKK ?>}
     let FILTER_PUBLIKASI_DOSEN = {

@@ -775,14 +775,10 @@ class Admin extends BaseController {
     public function download_template($filename) {
         $BASE_DIR = "assets/xlsxTemplates";
         switch($filename) {
-            case "publikasi":
-                return $this->response->download(("$BASE_DIR/tPublikasiEXAMPLE.xlsx"), null);
-            case "penelitian":
-                return $this->response->download(("$BASE_DIR/tPenelitianEXAMPLE.xlsx"), null);
-            case "abdimas":
-                return $this->response->download(("$BASE_DIR/tAbdimasEXAMPLE.xlsx"), null);
-            case "haki":
-                return $this->response->download(("$BASE_DIR/tHakiEXAMPLE.xlsx"), null);
+            case "publikasi": return $this->response->download(("$BASE_DIR/tPublikasiEXAMPLE.xlsx"), null);
+            case "penelitian": return $this->response->download(("$BASE_DIR/tPenelitianEXAMPLE.xlsx"), null);
+            case "abdimas": return $this->response->download(("$BASE_DIR/tAbdimasEXAMPLE.xlsx"), null);
+            case "haki": return $this->response->download(("$BASE_DIR/tHakiEXAMPLE.xlsx"), null);
             default:
                 session()->setFlashData("error", "Template <b>$filename</b> tidak ditemukan");
                 return redirect()->to(base_url("/admin/import"));
@@ -835,8 +831,9 @@ class Admin extends BaseController {
         fclose($stream);
         header('Content-type: text/csv');
         header("Content-disposition: attachment; filename= $filename;");
+        return;
 
-        // Somehow debug thingy shows up in the CSV
+        // swhen development mode on, somehow debug thingy shows up in the CSV 
         // As of time of writing, the following reference is used to remove them
         // https://forum.codeigniter.com/showthread.php?tid=82555
         exit; 

@@ -1,4 +1,51 @@
 <script type="text/javascript">
+    $("document").ready(function() {
+        $("#datatable").DataTable({
+            destroy: true,
+            pageLength: 5,
+            ajax: {
+                url: "/api/haki/list",
+                dataSrc: ""
+            },
+            columns: [
+                { data: "tahun" },
+                { data: "jenis" },
+                { data: "judul" },
+                { 
+                    data: null,
+                    render: function(data, type, row) {
+                        return [ "ketua", 
+                            "anggota_1", 
+                            "anggota_2", 
+                            "anggota_3", 
+                            "anggota_4", 
+                            "anggota_5", 
+                            "anggota_6", 
+                            "anggota_7", 
+                            "anggota_8", 
+                            "anggota_9", 
+                        ]
+                            .map(columnName => row[columnName])
+                            .filter(val => val.length > 0)
+                            .join(", ")
+                    }
+                },
+                { data: "no_pendaftaran" },
+                { data: "no_sertifikat" },
+                { 
+                    data: null,
+                    render: function(data, type, row) {
+                        return [
+                            `<a href="haki/view/${row.id}"`,
+                                "<i class='uil uil-eye font-size-18'></i>",
+                            "</a>",
+                        ].join(" ")
+                    }
+                }
+            ]
+        });
+    })
+
     let FILTER_HAKI_PER_TAHUN = { kk: <?= $defaultFilterKK ?>}
     let FILTER_HAKI_PER_JENIS_TAHUNAN = { kk: <?= $defaultFilterKK ?>}
     let FILTER_HAKI_PER_DOSEN = {
@@ -72,14 +119,27 @@
         ?> 
     };
 
-    const dataHakiPerKKTahunan = { "CITI": {}, "SEAL": {}, "DSIS": {} };
-    <?php foreach($annualHakiByTypeAndKK as $row): ?>
-        if(!dataHakiPerKKTahunan['<?= $row["kk"] ?>'].hasOwnProperty('<?= $row["tahun"] ?>')) {
-            dataHakiPerKKTahunan['<?= $row["kk"] ?>'][<?= $row["tahun"] ?>] = {};
-        }
+    const dataHakiPerKKTahunan = {};
+    Object.keys(dosenByKK)
+        .forEach(kk => { dataHakiPerKKTahunan[kk] = {} });
 
-        dataHakiPerKKTahunan['<?= $row["kk"] ?>'][<?= $row["tahun"] ?>]['<?= $row["jenis"] ?>'] = <?= $row["nHaki"] ?>;
-    <?php endforeach ?>
+    let temp = [ 
+        <?php foreach($annualHakiByTypeAndKK as $row) {
+            $kk = $row['kk']; 
+            $tahun = $row['tahun']; 
+            $jenis = strtoupper($row['jenis']);
+            $nHaki = $row['nHaki'];
+            echo "{'kk': '$kk' , 'tahun': $tahun, 'jenis': '$jenis', 'nHaki': $nHaki},";
+        } ?>
+    ]
+    temp.forEach(data => {
+        const {kk, tahun, jenis, nHaki} = data; 
+        if(!dataHakiPerKKTahunan[kk].hasOwnProperty(tahun)) {
+            dataHakiPerKKTahunan[kk][tahun] = {};
+        }
+        
+        dataHakiPerKKTahunan[kk][tahun][jenis] = nHaki;
+    })
 
     const onDataPointSelection = function(e, context, opts) {
         const kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex];

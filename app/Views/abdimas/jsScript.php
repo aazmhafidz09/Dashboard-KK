@@ -1,4 +1,51 @@
 <script type="text/javascript">
+    $("document").ready(function() {
+        $("#datatable").DataTable({
+            destroy: true,
+            pageLength: 5,
+            ajax: {
+                url: "/api/abdimas/list",
+                dataSrc: ""
+            },
+            columns: [
+                { data: "tahun" },
+                { data: "jenis" },
+                { data: "nama_kegiatan" },
+                { data: "judul" }, 
+                { data: "status" },
+                { 
+                    data: null,
+                    render: function(data, type, row) {
+                        return [ 
+                            "ketua", 
+                            "anggota_1", 
+                            "anggota_2", 
+                            "anggota_3", 
+                            "anggota_4", 
+                            "anggota_5", 
+                            "anggota_6", 
+                            "anggota_7", 
+                            "anggota_8", 
+                        ]
+                            .map(columnName => row[columnName])
+                            .filter(val => val.length > 0)
+                            .join(", ")
+                    }
+                },
+                { 
+                    data: null,
+                    render: function(data, type, row) {
+                        return [
+                            `<a href="abdimas/view/${row.id}"`,
+                                "<i class='uil uil-eye font-size-18'></i>",
+                            "</a>",
+                        ].join(" ")
+                    }
+                }
+            ]
+        });
+    })
+
     let FILTER_ABDIMAS_PER_TAHUN = { kk: <?= $defaultFilterKK ?>, }
     let FILTER_ABDIMAS_PER_JENIS_TAHUNAN = { kk: <?= $defaultFilterKK ?> }
     let FILTER_ABDIMAS_PER_DOSEN = { kk: <?= $defaultFilterKK ?>, tahun: "Semua"};
@@ -28,14 +75,27 @@
         } ?> 
     };
 
-    const dataAbdimasPerKKTahunan = { "CITI": {}, "SEAL": {}, "DSIS": {} };
-    <?php foreach($annualAbdimasByTypeAndKK as $row): ?>
-        if(!dataAbdimasPerKKTahunan['<?= $row["kk"] ?>'].hasOwnProperty('<?= $row["tahun"] ?>')) {
-            dataAbdimasPerKKTahunan['<?= $row["kk"] ?>'][<?= $row["tahun"] ?>] = {};
-        }
+    const dataAbdimasPerKKTahunan = {};
+    Object.keys(dosenByKK)
+        .forEach(kk => { dataAbdimasPerKKTahunan[kk] = {} });
 
-        dataAbdimasPerKKTahunan['<?= $row["kk"] ?>'][<?= $row["tahun"] ?>]['<?= $row["jenis"] ?>'] = <?= $row["nAbdimas"] ?>;
-    <?php endforeach ?>
+    let temp = [ 
+        <?php foreach($annualAbdimasByTypeAndKK as $row) {
+            $kk = $row['kk']; 
+            $tahun = $row['tahun']; 
+            $jenis = strtoupper($row['jenis']);
+            $nAbdimas = $row['nAbdimas'];
+            echo "{'kk': '$kk' , 'tahun': $tahun, 'jenis': '$jenis', 'nAbdimas': $nAbdimas},";
+        } ?>
+    ]
+    temp.forEach(data => {
+        const {kk, tahun, jenis, nAbdimas} = data; 
+        if(!dataAbdimasPerKKTahunan[kk].hasOwnProperty(tahun)) {
+            dataAbdimasPerKKTahunan[kk][tahun] = {};
+        }
+        
+        dataAbdimasPerKKTahunan[kk][tahun][jenis] = nAbdimas;
+    })
 
     const dataAbdimasAnyKKTahunan = [
         {

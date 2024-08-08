@@ -450,49 +450,6 @@
                         </div> <!-- end card-->
                     </div><!-- end col -->
 
-                    <!-- <div class="col-xl-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="float-end">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle" href="#" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </a>
-
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton3">
-                                            <a class="dropdown-item" href="#">Recent</a>
-                                            <a class="dropdown-item" href="#">By Users</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <h4 class="card-title mb-4">Data Penelitian</h4>
-
-                                <ol class="activity-feed mb-0 ps-2" data-simplebar style="height: 339px;">
-                                    <div class="table-responsive">
-                                        <table class="table mb-0">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th></th>
-                                                    <th>Penelitian</th>
-                                                    <th>Jumlah</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $i = 1 ?>
-                                                <?php foreach ($count_publikasi as $cpub) :  ?>
-                                                    <tr>
-                                                        <th scope="row"><?= $i++; ?></th>
-                                                        <td><?= $cpub['jenis_pen']; ?></td>
-                                                        <td><?= $cpub['jumlah_pen']; ?></td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </ol>
-                            </div>
-                        </div>
-                    </div> -->
-
                     <div class="col-xl-8">
                         <div class="card">
                             <div class="card-body">
@@ -601,42 +558,6 @@
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <?php foreach ($all_penelitian as $alp) : ?>
-                                            <tr>
-                                                <td><?= $alp['tahun']; ?></td>
-                                                <td><?= $alp['nama_kegiatan']; ?></td>
-                                                <td><?= $alp['judul_penelitian']; ?></td>
-                                                <td><?= $alp['jenis']; ?></td>
-                                                <td><?= $alp['status']; ?></td>
-                                                <td> <?= 
-                                                    implode( ", ", 
-                                                        array_filter([ 
-                                                                $alp['ketua_peneliti'], 
-                                                                $alp['anggota_peneliti_1'],
-                                                                $alp['anggota_peneliti_2'],
-                                                                $alp['anggota_peneliti_3'],
-                                                                $alp['anggota_peneliti_4'],
-                                                                $alp['anggota_peneliti_5'],
-                                                                $alp['anggota_peneliti_6'],
-                                                                $alp['anggota_peneliti_7'],
-                                                                $alp['anggota_peneliti_8'],
-                                                                $alp['anggota_peneliti_9'],
-                                                                $alp['anggota_peneliti_10'],
-                                                            ], function($v) { return strlen($v) > 0; }
-                                                        )); 
-                                                ?> </td>
-                                                <td class="position-relative"> 
-                                                    <button 
-                                                        class="position-absolute start-0 end-0 border-0 bg-transparent text-primary"
-                                                        onclick="window.location = '<?=base_url('/penelitian/view/' . $alp['id'])?>'"
-                                                    >
-                                                        <i class="uil uil-eye font-size-18"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
                                 </table>
                             </div>
                         </div>
