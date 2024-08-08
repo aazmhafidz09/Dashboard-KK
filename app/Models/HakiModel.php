@@ -337,7 +337,7 @@ class HakiModel extends Model
         $sql = "SELECT 
                     kode_dosen,
                     haki.tahun, 
-                    COUNT(*) AS banyak_haki 
+                    COUNT(*) AS nHaki 
                 FROM dosen 
                 LEFT JOIN haki 
                     ON ( haki.anggota_1 = kode_dosen 
@@ -349,27 +349,42 @@ class HakiModel extends Model
                         OR haki.anggota_7 = kode_dosen 
                         OR haki.anggota_8 = kode_dosen 
                         OR haki.ketua = kode_dosen) 
-                GROUP BY haki.tahun, kode_dosen
-                ORDER BY kode_dosen, haki.tahun; ";
+                GROUP BY haki.tahun, kode_dosen; ";
+        $result = $this->db->query($sql)->getResultArray();
 
         $data = [];
-        $results = $this->db->query($sql)->getResultArray();
-        $yearRange = range(2008, date("Y")); // Tel-U was found around 2013, so this should be okay
-        foreach($results as $result) {
-            $year = $result["tahun"];
-            $kode_dosen = $result["kode_dosen"];
-            $yearCount = $result["banyak_haki"];
-            if(!isset($data[$kode_dosen])) {
-                $data[$kode_dosen] = [ "kode_dosen" => $kode_dosen ]; // Unnecessary, but for the sake of pertaining uniformity, let it slide
-                foreach($yearRange as $y) {
-                    $data[$kode_dosen]['THN_' . $y] = 0;
-                }
+        foreach($result as $value) {
+            $kodeDosen = $value["kode_dosen"];
+            if(!isset($data[$kodeDosen])) {
+                $data[$kodeDosen] = ["kode_dosen" => $kodeDosen];
             }
 
-            if(!is_null($year)) $data[$kode_dosen]['THN_' . $year] = $yearCount;
+            if(!is_null($value["tahun"])) {
+                $yearString = "THN_" .$value["tahun"];
+                $data[$kodeDosen][$yearString] = $value["nHaki"];
+            }
         }
 
         return $data;
+
+        // $data = [];
+        // $results = $this->db->query($sql)->getResultArray();
+        // $yearRange = range(2008, date("Y")); // Tel-U was found around 2013, so this should be okay
+        // foreach($results as $result) {
+        //     $year = $result["tahun"];
+        //     $kode_dosen = $result["kode_dosen"];
+        //     $yearCount = $result["banyak_haki"];
+        //     if(!isset($data[$kode_dosen])) {
+        //         $data[$kode_dosen] = [ "kode_dosen" => $kode_dosen ]; // Unnecessary, but for the sake of pertaining uniformity, let it slide
+        //         foreach($yearRange as $y) {
+        //             $data[$kode_dosen]['THN_' . $y] = 0;
+        //         }
+        //     }
+
+        //     if(!is_null($year)) $data[$kode_dosen]['THN_' . $year] = $yearCount;
+        // }
+
+        // return $data;
     }
 
     public function getAnnualHakiByTypeAndKK() {

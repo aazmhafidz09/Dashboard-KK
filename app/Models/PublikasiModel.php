@@ -279,52 +279,87 @@ class PublikasiModel extends Model
         return $query->getResultArray();
     }
 
-    public function getDataDosenTahunan() { // TODO: FIX THIS
+    public function getDataDosenTahunan() {
         $sql = "SELECT
-                    dosen.kode_dosen,
-                    COUNT(CASE WHEN publikasi.tahun = 2000 THEN publikasi.kode_dosen END) AS THN_2000,
-                    COUNT(CASE WHEN publikasi.tahun = 2001 THEN publikasi.kode_dosen END) AS THN_2001,
-                    COUNT(CASE WHEN publikasi.tahun = 2002 THEN publikasi.kode_dosen END) AS THN_2002,
-                    COUNT(CASE WHEN publikasi.tahun = 2003 THEN publikasi.kode_dosen END) AS THN_2003,
-                    COUNT(CASE WHEN publikasi.tahun = 2004 THEN publikasi.kode_dosen END) AS THN_2004,
-                    COUNT(CASE WHEN publikasi.tahun = 2005 THEN publikasi.kode_dosen END) AS THN_2005,
-                    COUNT(CASE WHEN publikasi.tahun = 2006 THEN publikasi.kode_dosen END) AS THN_2006,
-                    COUNT(CASE WHEN publikasi.tahun = 2007 THEN publikasi.kode_dosen END) AS THN_2007,
-                    COUNT(CASE WHEN publikasi.tahun = 2008 THEN publikasi.kode_dosen END) AS THN_2008,
-                    COUNT(CASE WHEN publikasi.tahun = 2009 THEN publikasi.kode_dosen END) AS THN_2009,
-                    COUNT(CASE WHEN publikasi.tahun = 2010 THEN publikasi.kode_dosen END) AS THN_2010,
-                    COUNT(CASE WHEN publikasi.tahun = 2011 THEN publikasi.kode_dosen END) AS THN_2011,
-                    COUNT(CASE WHEN publikasi.tahun = 2012 THEN publikasi.kode_dosen END) AS THN_2012,
-                    COUNT(CASE WHEN publikasi.tahun = 2013 THEN publikasi.kode_dosen END) AS THN_2013,
-                    COUNT(CASE WHEN publikasi.tahun = 2014 THEN publikasi.kode_dosen END) AS THN_2014,
-                    COUNT(CASE WHEN publikasi.tahun = 2015 THEN publikasi.kode_dosen END) AS THN_2015,
-                    COUNT(CASE WHEN publikasi.tahun = 2016 THEN publikasi.kode_dosen END) AS THN_2016,
-                    COUNT(CASE WHEN publikasi.tahun = 2017 THEN publikasi.kode_dosen END) AS THN_2017,
-                    COUNT(CASE WHEN publikasi.tahun = 2018 THEN publikasi.kode_dosen END) AS THN_2018,
-                    COUNT(CASE WHEN publikasi.tahun = 2019 THEN publikasi.kode_dosen END) AS THN_2019,
-                    COUNT(CASE WHEN publikasi.tahun = 2020 THEN publikasi.kode_dosen END) AS THN_2020,
-                    COUNT(CASE WHEN publikasi.tahun = 2021 THEN publikasi.kode_dosen END) AS THN_2021,
-                    COUNT(CASE WHEN publikasi.tahun = 2022 THEN publikasi.kode_dosen END) AS THN_2022,
-                    COUNT(CASE WHEN publikasi.tahun = 2023 THEN publikasi.kode_dosen END) AS THN_2023,
-                    COUNT(CASE WHEN publikasi.tahun = 2024 THEN publikasi.kode_dosen END) AS THN_2024
-                FROM dosen
-                LEFT JOIN
-                    (
-                        SELECT penulis_1 AS kode_dosen, tahun FROM publikasi WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
-                        UNION ALL
-                        SELECT penulis_2, tahun FROM publikasi WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
-                        UNION ALL
-                        SELECT penulis_3, tahun FROM publikasi WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
-                        UNION ALL
-                        SELECT penulis_4, tahun FROM publikasi WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
-                        UNION ALL
-                        SELECT penulis_5, tahun FROM publikasi WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
-                        UNION ALL
-                        SELECT penulis_6, tahun FROM publikasi WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
-                    ) AS publikasi ON dosen.kode_dosen = publikasi.kode_dosen
-                GROUP BY dosen.kode_dosen;";
-        $query = $this->db->query($sql);
-        return $query->getResultArray();
+                    d.kode_dosen,
+                    p.tahun,
+                    COUNT(*) AS nPublikasi
+                FROM publikasi AS p
+                RIGHT JOIN dosen AS d
+                    ON (
+                        p.penulis_1 = d.kode_dosen
+                        OR p.penulis_2 = d.kode_dosen
+                        OR p.penulis_3 = d.kode_dosen
+                        OR p.penulis_4 = d.kode_dosen
+                        OR p.penulis_5 = d.kode_dosen
+                        OR p.penulis_6 = d.kode_dosen
+                        OR p.penulis_7 = d.kode_dosen
+                        OR p.penulis_8 = d.kode_dosen
+                        OR p.penulis_9 = d.kode_dosen
+                        OR p.penulis_10 = d.kode_dosen
+                        OR p.penulis_11 = d.kode_dosen)
+                GROUP BY d.kode_dosen, p.tahun; ";
+        $result = $this->db->query($sql)->getResultArray();
+
+        $data = [];
+        foreach($result as $value) {
+            $kodeDosen = $value["kode_dosen"];
+            if(!isset($data[$kodeDosen])) {
+                $data[$kodeDosen] = ["kode_dosen" => $kodeDosen];
+            }
+
+            if(!is_null($value["tahun"])) {
+                $yearString = "THN_" .$value["tahun"];
+                $data[$kodeDosen][$yearString] = $value["nPublikasi"];
+            }
+        }
+
+        return $data;
+    //     $sql = "SELECT
+    //                 dosen.kode_dosen,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2000 THEN publikasi.kode_dosen END) AS THN_2000,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2001 THEN publikasi.kode_dosen END) AS THN_2001,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2002 THEN publikasi.kode_dosen END) AS THN_2002,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2003 THEN publikasi.kode_dosen END) AS THN_2003,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2004 THEN publikasi.kode_dosen END) AS THN_2004,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2005 THEN publikasi.kode_dosen END) AS THN_2005,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2006 THEN publikasi.kode_dosen END) AS THN_2006,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2007 THEN publikasi.kode_dosen END) AS THN_2007,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2008 THEN publikasi.kode_dosen END) AS THN_2008,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2009 THEN publikasi.kode_dosen END) AS THN_2009,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2010 THEN publikasi.kode_dosen END) AS THN_2010,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2011 THEN publikasi.kode_dosen END) AS THN_2011,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2012 THEN publikasi.kode_dosen END) AS THN_2012,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2013 THEN publikasi.kode_dosen END) AS THN_2013,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2014 THEN publikasi.kode_dosen END) AS THN_2014,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2015 THEN publikasi.kode_dosen END) AS THN_2015,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2016 THEN publikasi.kode_dosen END) AS THN_2016,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2017 THEN publikasi.kode_dosen END) AS THN_2017,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2018 THEN publikasi.kode_dosen END) AS THN_2018,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2019 THEN publikasi.kode_dosen END) AS THN_2019,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2020 THEN publikasi.kode_dosen END) AS THN_2020,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2021 THEN publikasi.kode_dosen END) AS THN_2021,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2022 THEN publikasi.kode_dosen END) AS THN_2022,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2023 THEN publikasi.kode_dosen END) AS THN_2023,
+    //                 COUNT(CASE WHEN publikasi.tahun = 2024 THEN publikasi.kode_dosen END) AS THN_2024
+    //             FROM dosen
+    //             LEFT JOIN
+    //                 (
+    //                     SELECT penulis_1 AS kode_dosen, tahun FROM publikasi WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+    //                     UNION ALL
+    //                     SELECT penulis_2, tahun FROM publikasi WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+    //                     UNION ALL
+    //                     SELECT penulis_3, tahun FROM publikasi WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+    //                     UNION ALL
+    //                     SELECT penulis_4, tahun FROM publikasi WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+    //                     UNION ALL
+    //                     SELECT penulis_5, tahun FROM publikasi WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+    //                     UNION ALL
+    //                     SELECT penulis_6, tahun FROM publikasi WHERE tahun IN (2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+    //                 ) AS publikasi ON dosen.kode_dosen = publikasi.kode_dosen
+    //             GROUP BY dosen.kode_dosen;";
+    //     $query = $this->db->query($sql);
+    //     return $query->getResultArray();
     }
 
     public function getAllPublikasi() {

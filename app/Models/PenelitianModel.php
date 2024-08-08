@@ -336,42 +336,78 @@ class PenelitianModel extends Model
     }
     
     public function getDataDosenTahunan() {
+        $sql = "SELECT
+                    d.kode_dosen,
+                    p.tahun,
+                    COUNT(*) AS nPenelitian
+                FROM penelitian AS p
+                RIGHT JOIN dosen AS d
+                    ON (
+                        p.ketua_peneliti = d.kode_dosen
+                        OR p.anggota_peneliti_1 = d.kode_dosen
+                        OR p.anggota_peneliti_2 = d.kode_dosen
+                        OR p.anggota_peneliti_3 = d.kode_dosen
+                        OR p.anggota_peneliti_4 = d.kode_dosen
+                        OR p.anggota_peneliti_5 = d.kode_dosen
+                        OR p.anggota_peneliti_6 = d.kode_dosen
+                        OR p.anggota_peneliti_7 = d.kode_dosen
+                        OR p.anggota_peneliti_8 = d.kode_dosen
+                        OR p.anggota_peneliti_9 = d.kode_dosen
+                        OR p.anggota_peneliti_10 = d.kode_dosen
+                    )
+                GROUP BY d.kode_dosen, p.tahun; ";
+        $result = $this->db->query($sql)->getResultArray();
 
-        // $minMax = getYearMinMax();
-        $str1 ="COUNT(CASE WHEN penelitian.tahun = ";
-        $str2 =" THEN penelitian.kode_dosen END) AS THN_";
-        $yearList = "";
-        $result = "";
-        for($x = 2000; $x < 2024; $x++){            
-            $result = $result.$str1 . $x  . $str2 . $x . ", ";
-            $yearList = $yearList.$x . ", ";
+        $data = [];
+        foreach($result as $value) {
+            $kodeDosen = $value["kode_dosen"];
+            if(!isset($data[$kodeDosen])) {
+                $data[$kodeDosen] = ["kode_dosen" => $kodeDosen];
+            }
+
+            if(!is_null($value["tahun"])) {
+                $yearString = "THN_" .$value["tahun"];
+                $data[$kodeDosen][$yearString] = $value["nPenelitian"];
+            }
         }
 
+        return $data;
 
-        $result = $result . $str1 . 2024 . $str2 . 2024;
-        $yearList = $yearList . 2024;
+        // $minMax = getYearMinMax();
+    //     $str1 ="COUNT(CASE WHEN penelitian.tahun = ";
+    //     $str2 =" THEN penelitian.kode_dosen END) AS THN_";
+    //     $yearList = "";
+    //     $result = "";
+    //     for($x = 2000; $x < 2024; $x++){            
+    //         $result = $result.$str1 . $x  . $str2 . $x . ", ";
+    //         $yearList = $yearList.$x . ", ";
+    //     }
 
-        $query = $this->db->query("SELECT
-        dosen.kode_dosen,
-        $result 
 
-    FROM
-        dosen
-    LEFT JOIN
-        (
-            SELECT ketua_peneliti AS kode_dosen, tahun FROM penelitian WHERE tahun IN ($yearList)
-            UNION ALL
-            SELECT anggota_peneliti_1, tahun FROM penelitian WHERE tahun IN ($yearList)
-            UNION ALL
-            SELECT anggota_peneliti_2, tahun FROM penelitian WHERE tahun IN ($yearList)
-            UNION ALL
-            SELECT anggota_peneliti_3, tahun FROM penelitian WHERE tahun IN ($yearList)
-            UNION ALL
-            SELECT anggota_peneliti_4, tahun FROM penelitian WHERE tahun IN ($yearList)
-        ) AS penelitian ON dosen.kode_dosen = penelitian.kode_dosen
-    GROUP BY
-        dosen.kode_dosen;");
-        return $query->getResultArray();
+    //     $result = $result . $str1 . 2024 . $str2 . 2024;
+    //     $yearList = $yearList . 2024;
+
+    //     $query = $this->db->query("SELECT
+    //     dosen.kode_dosen,
+    //     $result 
+
+    // FROM
+    //     dosen
+    // LEFT JOIN
+    //     (
+    //         SELECT ketua_peneliti AS kode_dosen, tahun FROM penelitian WHERE tahun IN ($yearList)
+    //         UNION ALL
+    //         SELECT anggota_peneliti_1, tahun FROM penelitian WHERE tahun IN ($yearList)
+    //         UNION ALL
+    //         SELECT anggota_peneliti_2, tahun FROM penelitian WHERE tahun IN ($yearList)
+    //         UNION ALL
+    //         SELECT anggota_peneliti_3, tahun FROM penelitian WHERE tahun IN ($yearList)
+    //         UNION ALL
+    //         SELECT anggota_peneliti_4, tahun FROM penelitian WHERE tahun IN ($yearList)
+    //     ) AS penelitian ON dosen.kode_dosen = penelitian.kode_dosen
+    // GROUP BY
+    //     dosen.kode_dosen;");
+    //     return $query->getResultArray();
     }
 
     public function getAllPenelitian() {
