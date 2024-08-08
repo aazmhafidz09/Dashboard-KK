@@ -510,6 +510,20 @@
                 </div> <!-- end row-->
 
                 <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div data-simplebar style="max-height: 339px;">
+                                    <h4 class="card-title mb-4" id="chartHaki__title">Statistik Haki</h4>
+                                    <p id="chartHaki__desc"> Klik pada salah satu dosen untuk melihat statistik haki dosen tersebut</p>
+                                </div>
+                                <div id="chartHakiDosen"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">

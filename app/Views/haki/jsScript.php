@@ -5,6 +5,9 @@
         kk: <?= $defaultFilterKK ?>,
         tahun: "Semua",
     };
+    let FILTER_HAKI_DOSEN = {
+        kodeDosen: ""
+    }
 
     const displayedHakiTypes = ["HAK CIPTA", "PATEN", "MEREK", "DESAIN INDUSTRI"];
     const dataHaki = {
@@ -79,10 +82,20 @@
     <?php endforeach ?>
 
     const onDataPointSelection = function(e, context, opts) {
-        return 1; // No op for now
-        let kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
-        let targetElement = document.getElementById("chartHakiPerDosen") 
-        updateChartStatistik(targetElement, kodeDosen)
+        const kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex];
+        if(kodeDosen != FILTER_HAKI_DOSEN.kodeDosen) {
+            FILTER_HAKI_DOSEN.kodeDosen = kodeDosen;
+            document.getElementById("chartHaki__desc").innerHTML = ""
+            document.getElementById("chartHaki__title").innerHTML = `Statistik Haki ${kodeDosen}`
+
+            const targetElement = document.getElementById("chartHakiDosen");
+            const dataHakiDosen = dataHaki[kodeDosen];
+            targetElement.innerHTML = "";
+            makeChartHakiDosen(
+                targetElement, 
+                Object.keys(dataHakiDosen), 
+                Object.values(dataHakiDosen))
+        }
     }
 
     function makeChartHakiPerTahun(targetElement, labels, values) {
@@ -209,6 +222,68 @@
                         show: false,
                         formatter: val => val + ""
                     }
+                },
+            }
+        ).render();
+    }
+
+    function makeChartHakiDosen(targetElement, labels, values) {
+        new ApexCharts( 
+            targetElement,
+            {
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    toolbar: { show: false, },
+                },
+                plotOptions: {
+                    bar: { dataLabels: { position: 'top'}, }
+                },
+                dataLabels: {
+                    enabled: true,
+                    position: 'top', // top, center, bottom,
+                    formatter: val => val + "",
+                    offsetY: -20,
+                    style: { fontSize: '12px', colors: ["#304758"] }
+                },
+                series: [{ name: 'Haki', data:  values }],
+                grid: { borderColor: '#f1f1f1', },
+                xaxis: {
+                    categories: labels,
+                    position: 'down',
+                    labels: { offsetY: 0, rotate: 270},
+                    axisBorder: { show: false },
+                    axisTicks: { show: true },
+                    crosshairs: {
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                colorFrom: '#D8E3F0',
+                                colorTo: '#BED1E6',
+                                stops: [0, 100],
+                                opacityFrom: 1,
+                                opacityTo: 1,
+                            }
+                        }
+                    },
+                    tooltip: { enabled: true, offsetY: -35, }
+                },
+                fill: {
+                    gradient: {
+                        shade: 'light',
+                        type: "horizontal",
+                        shadeIntensity: 0.25,
+                        gradientToColors: undefined,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [50, 0, 100, 100]
+                    },
+                },
+                yaxis: {
+                    axisBorder: { show: false },
+                    axisTicks: { show: false, },
+                    labels: { show: false, formatter: val => val + "" }
                 },
             }
         ).render();
