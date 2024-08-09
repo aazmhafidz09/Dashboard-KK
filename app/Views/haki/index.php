@@ -273,8 +273,8 @@
                 </div> <!-- end row-->
 
                 <div class="row">
-                    <div class="col-xl-8">
-                        <div class="card">
+                    <div class="col-xl-8 mb-4">
+                        <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
@@ -331,36 +331,16 @@
                         </div> <!-- end card-->
                     </div> <!-- end col-->
 
-                    <div class="col-xl-4">
-                        <div class="card-body">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-4">Diagram Haki</h4>
-
-                                    <div id="pie_chart" data-colors='["--bs-success", "--bs-primary", "--bs-warning" ,"--bs-info", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
-                                </div>
-                            </div>
-                        </div> <!-- end card-body-->
-
-                        <div class="card">
+                    <div class="col-xl-4 mb-4">
+                        <div class="card h-100">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Top Selling Products</h4>
-                                <div class="row align-items-center g-0 mt-3">
-                                    <div class="col-sm-3">
-                                        <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Haki </p>
-                                    </div>
+                                <h4 class="card-title mb-4">Diagram Haki</h4>
 
-                                    <div class="col-sm-9">
-                                        <div class="progress mt-1" style="height: 8px;">
-                                            <div class="progress-bar progress-bar bg-primary" role="progressbar" style="width: 52%" aria-valuenow="52" aria-valuemin="0" aria-valuemax="52">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> <!-- end row-->
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
-                    </div> <!-- end Col -->
-                </div> <!-- end row-->
+                                <div id="pie_chart" data-colors='["--bs-success", "--bs-primary", "--bs-warning" ,"--bs-info", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
+                            </div>
+                        </div>
+                    </div> 
+                </div> 
 
                 <div class="row">
                     <div class="col-xl-4">

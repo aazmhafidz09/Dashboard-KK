@@ -38,6 +38,7 @@ $routes->get('/api/publikasi/list', 'Publikasi::list');
 $routes->get('/api/penelitian/list', 'Penelitian::list');
 $routes->get('/api/abdimas/list', 'Abdimas::list');
 $routes->get('/api/haki/list', 'Haki::list');
+$routes->get('/api/admin/(:segment)/list', 'Admin::listManage/$1');
 
 $routes->get('/dosen/(:segment)', 'Dosen::detail/$1');
 $routes->get('/penelitian/view/(:segment)', "Penelitian::detail/$1");

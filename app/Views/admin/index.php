@@ -36,13 +36,11 @@
                                 <?php endif ?>
 
                                 <h4 class="card-title">Data Publikasi</h4>
-                                <?php if($isAdmin): ?>
-                                    <div>
-                                        <a href="/admin/publikasi" class="btn btn-success waves-effect waves-light mb-3" role="button"><i class="mdi mdi-plus me-1"></i>Tambah Publikasi</a>
-                                    </div>
-                                <?php endif ?>
+                                <div>
+                                    <a href="/admin/publikasi" class="btn btn-success waves-effect waves-light mb-3" role="button"><i class="mdi mdi-plus me-1"></i>Tambah Publikasi</a>
+                                </div>
 
-                                <table id="dtPublikasi" data-ordering='false'  data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="dtPublikasi"  data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>
@@ -70,14 +68,12 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Data Penelitian</h4>
-                                <?php if($isAdmin): ?>
                                     <div>
                                         <a href="/admin/penelitian" class="btn btn-success waves-effect waves-light mb-3" role="button"><i class="mdi mdi-plus me-1"></i>Tambah Penelitian</a>
                                         <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
                                     </div>
-                                <?php endif ?>
 
-                                <table id="dtPenelitian" data-ordering='false' data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="dtPenelitian" data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>
@@ -104,14 +100,12 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Data Abdimas</h4>
-                                <?php if($isAdmin): ?>
-                                    <div>
-                                        <a href="/admin/abdimas" class="btn btn-success waves-effect waves-light mb-3" role="button"><i class="mdi mdi-plus me-1"></i>Tambah Abdimas</a>
-                                        <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
-                                    </div>
-                                <?php endif ?>
+                                <div>
+                                    <a href="/admin/abdimas" class="btn btn-success waves-effect waves-light mb-3" role="button"><i class="mdi mdi-plus me-1"></i>Tambah Abdimas</a>
+                                    <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
+                                </div>
 
-                                <table id="dtAbdimas" data-ordering='false' data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="dtAbdimas" data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>
@@ -145,14 +139,12 @@
                                     the construction function: <code>$().DataTable();</code>.
                                 </p> -->
 
-                                <?php if($isAdmin): ?>
-                                    <div>
-                                        <a href="/admin/haki" class="btn btn-success waves-effect waves-light mb-3" role="button"><i class="mdi mdi-plus me-1"></i>Tambah Haki</a>
-                                        <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
-                                    </div>
-                                <?php endif ?>
+                                <div>
+                                    <a href="/admin/haki" class="btn btn-success waves-effect waves-light mb-3" role="button"><i class="mdi mdi-plus me-1"></i>Tambah Haki</a>
+                                    <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
+                                </div>
 
-                                <table id="dtHaki" data-ordering='false' data-ordering='false' data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="dtHaki" data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tahun</th>

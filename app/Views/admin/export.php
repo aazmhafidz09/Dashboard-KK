@@ -44,39 +44,59 @@
                                 data, cukup kosongkan field tersebut </strong>. Silakan akses tombol 
                                 berikut untuk mulai mengunduh:
                             </p>
-                            <div class="d-flex" style="gap: 10px;">
-                                <form action="<?= base_url('/admin/download/data/publikasi') ?>">
-                                    <label for="publikasi__tahun"> Tahun </label>
-                                    <input  id="publikasi__tahun"type="number" name="tahun" placeholder="Semua tahun publikasi">
-                                    <button 
-                                        type="submit"
-                                        class="btn btn-outline-primary" 
-                                    >Publikasi</button>
-                                </form>
-                                <form action="<?= base_url('/admin/download/data/penelitian') ?>">
-                                    <label for="penelitian__tahun"> Tahun </label>
-                                    <input  id="penelitian__tahun"type="number" name="tahun" placeholder="Semua tahun penelitian">
-                                    <button 
-                                        type="submit"
-                                        class="btn btn-outline-primary" 
-                                    >Penelitian</button>
-                                </form>
-                                <form action="<?= base_url('/admin/download/data/abdimas') ?>">
-                                    <label for="haki__tahun"> Tahun </label>
-                                    <input id="hai__tahun" type="number" name="tahun" placeholder="Semua tahun abdimas">
-                                    <button 
-                                        type="submit"
-                                        class="btn btn-outline-primary" 
-                                    >Abdimas</button>
-                                </form>
-                                <form action="<?= base_url('/admin/download/data/haki') ?>">
-                                    <label for="haki__tahun"> Tahun </label>
-                                    <input id="haki__tahun" type="number" name="tahun" placeholder="Semua tahun haki">
-                                    <button 
-                                        type="submit"
-                                        class="btn btn-outline-primary" 
-                                    >Haki</button>
-                                </form>
+                            <div style="display: grid; grid-template: 1fr / repeat(auto-fit, minmax(300px, 1fr)); grid-gap: 20px;">
+                                <div class="p-3 border rounded border-muted">
+                                    <form action="<?= base_url('/admin/download/data/publikasi') ?>">
+                                        <p class="fs-5"> <strong> Publikasi </strong> </p>
+                                        <div class="d-flex" style="justify-content: space-between; align-items: center;">
+                                            <label for="publikasi__tahun"> Tahun </label>
+                                            <input  id="publikasi__tahun" type="number" name="tahun" placeholder="(Semua tahun)">
+                                            <button 
+                                                type="submit"
+                                                class="btn btn-outline-primary float-end" 
+                                            > Ekspor</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="p-3 border rounded border-muted">
+                                    <form action="<?= base_url('/admin/download/data/penelitian') ?>">
+                                        <p class="fs-5"> <strong> Penelitian </strong> </p>
+                                        <div class="d-flex" style="justify-content: space-between; align-items: center;">
+                                            <label for="penelitian__tahun"> Tahun </label>
+                                            <input  id="penelitian__tahun" type="number" name="tahun" placeholder="(Semua tahun)">
+                                            <button 
+                                                type="submit"
+                                                class="btn btn-outline-primary float-end" 
+                                            >Ekspor</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="p-3 border rounded border-muted">
+                                    <form action="<?= base_url('/admin/download/data/abdimas') ?>">
+                                        <p class="fs-5"> <strong> Abdimas </strong> </p>
+                                        <div class="d-flex" style="justify-content: space-between; align-items: center;">
+                                            <label for="abdimas__tahun"> Tahun </label>
+                                            <input id="abdimas__tahun" type="number" name="tahun" placeholder="(Semua tahun)">
+                                            <button 
+                                                type="submit"
+                                                class="btn btn-outline-primary float-end" 
+                                            >Ekspor</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="p-3 border rounded border-muted">
+                                    <form action="<?= base_url('/admin/download/data/haki') ?>">
+                                        <p class="fs-5"> <strong> Haki </strong> </p>
+                                        <div class="d-flex" style="justify-content: space-between; align-items: center;">
+                                            <label for="haki__tahun"> Tahun </label>
+                                            <input id="haki__tahun" type="number" name="tahun" placeholder="(Semua tahun)"> <br>
+                                            <button 
+                                                type="submit"
+                                                class="btn btn-outline-primary float-end" 
+                                            >Ekspor</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

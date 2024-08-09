@@ -46,25 +46,25 @@
                                     <button 
                                         type="button"
                                         class="btn btn-outline-primary" 
-                                    >Log Publikasi</button>
+                                    >Ekspor log publikasi</button>
                                 </a>
                                 <a href="<?= base_url('/admin/download/data/logPenelitian') ?>">
                                     <button 
                                         type="button"
                                         class="btn btn-outline-primary" 
-                                    >Log Penelitian</button>
+                                    >Ekspor log penelitian</button>
                                 </a>
                                 <a href="<?= base_url('/admin/download/data/logAbdimas') ?>">
                                     <button 
                                         type="button"
                                         class="btn btn-outline-primary" 
-                                    >Log Abdimas</button>
+                                    >Ekspor log abdimas</button>
                                 </a>
                                 <a href="<?= base_url('/admin/download/data/logHaki') ?>">
                                     <button 
                                         type="button"
                                         class="btn btn-outline-primary" 
-                                    >Log Haki</button>
+                                    >Ekspor log haki</button>
                                 </a>
                             </div>
                         </div>

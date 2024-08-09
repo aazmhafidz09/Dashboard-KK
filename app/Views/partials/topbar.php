@@ -8,7 +8,7 @@
                         <img src="assets/images/logo-sm.png" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="assets/images/logo-dark.png" alt="" height="20">
+                        <img src="/assets/images/Logo-KK.png" alt="" height="50">
                     </span>
                 </a>
 
@@ -17,7 +17,7 @@
                         <img src="assets/images/logo-sm.png" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="assets/images/logo-light.png" alt="" height="20">
+                        <img src="/assets/images/Logo-KK.png" alt="" height="50">
                     </span>
                 </a>
             </div>

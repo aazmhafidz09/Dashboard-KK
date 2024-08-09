@@ -38,7 +38,7 @@
                     data: null,
                     render: function(data, type, row) {
                         return [
-                            `<a href="haki/penelitian/${row.id}"`,
+                            `<a href="penelitian/view/${row.id}"`,
                                 "<i class='uil uil-eye font-size-18'></i>",
                             "</a>",
                         ].join(" ")
@@ -537,6 +537,7 @@
                 },
                 dataLabels: { enabled: false },
                 series: [{
+                    name: "Penelitian",
                     data: [<?php foreach ($count_publikasi as $cpub) {
                                 echo '' . $cpub['jumlah_pen'] . ',';
                             } ?>]
@@ -544,6 +545,7 @@
                 colors: BarchartBarColors,
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: { 
+                    labels: { show: false, },
                     categories: [<?php foreach ($count_publikasi as $cpub) {
                                 echo '"' . $cpub['jenis_pen'] . '",';
                                 } ?>], 
@@ -558,7 +560,7 @@
         new ApexCharts( 
             document.getElementById("pie_chart"), 
             {
-                chart: { height: 320, type: 'pie', },
+                chart: { height: 380, type: 'pie', },
                 series: [<?php foreach ($count_publikasi as $cpub) {
                             echo '' . $cpub['jumlah_pen'] . ',';
                         } ?>],

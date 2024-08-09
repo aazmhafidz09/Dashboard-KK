@@ -546,7 +546,7 @@
         new ApexCharts( 
             document.getElementById("pie_chart"), 
         {
-                chart: { height: 320, type: 'pie', },
+                chart: { height: 380, type: 'pie', },
                 series: [
                     <?php echo $Haki_Cipta ?>, <?php echo $Haki_Paten ?>, 
                     <?php echo $Haki_Merek ?>, <?php echo $Haki_Desain_Industri ?>

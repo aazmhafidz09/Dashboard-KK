@@ -38,49 +38,47 @@ class Admin extends BaseController {
     }
 
     public function index() {
+        return view('admin/index');
+    }
+
+    public function listManage($resourceName) {
         $data = null;
         if(in_groups("admin", user_id())) { // All
-            $data = [
-                'all_publikasi' => $this->publikasiModel->getAllPublikasi(),
-                'all_penelitian' => $this->penelitianModel->getAllPenelitian(),
-                'all_abdimas' => $this->abdimasModel->getAllAbdimas(),
-                'all_haki' => $this->hakiModel->getAllHaki(),
-                'title' => 'Daftar Dosen',
-            ];
+            switch($resourceName) {
+                case "publikasi": $data = $this->publikasiModel->getAllPublikasi(); break;
+                case "penelitian": $data = $this->penelitianModel->getAllPenelitian(); break;
+                case "abdimas": $data = $this->abdimasModel->getAllAbdimas(); break;
+                case "haki": $data = $this->hakiModel->getAllHaki(); break;
+            }
         } else if (in_groups(["kk_dsis", "kk_seal", "kk_citi"], user_id())) { // KK specific
             $kk = (in_groups("kk_dsis", user_id())
                     ?  "DSIS"
                     : ( (in_groups("kk_seal", user_id()))
                         ? "SEAL" : "CITI"));
-            $data = [
-                'all_publikasi' => $this->publikasiModel->getAllByKK($kk),
-                'all_penelitian' => $this->penelitianModel->getAllByKK($kk),
-                'all_abdimas' => $this->abdimasModel->getAllByKK($kk),
-                'all_haki' => $this->hakiModel->getAllByKK($kk),
-                'title' => 'Daftar Dosen',
-            ];
+            switch($resourceName) {
+                case "publikasi": $data = $this->publikasiModel->getAllByKK($kk); break;
+                case "penelitian": $data = $this->penelitianModel->getAllByKK($kk); break;
+                case "abdimas": $data = $this->abdimasModel->getAllByKK($kk); break;
+                case "haki": $data = $this->hakiModel->getAllByKK($kk); break;
+            }
         } else { // Dosen specific
             $kodeDosen = user()->kode_dosen;
-            $data = [
-                'all_publikasi' => $this->publikasiModel->getPublikasi($kodeDosen),
-                'all_penelitian' => $this->penelitianModel->getPenelitian($kodeDosen),
-                'all_abdimas' => $this->abdimasModel->getAbdimas($kodeDosen),
-                'all_haki' => $this->hakiModel->getHaki($kodeDosen),
-                'title' => 'Daftar Dosen',
-            ];
+            if($kodeDosen != null) {
+                switch($resourceName) {
+                    case "publikasi": $data = $this->publikasiModel->getPublikasi($kodeDosen); break;
+                    case "penelitian": $data = $this->penelitianModel->getPenelitian($kodeDosen); break;
+                    case "abdimas": $data = $this->abdimasModel->getAbdimas($kodeDosen); break;
+                    case "haki": $data = $this->hakiModel->getHaki($kodeDosen); break;
+                }
+            }
         }
 
-        $data["isAdmin"] = $this->isAdmin();
-        return view('admin/index', $data);
+        header("Content-Type: application/json");
+        return json_encode($data);
     }
 
     // ##### PUBLIKASI #############################################################################
     public function publikasi() {
-        if(!$this->isAdmin()) {
-            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
-            return redirect()->to(base_url());
-        };
-
         $data = [ 'validation' => \config\Services::validation(),
                     'listDosen' => $this->dosenModel->getAllKodeDosen(), ];
         return view('admin/input/publikasi', $data);
@@ -106,11 +104,6 @@ class Admin extends BaseController {
     }
 
     public function publikasi_save() {
-        if(!$this->isAdmin()) {
-            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
-            return redirect()->to(base_url());
-        };
-
         if (!$this->validate([
             'judul_publikasi' => 'required',
             'tahun' => 'required'
@@ -231,11 +224,6 @@ class Admin extends BaseController {
 
     // ###### PENELITIAN ###########################################################################
     public function penelitian() {
-        if(!$this->isAdmin()) {
-            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
-            return redirect()->to(base_url());
-        };
-
         $data = [ 'listDosen' => $this->dosenModel->getAllKodeDosen(), ];
         return view( 'admin/input/penelitian', $data);
     }
@@ -260,11 +248,6 @@ class Admin extends BaseController {
     }
 
     public function penelitian_save() {
-        if(!$this->isAdmin()) {
-            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
-            return redirect()->to(base_url());
-        };
-
         if (!$this->validate([
             'jenis' => 'required',
             'judul_penelitian' => 'required',
@@ -387,11 +370,6 @@ class Admin extends BaseController {
 
     // ###### ABDIMAS ##############################################################################
     public function abdimas() {
-        if(!$this->isAdmin()) {
-            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
-            return redirect()->to(base_url());
-        };
-
         $data = [ "listDosen" => $this->dosenModel->getAllKodeDosen()];
         return view('admin/input/abdimas', $data);
     }
@@ -416,11 +394,6 @@ class Admin extends BaseController {
     }
 
     public function abdimas_save() {
-        if(!$this->isAdmin()) {
-            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
-            return redirect()->to(base_url());
-        };
-
         if (!$this->validate([
             'judul' => 'required',
             'tahun' => 'required',
@@ -543,11 +516,6 @@ class Admin extends BaseController {
 
     // ###### HAKI #################################################################################
     public function haki() {
-        if(!$this->isAdmin()) {
-            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
-            return redirect()->to(base_url());
-        };
-
         $data = [ 'listDosen' => $this->dosenModel->getAllKodeDosen()];
         return view('admin/input/haki', $data);
     }
@@ -572,11 +540,6 @@ class Admin extends BaseController {
     }
 
     public function haki_save() {
-        if(!$this->isAdmin()) {
-            session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan hal tersebut");
-            return redirect()->to(base_url());
-        };
-
         if (!$this->validate([
             'judul' => 'required',
             'tahun' => 'required',

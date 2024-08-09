@@ -573,7 +573,7 @@
         new ApexCharts( 
             document.getElementById("pie_chart"), 
             {
-                chart: { height: 320, type: 'pie', },
+                chart: { height: 380, type: 'pie', },
                 series: [<?php foreach ($count_publikasi_all as $cpub) {
                             echo '' . $cpub['jumlah_pen'] . ',';
                         } ?>],

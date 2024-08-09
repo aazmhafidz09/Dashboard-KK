@@ -4,3 +4,6 @@
 <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 <!-- App Css-->
 <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
+<!-- Site logo-->
+<link href="/assets/images/logo-sm.png" id="app-style" rel="icon" type="image/gif" />

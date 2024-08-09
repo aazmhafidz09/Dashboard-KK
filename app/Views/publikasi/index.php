@@ -284,8 +284,8 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-xl-8">
-                        <div class="card">
+                    <div class="col-xl-8 mb-4">
+                        <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end">
                                     <div class="dropdown">
@@ -345,26 +345,14 @@
                         </div> <!-- end card-->
                     </div> <!-- end col-->
 
-                    <div class="col-xl-4">
-                        <div class="card">
+                    <div class="col-xl-4 mb-4">
+                        <div class="card h-100">
                             <div class="card-body">
                                 <h4 class="card-title mb-4">Diagram Publikasi</h4>
 
                                 <div id="pie_chart" data-colors='["--bs-success", "--bs-primary", "--bs-warning" ,"--bs-info", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
                             </div>
                         </div>
-
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title mb-4">Scopus</h4>
-
-                                <div class="row align-items-center g-0 mt-3">
-                                    <div class="col-sm-3">
-                                        <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Scopus </p>
-                                    </div>
-                                </div> <!-- end row-->
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
                     </div> <!-- end Col -->
                 </div> <!-- end row-->
 
