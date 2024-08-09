@@ -96,5 +96,42 @@ class LogPenelitian extends Model {
         return $this->query($sql)->getResultArray();
     }
 
+    public function getAllByYear($year = null) {
+        $table = $this->table;
+
+        if(is_null($year)) {
+        $sql = "SELECT 
+                    lp.*,
+                    u.username,
+                    u.email,
+                    d.kode_dosen
+                FROM $table AS lp
+                JOIN users AS u
+                    ON lp.user_id = u.id
+                LEFT JOIN dosen AS d
+                    ON d.kode_dosen = u.kode_dosen
+                ORDER BY lp.date DESC";
+
+            return $this->query($sql)
+                        ->getResultArray();
+        }
+
+        $sql = "SELECT 
+                    lp.*,
+                    u.username,
+                    u.email,
+                    d.kode_dosen
+                FROM $table AS lp
+                JOIN users AS u
+                    ON lp.user_id = u.id
+                LEFT JOIN dosen AS d
+                    ON d.kode_dosen = u.kode_dosen
+                WHERE YEAR(lp.date) = ?
+                ORDER BY lp.date DESC";
+        
+        return $this->query($sql, [$year])
+                    ->getResultArray();
+    }
+
     public function getTableName() {return $this->table; }
 }

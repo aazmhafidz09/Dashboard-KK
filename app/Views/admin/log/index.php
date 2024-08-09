@@ -42,25 +42,25 @@
                                 keseluruhan log aktivitas tersebut, silakan akses tombol berikut:
                             </p>
                             <div class="d-flex" style="gap: 10px;">
-                                <a href="<?= base_url('/admin/download/log/publikasi') ?>">
+                                <a href="<?= base_url('/admin/download/data/logPublikasi') ?>">
                                     <button 
                                         type="button"
                                         class="btn btn-outline-primary" 
                                     >Log Publikasi</button>
                                 </a>
-                                <a href="<?= base_url('/admin/download/log/penelitian') ?>">
+                                <a href="<?= base_url('/admin/download/data/logPenelitian') ?>">
                                     <button 
                                         type="button"
                                         class="btn btn-outline-primary" 
                                     >Log Penelitian</button>
                                 </a>
-                                <a href="<?= base_url('/admin/download/log/abdimas') ?>">
+                                <a href="<?= base_url('/admin/download/data/logAbdimas') ?>">
                                     <button 
                                         type="button"
                                         class="btn btn-outline-primary" 
                                     >Log Abdimas</button>
                                 </a>
-                                <a href="<?= base_url('/admin/download/log/haki') ?>">
+                                <a href="<?= base_url('/admin/download/data/logHaki') ?>">
                                     <button 
                                         type="button"
                                         class="btn btn-outline-primary" 

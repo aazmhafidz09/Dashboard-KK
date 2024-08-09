@@ -77,5 +77,42 @@ class LogAbdimas extends Model {
                     ->getRowArray();
     }
 
+    public function getAllByYear($year = null) {
+        $table = $this->table;
+
+        if(is_null($year)) {
+            $sql = "SELECT 
+                        la.*,
+                        u.username,
+                        u.email,
+                        d.kode_dosen
+                    FROM $table AS la
+                    JOIN users AS u
+                        ON la.user_id = u.id
+                    LEFT JOIN dosen AS d
+                        ON d.kode_dosen = u.kode_dosen
+                    ORDER BY la.date DESC";
+
+            return $this->query($sql)
+                        ->getResultArray();
+        }
+
+        $sql = "SELECT 
+                    la.*,
+                    u.username,
+                    u.email,
+                    d.kode_dosen
+                FROM $table AS la
+                JOIN users AS u
+                    ON la.user_id = u.id
+                LEFT JOIN dosen AS d
+                    ON d.kode_dosen = u.kode_dosen
+                WHERE YEAR(la.date) = ?
+                ORDER BY la.date DESC";
+        
+        return $this->query($sql, [$year])
+                    ->getResultArray();
+    }
+
     public function getTableName() {return $this->table; }
 }

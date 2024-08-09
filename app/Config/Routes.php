@@ -55,7 +55,7 @@ $routes->get('/admin/haki/delete/(:segment)', 'Admin::haki_delete/$1');
 $routes->get('/admin/abdimas/update/(:segment)', 'Admin::abdimas_edit/$1');
 $routes->get('/admin/abdimas/delete/(:segment)', 'Admin::abdimas_delete/$1');
 $routes->get('/admin/download/template/(:segment)', 'Admin::download_template/$1');
-$routes->get('/admin/download/log/(:segment)', 'Admin::download_log/$1');
+$routes->get('/admin/download/data/(:segment)', 'Admin::download/$1');
 
 $routes->get('/lang/{locale}', 'Language::index');
 

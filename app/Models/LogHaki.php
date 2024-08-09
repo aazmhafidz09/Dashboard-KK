@@ -96,5 +96,42 @@ class LogHaki extends Model {
         return $this->query($sql)->getResultArray();
     }
 
+    public function getAllByYear($year = null) {
+        $table = $this->table;
+
+        if(is_null($year)) {
+        $sql = "SELECT 
+                    lh.*,
+                    u.username,
+                    u.email,
+                    d.kode_dosen
+                FROM $table AS lh
+                JOIN users AS u
+                    ON lh.user_id = u.id
+                LEFT JOIN dosen AS d
+                    ON d.kode_dosen = u.kode_dosen
+                ORDER BY lh.date DESC";
+
+            return $this->query($sql)
+                        ->getResultArray();
+        }
+
+        $sql = "SELECT 
+                    lh.*,
+                    u.username,
+                    u.email,
+                    d.kode_dosen
+                FROM $table AS lh
+                JOIN users AS u
+                    ON lh.user_id = u.id
+                LEFT JOIN dosen AS d
+                    ON d.kode_dosen = u.kode_dosen
+                WHERE YEAR(lh.date) = ?
+                ORDER BY lh.date DESC";
+        
+        return $this->query($sql, [$year])
+                    ->getResultArray();
+    }
+
     public function getTableName() {return $this->table; }
 }

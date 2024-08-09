@@ -577,4 +577,17 @@ class AbdimasModel extends Model
         return false;
 
     }
+
+    public function getAllByYear($year = null) {
+        $table = $this->table;
+
+        if(is_null($year)) {
+            return $this->db->query("SELECT * FROM $table")
+                            ->getResultArray();
+        }
+
+        $sql = "SELECT * FROM $table WHERE tahun = ?";
+        return $this->query($sql, [$year])
+                    ->getResultArray();
+    }
 }

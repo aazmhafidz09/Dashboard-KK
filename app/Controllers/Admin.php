@@ -800,40 +800,51 @@ class Admin extends BaseController {
         ]);
     }
 
-    public function download_log($resourceName) {
-        $log = null;
+    public function export() {
+        if(!$this->isAdmin()) {
+            session()->setFlashdata("error", "Anda tidak memiliki akses ke halaman tersebut");
+            return redirect()->to(base_url());
+        };
+
+        return view('admin/export');
+    }
+
+    public function download($resourceName) {
+        $data = null;
+        $year = $this->request->getVar("tahun");
+        $year = strlen($year) == 0 || !is_numeric($year)? null: $year;
+
         switch($resourceName) {
-            case "publikasi": $log = $this->logPublikasi->getRecentLogs(); break;
-            case "penelitian": $log = $this->logPenelitian->getRecentLogs(); break;
-            case "abdimas": $log = $this->logAbdimas->getRecentLogs(); break;
-            case "haki": $log = $this->logHaki->getRecentLogs(); break;
+            case "logPublikasi": $data = $this->logPublikasi->getAllByYear($year); break;
+            case "logPenelitian": $data = $this->logPenelitian->getAllByYear($year); break;
+            case "logAbdimas": $data = $this->logAbdimas->getAllByYear($year); break;
+            case "logHaki": $data = $this->logHaki->getAllByYear($year); break;
+            case "publikasi": $data = $this->publikasiModel->getAllByYear($year); break;
+            case "penelitian": $data = $this->penelitianModel->getAllByYear($year); break;
+            case "abdimas": $data = $this->abdimasModel->getAllByYear($year); break;
+            case "haki": $data = $this->hakiModel->getAllByYear($year); break;
         }
 
-        if(is_null($log)) {
-            session()->setFlashData("error", "Template `$resourceName` tidak ditemukan");
-            return redirect()->to(base_url("/admin/log"));
-        }
-
-        if(count($log) == 0) {
-            session()->setFlashData("error", "Log untuk `$resourceName` kosong");
-            return redirect()->to(base_url("/admin/log"));
+        if(is_null($data) || count($data) == 0) {
+            session()->setFlashData("error", "Data untuk `$resourceName` kosong");
+            return redirect()->back();
         }
 
         $exportDate = date("Y_m_d-H_m_s");
-        $filename = "db_export_log_$resourceName" . "_$exportDate.csv" ;
+        $prefixName = ($year == null)? "ALL_": "$year" . "_";
+        $filename = "db_export_data-$prefixName$resourceName" . "-$exportDate.csv" ;
         
         $stream = fopen("php://output", "w");
-        fputcsv($stream, array_keys($log[0]));
-        foreach($log as $l) {
+        fputcsv($stream, array_keys($data[0]));
+        foreach($data as $l) {
             fputcsv($stream, array_values($l));
         }
 
         fclose($stream);
         header('Content-type: text/csv');
         header("Content-disposition: attachment; filename= $filename;");
-        return;
 
-        // swhen development mode on, somehow debug thingy shows up in the CSV 
+        // when development mode on, somehow debug thingy shows up in the CSV 
         // As of time of writing, the following reference is used to remove them
         // https://forum.codeigniter.com/showthread.php?tid=82555
         exit; 

@@ -615,4 +615,17 @@ class HakiModel extends Model
         if(in_groups($allowedGroups, user_id())) return true;
         return false;
     }
+
+    public function getAllByYear($year = null) {
+        $table = $this->table;
+
+        if(is_null($year)) {
+            return $this->db->query("SELECT * FROM $table")
+                            ->getResultArray();
+        }
+
+        $sql = "SELECT * FROM $table WHERE tahun = ?";
+        return $this->query($sql, [$year])
+                    ->getResultArray();
+    }
 }

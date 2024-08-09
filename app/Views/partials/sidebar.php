@@ -74,6 +74,7 @@
                                     </ul>
                                 </li>
                                 <li><a href="/admin/import"><?= lang('Impor data') ?></a></li>
+                                <li><a href="/admin/export"><?= lang('Ekspor data') ?></a></li>
                                 <li><a href="/register"><?= lang('Tambah Akun') ?></a></li>
                             <?php endif ?>
                         </ul>
