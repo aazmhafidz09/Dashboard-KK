@@ -9,7 +9,9 @@
                 url: "/api/admin/publikasi/list",
                 dataSrc: ""
             },
+            columnDefs: [{visible: false, targets: 0 }],
             columns: [
+                { data: "id" },
                 { data: "tahun" },
                 { data: "judul_publikasi" },
                 { data: "jenis" },
@@ -58,7 +60,9 @@
                 url: "/api/admin/penelitian/list",
                 dataSrc: ""
             },
+            columnDefs: [{visible: false, targets: 0 }],
             columns: [
+                { data: "id" },
                 { data: "tahun" },
                 { data: "jenis" }, 
                 { data: "nama_kegiatan" },
@@ -107,7 +111,9 @@
                 url: "/api/admin/abdimas/list",
                 dataSrc: ""
             },
+            columnDefs: [{visible: false, targets: 0 }],
             columns: [
+                { data: "id" },
                 { data: "tahun" },
                 { data: "jenis" },
                 { data: "nama_kegiatan" },
@@ -156,7 +162,9 @@
                 url: "/api/admin/haki/list",
                 dataSrc: ""
             },
+            columnDefs: [{visible: false, targets: 0 }],
             columns: [
+                { data: "id" },
                 { data: "tahun" },
                 { data: "jenis" },
                 { data: "judul" },

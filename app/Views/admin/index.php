@@ -43,6 +43,7 @@
                                 <table id="dtPublikasi"  data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Tahun</th>
                                             <th>Judul Publikasi</th>
                                             <th>Jenis</th>
@@ -76,6 +77,7 @@
                                 <table id="dtPenelitian" data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Tahun</th>
                                             <th>Jenis</th>
                                             <th>Nama Kegiatan</th>
@@ -108,6 +110,7 @@
                                 <table id="dtAbdimas" data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Tahun</th>
                                             <th>Jenis</th>
                                             <th>Nama Kegiatan</th>
@@ -147,6 +150,7 @@
                                 <table id="dtHaki" data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Tahun</th>
                                             <th>Jenis</th>
                                             <th>Judul</th>
