@@ -36,18 +36,18 @@ class Haki extends BaseController
             'HakiYearNow_Cipta' => $this->hakiModel->getHakiYearNowCipta(),
             'HakiYearNow_Paten' => $this->hakiModel->getHakiYearNowPaten(),
             'hakiYearNow_Merek' => $this->hakiModel->getHakiYearNowMerek(),
-            'hakiYearNow_Buku' => $this->hakiModel->getHakiYearNowBuku(),
+            'hakiYearNow_desain_industri' => $this->hakiModel->getHakiYearNowDesainIndustri(),
 
             // get total of the year
             'Haki_Cipta' => $this->hakiModel->getHakiCipta(),
             'Haki_Paten' => $this->hakiModel->getHakiPaten(),
             'Haki_Merek' => $this->hakiModel->getHakiMerek(),
-            'Haki_Buku' => $this->hakiModel->getHakiBuku(),
+            'Haki_Desain_Industri' => $this->hakiModel->getHakiDesainIndustri(),
 
             'peningkatan_haki_cipta' => $this->hakiModel->getPeningkatanHakiCipta(),
             'peningkatan_haki_paten' => $this->hakiModel->getPeningkatanHakiPaten(),
             'peningkatan_haki_merek' => $this->hakiModel->getPeningkatanHakiMerek(),
-            'peningkatan_haki_buku' => $this->hakiModel->getPeningkatanHakiBuku(),
+            'peningkatan_haki_desain_industri' => $this->hakiModel->getPeningkatanHakiDesainIndustri(),
 
             // Order Data Penelitian 
             'order_by_tahun' => $this->hakiModel->getOrderByTahun(),
@@ -60,46 +60,33 @@ class Haki extends BaseController
             // Order Haki 
             'top_haki_all' => $this->hakiModel->getTopHakiAll(),
 
-            // Get All Data Abdimas
-            'all_haki' => $this->hakiModel->getAllHaki(),
+            // Get All Data Abdimas 'all_haki' => $this->hakiModel->getAllHaki(),
 
             // // Top Publikasi 
             'top_haki' => $this->hakiModel->getTopHaki(),
 
             'count_haki_all' => $this->hakiModel->getCountHakiAll(),
 
-
+            'data_tahunan' => $this->hakiModel->getDataDosenTahunan(),
+            'annualHakiByTypeAndKK' => $this->hakiModel->getAnnualHakiByTypeAndKK(),
         ];
         // dd($dosen);
         return view('haki/index', $data);
     }
 
-    // public function detail($kode_dosen)
-    // {
-    //     $data = [
-    //         'title' => 'Detail Dosen',
-    //         'dosen' => $this->dosenModel->getDosen($kode_dosen),
-    //         'publikasi' => $this->publikasiModel->getPublikasi($kode_dosen),
-    //         'jumlah_publikasi' => $this->publikasiModel->getJumlahPublikasi($kode_dosen),
-    //         'jumlah_publikasi_1' => $this->publikasiModel->getJumlahPublikasi_1($kode_dosen),
-    //         'penelitian' => $this->penelitianModel->getPenelitian($kode_dosen),
-    //         'jumlah_penelitian' => $this->penelitianModel->getJumlahPenelitian($kode_dosen),
-    //         'jumlah_ketua_peneliti' => $this->penelitianModel->getJumlahKetuaPeneliti($kode_dosen),
-    //         'abdimas' => $this->abdimasModel->getAbdimas($kode_dosen),
-    //         'jumlah_abdimas' => $this->abdimasModel->getJumlahAbdimas($kode_dosen),
-    //         'jumlah_ketua' => $this->abdimasModel->getJumlahKetua($kode_dosen),
-    //         'haki' => $this->hakiModel->getHaki($kode_dosen),
-    //         'jumlah_haki' => $this->hakiModel->getJumlahHaki($kode_dosen),
-    //         'jumlah_ketua_haki' => $this->hakiModel->getJumlahKetuaHaki($kode_dosen)
+    public function detail($id) {
+        $haki = $this->hakiModel->getById($id);
+        if(count($haki) == 0) {
+            session()->setFlashData("error", "Haki tidak ditemukan");
+            return redirect()->to(base_url());
+        }
+        return view("haki/detail", ["haki" => $haki[0]]);
+    }
 
-    //     ];
-    //     // echo $data['jumlah_publikasi'];
-    //     return view('dosen/detail', $data);
-    // }
-    // public function test($kode_dosen)
-    // {
-    //     $jumlah_publikasi = $this->publikasiModel->getJumlahPublikasi($kode_dosen);
-
-    //     echo ($jumlah_publikasi);
-    // }
+    public function list() { // TODO: manage read access?
+        header("Content-Type: application/json");
+        return json_encode(
+            $this->hakiModel->getAllHaki()
+        );
+    }
 }

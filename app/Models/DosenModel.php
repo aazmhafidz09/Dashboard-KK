@@ -22,4 +22,15 @@ class DosenModel extends Model
         }
         return $this->where(['id' => $id])->first();
     }
+
+    public function getAllKodeDosen() {
+        $query = $this->select("kode_dosen")->findAll();
+        $result = [];
+        foreach($query as $q) {
+            array_push($result, $q["kode_dosen"]);
+        }
+
+        return $result;
+
+    }
 }

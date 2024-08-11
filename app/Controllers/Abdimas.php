@@ -49,9 +49,9 @@ class Abdimas extends BaseController
 
             // Get Data Tahunan
             'data_tahunan' => $this->abdimasModel->getDataDosenTahunan(),
+            'annualDataByTypeAndKK' => $this->abdimasModel->getAnnualAbdimasByTypeAndKK(),
 
-            // Get All Data Abdimas
-            'all_abdimas' => $this->abdimasModel->getAllAbdimas(),
+            // Get All Data Abdimas 'all_abdimas' => $this->abdimasModel->getAllAbdimas(),
 
             // Order Data Penelitian 
             'order_by_tahun_desc' => $this->abdimasModel->getOrderByTahunDesc(),
@@ -66,4 +66,27 @@ class Abdimas extends BaseController
         // dd($dosen);
         return view('abdimas/index', $data);
     }
+
+    public function detail($id) {
+        $abdimas = $this->abdimasModel->getById($id);
+        if(count($abdimas) == 0) {
+            session()->setFlashData("error", "Abdimas tidak ditemukan");
+            return redirect()->to(base_url());
+        }
+        return view("abdimas/detail", ["abdimas" => $abdimas[0]]);
+    }
+
+    public function list() { // TODO: manage read access?
+        header("Content-Type: application/json");
+        return json_encode(
+            $this->abdimasModel->getAllAbdimas()
+        );
+    }
+
+    // public function delete($id){
+    //     $this->abdimasModel->delete($id);
+
+    //     return redirect()->to('abdimas');
+    // }
+
 }

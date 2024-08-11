@@ -31,43 +31,56 @@ class Home extends BaseController
 			'title_meta' => view('partials/title-meta', ['title' => 'Dashboard']),
 			'page_title' => view('partials/page-title', ['title' => 'Dashboard', 'pagetitle' => 'Minible']),
 			'title' => 'Daftar Dosen',
-			'dosen' => $this->dosenModel->getDosen(),
+			// 'dosen' => $this->dosenModel->getDosen(),
+
 			'count_publikasi' => $this->publikasiModel->getPublikasiTotal(),
 			'count_abdimas' => $this->abdimasModel->getAbdimasTotal(),
 			'count_penelitian' => $this->penelitianModel->getPenelitianTotal(),
 			'count_haki' => $this->hakiModel->getHakiTotal(),
+
 			'peningkatan_penelitian' => $this->penelitianModel->getPeningkatanPenelitian(),
 			'peningkatan_publikasi' => $this->publikasiModel->getPeningkatanPublikasi(),
 			'peningkatan_haki' => $this->hakiModel->getPeningkatanHaki(),
 			'peningkatan_abdimas' => $this->hakiModel->getPeningkatanHaki(),
+
+			// Optimizable via single query?
 			'PublikasiYearNow_Inter' => $this->publikasiModel->getPublikasiYearNowInter(),
 			'PublikasiYearNow_Nas' => $this->publikasiModel->getPublikasiYearNowNas(),
 			'PublikasiYearNow_Pros' => $this->publikasiModel->getPublikasiYearNowPros(),
 			'PublikasiYearNow_Pros_Nas' => $this->publikasiModel->getPublikasiYearNowProsNas(),
-			// get total of the year
+
+			// Optimizable via single query?
 			'Publikasi_Inter' => $this->publikasiModel->getPublikasiInter(),
 			'Publikasi_Nas' => $this->publikasiModel->getPublikasiNas(),
 			'Publikasi_Pros' => $this->publikasiModel->getPublikasiPros(),
 			'Publikasi_Pros_Nas' => $this->publikasiModel->getPublikasiProsNas(),
-			// Penelitian 
+
+			// Optimizable via single query?
 			'Penelitian_Inter' => $this->penelitianModel->getPenelitianInter(),
 			'Penelitian_Ekster' => $this->penelitianModel->getPenelitianEkste(),
 			'Penelitian_Mand' => $this->penelitianModel->getPenelitianMand(),
 			'Penelitian_kerjasamaPT' => $this->penelitianModel->getPenelitianKerjaSamaPT(),
 			'Penelitian_Hilir' => $this->penelitianModel->getPenelitianHilir(),
-			// // Top Publikasi 
-			'top_publikasi' => $this->publikasiModel->getTopPublikasi(),
 
-			'order_by_tahun_Asc' => $this->penelitianModel->getOrderByTahunAsc(),
-			// Get Order Data by Jenis
-			'getOrderByTahunAllJenis' => $this->publikasiModel->getOrderByTahunAllJenis(),
+			// Top Publikasi 
+			// 'top_publikasi' => $this->publikasiModel->getTopPublikasi(),
+
 			// Top Penelitian 
-			'top_penelitian' => $this->penelitianModel->getTopPenelitian(),
+			// 'top_penelitian' => $this->penelitianModel->getTopPenelitian(),
+
+			// Number of resource per Dosen 
+			'nPenelitianEachDosen' => $this->penelitianModel->countAllEachDosen(),
+			'nPublikasiEachDosen' => $this->publikasiModel->countAllEachDosen(),
+			'nAbdimasEachDosen' => $this->abdimasModel->countAllEachDosen(),
+			'nHakiEachDosen' => $this->hakiModel->countAllEachDosen(),
+			
+			// Get Order Data by Jenis
+			// 'order_by_tahun' => $this->abdimasModel->getOrderByTahun(),
 			// Order Data Penelitian 
-			'order_by_tahun' => $this->abdimasModel->getOrderByTahun(),
-			// Order Data Penelitian 
+			// 'order_by_tahun_haki' => $this->hakiModel->getOrderByTahun(),
+			'order_by_tahun_Asc' => $this->penelitianModel->getOrderByTahunAsc(),
+			'getOrderByTahunAllJenis' => $this->publikasiModel->getOrderByTahunAllJenis(),
 			'order_by_tahun_desc' => $this->abdimasModel->getOrderByTahunDesc(),
-			'order_by_tahun_haki' => $this->hakiModel->getOrderByTahun(),
 			'order_by_tahun_Asc_haki' => $this->hakiModel->getOrderByTahunAsc(),
 
 		];

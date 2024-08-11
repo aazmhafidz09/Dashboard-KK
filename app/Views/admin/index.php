@@ -1,11 +1,7 @@
 <?= $this->include('partials/main') ?>
 
 <head>
-
-
-
     <?= $this->include('partials/head-css') ?>
-
 </head>
 
 <?= $this->include('partials/body') ?>
@@ -33,64 +29,35 @@
                                     </div>
                                 <?php endif ?>
 
+                                <?php if (session()->getFlashdata('error')) : ?>
+                                    <div class="alert alert-danger" role="alert">
+                                        <?= session()->getFlashdata('error'); ?>
+                                    </div>
+                                <?php endif ?>
+
                                 <h4 class="card-title">Data Publikasi</h4>
                                 <div>
                                     <a href="/admin/publikasi" class="btn btn-success waves-effect waves-light mb-3" role="button"><i class="mdi mdi-plus me-1"></i>Tambah Publikasi</a>
-                                    <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
                                 </div>
 
-                                <table id="datatable" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="dtPublikasi"  data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Tahun</th>
                                             <th>Judul Publikasi</th>
                                             <th>Jenis</th>
                                             <th>Jurnal/konferensi</th>
-                                            <th>Action</th>
-                                            <!-- <th>Akreditasi Jurnal</th> -->
-                                            <!-- <th>Penulis</th>    -->
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
-
-                                    <tbody>
-                                        <?php $i = 1 ?>
-
-                                        <?php foreach ($all_publikasi as $alp) : ?>
-                                            <tr>
-                                                <td><?= $alp['tahun']; ?></td>
-                                                <td><?= $alp['judul_publikasi']; ?></td>
-                                                <td><?= $alp['jenis']; ?></td>
-                                                <td><?= $alp['nama_journal_conf']; ?></td>
-                                                <td>
-                                                    <ul class="list-inline mb-0">
-                                                        <li class="list-inline-item">
-                                                            <a href="javascript:void(0);" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <a href="javascript:void(0);" class="px-2 text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
-                                                        </li>
-
-                                                    </ul>
-                                                </td>
-
-
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
                                 </table>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="position-relative">
-                                            <input type="text" class="form-control chat-input rounded" placeholder="">
-
-                                        </div>
-                                    </div>
+                                <!-- <div class="row">
+                                    <div class="col"> </div>
                                     <div class="col-auto">
                                         <a href="/publikasi" class="btn btn-success waves-effect waves-light mb-3" role="button"></i>Lihat Selengkapnya</a>
-                                        <!-- <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span class="d-none d-sm-inline-block me-2">Send</span> <i class="mdi mdi-send float-end"></i></button> -->
                                     </div>
-                                </div>
-
+                                </div> -->
                             </div>
                         </div>
                     </div> <!-- end col -->
@@ -101,66 +68,30 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-
                                 <h4 class="card-title">Data Penelitian</h4>
-                                <!-- <p class="card-title-desc">DataTables has most features enabled by
-                                    default, so all you need to do to use it with your own tables is to call
-                                    the construction function: <code>$().DataTable();</code>.
-                                </p> -->
-                                <div>
-                                    <a href="/admin/penelitian" class="btn btn-success waves-effect waves-light mb-3" role="button"><i class="mdi mdi-plus me-1"></i>Tambah Penelitian</a>
-                                    <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
-                                </div>
+                                    <div>
+                                        <a href="/admin/penelitian" class="btn btn-success waves-effect waves-light mb-3" role="button"><i class="mdi mdi-plus me-1"></i>Tambah Penelitian</a>
+                                        <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
+                                    </div>
 
-                                <table id="datatable_1" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="dtPenelitian" data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Tahun</th>
                                             <th>Jenis</th>
                                             <th>Nama Kegiatan</th>
                                             <th>Judul Penelitian</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
-
-                                    <tbody>
-                                        <?php $i = 1 ?>
-
-                                        <?php foreach ($all_penelitian as $alp) : ?>
-                                            <tr>
-                                                <td><?= $alp['tahun']; ?></td>
-                                                <td><?= $alp['jenis']; ?></td>
-                                                <td><?= $alp['nama_kegiatan']; ?></td>
-                                                <td><?= $alp['judul_penelitian']; ?></td>
-
-                                                <td>
-                                                    <ul class="list-inline mb-0">
-                                                        <li class="list-inline-item">
-                                                            <a href="javascript:void(0);" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <a href="javascript:void(0);" class="px-2 text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
-                                                        </li>
-
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
                                 </table>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="position-relative">
-                                            <input type="text" class="form-control chat-input rounded" placeholder="">
-
-                                        </div>
-                                    </div>
+                                <!-- <div class="row">
+                                    <div class="col"> </div>
                                     <div class="col-auto">
                                         <a href="/penelitian" class="btn btn-success waves-effect waves-light mb-3" role="button"></i>Lihat Selengkapnya</a>
-                                        <!-- <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span class="d-none d-sm-inline-block me-2">Send</span> <i class="mdi mdi-send float-end"></i></button> -->
                                     </div>
-                                </div>
-
+                                </div> -->
                             </div>
                         </div>
                     </div> <!-- end col -->
@@ -170,64 +101,30 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-
                                 <h4 class="card-title">Data Abdimas</h4>
                                 <div>
                                     <a href="/admin/abdimas" class="btn btn-success waves-effect waves-light mb-3" role="button"><i class="mdi mdi-plus me-1"></i>Tambah Abdimas</a>
                                     <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
                                 </div>
 
-
-                                <table id="datatable_2" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="dtAbdimas" data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Tahun</th>
                                             <th>Jenis</th>
                                             <th>Nama Kegiatan</th>
                                             <th>Judul</th>
-                                            <!-- <th>Status</th> -->
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-
-
-                                        <?php foreach ($all_abdimas as $alp) : ?>
-                                            <tr>
-                                                <td><?= $alp['tahun']; ?></td>
-                                                <td><?= $alp['jenis']; ?></td>
-                                                <td><?= $alp['nama_kegiatan']; ?></td>
-                                                <td><?= $alp['judul']; ?></td>
-                                                <!-- <td><?= $alp['status']; ?></td> -->
-                                                <td>
-                                                    <ul class="list-inline mb-0">
-                                                        <li class="list-inline-item">
-                                                            <a href="javascript:void(0);" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <a href="javascript:void(0);" class="px-2 text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
-                                                        </li>
-
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
                                 </table>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="position-relative">
-                                            <input type="text" class="form-control chat-input rounded" placeholder="">
-
-                                        </div>
-                                    </div>
+                                <!-- <div class="row">
+                                    <div class="col"> </div>
                                     <div class="col-auto">
                                         <a href="/abdimas" class="btn btn-success waves-effect waves-light mb-3" role="button"></i>Lihat Selengkapnya</a>
-                                        <!-- <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span class="d-none d-sm-inline-block me-2">Send</span> <i class="mdi mdi-send float-end"></i></button> -->
                                     </div>
-                                </div>
-
-
+                                </div> -->
                             </div>
                         </div>
                     </div> <!-- end col -->
@@ -244,78 +141,39 @@
                                     default, so all you need to do to use it with your own tables is to call
                                     the construction function: <code>$().DataTable();</code>.
                                 </p> -->
+
                                 <div>
                                     <a href="/admin/haki" class="btn btn-success waves-effect waves-light mb-3" role="button"><i class="mdi mdi-plus me-1"></i>Tambah Haki</a>
                                     <!-- <button href="/admin/publikasi" type="button" class="btn btn-success waves-effect waves-light mb-3"><i class="mdi mdi-plus me-1"></i> Add customers</button> -->
                                 </div>
 
-                                <table id="datatable_3" data-order='[[ 0, "desc" ]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="dtHaki" data-order='[[0, "desc"]]' class="table table-bordered dt-responsive nowrap" data-page-length='5' style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Tahun</th>
                                             <th>Jenis</th>
-                                            <!-- <th>Jenis Ciptaan</th> -->
                                             <th>Judul</th>
 
                                             <th>No Pendaftaran</th>
                                             <th>No Sertifikat</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
-
-                                    <tbody>
-                                        <?php $i = 1 ?>
-
-                                        <?php foreach ($all_haki as $alp) : ?>
-                                            <tr>
-                                                <td><?= $alp['tahun']; ?></td>
-                                                <td><?= $alp['jenis']; ?></td>
-
-                                                <td><?= $alp['judul']; ?></td>
-
-                                                <td><?= $alp['no_pendaftaran']; ?></td>
-                                                <td><?= $alp['no_sertifikat']; ?></td>
-                                                <td>
-                                                    <ul class="list-inline mb-0">
-                                                        <li class="list-inline-item">
-                                                            <a href="javascript:void(0);" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <a href="javascript:void(0);" class="px-2 text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
-                                                        </li>
-
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
                                 </table>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="position-relative">
-                                            <input type="text" class="form-control chat-input rounded" placeholder="">
-
-                                        </div>
-                                    </div>
+                                <!-- <div class="row">
+                                    <div class="col"> </div>
                                     <div class="col-auto">
                                         <a href="/haki" class="btn btn-success waves-effect waves-light mb-3" role="button"></i>Lihat Selengkapnya</a>
-                                        <!-- <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span class="d-none d-sm-inline-block me-2">Send</span> <i class="mdi mdi-send float-end"></i></button> -->
                                     </div>
-                                </div>
-
+                                </div> -->
                             </div>
                         </div>
                     </div> <!-- end col -->
                 </div> <!-- end row -->
-
-
-
-
             </div> <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
-
-
         <?= $this->include('partials/footer') ?>
     </div>
     <!-- end main content-->
@@ -361,7 +219,7 @@
 
 <!-- App js -->
 <script src="assets/js/app.js"></script>
-
+<?= view("admin/jsScript") ?>
 </body>
 
 </html>
