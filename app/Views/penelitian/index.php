@@ -415,8 +415,7 @@
                                                             <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
                                                             <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?></p>
                                                         </td>
-                                                        <!-- <td><span class="badge bg-danger-subtle text-danger font-size-12"><?= $tp['jumlah_penelitian']; ?></span></td> -->
-                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['jumlah_penelitian']; ?></td>
+                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['nPenelitian']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
 

@@ -619,6 +619,7 @@
                 },
                 dataLabels: { enabled: false },
                 series: [{
+                    name: "Publikasi",
                     data: [<?php foreach ($akreditasi_jurnal as $cpub) {
                                 echo '' . $cpub['jumlah_akr'] . ',';
                             } ?>]
@@ -626,7 +627,9 @@
                 colors: BarchartBarColors,
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: { 
-                    categories: ['Q1', 'Q2', 'Q3', 'Q4', 'S1', 'S2', 'S3', 'S4', 'S5'], 
+                    categories: [<?php foreach ($akreditasi_jurnal as $cpub) {
+                                    echo '"' . $cpub['akreditasi'] . '",';
+                                } ?>], 
                     labels: { show: false }
                 },
             }

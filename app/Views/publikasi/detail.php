@@ -76,11 +76,11 @@
                                     <div class="d-flex justify-content-end">
                                         <?php if(strlen($publikasi["link_artikel"]) > 0): ?>
                                             <button class="btn btn-primary">
-                                                <a class="text-white" href="<?=$publikasi["link_artikel"]?>"> Lihat publikasi</a>
+                                                <a class="text-white" href="<?=$publikasi["link_artikel"]?>"> Link publikasi</a>
                                             </button>
                                         <?php else: ?>
                                             <button class="btn btn-secondary" disabled>
-                                                <a class="text-white" href="#"> Lihat publikasi</a>
+                                                <a class="text-white" href="#"> Link publikasi</a>
                                             </button>
                                         <?php endif ?>
                                     </div>

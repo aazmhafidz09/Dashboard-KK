@@ -374,7 +374,7 @@
                                                             <p class="text-muted font-size-13 mb-0"><?= $tp['nama_dosen']; ?></p>
                                                         </td>
                                                         <!-- <td><span class="badge bg-danger-subtle text-danger font-size-12">#</span></td>g -->
-                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['jumlah_publikasi']; ?></td>
+                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['nPublikasi']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
 

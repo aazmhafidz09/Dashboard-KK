@@ -22,7 +22,6 @@ class AbdimasModel extends Model
         'anggota_6', 
         'anggota_7', 
         'anggota_8', 
-        'anggota_9', 
         'catatan', 
         'jenis', 
         'judul', 
@@ -324,7 +323,11 @@ class AbdimasModel extends Model
                     SELECT anggota_2 AS kode_dosen FROM abdimas UNION ALL 
                     SELECT anggota_3 AS kode_dosen FROM abdimas UNION ALL 
                     SELECT anggota_4 AS kode_dosen FROM abdimas UNION ALL 
-                    SELECT anggota_5 AS kode_dosen FROM abdimas ) abdimas 
+                    SELECT anggota_5 AS kode_dosen FROM abdimas UNION ALL
+                    SELECT anggota_6 AS kode_dosen FROM abdimas UNION ALL
+                    SELECT anggota_7 AS kode_dosen FROM abdimas UNION ALL
+                    SELECT anggota_8 AS kode_dosen FROM abdimas
+                    ) abdimas 
                 ON dosen.kode_dosen = abdimas.kode_dosen 
                 GROUP BY dosen.kode_dosen, dosen.nama_dosen; ";
         $query = $this->db->query($sql);

@@ -306,27 +306,28 @@ class HakiModel extends Model
     }
 
     public function getTopHaki() {
-        $sql = "SELECT 
-                    dosen.nama_dosen, 
-                    dosen.kode_dosen, 
-                    COUNT(haki.kode_dosen) AS jumlah_haki FROM dosen dosen 
-                JOIN 
-                    ( SELECT ketua AS kode_dosen FROM haki UNION ALL 
-                    SELECT anggota_1 AS kode_dosen FROM haki UNION ALL 
-                    SELECT anggota_2 AS kode_dosen FROM haki UNION ALL 
-                    SELECT anggota_3 AS kode_dosen FROM haki UNION ALL 
-                    SELECT anggota_4 AS kode_dosen FROM haki UNION ALL 
-                    SELECT anggota_5 AS kode_dosen FROM haki UNION ALL 
-                    SELECT anggota_6 AS kode_dosen FROM haki UNION ALL 
-                    SELECT anggota_7 AS kode_dosen FROM haki UNION ALL 
-                    SELECT anggota_8 AS kode_dosen FROM haki UNION ALL 
-                    SELECT anggota_9 AS kode_dosen FROM haki ) 
-                    haki 
-                ON dosen.kode_dosen = haki.kode_dosen 
-                GROUP BY dosen.kode_dosen, dosen.nama_dosen 
-                ORDER BY jumlah_haki DESC LIMIT 10;";
-        $query = $this->db->query($sql);
-        return $query->getResultArray();
+        return array_slice($this->countAllEachDosen(), 0, 10);
+        // $sql = "SELECT 
+        //             dosen.nama_dosen, 
+        //             dosen.kode_dosen, 
+        //             COUNT(haki.kode_dosen) AS jumlah_haki FROM dosen dosen 
+        //         JOIN 
+        //             ( SELECT ketua AS kode_dosen FROM haki UNION ALL 
+        //             SELECT anggota_1 AS kode_dosen FROM haki UNION ALL 
+        //             SELECT anggota_2 AS kode_dosen FROM haki UNION ALL 
+        //             SELECT anggota_3 AS kode_dosen FROM haki UNION ALL 
+        //             SELECT anggota_4 AS kode_dosen FROM haki UNION ALL 
+        //             SELECT anggota_5 AS kode_dosen FROM haki UNION ALL 
+        //             SELECT anggota_6 AS kode_dosen FROM haki UNION ALL 
+        //             SELECT anggota_7 AS kode_dosen FROM haki UNION ALL 
+        //             SELECT anggota_8 AS kode_dosen FROM haki UNION ALL 
+        //             SELECT anggota_9 AS kode_dosen FROM haki ) 
+        //             haki 
+        //         ON dosen.kode_dosen = haki.kode_dosen 
+        //         GROUP BY dosen.kode_dosen, dosen.nama_dosen 
+        //         ORDER BY jumlah_haki DESC LIMIT 10;";
+        // $query = $this->db->query($sql);
+        // return $query->getResultArray();
     }
 
     public function get_table_fields() {
@@ -348,6 +349,7 @@ class HakiModel extends Model
                         OR haki.anggota_6 = kode_dosen 
                         OR haki.anggota_7 = kode_dosen 
                         OR haki.anggota_8 = kode_dosen 
+                        OR haki.anggota_9 = kode_dosen 
                         OR haki.ketua = kode_dosen) 
                 GROUP BY haki.tahun, kode_dosen; ";
         $result = $this->db->query($sql)->getResultArray();

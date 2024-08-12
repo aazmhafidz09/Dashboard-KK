@@ -295,21 +295,28 @@ class PenelitianModel extends Model
     }
 
     public function getTopPenelitian() {
-        $sql = "SELECT 
-                    dosen.nama_dosen, 
-                    dosen.kode_dosen, 
-                    COUNT(penelitian.kode_dosen) AS jumlah_penelitian 
-                FROM dosen dosen 
-                JOIN ( SELECT ketua_peneliti AS kode_dosen FROM penelitian UNION ALL 
-                        SELECT anggota_peneliti_1 AS kode_dosen FROM penelitian UNION ALL 
-                        SELECT anggota_peneliti_2 AS kode_dosen FROM penelitian UNION ALL 
-                        SELECT anggota_peneliti_3 AS kode_dosen FROM penelitian UNION ALL 
-                        SELECT anggota_peneliti_4 AS kode_dosen FROM penelitian ) penelitian 
-                ON dosen.kode_dosen = penelitian.kode_dosen 
-                GROUP BY dosen.kode_dosen, dosen.nama_dosen 
-                ORDER BY jumlah_penelitian DESC LIMIT 10;";
-        $query = $this->db->query($sql);
-        return $query->getResultArray();
+        return array_slice($this->countAllEachDosen(), 0, 10);
+        // $sql = "SELECT 
+        //             dosen.nama_dosen, 
+        //             dosen.kode_dosen, 
+        //             COUNT(penelitian.kode_dosen) AS jumlah_penelitian 
+        //         FROM dosen dosen 
+        //         JOIN ( SELECT ketua_peneliti AS kode_dosen FROM penelitian UNION ALL 
+        //                 SELECT anggota_peneliti_1 AS kode_dosen FROM penelitian UNION ALL 
+        //                 SELECT anggota_peneliti_2 AS kode_dosen FROM penelitian UNION ALL 
+        //                 SELECT anggota_peneliti_3 AS kode_dosen FROM penelitian UNION ALL 
+        //                 SELECT anggota_peneliti_4 AS kode_dosen FROM penelitian UNION ALL 
+        //                 SELECT anggota_peneliti_5 AS kode_dosen FROM penelitian UNION ALL 
+        //                 SELECT anggota_peneliti_6 AS kode_dosen FROM penelitian UNION ALL 
+        //                 SELECT anggota_peneliti_7 AS kode_dosen FROM penelitian UNION ALL 
+        //                 SELECT anggota_peneliti_8 AS kode_dosen FROM penelitian UNION ALL 
+        //                 SELECT anggota_peneliti_9 AS kode_dosen FROM penelitian UNION ALL 
+        //                 SELECT anggota_peneliti_10 AS kode_dosen FROM penelitian ) penelitian 
+        //         ON dosen.kode_dosen = penelitian.kode_dosen 
+        //         GROUP BY dosen.kode_dosen, dosen.nama_dosen 
+        //         ORDER BY jumlah_penelitian DESC LIMIT 10;";
+        // $query = $this->db->query($sql);
+        // return $query->getResultArray();
     }
 
     public function getTopPenelitianAll() {
@@ -322,7 +329,14 @@ class PenelitianModel extends Model
                         SELECT anggota_peneliti_1 AS kode_dosen FROM penelitian UNION ALL 
                         SELECT anggota_peneliti_2 AS kode_dosen FROM penelitian UNION ALL 
                         SELECT anggota_peneliti_3 AS kode_dosen FROM penelitian UNION ALL 
-                        SELECT anggota_peneliti_4 AS kode_dosen FROM penelitian ) penelitian 
+                        SELECT anggota_peneliti_4 AS kode_dosen FROM penelitian UNION ALL 
+                        SELECT anggota_peneliti_5 AS kode_dosen FROM penelitian UNION ALL 
+                        SELECT anggota_peneliti_6 AS kode_dosen FROM penelitian UNION ALL 
+                        SELECT anggota_peneliti_7 AS kode_dosen FROM penelitian UNION ALL 
+                        SELECT anggota_peneliti_8 AS kode_dosen FROM penelitian UNION ALL 
+                        SELECT anggota_peneliti_9 AS kode_dosen FROM penelitian UNION ALL 
+                        SELECT anggota_peneliti_10 AS kode_dosen FROM penelitian 
+                    ) penelitian 
                 ON dosen.kode_dosen = penelitian.kode_dosen 
                 GROUP BY dosen.kode_dosen, dosen.nama_dosen;";
         $query = $this->db->query($sql);

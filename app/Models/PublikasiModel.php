@@ -261,22 +261,28 @@ class PublikasiModel extends Model
     }
 
     public function getTopPublikasi() {
-        $sql = "SELECT 
-                    dosen.nama_dosen, 
-                    dosen.kode_dosen, 
-                COUNT(publikasi.kode_dosen) AS jumlah_publikasi FROM dosen dosen
-                JOIN 
-                    ( SELECT penulis_1 AS kode_dosen FROM publikasi UNION ALL 
-                    SELECT penulis_2 AS kode_dosen FROM publikasi UNION ALL 
-                    SELECT penulis_3 AS kode_dosen FROM publikasi UNION ALL 
-                    SELECT penulis_4 AS kode_dosen FROM publikasi UNION ALL 
-                    SELECT penulis_5 AS kode_dosen FROM publikasi UNION ALL 
-                    SELECT penulis_6 AS kode_dosen FROM publikasi ) publikasi 
-                ON dosen.kode_dosen = publikasi.kode_dosen 
-                GROUP BY dosen.kode_dosen, dosen.nama_dosen 
-                ORDER BY jumlah_publikasi DESC LIMIT 10";
-        $query = $this->db->query($sql);
-        return $query->getResultArray();
+        return array_slice($this->countAllEachDosen(), 0, 10);
+        // $sql = "SELECT 
+        //             dosen.nama_dosen, 
+        //             dosen.kode_dosen, 
+        //         COUNT(publikasi.kode_dosen) AS jumlah_publikasi FROM dosen dosen
+        //         JOIN 
+        //             ( SELECT penulis_1 AS kode_dosen FROM publikasi UNION ALL 
+        //             SELECT penulis_2 AS kode_dosen FROM publikasi UNION ALL 
+        //             SELECT penulis_3 AS kode_dosen FROM publikasi UNION ALL 
+        //             SELECT penulis_4 AS kode_dosen FROM publikasi UNION ALL 
+        //             SELECT penulis_5 AS kode_dosen FROM publikasi UNION ALL 
+        //             SELECT penulis_6 AS kode_dosen FROM publikasi UNION ALL 
+        //             SELECT penulis_7 AS kode_dosen FROM publikasi UNION ALL 
+        //             SELECT penulis_8 AS kode_dosen FROM publikasi UNION ALL 
+        //             SELECT penulis_9 AS kode_dosen FROM publikasi UNION ALL 
+        //             SELECT penulis_10 AS kode_dosen FROM publikasi UNION ALL 
+        //             SELECT penulis_11 AS kode_dosen FROM publikasi ) publikasi 
+        //         ON dosen.kode_dosen = publikasi.kode_dosen 
+        //         GROUP BY dosen.kode_dosen, dosen.nama_dosen 
+        //         ORDER BY jumlah_publikasi DESC LIMIT 10";
+        // $query = $this->db->query($sql);
+        // return $query->getResultArray();
     }
 
     public function getDataDosenTahunan() {
@@ -412,7 +418,12 @@ class PublikasiModel extends Model
                     SELECT penulis_3 AS kode_dosen FROM publikasi UNION ALL 
                     SELECT penulis_4 AS kode_dosen FROM publikasi UNION ALL 
                     SELECT penulis_5 AS kode_dosen FROM publikasi UNION ALL 
-                    SELECT penulis_6 AS kode_dosen FROM publikasi ) publikasi 
+                    SELECT penulis_6 AS kode_dosen FROM publikasi UNION ALL 
+                    SELECT penulis_7 AS kode_dosen FROM publikasi UNION ALL 
+                    SELECT penulis_8 AS kode_dosen FROM publikasi UNION ALL 
+                    SELECT penulis_9 AS kode_dosen FROM publikasi UNION ALL 
+                    SELECT penulis_10 AS kode_dosen FROM publikasi UNION ALL 
+                    SELECT penulis_11 AS kode_dosen FROM publikasi ) publikasi 
                 ON dosen.kode_dosen = publikasi.kode_dosen 
                 GROUP BY dosen.kode_dosen, dosen.nama_dosen; ";
         $query = $this->db->query($sql);
