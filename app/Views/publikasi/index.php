@@ -26,7 +26,10 @@
         if(!isset($dosenPenulisPertamaPerTahun[$penulisPertama][$tahunPublikasi])) {
             $dosenPenulisPertamaPerTahun[$penulisPertama][$tahunPublikasi] = 0;
         }
-        $dosenPenulisPertamaPerTahun[$penulisPertama][$tahunPublikasi]++;
+
+        if(in_array(strtolower($a['jenis']), ["jurnal internasional", "jurnal nasional"])) {
+            $dosenPenulisPertamaPerTahun[$penulisPertama][$tahunPublikasi]++;
+        }
 
         if(!in_array($tahunPublikasi, $tahunPublikasiTersedia)) {
             array_push($tahunPublikasiTersedia, $tahunPublikasi);
@@ -460,7 +463,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div id="dosenKetuaPublikasi" class="float-end" style="display: none">
-                                    <label> Hanya Penulis Pertama &nbsp;</label>
+                                    <label> Hanya Penulis Pertama Jurnal &nbsp;</label>
                                     <input id="dosenKetuaPublikasiToggle" type="checkbox" onchange="onPublikasiDosenFilterUpdate();"/>
                                 </div>
                                 <div data-simplebar style="max-height: 339px;">
