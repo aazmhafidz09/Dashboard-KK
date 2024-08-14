@@ -422,6 +422,12 @@ class AbdimasModel extends Model
     public function import($filePath) {
         // Validation purpose variables
         $dosenList = (new DosenModel())->getAllKodeDosen();
+        $abdimasTitles = array_map(function($v) { 
+            return strtolower($v["judul"]); },
+            $this->getAbdimas()
+        );
+        $newAbdimasTitles = [];
+
         $insertFields = [ 
             // Excel format as of 24/07/29: (Please always adjust it to current format)
             // id | tahun | jenis | nama_kegiatan | judul | status | lab_riset | ketua | anggota_1 |  anggota_2 |  anggota_3 |  anggota_4 |  anggota_5 |  anggota_6 |  anggota_7 |  anggota_8 | mitra | alamat_mitra | kesesuaian_roadmap | permasalahan_masy | solusi | catatan | luaran | tgl_pengesahan
@@ -451,7 +457,7 @@ class AbdimasModel extends Model
 
                 $rowCells = $row->getCells();
                 if(count($rowCells) - 1 != count($insertFields)) { // Excluding id which exists in template
-                    throw new \Exception("Banyak kolom tidak sesuai kriteria, yakni sebanyak " . (count($insertFields) - 1));
+                    throw new \Exception("Banyak kolom tidak sesuai kriteria, yakni sebanyak " . (count($insertFields)));
                 }
 
                 $currentRow = [];
@@ -464,7 +470,10 @@ class AbdimasModel extends Model
                     } else if($value instanceof \DateTimeImmutable) {
                         $currentRow[$field] = date_format($value, 'd-m-Y');
                     } else {
-                        throw new \Exception("`tgl_pengesahan` tidak valid. Pastikan tanggal valid dan menggunakan format yang sesuai");
+                        if(strlen($value) > 0) {
+                            throw new \Exception("`tgl_pengesahan` tidak valid. Pastikan tanggal valid dan menggunakan format yang sesuai");
+                        }
+                        $currentRow[$field] = null;
                     }
                 }
                 
@@ -474,6 +483,17 @@ class AbdimasModel extends Model
                             && strlen($currentRow["jenis"]) > 0
                             && strlen($currentRow["judul"]) > 0);
                 if(!$isValid) throw new \Exception("`judul`, `status`, `jenis`, dan `tahun` harus diisi");
+
+                // Prohibit duplicate titles 
+                $isValid = !in_array(strtolower($currentRow["judul"]), $abdimasTitles);
+                if(!$isValid) { 
+                    throw new \Exception("Terdapat judul abdimas serupa yang sudah terdaftar, silakan gunakan judul yang lainnya");
+                }
+
+                $isValid = !in_array(strtolower($currentRow["judul"]), $newAbdimasTitles);
+                if(!$isValid) { 
+                    throw new \Exception("Terdapat judul abdimas serupa yang sama pada data input anda, silakan gunakan judul yang lainnya");
+                }
 
                 $hasWriter = false;
                 foreach($WRITER_FIELDS as $wf) {
@@ -496,6 +516,7 @@ class AbdimasModel extends Model
                     || in_array(strtolower($currentRow["status"]), $ALLOWED_STATUS));
                 if(!$isValid) throw new \Exception("Jika diisi, `status` harus merupakan salah satu dari {'didanai', 'tidak didanai', 'closed'}");
 
+                array_push($newAbdimasTitles, strtolower($currentRow["judul"]));
                 array_push($rowData, $currentRow);
             }
 
