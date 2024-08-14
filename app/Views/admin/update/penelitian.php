@@ -97,6 +97,7 @@
                                         <label class="col-md-2 col-form-label">Jenis penelitian</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
+                                                <option value=""> (Pilih jenis penelitian)</option>
                                                 <?php foreach($jenisPenelitian as $jenis): ?>
                                                     <option <?= esc(strtolower($jenis) == strtolower($oldPenelitian["jenis"])? "selected": "") ?> >
                                                         <?= $jenis ?>
@@ -109,6 +110,7 @@
                                         <label class="col-md-2 col-form-label">Status</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="status">
+                                                <option value=""> (Pilih status penelitian)</option>
                                                 <?php foreach($statusPenelitian as $status): ?>
                                                     <option <?= esc(strtolower($status) == strtolower($oldPenelitian["status"])? "selected": "")?>>
                                                         <?= $status ?>
@@ -243,6 +245,7 @@
                                         <label class="col-md-2 col-form-label">Luaran riset/abdimas</label>
                                         <div class="col-md-10"> <!-- Which column represent this? -->
                                             <select class="form-select" name="luaran">
+                                                <option value=""> (Pilih jenis luaran)</option>
                                                 <?php foreach($luaranPenelitian as $luaran): ?>
                                                     <option <?= esc(strtolower($luaran) == strtolower($oldPenelitian["luaran"])? "selected": "") ?> >
                                                         <?= $luaran ?>

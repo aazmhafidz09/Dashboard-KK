@@ -98,6 +98,7 @@
                                         <label for="jenis" class="col-md-2 col-form-label">Jenis abdimas</label>
                                         <div class="col-md-10">
                                             <select id="jenis" class="form-select" name="jenis">
+                                                <option value=""> (Pilih jenis abdimas)</option>
                                                 <?php foreach($jenisAbdimas as $jenis): ?>
                                                     <option <?= esc(strtolower($jenis) == strtolower($oldAbdimas["jenis"])? "selected": "") ?> >
                                                         <?= $jenis?>
@@ -111,6 +112,7 @@
                                         <label for="abdimas_status" class="col-md-2 col-form-label">Status</label> 
                                         <div class="col-md-10">
                                             <select id="abdimas_status" class="form-select" name="status">
+                                                <option value=""> (Pilih status abdimas)</option>
                                                 <?php foreach($statusAbdimas as $status): ?>
                                                     <option <?= esc(strtolower($status) == strtolower($oldAbdimas["status"])? "selected": "") ?> >
                                                         <?= $status?>

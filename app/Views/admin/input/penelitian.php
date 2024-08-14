@@ -87,6 +87,7 @@
                                         <label class="col-md-2 col-form-label">Jenis penelitian</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
+                                                <option value=""> (Pilih jenis penelitian)</option>
                                                 <?php foreach($jenisPenelitian as $jenis): ?>
                                                     <option> <?= $jenis ?> </option>
                                                 <?php endforeach; ?>
@@ -97,6 +98,7 @@
                                         <label class="col-md-2 col-form-label">Status</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="status">
+                                                <option value=""> (Pilih status penelitian)</option>
                                                 <?php foreach($statusPenelitian as $status): ?>
                                                     <option> <?= $status ?> </option>
                                                 <?php endforeach; ?>
@@ -229,6 +231,7 @@
                                         <label class="col-md-2 col-form-label">Luaran riset/abdimas</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="luaran">
+                                                <option value=""> (Pilih jenis luaran)</option>
                                                 <?php foreach($luaranPenelitian as $luaran): ?>
                                                     <option> <?= $luaran ?> </option>
                                                 <?php endforeach; ?>

@@ -71,6 +71,7 @@
                                         <label class="col-md-2 col-form-label">Jenis publikasi</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
+                                                <option value=""> (Pilih jenis publikasi)</option>
                                                 <?php foreach($jenisPublikasi as $jenis): ?>
                                                     <option> <?= $jenis ?> </option>
                                                 <?php endforeach; ?>

@@ -67,6 +67,7 @@
                                         <label class="col-md-2 col-form-label">Jenis Haki</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
+                                                <option value=""> (Pilih jenis haki)</option>
                                                 <?php foreach($jenisHaki as $jenis): ?>
                                                     <option> <?= $jenis ?> </option>
                                                 <?php endforeach; ?>

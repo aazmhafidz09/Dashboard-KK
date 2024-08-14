@@ -89,6 +89,7 @@
                                     <div class="mb-3 row">
                                         <label for="jenis" class="col-md-2 col-form-label">Jenis Abdimas</label>
                                         <div class="col-md-10">
+                                            <option value=""> (Pilih jenis abdimas)</option>
                                             <select id="jenis" class="form-select" name="jenis">
                                                 <?php foreach($jenisAbdimas as $jenis): ?>
                                                     <option> <?= $jenis?> </option>
@@ -99,6 +100,7 @@
                                     <div class="mb-2 row">
                                         <label for="status" class="col-md-2 col-form-label">Status</label>
                                         <div class="col-md-10">
+                                            <option value=""> (Pilih status abdimas)</option>
                                             <select id="abdimas_status" class="form-select" name="status">
                                                 <?php foreach($statusAbdimas as $status): ?>
                                                     <option> <?= $status?> </option>

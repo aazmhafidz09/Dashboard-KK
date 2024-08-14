@@ -77,6 +77,7 @@
                                         <label class="col-md-2 col-form-label">Jenis haki</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
+                                                <option value=""> (Pilih jenis haki)</option>
                                                 <?php foreach($jenisHaki as $jenis): ?>
                                                     <option <?= esc(strtolower($jenis) == strtolower($oldHaki["jenis"])? "selected": "") ?> >
                                                         <?= $jenis ?>
