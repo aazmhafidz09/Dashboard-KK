@@ -176,7 +176,7 @@
                                     </div>
 
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label">Akreditasi</label>
+                                        <label class="col-md-2 col-form-label"> Peringkat Jurnal</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="akreditasi_journal_conf">
                                                 <option> not accredited yet </option>

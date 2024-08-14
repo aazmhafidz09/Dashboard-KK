@@ -545,7 +545,6 @@
                 colors: BarchartBarColors,
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: { 
-                    labels: { show: false, },
                     categories: [<?php foreach ($count_publikasi as $cpub) {
                                 echo '"' . $cpub['jenis_pen'] . '",';
                                 } ?>], 

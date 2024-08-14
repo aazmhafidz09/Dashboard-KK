@@ -343,32 +343,6 @@
                 </div> 
 
                 <div class="row">
-                    <div class="col-xl-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title mb-4">Haki</h4>
-
-                                <div data-simplebar style="max-height: 339px;">
-                                    <div class="table-responsive">
-                                        <table class="table table-borderless table-centered table-nowrap">
-                                            <tbody>
-                                                <?php foreach ($top_haki as $tp) : ?>
-                                                    <tr>
-                                                        <td>
-                                                            <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
-                                                            <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?></p>
-                                                        </td>
-                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['nHaki']; ?></td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    </div> <!-- enbd table-responsive-->
-                                </div> <!-- data-sidebar-->
-                            </div><!-- end card-body-->
-                        </div> <!-- end card-->
-                    </div><!-- end col -->
-
                     <div class="col-xl-8">
                         <div class="card">
                             <div class="card-body">
@@ -412,6 +386,32 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">Haki</h4>
+
+                                <div data-simplebar style="max-height: 339px;">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless table-centered table-nowrap">
+                                            <tbody>
+                                                <?php foreach ($top_haki as $tp) : ?>
+                                                    <tr>
+                                                        <td>
+                                                            <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
+                                                            <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?></p>
+                                                        </td>
+                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['nHaki']; ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div> <!-- enbd table-responsive-->
+                                </div> <!-- data-sidebar-->
+                            </div><!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div><!-- end col -->
+
 
                     <!-- <div class="col-xl-4">
                         <div class="card">

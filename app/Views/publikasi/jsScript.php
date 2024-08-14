@@ -630,7 +630,6 @@
                     categories: [<?php foreach ($akreditasi_jurnal as $cpub) {
                                     echo '"' . $cpub['akreditasi'] . '",';
                                 } ?>], 
-                    labels: { show: false }
                 },
             }
         ).render();
