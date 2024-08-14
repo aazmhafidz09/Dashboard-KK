@@ -36,7 +36,7 @@
                     data: null,
                     render: function(data, type, row) {
                         return [
-                            `<a href="haki/view/${row.id}"`,
+                            `<a href="haki/view/${row.id}">`,
                                 "<i class='uil uil-eye font-size-18'></i>",
                             "</a>",
                         ].join(" ")

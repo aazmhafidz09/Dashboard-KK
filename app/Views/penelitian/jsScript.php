@@ -38,7 +38,7 @@
                     data: null,
                     render: function(data, type, row) {
                         return [
-                            `<a href="penelitian/view/${row.id}"`,
+                            `<a href="penelitian/view/${row.id}">`,
                                 "<i class='uil uil-eye font-size-18'></i>",
                             "</a>",
                         ].join(" ")
@@ -60,7 +60,7 @@
     }
 
     const displayedPenelitianTypes = [ "INTERNAL", "EKSTERNAL", "MANDIRI", 
-                                    "KERJASAMA PERGURUAN TINGGI", "HILIRISASI"];
+                                    "KERJASAMA PERGURUAN TINGGI", "HILIRISASI", "DIDANAI"];
     const dataPenelitian = {
         <?php
             foreach($data_tahunan as $d) {
