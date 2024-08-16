@@ -20,6 +20,7 @@
                         "Jurnal Nasional",
                         "Prosiding Internasional",
                         "Prosiding Nasional" ];
+    $isDosen = !in_groups(["kk_citi", "kk_seal", "kk_dsis", "admin"], user_id());
 ?>
 
 <!-- Begin page -->
@@ -89,7 +90,11 @@
                                     <div class="mb-3 row">
                                         <label class="col-md-2 col-form-label">Jenis publikasi</label>
                                         <div class="col-md-10">
-                                            <select class="form-select" name="jenis">
+                                            <select 
+                                                class="form-select" 
+                                                name="jenis"
+                                                <?= ($isDosen? "disabled": "") ?>
+                                            >
                                                 <option value=""> (Pilih jenis publikasi)</option>
                                                 <?php foreach($jenisPublikasi as $jenis): ?>
                                                     <option <?= esc(strtolower($jenis) == strtolower($oldPublikasi["jenis"])? "selected": "")?> >
@@ -200,18 +205,19 @@
                                                 id="Judul-Publikasi" 
                                                 name="nama_journal_conf"
                                                 value="<?= esc($oldPublikasi["nama_journal_conf"]) ?>"
+                                                <?= ($isDosen? "disabled": "") ?>
                                             >
                                         </div>
                                     </div>
 
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label"> Peringkat Jurnal </label>
+                                        <label class="col-md-2 col-form-label"> Peringkat jurnal </label>
                                         <div class="col-md-10">
                                             <select 
                                                 class="form-select" 
                                                 name="akreditasi_journal_conf"
+                                                <?= ($isDosen? "disabled": "") ?>
                                             >
-                                                <!-- // Handle old selected thing! -->
                                                 <option> not accredited yet </option>
                                                 <?php foreach($akreditasiPublikasi as $akreditasi): ?>
                                                     <option <?= esc(strtolower($akreditasi) == strtolower($oldPublikasi["akreditasi_journal_conf"])? "selected": "") ?> > 

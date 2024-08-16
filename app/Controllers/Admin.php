@@ -142,13 +142,13 @@ class Admin extends BaseController {
     }
 
     public function handle_publikasi_edit($id) {
-        $publikasi = $this->publikasiModel->where('id', $id)->first();
-        if(is_null($publikasi)) { // TODO: Make the flash data red in UI
+        $oldPublikasi = $this->publikasiModel->where('id', $id)->first();
+        if(is_null($oldPublikasi)) { // TODO: Make the flash data red in UI
             session()->setFlashdata('error', 'Publikasi tidak ditemukan');
             return redirect()->to(base_url('/admin'));
         }
 
-        if(!$this->publikasiModel->isPermitted($publikasi)) {
+        if(!$this->publikasiModel->isPermitted($oldPublikasi)) {
             session()->setFlashdata("error", "Anda tidak memiliki akses untuk melakukan aksi tersebut");
             return redirect()->to(base_url());
         }
@@ -173,15 +173,23 @@ class Admin extends BaseController {
             }
         }
 
-        $this->logPublikasi->transBegin();
+        // Restrict several fields for role "dosen" by overwriting it with old value
+        if(!in_groups(["admin", "kk_citi", "kk_seal", "kk_dsis"])) {
+            $restrictedFields = ["jenis", "akreditasi_journal_conf", "nama_journal_conf"];
+            foreach($restrictedFields as $field) {
+                $newPublikasi[$field] = $oldPublikasi[$field];
+            }
+        }
+
         unset($newPublikasi["csrf_test_name"]);
-        $this->publikasiModel->update($id, $newPublikasi);
+        $this->logPublikasi->transBegin();
         $newPublikasi = array_merge(["id" => "$id"], $newPublikasi);
+        $this->publikasiModel->update($id, $newPublikasi);
         $this->logPublikasi->save([ 
             "user_id" => user_id(),
             "publikasi_id" => $id,
             "action" => "U",
-            "value_before" => json_encode($publikasi),
+            "value_before" => json_encode($oldPublikasi),
             "value_after" => json_encode($newPublikasi) ]);
         if($this->logPublikasi->transStatus() === false) {
             $this->logPublikasi->transRollback();
