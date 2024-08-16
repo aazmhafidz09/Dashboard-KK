@@ -49,6 +49,7 @@
     let FILTER_ABDIMAS_PER_TAHUN = { kk: <?= $defaultFilterKK ?>, }
     let FILTER_ABDIMAS_PER_JENIS_TAHUNAN = { kk: <?= $defaultFilterKK ?> }
     let FILTER_ABDIMAS_PER_DOSEN = { kk: <?= $defaultFilterKK ?>, tahun: "Semua"};
+    let FILTER_ABDIMAS_DOSEN = { kodeDosen: "", status: "Semua"};
 
     const dataAbdimas = {
         <?php foreach($data_tahunan as $d) {
@@ -78,6 +79,20 @@
     const dataAbdimasPerKKTahunan = {};
     Object.keys(dosenByKK)
         .forEach(kk => { dataAbdimasPerKKTahunan[kk] = {} });
+
+    const annualPerDosenByStatus = {
+        <?php foreach($annualPerDosenByStatus as $status => $statusPerDosen) {
+            echo "'$status': {";
+            foreach($statusPerDosen as $dosen => $annualData) {
+                echo "'$dosen': {";
+                foreach($annualData as $year => $nAbdimas) {
+                    echo "'$year': $nAbdimas,";
+                }
+                echo "},";
+            }
+            echo "},";
+        } ?>
+    }
 
     let temp = [ 
         <?php foreach($annualAbdimasByTypeAndKK as $row) {
@@ -141,12 +156,6 @@
                 });
             }
         }
-    }
-
-    const onDataPointSelection = function(e, context, opts) {
-        let kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
-        let targetElement = document.getElementById("chartAbdimasDosen") 
-        updateChartStatistik(targetElement, kodeDosen)
     }
 
     function makeChartAbdimasPerJenisTahunan(targetElement, labels, values) {
@@ -336,6 +345,110 @@
         ).render();
     }
 
+    function makeChartAbdimasDosen(targetElement, labels, values) {
+        targetElement.innerHTML = "";
+        new ApexCharts(
+            targetElement,  
+            {
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    toolbar: { show: false, },
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: { position: 'top',}
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    position: 'top', // top, center, bottom,
+                    formatter: val => val + "",
+                    offsetY: -20,
+                    style: { fontSize: '12px', colors: ["#304758"] }
+                },
+                series: [{ name: 'Abdimas', data: values }],
+                grid: { borderColor: '#f1f1f1', },
+                xaxis: {
+                    categories: labels,
+                    position: 'down',
+                    labels: { offsetY: 0, },
+                    axisBorder: { show: false },
+                    axisTicks: { show: true },
+                    crosshairs: {
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                colorFrom: '#D8E3F0',
+                                colorTo: '#BED1E6',
+                                stops: [0, 100],
+                                opacityFrom: 1,
+                                opacityTo: 1,
+                            }
+                        }
+                    },
+                    tooltip: { enabled: true, offsetY: -35, }
+                },
+                fill: {
+                    gradient: {
+                        shade: 'light',
+                        type: "horizontal",
+                        shadeIntensity: 0.25,
+                        gradientToColors: undefined,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [50, 0, 100, 100]
+                    },
+                },
+                yaxis: {
+                    axisBorder: { show: false },
+                    axisTicks: { show: false, },
+                    labels: { show: false, formatter: val => val + "" }
+                },
+            }
+        ).render();
+    }
+
+    const onDataPointSelection = function(e, context, opts) {
+        const kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
+        const targetElement = document.getElementById("chartAbdimasDosen") 
+        FILTER_ABDIMAS_DOSEN = { kodeDosen: kodeDosen, status: "Semua" }
+
+        document.getElementById("chartAbdimas__desc").innerHTML = "";
+        document.getElementById("chartAbdimas__title").innerHTML = `Statistik Abdimas ${kodeDosen}`;
+        document.getElementById("chartAbdimasDosen__status").innerHTML = `Semua`;
+        document.getElementById("abdimasDosenFilter").style.display = "block";
+
+        const dataAbdimasDosen = dataAbdimas[kodeDosen];
+        makeChartAbdimasDosen(
+            targetElement, 
+            Object.keys(dataAbdimasDosen),
+            Object.values(dataAbdimasDosen))
+    }
+
+    console.log(annualPerDosenByStatus);
+    function onAbdimasDosenFilterUpdate() {
+        const {kodeDosen, status} = FILTER_ABDIMAS_DOSEN;
+        const dataAbdimasDosen = dataAbdimas[kodeDosen];
+        const targetElement = document.getElementById("chartAbdimasDosen") 
+        
+        const labels = Object.keys(dataAbdimasDosen);
+        let values = Object.values(dataAbdimasDosen);
+        if(status != "Semua") {
+            values = labels.map(year => {
+                const annualData = annualPerDosenByStatus[status][kodeDosen]
+                if(annualData == undefined) return 0;
+
+                const yearData = annualData[year];
+                return yearData == undefined? 0: yearData;
+            });
+        }
+
+        document.getElementById("chartAbdimasDosen__status").innerHTML = status;
+        makeChartAbdimasDosen(targetElement, labels, values)
+    }
+
     function onAbdimasPerDosenFilterUpdate() {
         const {kk, tahun} = FILTER_ABDIMAS_PER_DOSEN;
         document.getElementById("chartAbdimasPerDosen__KK").innerHTML = `KK ${kk}`;
@@ -408,75 +521,6 @@
         const targetElement = document.getElementById("chartAbdimasPerJenisTahunan");
         targetElement.innerHTML = "";
         makeChartAbdimasPerJenisTahunan(targetElement, chartLabels, chartValues);
-    }
-
-    const updateChartStatistik = function(target, newKodeDosen) {
-        const dataAbdimasDosen = dataAbdimas[newKodeDosen];
-        document.getElementById("chartAbdimas__desc").innerHTML = ""
-        document.getElementById("chartAbdimas__title").innerHTML = `Statistik Abdimas ${newKodeDosen}`
-        target.innerHTML = "";
-
-        new ApexCharts(
-            target,  
-            {
-                chart: {
-                    height: 350,
-                    type: 'bar',
-                    toolbar: { show: false, },
-                },
-                plotOptions: {
-                    bar: {
-                        dataLabels: { position: 'top',}
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                    position: 'top', // top, center, bottom,
-                    formatter: val => val + "",
-                    offsetY: -20,
-                    style: { fontSize: '12px', colors: ["#304758"] }
-                },
-                series: [{ name: 'Abdimas', data: Object.values(dataAbdimasDosen) }],
-                grid: { borderColor: '#f1f1f1', },
-                xaxis: {
-                    categories: Object.keys(dataAbdimasDosen),
-                    position: 'down',
-                    labels: { offsetY: 0, },
-                    axisBorder: { show: false },
-                    axisTicks: { show: true },
-                    crosshairs: {
-                        fill: {
-                            type: 'gradient',
-                            gradient: {
-                                colorFrom: '#D8E3F0',
-                                colorTo: '#BED1E6',
-                                stops: [0, 100],
-                                opacityFrom: 1,
-                                opacityTo: 1,
-                            }
-                        }
-                    },
-                    tooltip: { enabled: true, offsetY: -35, }
-                },
-                fill: {
-                    gradient: {
-                        shade: 'light',
-                        type: "horizontal",
-                        shadeIntensity: 0.25,
-                        gradientToColors: undefined,
-                        inverseColors: true,
-                        opacityFrom: 1,
-                        opacityTo: 1,
-                        stops: [50, 0, 100, 100]
-                    },
-                },
-                yaxis: {
-                    axisBorder: { show: false },
-                    axisTicks: { show: false, },
-                    labels: { show: false, formatter: val => val + "" }
-                },
-            }
-        ).render();
     }
 
     const PiechartPieColors = getChartColorsArray("pie_chart");

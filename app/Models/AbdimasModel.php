@@ -602,16 +602,58 @@ class AbdimasModel extends Model
 
     }
 
-    public function getAllByYear($year = null) {
+    public function getAnnualPerDosenByStatus() {
         $table = $this->table;
+        $sql = " WITH 
+                    abdimasDosen AS (
+                        SELECT DISTINCT
+                            d.kode_dosen,
+                            d.nama_dosen,
+                            a.tahun,
+                            a.status,
+                            a.id
+                        FROM abdimas AS a
+                        JOIN dosen AS d
+                            ON (
+                                d.kode_dosen = a.ketua
+                                OR d.kode_dosen = a.anggota_1
+                                OR d.kode_dosen = a.anggota_2
+                                OR d.kode_dosen = a.anggota_3
+                                OR d.kode_dosen = a.anggota_4
+                                OR d.kode_dosen = a.anggota_5
+                                OR d.kode_dosen = a.anggota_6
+                                OR d.kode_dosen = a.anggota_7
+                                OR d.kode_dosen = a.anggota_8
+                            )
+                    )
+                SELECT
+                    tahun,
+                    UPPER(status) AS status,
+                    kode_dosen,
+                    nama_dosen,
+                    COUNT(*) AS nAbdimas
+                FROM abdimasDosen
+                GROUP BY kode_dosen, tahun, status ";
 
-        if(is_null($year)) {
-            return $this->db->query("SELECT * FROM $table")
-                            ->getResultArray();
+        $query = $this->query($sql) 
+                        ->getResultArray();
+
+        $result = [];
+        foreach($query as $r) {
+            $status = $r["status"];
+            $kode_dosen = $r["kode_dosen"];
+            $year = $r["tahun"];
+            if(!isset($result[$status])) {
+                $result[$status] = [];
+            }
+
+            if(!isset($result[$status][$kode_dosen])) {
+                $result[$status][$kode_dosen] = [];
+            }
+
+            $result[$status][$kode_dosen][$year] = $r["nAbdimas"];
         }
 
-        $sql = "SELECT * FROM $table WHERE tahun = ?";
-        return $this->query($sql, [$year])
-                    ->getResultArray();
+        return $result;
     }
 }
