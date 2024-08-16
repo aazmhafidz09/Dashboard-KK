@@ -59,8 +59,6 @@
         ketuaOnly: false
     }
 
-    const displayedPenelitianTypes = [ "INTERNAL", "EKSTERNAL", "MANDIRI", 
-                                    "KERJASAMA PERGURUAN TINGGI", "HILIRISASI", "DIDANAI"];
     const dataPenelitian = {
         <?php
             foreach($data_tahunan as $d) {
@@ -114,7 +112,14 @@
         dataPenelitianPerKKTahunan[kk][tahun][jenis] = nPenelitian;
     })
 
-    temp = Object.fromEntries(displayedPenelitianTypes.map(pType => [pType, {}]))
+    const displayedPenelitianTypes = [ "INTERNAL", "EKSTERNAL", "MANDIRI", 
+                                    "KERJASAMA PERGURUAN TINGGI", "HILIRISASI"];
+    const penelitianTypes = [
+        <?php foreach($penelitianTypes as $type) {
+            echo "'$type',";
+        } ?>
+    ];
+    temp = Object.fromEntries(penelitianTypes.map(pType => [pType, {}]))
     <?php foreach($annualPenelitianByType as $row): ?>
         <?php if(strtoupper($row["jenis"]) != "KEMITRAAN"): ?>
             temp['<?= strtoupper($row["jenis"]) ?>'][<?= $row["tahun"] ?>] = <?= $row["nPenelitian"] ?>;
@@ -127,7 +132,10 @@
                 name: penelitianType,
                 data: availablePenelitianYears 
                         .map(penelitianYear => {
-                            penelitianPerYear = temp[penelitianType][penelitianYear]
+                            const penelitianPerType = temp[penelitianType];
+                            if(penelitianPerType == undefined) return 0;
+
+                            const penelitianPerYear = penelitianPerType[penelitianYear];
                             return (penelitianPerYear == undefined? 0: penelitianPerYear)
                         })
             }))

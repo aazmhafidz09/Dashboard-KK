@@ -23,9 +23,14 @@
         }
     }
 
+    $penelitianTypes = [];
     foreach($all_penelitian as $a) { // OPtimizable?
         $tahunPenelitian = $a["tahun"];
         $ketuaPeneliti = $a["ketua_peneliti"];
+        $jenisPenelitian = strtoupper($a["jenis"]);
+        if(!in_array($jenisPenelitian, $penelitianTypes)) {
+            array_push($penelitianTypes, $jenisPenelitian);
+        }
 
         if(strlen($ketuaPeneliti) > 0) {
             foreach($dosenByKK as $kk => $dList) {
@@ -613,4 +618,5 @@
     "dosenKetuaByYear"  => $dosenKetuaByTahun,
     "annualPenelitianByType" => $annualPenelitianByType,
     "annualPenelitianByTypeAndKK" => $annualPenelitianByTypeAndKK,
+    "penelitianTypes" => $penelitianTypes
 ]) ?>
