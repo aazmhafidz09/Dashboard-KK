@@ -13,7 +13,7 @@
 <?= $this->include('partials/body') ?>
 
 <?php
-    $jenisHaki = [ "PATEN", "HAK CIPTA", "MEREK", "DESAIN INDUSTRI" ];
+    $jenisHaki = [ "PATEN", "HAK CIPTA", "MEREK", "DESAIN INDUSTRI", "LISENSI INDUSTRI" ];
 ?>
 
 <!-- Begin page -->
