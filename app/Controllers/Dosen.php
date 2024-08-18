@@ -37,6 +37,11 @@ class Dosen extends BaseController
 
     public function detail($kode_dosen)
     {
+        if(is_null($this->dosenModel->getDosen($kode_dosen))) {
+            session()->setFlashData("error", "Dosen dengan kode $kode_dosen tidak ditemukan");
+            return redirect()->back();
+        }
+
         $data = [
             'title' => 'Detail Dosen',
             'dosen' => $this->dosenModel->getDosen($kode_dosen),
@@ -57,10 +62,10 @@ class Dosen extends BaseController
         // echo $data['jumlah_publikasi'];
         return view('dosen/detail', $data);
     }
-    public function test($kode_dosen)
-    {
-        $jumlah_publikasi = $this->publikasiModel->getJumlahPublikasi($kode_dosen);
+    // public function test($kode_dosen)
+    // {
+    //     $jumlah_publikasi = $this->publikasiModel->getJumlahPublikasi($kode_dosen);
 
-        echo ($jumlah_publikasi);
-    }
+    //     echo ($jumlah_publikasi);
+    // }
 }
