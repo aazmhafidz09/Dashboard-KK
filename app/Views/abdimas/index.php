@@ -46,7 +46,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_Inter ?></span></h4>
@@ -60,7 +59,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_Ekster ?></span></h4>
@@ -75,7 +73,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
+                                    <div id="smallChart__internal" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_YearNow_Inter ?></span></h4>
@@ -102,7 +100,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
+                                    <div id="smallChart__eksternal" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_YearNow_Ekster ?></span></h4>

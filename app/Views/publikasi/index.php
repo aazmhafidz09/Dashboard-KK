@@ -57,7 +57,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Inter ?></span></h4>
@@ -71,7 +70,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Nas ?></span></h4>
@@ -85,7 +83,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Pros ?></span></h4>
@@ -100,7 +97,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Pros_Nas ?></span></h4>
@@ -115,7 +111,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
+                                    <!-- <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div> -->
+                                    <div id="smallChart__jurnalInternasional" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Inter ?></span></h4>
@@ -137,7 +134,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
+                                    <div id="smallChart__jurnalNasional" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="orders-chart" data-colors='["--bs-success"]'> </div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Nas ?></span></h4>
@@ -160,7 +158,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
+                                    <div id="smallChart__prosidingInternasional" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="customers-chart" data-colors='["--bs-primary"]'> </div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros ?></span></h4>
@@ -183,7 +182,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
+                                    <div id="smallChart__prosidingNasional" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="growth-chart" data-colors='["--bs-warning"]'></div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros_Nas ?></span></h4>

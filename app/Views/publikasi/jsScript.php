@@ -438,6 +438,34 @@
 
     }
 
+    function makeSmallChart(targetElement, color) { // Minible's chart config
+        new ApexCharts(
+            targetElement, 
+            {
+                series:[{
+                    name: "",
+                    data: Array.from({length: 11}, (_, idx) => 12 + (Math.floor(Math.random()*71) % 50)),
+                }],
+                fill: {colors: color},
+                chart: {
+                    type:"bar",
+                    width:70,
+                    height:40,
+                    sparkline:{enabled:!0}
+                },
+                plotOptions: {
+                    bar:{columnWidth:"50%"}
+                },
+                labels:[1,2,3,4,5,6,7,8,9,10,11],
+                xaxis:{crosshairs:{width:1}},
+                tooltip:{fixed:{enabled:!1},
+                x:{show:!1},
+                y:{title:{formatter:function(r){return""}}},
+                marker:{show:!1}}
+            }
+        ).render()
+    }
+
     function onPublikasiPerTahunFilterUpdate() {
         const {kk} = FILTER_PUBLIKASI_PER_TAHUN;
         document.getElementById("chartPublikasiPerTahun__KK").innerHTML = `Semua`;
@@ -655,4 +683,9 @@
                                     .reduce((acc, val) => acc + val, 0)
                                 ))
     )
+
+    makeSmallChart( document.getElementById("smallChart__jurnalInternasional"), "#5b73e8")
+    makeSmallChart( document.getElementById("smallChart__jurnalNasional"), "#20C997")
+    makeSmallChart( document.getElementById("smallChart__prosidingInternasional"), "#f1b44c")
+    makeSmallChart( document.getElementById("smallChart__prosidingNasional"), "#f46a6a")
 </script>

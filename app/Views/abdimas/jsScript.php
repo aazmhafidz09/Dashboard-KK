@@ -410,6 +410,34 @@
         ).render();
     }
 
+    function makeSmallChart(targetElement, color) { // Minible's chart config
+        new ApexCharts(
+            targetElement, 
+            {
+                series:[{
+                    name: "",
+                    data: Array.from({length: 11}, (_, idx) => 12 + (Math.floor(Math.random()*71) % 50)),
+                }],
+                fill: {colors: color},
+                chart: {
+                    type:"bar",
+                    width:70,
+                    height:40,
+                    sparkline:{enabled:!0}
+                },
+                plotOptions: {
+                    bar:{columnWidth:"50%"}
+                },
+                labels:[1,2,3,4,5,6,7,8,9,10,11],
+                xaxis:{crosshairs:{width:1}},
+                tooltip:{fixed:{enabled:!1},
+                x:{show:!1},
+                y:{title:{formatter:function(r){return""}}},
+                marker:{show:!1}}
+            }
+        ).render()
+    }
+
     const onDataPointSelection = function(e, context, opts) {
         const kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
         const targetElement = document.getElementById("chartAbdimasDosen") 
@@ -427,7 +455,6 @@
             Object.values(dataAbdimasDosen))
     }
 
-    console.log(annualPerDosenByStatus);
     function onAbdimasDosenFilterUpdate() {
         const {kodeDosen, status} = FILTER_ABDIMAS_DOSEN;
         const dataAbdimasDosen = dataAbdimas[kodeDosen];
@@ -569,4 +596,7 @@
                                     .reduce((acc, val) => acc + val, 0)
                                 ))
     );
+
+    makeSmallChart( document.getElementById("smallChart__internal"), "#5b73e8")
+    makeSmallChart( document.getElementById("smallChart__eksternal"), "#20C997")
 </script>

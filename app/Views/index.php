@@ -38,7 +38,7 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
+                                    <div id="smallChart__publikasi" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $count_publikasi ?></span></h4>
@@ -61,7 +61,7 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
+                                    <div id="smallChart__penelitian" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $count_penelitian ?></span></h4>
@@ -82,7 +82,7 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
+                                    <div id="smallChart__abdimas" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $count_abdimas ?></span></h4>
@@ -103,7 +103,7 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
+                                    <div id="smallChart__haki" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"> <span data-plugin="counterup"><?php echo $count_haki ?></span></h4>
@@ -483,6 +483,34 @@
         node.append(...(oldNodeChildren.reverse()));
     }
 
+    function makeSmallChart(targetElement, color) { // Minible's chart config
+        new ApexCharts(
+            targetElement, 
+            {
+                series:[{
+                    name: "",
+                    data: Array.from({length: 11}, (_, idx) => 12 + (Math.floor(Math.random()*71) % 50)),
+                }],
+                fill: {colors: color},
+                chart: {
+                    type:"bar",
+                    width:70,
+                    height:40,
+                    sparkline:{enabled:!0}
+                },
+                plotOptions: {
+                    bar:{columnWidth:"50%"}
+                },
+                labels:[1,2,3,4,5,6,7,8,9,10,11],
+                xaxis:{crosshairs:{width:1}},
+                tooltip:{fixed:{enabled:!1},
+                x:{show:!1},
+                y:{title:{formatter:function(r){return""}}},
+                marker:{show:!1}}
+            }
+        ).render()
+    }
+
     function getChartColorsArray(chartId) {
         if (document.getElementById(chartId) !== null) {
             var colors = document.getElementById(chartId).getAttribute("data-colors");
@@ -844,4 +872,9 @@
             options
         ).render();
     }
+
+    makeSmallChart( document.getElementById("smallChart__publikasi"), "#5b73e8")
+    makeSmallChart( document.getElementById("smallChart__penelitian"), "#20C997")
+    makeSmallChart( document.getElementById("smallChart__abdimas"), "#f1b44c")
+    makeSmallChart( document.getElementById("smallChart__haki"), "#f46a6a")
 </script>

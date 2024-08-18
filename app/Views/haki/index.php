@@ -48,7 +48,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Cipta ?></span></h4>
@@ -62,7 +61,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Paten ?></span></h4>
@@ -77,7 +75,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Merek ?></span></h4>
@@ -89,17 +86,14 @@
                     </div> 
 
                     <div class="col-md-6 col-xl-3">
-
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Desain_Industri ?></span></h4>
                                     <p class="text-muted mb-0">Desain Industri</p>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
@@ -109,7 +103,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
+                                    <!-- <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div> -->
+                                    <div id="smallChart__hakCipta" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $HakiYearNow_Cipta ?></span></h4>
@@ -131,7 +126,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
+                                    <div id="smallChart__paten" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="orders-chart" data-colors='["--bs-success"]'> </div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $HakiYearNow_Paten ?></span></h4>
@@ -152,7 +148,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
+                                    <div id="smallChart__merek" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="customers-chart" data-colors='["--bs-primary"]'> </div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $hakiYearNow_Merek ?></span></h4>
@@ -173,7 +170,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
+                                    <div id="smallChart__desainIndustri" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="growth-chart" data-colors='["--bs-warning"]'></div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $hakiYearNow_desain_industri ?></span></h4>
