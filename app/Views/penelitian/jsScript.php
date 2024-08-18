@@ -590,18 +590,19 @@
     }
 
     // pie chart
+    const pieChartValues = {
+        <?php foreach($count_publikasi as $cpub) {
+            echo "'" . strtoupper($cpub["jenis_pen"]) . "': " . $cpub['jumlah_pen'] . ",";
+        } ?>
+    }
     const PiechartPieColors = getChartColorsArray("pie_chart");
     if (PiechartPieColors) {
         new ApexCharts( 
             document.getElementById("pie_chart"), 
             {
                 chart: { height: 380, type: 'pie', },
-                series: [<?php foreach ($count_publikasi as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        } ?>],
-                labels: [<?php foreach ($count_publikasi as $cpub) {
-                            echo '"' . $cpub['jenis_pen'] . '",';
-                        } ?>],
+                series: displayedPenelitianTypes.map(pTypes => pieChartValues[pTypes]),
+                labels: displayedPenelitianTypes,
                 colors: PiechartPieColors,
                 legend: {
                     show: true,

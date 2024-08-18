@@ -402,7 +402,7 @@
                         <div class="card h-100">
                             <div class="card-body d-flex flex-column">
                                 <h4 class="card-title mb-4">Grafik Penelitian</h4>
-                                <div style="flex: 1;" id="pie_chart" data-colors='["--bs-success", "--bs-primary", "--bs-info", "--bs-warning" , "--bs-danger", "--bs-secondary"]' class="apex-charts" dir="ltr"></div>
+                                <div style="flex: 1;" id="pie_chart" data-colors='["--bs-info", "--bs-success", "--bs-warning", "--bs-danger" , "--bs-purple"]' class="apex-charts" dir="ltr"></div>
                             </div>
                         </div>
                     </div> <!-- end Col -->

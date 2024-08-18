@@ -118,7 +118,8 @@
             data: [<?php foreach ($order_jenis as $cpub) {
                         echo '' . $cpub['jumlah_Internal'] . ',';
                     } ?>]
-        }, {
+        }, 
+        {
             name: 'Eksternal',
             data: [<?php foreach ($order_jenis as $cpub) {
                         echo '' . $cpub['jumlah_Eksternal'] . ',';

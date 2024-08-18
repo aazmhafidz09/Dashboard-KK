@@ -59,9 +59,8 @@
         tahun: "Semua",
     };
 
-    const displayedPublikasiTypes = [ "JURNAL INTERNASIONAL", "JURNAL NASIONAL",
-                                    "PROSIDING INTERNASIONAL", "PROSIDING NASIONAL" ]
-
+    const displayedPublikasiTypes = [ "JURNAL INTERNASIONAL", "JURNAL NASIONAL" ,
+                                    "PROSIDING INTERNASIONAL", "PROSIDING NASIONAL", ]
     const dataPublikasi = {
         <?php
             foreach($data_tahunan as $data) {
@@ -123,22 +122,26 @@
         dataPublikasiPerKKTahunan[kk][tahun][jenis] = nPublikasi;
     })
 
-    const dataPublikasiAnyKKTahunan = [{
+    const dataPublikasiAnyKKTahunan = [
+        {
             name: 'Jurnal Internasional',
             data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                         echo '' . $cpub['jumlah_jurnal_internasional'] . ',';
                     } ?>]
-        }, {
+        }, 
+        {
             name: 'Jurnal Nasional',
             data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                         echo '' . $cpub['jumlah_jurnal_nasional'] . ',';
                     } ?>]
-        }, {
+        }, 
+        {
             name: 'Prosiding Internasional',
             data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                         echo '' . $cpub['jumlah_prosiding_internasional'] . ',';
                     } ?>]
-        }, {
+        }, 
+        {
             name: 'Prosiding Nasional',
             data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                         echo '' . $cpub['jumlah_prosiding_nasional'] . ',';
@@ -596,18 +599,19 @@
     }
 
     // pie chart
+    const pieChartValue = {
+        <?php foreach($count_publikasi_all as $cpub) {
+            echo "'" . strtoupper($cpub["jenis_pen"]) . "': " . $cpub["jumlah_pen"] . ",";
+        } ?>
+    }
     const PiechartPieColors = getChartColorsArray("pie_chart");
     if (PiechartPieColors) {
         new ApexCharts( 
             document.getElementById("pie_chart"), 
             {
                 chart: { height: 380, type: 'pie', },
-                series: [<?php foreach ($count_publikasi_all as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        } ?>],
-                labels: [<?php foreach ($count_publikasi_all as $cpub) {
-                            echo '"' . $cpub['jenis_pen'] . '",';
-                        } ?>],
+                series: displayedPublikasiTypes.map(pType => pieChartValue[pType]),
+                labels: displayedPublikasiTypes,
                 colors: PiechartPieColors,
                 legend: {
                     show: true,
