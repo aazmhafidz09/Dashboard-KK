@@ -89,8 +89,8 @@
                                     <div class="mb-3 row">
                                         <label for="jenis" class="col-md-2 col-form-label">Jenis Abdimas</label>
                                         <div class="col-md-10">
-                                            <option value=""> (Pilih jenis abdimas)</option>
                                             <select id="jenis" class="form-select" name="jenis">
+                                                <option value=""> (Pilih jenis abdimas)</option>
                                                 <?php foreach($jenisAbdimas as $jenis): ?>
                                                     <option> <?= $jenis?> </option>
                                                 <?php endforeach ?>
@@ -100,8 +100,8 @@
                                     <div class="mb-2 row">
                                         <label for="status" class="col-md-2 col-form-label">Status</label>
                                         <div class="col-md-10">
-                                            <option value=""> (Pilih status abdimas)</option>
                                             <select id="abdimas_status" class="form-select" name="status">
+                                                <option value=""> (Pilih status abdimas)</option>
                                                 <?php foreach($statusAbdimas as $status): ?>
                                                     <option> <?= $status?> </option>
                                                 <?php endforeach ?>
@@ -244,6 +244,18 @@
                                                 placeholder= "Luaran" 
                                                 id="luaran" 
                                                 name="luaran"
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="targetLuaran" class="col-md-2 col-form-label">Target luaran</label>
+                                        <div class="col-md-10">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder= "Target Luaran" 
+                                                id="targetLuaran" 
+                                                name="target_luaran"
                                             >
                                         </div>
                                     </div>
