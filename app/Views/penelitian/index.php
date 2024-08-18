@@ -473,7 +473,7 @@
                                             <button 
                                                 class="dropdown-item" 
                                                 onclick="FILTER_PENELITIAN_PER_DOSEN = {...FILTER_PENELITIAN_PER_DOSEN,  tahun: 'Recent'}; onPenelitianPerDosenFilterUpdate(); "
-                                            > 4 Tahun Terakhir </button>
+                                            > (4 Tahun Terakhir) </button>
                                             <?php foreach($tahunPenelitianTersedia as $tahun): ?>
                                                 <button 
                                                     class="dropdown-item" 

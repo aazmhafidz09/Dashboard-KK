@@ -150,7 +150,6 @@
 
             const targetElement = document.getElementById("chartHakiDosen");
             const dataHakiDosen = dataHaki[kodeDosen];
-            targetElement.innerHTML = "";
             makeChartHakiDosen(
                 targetElement, 
                 Object.keys(dataHakiDosen), 
@@ -159,6 +158,7 @@
     }
 
     function makeChartHakiPerTahun(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts( 
             targetElement,
             {
@@ -223,6 +223,7 @@
     }
 
     function makeChartHakiPerJenisTahunan(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts( 
             targetElement,
             {
@@ -288,6 +289,7 @@
     }
 
     function makeChartHakiDosen(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts( 
             targetElement,
             {
@@ -350,6 +352,7 @@
     }
 
     function makeChartHakiPerDosen(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts( 
             targetElement,
             {
@@ -413,6 +416,7 @@
     }
 
     function makeSmallChart(targetElement, color) { // Minible's chart config
+        targetElement.innerHTML = "";
         new ApexCharts(
             targetElement, 
             {
@@ -442,13 +446,23 @@
 
     function onHakiPerDosenFilterUpdate() {
         const {kk, tahun} = FILTER_HAKI_PER_DOSEN;
+        const yearNow = (new Date()).getFullYear(); // Inclusive with system's year
+        const filterTahunText = document.getElementById("chartHakiPerDosen__tahun")
+
         document.getElementById("chartHakiPerDosen__KK").innerHTML = `KK ${kk}`;
-        document.getElementById("chartHakiPerDosen__tahun").innerHTML = tahun;
-        const chartLabels = dosenByKK[kk]
-        const chartValues = dosenByKK[kk].map(dosen => (
+        filterTahunText.innerHTML = ((tahun == "Recent")
+                                        ? `(${yearNow - 3} - ${yearNow})`
+                                        : tahun);
+
+        const dosenList = dosenByKK[kk]
+        const chartValues = dosenList.map(dosen => (
             Object.entries(dataHaki[dosen])
                 .map((val, idx) => {
                     const [tahunHaki, nHaki] = val;
+                    const isRecent = (yearNow - tahunHaki < 4
+                                        && yearNow - tahunHaki > -1)
+
+                    if(tahun == "Recent" & isRecent) return nHaki;
                     return tahun == "Semua" || tahunHaki == tahun? nHaki: 0;
                 })
                 .reduce((acc, val) => acc + val, 0)
@@ -456,8 +470,7 @@
         )
 
         const targetElement = document.getElementById("chartHakiPerDosen");
-        targetElement.innerHTML = "";
-        makeChartHakiPerDosen(targetElement, chartLabels, chartValues);
+        makeChartHakiPerDosen(targetElement, dosenList, chartValues);
     }
 
     function onHakiPerJenisTahunanFilterUpdate() {
@@ -490,7 +503,6 @@
         }
 
         const targetElement = document.getElementById("chartHakiPerJenisTahunan");
-        targetElement.innerHTML = "";
         makeChartHakiPerJenisTahunan(targetElement, chartLabels, chartValues);
     }
 
@@ -511,7 +523,6 @@
         }
 
         const targetElement = document.getElementById("chartHakiPerTahun");
-        targetElement.innerHTML = "";
         makeChartHakiPerTahun(targetElement, chartLabels, chartValues);
     }
 

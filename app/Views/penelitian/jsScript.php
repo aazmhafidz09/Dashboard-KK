@@ -468,14 +468,16 @@
     
     function onPenelitianPerDosenFilterUpdate() {
         const {kk, tahun, recentKetuaOnly} = FILTER_PENELITIAN_PER_DOSEN;
-        document.getElementById("chartPenelitianPerDosen__KK").innerHTML = `KK ${kk}`;
-        document.getElementById("chartPenelitianPerDosen__tahun").innerHTML = tahun;
-        const targetElement = document.getElementById("chartPenelitianPerDosen");
-
         const yearNow = (new Date()).getFullYear(); // Inclusive with system's year
+        const filterTahunText = document.getElementById("chartPenelitianPerDosen__tahun")
+
+        document.getElementById("chartPenelitianPerDosen__KK").innerHTML = `KK ${kk}`;
+        filterTahunText.innerHTML = ((tahun == "Recent")
+                                        ? `(${yearNow - 3} - ${yearNow})`
+                                        : tahun);
+
         const dosenList = dosenByKK[kk];
         let chartValues;
-
         if(recentKetuaOnly) {
             chartValues = dosenList.map(dosen => {
                 const dataDosen = dataKetuaPenelitianPerTahun[dosen]
@@ -505,6 +507,7 @@
             })
         }
 
+        const targetElement = document.getElementById("chartPenelitianPerDosen");
         makeChartPenelitianPerDosen(targetElement, dosenList, chartValues);
     }
 

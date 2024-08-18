@@ -160,6 +160,7 @@
     }
 
     function makeChartAbdimasPerJenisTahunan(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts(
             targetElement,
             {
@@ -222,6 +223,7 @@
     }
 
     function makeChartAbdimasPerTahun(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts(
             targetElement, 
             {
@@ -284,6 +286,7 @@
     }
 
     function makeChartAbdimasPerDosen(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts( 
             targetElement,
             {
@@ -412,6 +415,7 @@
     }
 
     function makeSmallChart(targetElement, color) { // Minible's chart config
+        targetElement.innerHTML = "";
         new ApexCharts(
             targetElement, 
             {
@@ -479,14 +483,23 @@
 
     function onAbdimasPerDosenFilterUpdate() {
         const {kk, tahun} = FILTER_ABDIMAS_PER_DOSEN;
-        document.getElementById("chartAbdimasPerDosen__KK").innerHTML = `KK ${kk}`;
-        document.getElementById("chartAbdimasPerDosen__tahun").innerHTML = tahun;
+        const yearNow = (new Date()).getFullYear(); // Inclusive with system's year
+        const filterTahunText = document.getElementById("chartAbdimasPerDosen__tahun")
 
-        const chartLabels = dosenByKK[kk];
-        const chartValues = dosenByKK[kk].map(dosen => (
+        document.getElementById("chartAbdimasPerDosen__KK").innerHTML = `KK ${kk}`;
+        filterTahunText.innerHTML = ((tahun == "Recent")
+                                        ? `(${yearNow - 3} - ${yearNow})`
+                                        : tahun);
+
+        const dosenList = dosenByKK[kk];
+        const chartValues = dosenList.map(dosen => (
             Object.entries(dataAbdimas[dosen])
                 .map((val, idx) => {
                     const [tahunAbdimas, nAbdimas] = val;
+                    const isRecent = (yearNow - tahunAbdimas < 4
+                                        && yearNow - tahunAbdimas > -1)
+
+                    if(tahun == "Recent" & isRecent) return nAbdimas;
                     return tahun == "Semua" || tahunAbdimas == tahun ? nAbdimas: 0;
                 })
                 .reduce((acc, val) => acc + val, 0)
@@ -494,8 +507,7 @@
         )
 
         const targetElement = document.getElementById("chartAbdimasPerDosen");
-        targetElement.innerHTML = "";
-        makeChartAbdimasPerDosen(targetElement, chartLabels, chartValues);
+        makeChartAbdimasPerDosen(targetElement, dosenList, chartValues);
     }
 
     function onAbdimasPerTahunFilterUpdate() {
@@ -515,7 +527,6 @@
         }
 
         const targetElement = document.getElementById("chartAbdimasTahunan");
-        targetElement.innerHTML = "";
         makeChartAbdimasPerTahun(targetElement, chartLabels, chartValues);
     }
 
@@ -547,7 +558,6 @@
         }
 
         const targetElement = document.getElementById("chartAbdimasPerJenisTahunan");
-        targetElement.innerHTML = "";
         makeChartAbdimasPerJenisTahunan(targetElement, chartLabels, chartValues);
     }
 

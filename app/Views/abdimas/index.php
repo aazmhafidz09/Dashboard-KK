@@ -263,7 +263,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end d-flex">
-                                    <div class="dropdown">
+                                    <div class="dropdown me-2">
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">Tahun:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
@@ -276,6 +276,10 @@
                                                 class="dropdown-item" 
                                                 onclick="FILTER_ABDIMAS_PER_DOSEN = {...FILTER_ABDIMAS_PER_DOSEN,  tahun: 'Semua'}; onAbdimasPerDosenFilterUpdate(); "
                                             > Semua </button>
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_ABDIMAS_PER_DOSEN = {...FILTER_ABDIMAS_PER_DOSEN,  tahun: 'Recent'}; onAbdimasPerDosenFilterUpdate(); "
+                                            > (4 Tahun Terakhir) </button>
                                             <?php foreach($tahunAbdimasTersedia as $tahun): ?>
                                                 <button 
                                                     class="dropdown-item" 

@@ -528,13 +528,16 @@
 
     function onPublikasiPerDosenFilterUpdate() {
         const {kk, tahun, recentPenulisPertamaOnly} = FILTER_PUBLIKASI_PER_DOSEN;
-        document.getElementById("chartPublikasiPerDosen__KK").innerHTML = `KK ${kk}`;
-        document.getElementById("chartPublikasiPerDosen__tahun").innerHTML = tahun;
-
         const yearNow = (new Date()).getFullYear();
+        const filterTahunText = document.getElementById("chartPublikasiPerDosen__tahun")
+
+        document.getElementById("chartPublikasiPerDosen__KK").innerHTML = `KK ${kk}`;
+        filterTahunText.innerHTML = ((tahun == "Recent")
+                                        ? `(${yearNow - 3} - ${yearNow})`
+                                        : tahun);
+
         const dosenList = dosenByKK[kk];
         let chartValues;
-
         if(recentPenulisPertamaOnly) {
             chartValues = dosenList.map(dosen => {
                 const dataDosen = dataPenulisPertamaPerTahun[dosen]

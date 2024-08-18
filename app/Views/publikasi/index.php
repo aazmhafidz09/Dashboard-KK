@@ -426,7 +426,7 @@
                                             <button 
                                                 class="dropdown-item" 
                                                 onclick="FILTER_PUBLIKASI_PER_DOSEN = {...FILTER_PUBLIKASI_PER_DOSEN,  tahun: 'Recent'}; onPublikasiPerDosenFilterUpdate(); "
-                                            > 4 tahun terakhir </button>
+                                            > (4 Tahun Terakhir) </button>
                                             <?php foreach($tahunPublikasiTersedia as $tahun): ?>
                                                 <button 
                                                     class="dropdown-item" 
