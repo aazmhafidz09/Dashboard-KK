@@ -453,7 +453,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end d-flex">
-                                    <div class="dropdown">
+                                    <div class="me-2">
+                                        <label for="penelitianDosen__recentKetuaOnly"> Hanya ketua 4 tahun terakhir&nbsp;</label>
+                                        <input id="penelitianPerDosen__recentKetuaOnly" type="checkbox" onchange="toggleRecentKetuaOnlyFilter()">
+                                    </div>
+                                    <div class="dropdown me-2" id="penelitianPerDosen__yearDropdown">
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">Tahun:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
@@ -466,6 +470,10 @@
                                                 class="dropdown-item" 
                                                 onclick="FILTER_PENELITIAN_PER_DOSEN = {...FILTER_PENELITIAN_PER_DOSEN,  tahun: 'Semua'}; onPenelitianPerDosenFilterUpdate(); "
                                             > Semua </button>
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_PENELITIAN_PER_DOSEN = {...FILTER_PENELITIAN_PER_DOSEN,  tahun: 'Recent'}; onPenelitianPerDosenFilterUpdate(); "
+                                            > 4 Tahun Terakhir </button>
                                             <?php foreach($tahunPenelitianTersedia as $tahun): ?>
                                                 <button 
                                                     class="dropdown-item" 

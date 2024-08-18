@@ -406,7 +406,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end d-flex">
-                                    <div class="dropdown">
+                                    <div class="me-2">
+                                        <label for="penelitianDosen__recentKetuaOnly"> Hanya penulis pertama jurnal 4 tahun terakhir&nbsp;</label>
+                                        <input id="penelitianPerDosen__recentKetuaOnly" type="checkbox" onchange="toggleRecentPenulisPertamaOnlyFilter()">
+                                    </div>
+                                    <div class="dropdown me-2" id="publikasiPerDosen__yearDropdown">
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">Tahun:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
@@ -419,6 +423,10 @@
                                                 class="dropdown-item" 
                                                 onclick="FILTER_PUBLIKASI_PER_DOSEN = {...FILTER_PUBLIKASI_PER_DOSEN,  tahun: 'Semua'}; onPublikasiPerDosenFilterUpdate(); "
                                             > Semua </button>
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_PUBLIKASI_PER_DOSEN = {...FILTER_PUBLIKASI_PER_DOSEN,  tahun: 'Recent'}; onPublikasiPerDosenFilterUpdate(); "
+                                            > 4 tahun terakhir </button>
                                             <?php foreach($tahunPublikasiTersedia as $tahun): ?>
                                                 <button 
                                                     class="dropdown-item" 

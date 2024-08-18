@@ -48,11 +48,12 @@
         });
     })
 
-    let FILTER_PENELITIAN_PER_TAHUN = { kk: <?= $defaultFilterKK ?>}
+    let FILTER_PENELITIAN_PER_TAHUN = { kk: <?= $defaultFilterKK ?>, }
     let FILTER_PENELITIAN_PER_JENIS_TAHUNAN = { kk: <?= $defaultFilterKK ?>}
     let FILTER_PENELITIAN_PER_DOSEN = {
         kk: <?= $defaultFilterKK ?>,
         tahun: "Semua",
+        recentKetuaOnly: false,
     };
     let FILTER_PENELITIAN_DOSEN = {
         kodeDosen: "",
@@ -158,6 +159,7 @@
     };
 
     function makeChartPenelitianPerTahun(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts( 
             targetElement,
             {
@@ -220,6 +222,7 @@
     }
 
     function makeChartPenelitianPerJenisTahunan(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts( 
             targetElement, 
             {
@@ -282,6 +285,7 @@
     }
 
     function makeChartPenelitianPerDosen(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts(
             targetElement,  
             {
@@ -351,6 +355,7 @@
     }
 
     function makeChartPenelitianDosen(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts(
             targetElement,  
             {
@@ -457,29 +462,50 @@
             FILTER_PENELITIAN_DOSEN.ketuaOnly = false;
             const targetElement = document.getElementById("chartPenelitianDosen");
             const dataPublikasiDosen = dataPenelitian[kodeDosen];
-            targetElement.innerHTML = "";
             makeChartPenelitianDosen(targetElement, Object.keys(dataPublikasiDosen), Object.values(dataPublikasiDosen))
         }
     }
     
     function onPenelitianPerDosenFilterUpdate() {
-        const {kk, tahun} = FILTER_PENELITIAN_PER_DOSEN;
+        const {kk, tahun, recentKetuaOnly} = FILTER_PENELITIAN_PER_DOSEN;
         document.getElementById("chartPenelitianPerDosen__KK").innerHTML = `KK ${kk}`;
         document.getElementById("chartPenelitianPerDosen__tahun").innerHTML = tahun;
         const targetElement = document.getElementById("chartPenelitianPerDosen");
-        targetElement.innerHTML = "";
 
-        const chartLabels = dosenByKK[kk];
-        const chartValues = dosenByKK[kk].map(dosen => {
-            return Object.entries(dataPenelitian[dosen])
-                .map((val, idx) => {
-                    const [tahunPenelitian, nPenelitian] = val;
-                    return tahun == "Semua" || tahunPenelitian == tahun ? nPenelitian: 0;
-                })
-                .reduce((acc, val) => acc + val, 0)
-        })
+        const yearNow = (new Date()).getFullYear(); // Inclusive with system's year
+        const dosenList = dosenByKK[kk];
+        let chartValues;
 
-        makeChartPenelitianPerDosen( targetElement, chartLabels, chartValues);
+        if(recentKetuaOnly) {
+            chartValues = dosenList.map(dosen => {
+                const dataDosen = dataKetuaPenelitianPerTahun[dosen]
+                if(dataDosen == undefined) return 0;
+
+                return Object.entries(dataDosen)
+                    .map((val, idx) => {
+                        const [tahunPenelitian, nPenelitian] = val;
+                        const isRecent = (yearNow - tahunPenelitian < 4
+                                            && yearNow - tahunPenelitian > -1)
+                        return isRecent? nPenelitian: 0;
+                    })
+                    .reduce((acc, val) => acc + val, 0)
+            })
+        } else {
+            chartValues = dosenList.map(dosen => {
+                return Object.entries(dataPenelitian[dosen])
+                    .map((val, idx) => {
+                        const [tahunPenelitian, nPenelitian] = val;
+                        const isRecent = (yearNow - tahunPenelitian < 4
+                                            && yearNow - tahunPenelitian > -1)
+
+                        if(tahun == "Recent" & isRecent) return nPenelitian;
+                        return tahun == "Semua" || tahunPenelitian == tahun ? nPenelitian: 0;
+                    })
+                    .reduce((acc, val) => acc + val, 0)
+            })
+        }
+
+        makeChartPenelitianPerDosen(targetElement, dosenList, chartValues);
     }
 
     function onPenelitianPerTahunFilterUpdate() {
@@ -492,14 +518,13 @@
             document.getElementById("chartPenelitianPerTahun__KK").innerHTML = `KK ${kk}`;
             chartLabels = Object.keys(dataPenelitianPerKKTahunan[kk])
             chartValues = Object.values(dataPenelitianPerKKTahunan[kk])
-                                .map(abdimasType => (
-                                    Object.values(abdimasType)
+                                .map(penType => (
+                                    Object.values(penType)
                                           .reduce((acc, val) => acc + val, 0)
                                 ))
         }
 
         const targetElement = document.getElementById("chartPenelitianPerTahun");
-        targetElement.innerHTML = "";
         makeChartPenelitianPerTahun(targetElement, chartLabels, chartValues);
 
     }
@@ -531,7 +556,6 @@
         }
 
         const targetElement = document.getElementById("chartPenelitianPerJenisTahunan");
-        targetElement.innerHTML = "";
         makeChartPenelitianPerJenisTahunan(targetElement, chartLabels, chartValues);
     }
 
@@ -539,7 +563,6 @@
         FILTER_PENELITIAN_DOSEN.ketuaOnly = !FILTER_PENELITIAN_DOSEN.ketuaOnly;
         const {kodeDosen, ketuaOnly} = FILTER_PENELITIAN_DOSEN;
         const targetElement = document.getElementById("chartPenelitianDosen");
-        targetElement.innerHTML = "";
 
         const dataPenelitianDosen = dataPenelitian[kodeDosen];
         const chartLabels = Object.keys(dataPenelitianDosen);
@@ -555,6 +578,15 @@
                 })
         );
         makeChartPenelitianDosen(targetElement, chartLabels, chartValues);
+    }
+
+    function toggleRecentKetuaOnlyFilter() {
+        const recentKetuaOnly = !FILTER_PENELITIAN_PER_DOSEN.recentKetuaOnly;
+        FILTER_PENELITIAN_PER_DOSEN.recentKetuaOnly = recentKetuaOnly;
+
+        const yearDropdown = document.getElementById("penelitianPerDosen__yearDropdown")
+        yearDropdown.style.display = (recentKetuaOnly? "none": "block");
+        onPenelitianPerDosenFilterUpdate();
     }
 
     // Bar chart
