@@ -443,21 +443,83 @@
         ).render()
     }
 
+    function makePieChart(targetId, labels, values) {
+        const PiechartPieColors = getChartColorsArray(targetId);
+        if (PiechartPieColors) {
+            const targetElement = document.getElementById(targetId);
+            targetElement.innerHTML = "";
+            new ApexCharts(targetElement, {
+                chart: { height: 380, type: 'pie', },
+                series: values,
+                labels: labels,
+                colors: PiechartPieColors,
+                legend: {
+                    show: true,
+                    position: 'bottom',
+                    horizontalAlign: 'center',
+                    verticalAlign: 'middle',
+                    floating: false,
+                    fontSize: '14px',
+                    offsetX: 0
+                },
+                responsive: [{
+                    breakpoint: 600,
+                    options: {
+                        chart: { height: 240 },
+                        legend: { show: false },
+                    }
+                }]
+            }).render();
+        }
+    }
+
+    function makePieAbdimasDosen(kodeDosen, labels) {
+        let dataDidanai = 0;
+        let dataTidakDidanai = 0;
+        let dataClosed = 0;
+        let dataSubmitProposal = 0;
+        labels.forEach(year => {
+            Object
+                .keys(annualPerDosenByStatus)
+                .forEach(status => {
+                    const annualData = annualPerDosenByStatus[status][kodeDosen];
+                    if(annualData == undefined) return;
+
+                    const yearData = annualData[year];
+                    if(yearData == undefined) return;
+
+                    switch(status) {
+                        case "DIDANAI": dataDidanai +=  yearData; break;
+                        case "TIDAK DIDANAI": dataTidakDidanai += yearData; break;
+                        case "CLOSED": dataClosed += yearData; break;
+                        case "SUBMIT PROPOSAL": dataSubmitProposal += yearData; break;
+                    }
+                })
+        });
+
+        makePieChart("pieAbdimasDosen", 
+            ["Didanai", "Tidak Didanai", "Closed", "Submit Proposal"],
+            [dataDidanai, dataTidakDidanai, dataClosed, dataSubmitProposal]);
+    }
+
     const onDataPointSelection = function(e, context, opts) {
         const kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
         const targetElement = document.getElementById("chartAbdimasDosen") 
         FILTER_ABDIMAS_DOSEN = { kodeDosen: kodeDosen, status: "Semua" }
 
         document.getElementById("chartAbdimas__desc").innerHTML = "";
+        document.getElementById("pieAbdimas__desc").innerHTML = "";
         document.getElementById("chartAbdimas__title").innerHTML = `Statistik Abdimas ${kodeDosen}`;
         document.getElementById("chartAbdimasDosen__status").innerHTML = `Semua`;
         document.getElementById("abdimasDosenFilter").style.display = "block";
 
         const dataAbdimasDosen = dataAbdimas[kodeDosen];
+        const labels = Object.keys(dataAbdimasDosen);
         makeChartAbdimasDosen(
             targetElement, 
-            Object.keys(dataAbdimasDosen),
+            labels,
             Object.values(dataAbdimasDosen))
+        makePieAbdimasDosen(kodeDosen, labels);
     }
 
     function onAbdimasDosenFilterUpdate() {
@@ -561,31 +623,6 @@
         makeChartAbdimasPerJenisTahunan(targetElement, chartLabels, chartValues);
     }
 
-    const PiechartPieColors = getChartColorsArray("pie_chart");
-    if (PiechartPieColors) {
-        new ApexCharts( document.getElementById("pie_chart"), {
-            chart: { height: 380, type: 'pie', },
-            series: [<?php echo $Abdimas_Inter ?>, <?php echo $Abdimas_Ekster ?>],
-            labels: ["Internal", "Eksternal"],
-            colors: PiechartPieColors,
-            legend: {
-                show: true,
-                position: 'bottom',
-                horizontalAlign: 'center',
-                verticalAlign: 'middle',
-                floating: false,
-                fontSize: '14px',
-                offsetX: 0
-            },
-            responsive: [{
-                breakpoint: 600,
-                options: {
-                    chart: { height: 240 },
-                    legend: { show: false },
-                }
-            }]
-        }).render();
-    }
 
     makeChartAbdimasPerTahun(
         document.getElementById("chartAbdimasTahunan"),
@@ -599,6 +636,7 @@
         } ?>],
         dataAbdimasAnyKKTahunan
     );
+
     makeChartAbdimasPerDosen(
         document.getElementById("chartAbdimasPerDosen"),
         dosenByKK[Object.keys(dosenByKK)[0]],
@@ -610,4 +648,8 @@
 
     makeSmallChart( document.getElementById("smallChart__internal"), "#5b73e8")
     makeSmallChart( document.getElementById("smallChart__eksternal"), "#20C997")
+
+    makePieChart("pie_chart", 
+        ["Internal", "Eksternal"],
+        [<?php echo $Abdimas_Inter ?>, <?php echo $Abdimas_Ekster ?>]);
 </script>

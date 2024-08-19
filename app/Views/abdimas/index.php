@@ -321,9 +321,9 @@
                     </div> <!-- end col-->
                 </div> <!-- end row-->
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
+                <div class="row mb-3">
+                    <div class="col-lg-8">
+                        <div class="card h-100 mb-3">
                             <div class="card-body">
                                 <div class="float-end d-flex">
                                     <div class="dropdown" id="abdimasDosenFilter" style="display: none;">
@@ -340,14 +340,12 @@
                                                 onclick="FILTER_ABDIMAS_DOSEN = {...FILTER_ABDIMAS_DOSEN,  status: 'Semua'}; onAbdimasDosenFilterUpdate(); "
                                             > Semua </button>
                                             <?php foreach($annualPerDosenByStatus as $status => $_): ?>
-                                                <?php if($status != ""): ?>
-                                                    <button 
-                                                        class="dropdown-item" 
-                                                        onclick="FILTER_ABDIMAS_DOSEN = {...FILTER_ABDIMAS_DOSEN, status: '<?= $status ?>'}; onAbdimasDosenFilterUpdate(); "
-                                                    >
-                                                        <?= $status ?>
-                                                    </button>
-                                                <?php endif?>
+                                                <button 
+                                                    class="dropdown-item" 
+                                                    onclick="FILTER_ABDIMAS_DOSEN = {...FILTER_ABDIMAS_DOSEN, status: '<?= $status ?>'}; onAbdimasDosenFilterUpdate(); "
+                                                >
+                                                    <?= $status ?>
+                                                </button>
                                             <?php endforeach; ?>
                                         </div>
                                     </div>
@@ -357,6 +355,15 @@
                                     <p id="chartAbdimas__desc"> Klik pada salah satu dosen untuk melihat statistik abdimas dosen tersebut</p>
                                 </div>
                                 <div id="chartAbdimasDosen"> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">Rasio Status Abdimas</h4>
+                                <p id="pieAbdimas__desc"> Klik pada salah satu dosen untuk melihat pendanaan abdimas dosen tersebut</p>
+                                <div id="pieAbdimasDosen" data-colors='["--bs-info", "--bs-success", "--bs-warning" , "--bs-danger"]' class="apex-charts" dir="ltr"></div>
                             </div>
                         </div>
                     </div>
