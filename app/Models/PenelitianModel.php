@@ -812,4 +812,17 @@ class PenelitianModel extends Model
         return $this->query($sql, [$year])
                     ->getResultArray();
     }
+
+    public function getByRoadmapId($roadmapId) {
+        $table = $this->table;
+        $sql = "SELECT 
+                    p.*,
+                    r.topik as kesesuaian_roadmap
+                FROM penelitian AS p
+                JOIN roadmap AS r
+                    ON r.id = p.kesesuaian_roadmap
+                WHERE r.id = ? ";
+        return $this->query($sql, [$roadmapId])
+                    ->getResultArray();
+    }
 }

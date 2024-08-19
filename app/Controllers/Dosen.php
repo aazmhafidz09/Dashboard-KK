@@ -115,6 +115,18 @@ class Dosen extends BaseController
             session()->setFlashData("error", "Roadmap tidak ditemukan");
             return redirect()->back();
         }
+
+        // Should've exploit the relationship instead, but for now it can't due to the
+        // old data has roadmap which its owner (`Dosen`) hasn't known yet, thus the actual
+        // data still stored in `kesesuaian_roadmap` column of `Penelitian`. Furthermore,
+        // the old data seems to have type of VARCHAR which had become a problem too when
+        // making a relation in DBMS.
+        $relatedPenelitian = $this->penelitianModel->getByRoadmapId($id);
+        if(count($relatedPenelitian) > 0) {
+            session()->setFlashData("error", "Terdapat penelitian dengan roadmap yang sama dengan yang ingin dihapus. Harap hapus atau ubah data tersebut dahulu sebelum menghapus roadmap anda.");
+            return redirect()->back();
+        }
+
         if($oldRoadmap[0]["kode_dosen"] != $kodeDosen) {
             session()->setFlashData("error", "Anda tidak bisa menghapus roadmap dosen lain");
             return redirect()->back();
