@@ -11,6 +11,7 @@ use App\Models\LogPublikasi;
 use App\Models\LogPenelitian;
 use App\Models\LogAbdimas;
 use App\Models\LogHaki;
+use App\Models\Roadmap;
 
 class Admin extends BaseController {
     protected $dosenModel;
@@ -31,6 +32,7 @@ class Admin extends BaseController {
         $this->logPenelitian = new LogPenelitian();
         $this->logAbdimas = new LogAbdimas();
         $this->logHaki = new LogHaki();
+        $this->roadmap = new ROadmap();
     }
 
     private function isAdmin() { // Roles considered as Admin: admin, kk_seal, kk_citi, kk_dsis
@@ -232,7 +234,10 @@ class Admin extends BaseController {
 
     // ###### PENELITIAN ###########################################################################
     public function penelitian() {
-        $data = [ 'listDosen' => $this->dosenModel->getAllKodeDosen(), ];
+        $data = [ 
+            'listDosen' => $this->dosenModel->getAllKodeDosen(), 
+            'roadmap' => $this->roadmap->getByKodeDosen(user()->kode_dosen)
+        ];
         return view( 'admin/input/penelitian', $data);
     }
 
@@ -249,8 +254,37 @@ class Admin extends BaseController {
         }
 
         helper('form');
+
+        $roadmap = $this->roadmap->getByKodeDosen($penelitian["ketua_peneliti"]);
+        // // Combine current user's roadmap with `ketua_peneliti`'s
+        // if($penelitian["ketua_peneliti"] != user()->kode_dosen) { 
+        //     $roadmap = array_merge(
+        //         $this->roadmap->getByKodeDosen(),
+        //         $roadmap);
+        // }
+
+        // Attempt to find old roadmap if it's owned neither by `ketua_penelitian` 
+        // nor somebody that's currently editing (e.g. admin). This handles old
+        // records too so that its original value won't be written into something else
+        // (Refer to comment on: '/App/Models/Penelitian::detail')
+        $oldRoadmap = $penelitian["kesesuaian_roadmap"];
+        if(!in_array(
+                $oldRoadmap,
+                array_map(function($r) {return $r["id"];}, $roadmap))
+        ) { 
+            $roadmapPenelitian = $this->roadmap->getById($oldRoadmap);
+            if(count($roadmapPenelitian) > 0) {
+                $roadmap = array_merge($roadmapPenelitian, $roadmap);
+            } else if(strlen($oldRoadmap) > 0){
+                $roadmap = array_merge(
+                            [["id" => $oldRoadmap, "topik" => $oldRoadmap]],
+                            $roadmap);
+            }
+        }
+
         $data = [ 'oldPenelitian' => $penelitian,
-                    'listDosen' => $this->dosenModel->getAllKodeDosen()];
+                    'listDosen' => $this->dosenModel->getAllKodeDosen(),
+                    'roadmap' => $roadmap];
         session()->setFlashdata('pesan', 'Penelitian berhasil diperbarui');
         return view("admin/update/penelitian", $data);
     }

@@ -58,12 +58,18 @@
                         <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
+                        <?php if(user()->kode_dosen != ""): ?>
+                            <a class="dropdown-item" href="/profile">
+                                <i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"> </i> 
+                                <span class="align-middle">Profil saya</span>
+                            </a>
+                        <?php endif ?>
                         <a class="dropdown-item" href="/admin/index">
                             <i class="uil uil-share-alt font-size-18 align-middle text-muted me-1"> </i> 
                             <span class="align-middle">Kelola Data</span>
                         </a>
                         <a class="dropdown-item" href="/dosen">
-                            <i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"> </i> 
+                            <i class="uil uil-users-alt font-size-18 align-middle text-muted me-1"> </i> 
                             <span class="align-middle">Dosen</span>
                         </a>
                         <a class="dropdown-item" href="/admin/publikasi">
@@ -75,7 +81,7 @@
                             <span class="align-middle">Penelitian</span>
                         </a>
                         <a class="dropdown-item" href="/admin/abdimas">
-                            <i class="uil-users-alt font-size-18 align-middle text-muted me-1"></i> 
+                            <i class="uil-smile font-size-18 align-middle text-muted me-1"></i> 
                             <span class="align-middle">Abdimas</span>
                         </a>
                         <a class="dropdown-item" href="/admin/haki">

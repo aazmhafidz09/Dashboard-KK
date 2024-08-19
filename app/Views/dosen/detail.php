@@ -112,7 +112,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-bs-toggle="tab" href="#abdimas" role="tab">
-                                        <i class="uil uil-users-alt font-size-20"></i>
+                                        <i class="uil uil-smile font-size-20"></i>
                                         <span class="d-none d-sm-block">Abdimas</span>
                                     </a>
                                 </li>

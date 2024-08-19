@@ -7,6 +7,7 @@ use App\Models\PublikasiModel;
 use App\Models\PenelitianModel;
 use App\Models\AbdimasModel;
 use App\Models\HakiModel;
+use App\Models\Roadmap;
 
 class Penelitian extends BaseController
 {
@@ -22,6 +23,7 @@ class Penelitian extends BaseController
         $this->penelitianModel = new PenelitianModel();
         $this->abdimasModel = new AbdimasModel();
         $this->hakiModel = new HakiModel();
+        $this->roadmap = new Roadmap();
     }
     public function index()
     {
@@ -90,12 +92,28 @@ class Penelitian extends BaseController
     }
 
     public function detail($id) {
+        // Roadmap retrieved via separate call because this field previously
+        // meant to be filled by user by typing, not by dropdown which its option
+        // itself are gathered based on the authors (via table relation). 
+        //
+        // The authors themselves wasn't supposed to have roadmap too, so this 
+        // workaround is meant to get the new things AND the old record working 
+        //
+        // TODO: Once everything is well-defined (no sudden changes), do what you think is the best
         $penelitian = $this->penelitianModel->getById($id);
         if(count($penelitian) == 0) {
             session()->setFlashData("error", "Penelitian tidak ditemukan");
             return redirect()->to(base_url());
         }
-        return view("penelitian/detail", ["penelitian" => $penelitian[0]]);
+
+        $penelitian = $penelitian[0];
+        $penelitianRoadmap = $this->roadmap->getById($penelitian["kesesuaian_roadmap"]);
+
+        if(count($penelitianRoadmap) > 0) {
+            $penelitian["kesesuaian_roadmap"] = $penelitianRoadmap[0]["topik"];
+        }
+
+        return view("penelitian/detail", ["penelitian" => $penelitian]);
 
     }
 

@@ -40,6 +40,11 @@ $routes->get('/api/abdimas/list', 'Abdimas::list');
 $routes->get('/api/haki/list', 'Haki::list');
 $routes->get('/api/admin/(:segment)/list', 'Admin::listManage/$1');
 
+$routes->post('/profile/roadmap/add', 'Dosen::addRoadmap');
+$routes->post('/profile/roadmap/edit/(:segment)', 'Dosen::editRoadmap/$1');
+$routes->get('/profile/roadmap/delete/(:segment)', 'Dosen::deleteRoadmap/$1');
+$routes->get('/profile', 'Dosen::profile');
+
 $routes->get('/dosen/(:segment)', 'Dosen::detail/$1');
 $routes->get('/penelitian/view/(:segment)', "Penelitian::detail/$1");
 $routes->get('/haki/view/(:segment)', "Haki::detail/$1");

@@ -212,13 +212,12 @@
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Kesesuaian roadmap</label>
                                         <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Kesesuaian dengan roadmap"
-                                                id="roadmap" 
-                                                name="kesesuaian_roadmap"
-                                            >
+                                            <select class="form-select" name="kesesuaian_roadmap">
+                                                <option value=""> (Pilih roadmap) </option>
+                                                <?php foreach($roadmap as $r): ?>
+                                                    <option value="<?= $r["id"]?>"> <?= $r["topik"] ?> </option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">

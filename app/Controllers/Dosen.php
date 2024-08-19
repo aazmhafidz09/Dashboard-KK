@@ -7,6 +7,7 @@ use App\Models\PublikasiModel;
 use App\Models\PenelitianModel;
 use App\Models\AbdimasModel;
 use App\Models\HakiModel;
+use App\Models\Roadmap;
 
 class Dosen extends BaseController
 {
@@ -22,6 +23,7 @@ class Dosen extends BaseController
         $this->penelitianModel = new PenelitianModel();
         $this->abdimasModel = new AbdimasModel();
         $this->hakiModel = new HakiModel();
+        $this->roadmap = new Roadmap();
     }
     public function index()
     {
@@ -62,6 +64,81 @@ class Dosen extends BaseController
         // echo $data['jumlah_publikasi'];
         return view('dosen/detail', $data);
     }
+
+    public function profile() {
+        if(!logged_in()) return redirect()->to(base_url("login"));
+
+        if(!isset(user()->kode_dosen)) {
+            session()->setFlashData("error", "Halaman ini ditujukan khusus ke akun dosen");
+            return redirect()->to(base_url());
+        }
+
+        $kodeDosen = user()->kode_dosen;
+        return view("dosen/profile", [
+            'dosen' => $this->dosenModel->getDosen($kodeDosen),
+            'roadmap' => $this->roadmap->getByKodeDosen($kodeDosen)
+        ]);
+    }
+
+    public function editRoadmap($id) {
+        if(!isset(user()->kode_dosen)) {
+            session()->setFlashData("error", "Aksi ini hanya bisa diakses oleh dosen");
+            return redirect()->to(base_url());
+        }
+
+        $kodeDosen = user()->kode_dosen;
+        $oldRoadmap = $this->roadmap->getById($id);
+        if(count($oldRoadmap) == 0) {
+            session()->setFlashData("error", "Roadmap tidak ditemukan");
+            return redirect()->back();
+        }
+        if($oldRoadmap[0]["kode_dosen"] != $kodeDosen) {
+            session()->setFlashData("error", "Anda tidak bisa mengubah roadmap dosen lain");
+            return redirect()->back();
+        }
+
+        $newRoadmap = $this->request->getVar();
+        $this->roadmap->update($id, $newRoadmap);
+        session()->setFlashData("pesan", "Roadmap berhasil diperbarui");
+            return redirect()->back();
+    }
+
+    public function deleteRoadmap($id) {
+        if(!isset(user()->kode_dosen)) {
+            session()->setFlashData("error", "Aksi ini hanya bisa diakses oleh dosen");
+            return redirect()->to(base_url());
+        }
+
+        $kodeDosen = user()->kode_dosen;
+        $oldRoadmap = $this->roadmap->getById($id);
+        if(count($oldRoadmap) == 0) {
+            session()->setFlashData("error", "Roadmap tidak ditemukan");
+            return redirect()->back();
+        }
+        if($oldRoadmap[0]["kode_dosen"] != $kodeDosen) {
+            session()->setFlashData("error", "Anda tidak bisa menghapus roadmap dosen lain");
+            return redirect()->back();
+        }
+
+        $this->roadmap->delete($id,);
+        session()->setFlashData("pesan", "Roadmap berhasil dihapus");
+        return redirect()->back();
+    }
+
+    public function addRoadmap() {
+        if(!isset(user()->kode_dosen)) {
+            session()->setFlashData("error", "Aksi ini hanya bisa diakses oleh dosen");
+            return redirect()->to(base_url());
+        }
+
+        $kodeDosen = user()->kode_dosen;
+        $newRoadmap = $this->request->getVar();
+        $newRoadmap["kode_dosen"] = $kodeDosen;
+        $this->roadmap->save($newRoadmap);
+        session()->setFlashData("pesan", "Roadmap berhasil ditambah");
+        return redirect()->back();
+    }
+
     // public function test($kode_dosen)
     // {
     //     $jumlah_publikasi = $this->publikasiModel->getJumlahPublikasi($kode_dosen);

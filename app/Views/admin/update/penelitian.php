@@ -220,14 +220,15 @@
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Kesesuaian roadmap</label>
                                         <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                id="roadmap" 
-                                                placeholder="Kesesuaian dengan roadmap"
-                                                name="kesesuaian_roadmap"
-                                                value="<?= esc($oldPenelitian["kesesuaian_roadmap"]) ?>"
-                                            >
+                                            <select class="form-select" name="kesesuaian_roadmap">
+                                                <option value=""> (Pilih roadmap) </option>
+                                                <?php foreach($roadmap as $r): ?>
+                                                    <option 
+                                                        value="<?= $r['id']?>"
+                                                        <?= esc($r["id"] == $oldPenelitian["kesesuaian_roadmap"]? "selected": "")?>
+                                                    > <?= $r["topik"] ?> </option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
