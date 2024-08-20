@@ -31,7 +31,7 @@
             <ul class="metismenu list-unstyled" id="side-menu"> <!-- Left Menu Start -->
                 <li class="menu-title"><?= lang('Files.Menu') ?></li>
                 <li>
-                    <a href="/index">
+                    <a href="/">
                         <i class="uil-home-alt"></i>
                         <span><?= lang('Files.Dashboard') ?></span>
                     </a>

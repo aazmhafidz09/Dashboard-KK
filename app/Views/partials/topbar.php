@@ -3,7 +3,7 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a href="index" class="logo logo-dark">
+                <a href="/" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="assets/images/logo-sm.png" alt="" height="22">
                     </span>
@@ -12,7 +12,7 @@
                     </span>
                 </a>
 
-                <a href="index" class="logo logo-light">
+                <a href="/" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="assets/images/logo-sm.png" alt="" height="22">
                     </span>
@@ -64,7 +64,7 @@
                                 <span class="align-middle">Profil saya</span>
                             </a>
                         <?php endif ?>
-                        <a class="dropdown-item" href="/admin/index">
+                        <a class="dropdown-item" href="/admin">
                             <i class="uil uil-share-alt font-size-18 align-middle text-muted me-1"> </i> 
                             <span class="align-middle">Kelola Data</span>
                         </a>
