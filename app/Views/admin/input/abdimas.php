@@ -50,7 +50,10 @@
                                     <p class="card-title-desc">Masukkan data <code>abdimas</code> ke dalam <code>form</code> berikut</p>
 
                                     <div class="mb-3 row">
-                                        <label for="Judul-Abdimas" class="col-md-2 col-form-label">Judul Abdimas</label>
+                                        <label for="Judul-Abdimas" class="col-md-2 col-form-label">
+                                            Judul Abdimas
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -58,6 +61,7 @@
                                                 placeholder="Judul" 
                                                 id="Judul_Abdimas" 
                                                 name="judul"
+                                                required
                                             >
                                         </div>
                                     </div>
@@ -74,7 +78,10 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="Tahun" class="col-md-2 col-form-label">Tahun</label>
+                                        <label for="Tahun" class="col-md-2 col-form-label">
+                                            Tahun
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -83,11 +90,15 @@
                                                 min="1"
                                                 id="Tahun" 
                                                 name="tahun"
+                                                required
                                             >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="jenis" class="col-md-2 col-form-label">Jenis Abdimas</label>
+                                        <label for="jenis" class="col-md-2 col-form-label">
+                                            Jenis Abdimas
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <select id="jenis" class="form-select" name="jenis">
                                                 <option value=""> (Pilih jenis abdimas)</option>

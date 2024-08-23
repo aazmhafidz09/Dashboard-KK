@@ -53,7 +53,10 @@
                                     <h4 class="card-title">Update Data Publikasi</h4>
                                     <p class="card-title-desc">Masukkan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Judul publikasi</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">
+                                            Judul publikasi
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -70,11 +73,15 @@
                                                             : set_value('judul_publikasi')
                                                     );
                                                 ?>"
+                                                required
                                             >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-number-input" class="col-md-2 col-form-label">Tahun</label>
+                                        <label for="example-number-input" class="col-md-2 col-form-label">
+                                            Tahun
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -84,6 +91,7 @@
                                                 placeholder="Tahun Publikasi" 
                                                 min="1"
                                                 value="<?= esc($oldPublikasi["tahun"]) ?>"
+                                                required
                                             >
                                         </div>
                                     </div>
