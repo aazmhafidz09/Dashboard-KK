@@ -19,7 +19,7 @@
                             "Kerjasama Perguruan Tinggi",
                             "Kemitraan",
                             "Hilirisasi" ];
-    $statusPenelitian = ["Didanai", "Submit Proposal"];
+    $statusPenelitian = ["Didanai", "Submit Proposal", "Closed"];
     $luaranPenelitian = ["Riset", "Abdimas"];
 ?>
 

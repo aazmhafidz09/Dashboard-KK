@@ -22,7 +22,7 @@
 
 <?php
     $jenisAbdimas = [ "EKSTERNAL", "INTERNAL"];
-    $statusAbdimas = [ "Didanai", "Tidak didanai", "Closed"];
+    $statusAbdimas = [ "Didanai", "Tidak didanai", "Closed", "Submit Proposal"];
 ?>
 
 <!-- Begin page -->
@@ -297,10 +297,10 @@
                                             >
                                         </div>
                                     </div>
-                                    <div class="mb-3 row">
+                                    <!-- TODO: implement gathering old value -->
+                                    <!-- <div class="mb-3 row">
                                         <label for="targetLuaran" class="col-md-2 col-form-label">Target luaran</label>
                                         <div class="col-md-10">
-                                            <!-- TODO: implement gathering old value -->
                                             <input 
                                                 class="form-control" 
                                                 type="text" 
@@ -309,7 +309,7 @@
                                                 name="target_luaran"
                                             >
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="mb-3 row">
                                         <label for="tanggal_pengesahan" class="col-md-2 col-form-label">Tanggal pengesahan</label>
                                         <div class="col-md-10">

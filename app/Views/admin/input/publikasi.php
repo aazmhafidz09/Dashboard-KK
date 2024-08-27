@@ -159,7 +159,7 @@
                                             >
                                         </div>
                                     </div>
-                                    <div class="mb-3 row">
+                                    <!-- <div class="mb-3 row">
                                         <label for="targetLuaran" class="col-md-2 col-form-label">Target luaran</label>
                                         <div class="col-md-10">
                                             <input 
@@ -170,7 +170,7 @@
                                                 name="target_luaran"
                                             >
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Institusi mitra</label>
                                         <div class="col-md-10">
@@ -197,7 +197,7 @@
                                     </div>
 
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label"> Peringkat Jurnal</label>
+                                        <label class="col-md-2 col-form-label"> Peringkat jurnal</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="akreditasi_journal_conf">
                                                 <option> not accredited yet </option>

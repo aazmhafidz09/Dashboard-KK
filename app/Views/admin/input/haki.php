@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-md-2 col-form-label">
-                                            Jenis Haki
+                                            Jenis haki
                                             <span style="color: red"> * </span>
                                         </label>
                                         <div class="col-md-10">
