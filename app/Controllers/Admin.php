@@ -142,8 +142,7 @@ class Admin extends BaseController {
             }
         } catch (\Exception $e) { 
             $this->logPublikasi->transRollback();
-            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
-            // session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
         return redirect()->to(base_url('/admin'));
     }
@@ -208,8 +207,7 @@ class Admin extends BaseController {
             }
         } catch (\Exception $e) { 
             $this->logPublikasi->transRollback();
-            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika memperbarui data');
-            // session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
         return redirect()->to(base_url('/admin'));
     }
@@ -243,8 +241,7 @@ class Admin extends BaseController {
             }
         } catch (\Exception $e) { 
             $this->logPublikasi->transRollback();
-            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika memghapus data');
-            // session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
         return redirect()->to(base_url('/admin'));
     }
@@ -345,8 +342,7 @@ class Admin extends BaseController {
             }
         } catch (\Exception $e) { 
             $this->logPenelitian->transRollback();
-            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
-            // session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
         return redirect()->to(base_url('/admin'));
     }
@@ -404,8 +400,7 @@ class Admin extends BaseController {
             }
         } catch (\Exception $e) { 
             $this->logPenelitian->transRollback();
-            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika memperbarui data');
-            // session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
         return redirect()->to(base_url('/admin'));
     }
@@ -439,8 +434,7 @@ class Admin extends BaseController {
             }
         } catch (\Exception $e) { 
             $this->logPenelitian->transRollback();
-            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menghapus data');
-            // session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
         return redirect()->to(base_url('/admin'));
     }
@@ -509,8 +503,7 @@ class Admin extends BaseController {
             }
         } catch (\Exception $e) { 
             $this->logAbdimas->transRollback();
-            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
-            // session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
         return redirect()->to(base_url('/admin'));
     }
@@ -544,8 +537,7 @@ class Admin extends BaseController {
             }
         } catch (\Exception $e) { 
             $this->logAbdimas->transRollback();
-            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menghapus data');
-            // session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
         return redirect()->to(base_url('/admin'));
     }
@@ -606,8 +598,7 @@ class Admin extends BaseController {
             }
         } catch (\Exception $e) { 
             $this->logAbdimas->transRollback();
-            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika memperbarui data');
-            // session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
 
         return redirect()->to(base_url('/admin'));
@@ -677,8 +668,7 @@ class Admin extends BaseController {
             }
         } catch (\Exception $e) { 
             $this->logHaki->transRollback();
-            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menyimpan data');
-            // session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
 
         return redirect()->to(base_url('/admin'));
@@ -713,8 +703,7 @@ class Admin extends BaseController {
             }
         } catch (\Exception $e) { 
             $this->logHaki->transRollback();
-            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika menghapus data');
-            // session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
         return redirect()->to(base_url('/admin'));
     }
@@ -772,8 +761,7 @@ class Admin extends BaseController {
             }
         } catch (\Exception $e) { 
             $this->logHaki->transRollback();
-            session()->setFlashdata('error', 'Suatu kesalahan terjadi ketika memperbarui data');
-            // session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
         return redirect()->to(base_url('/admin'));
     }
