@@ -63,6 +63,8 @@ $routes->get('/admin/abdimas/delete/(:segment)', 'Admin::abdimas_delete/$1');
 $routes->get('/admin/download/template/(:segment)', 'Admin::download_template/$1');
 $routes->get('/admin/download/data/(:segment)', 'Admin::download/$1');
 
+$routes->get('/thirdparty/sinta/(:segment)', 'ThirdParty::sinta/$1');
+
 $routes->get('/lang/{locale}', 'Language::index');
 
 //Layout page routing
