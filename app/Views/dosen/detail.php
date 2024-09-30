@@ -393,7 +393,8 @@
         // It it's get updated, the following code should be adapted to that layout to
         // get the desired data
         $(document).ready(async() => {
-            const SINTA_URL = "https://sinta.kemdikbud.go.id/authors/profile/<?php $dosen["sinta_id"]?>"
+            const SINTA_ID = "<?= $dosen["sinta_id"]?>"
+            const SINTA_URL = `https://sinta.kemdikbud.go.id/authors/profile/${SINTA_ID}`
             const $sintaFetchInfo = $("#sinta_fetchInfo")
 
             await fetch(`/thirdparty/sinta/${SINTA_ID}`)
