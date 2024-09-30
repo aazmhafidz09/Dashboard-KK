@@ -48,7 +48,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Cipta ?></span></h4>
@@ -62,7 +61,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Paten ?></span></h4>
@@ -77,7 +75,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Merek ?></span></h4>
@@ -89,17 +86,14 @@
                     </div> 
 
                     <div class="col-md-6 col-xl-3">
-
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Haki_Desain_Industri ?></span></h4>
                                     <p class="text-muted mb-0">Desain Industri</p>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
@@ -109,7 +103,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
+                                    <!-- <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div> -->
+                                    <div id="smallChart__hakCipta" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $HakiYearNow_Cipta ?></span></h4>
@@ -131,7 +126,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
+                                    <div id="smallChart__paten" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="orders-chart" data-colors='["--bs-success"]'> </div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $HakiYearNow_Paten ?></span></h4>
@@ -152,7 +148,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
+                                    <div id="smallChart__merek" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="customers-chart" data-colors='["--bs-primary"]'> </div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $hakiYearNow_Merek ?></span></h4>
@@ -173,7 +170,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
+                                    <div id="smallChart__desainIndustri" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="growth-chart" data-colors='["--bs-warning"]'></div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $hakiYearNow_desain_industri ?></span></h4>
@@ -325,7 +323,7 @@
                                 </div>
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
-                                    <div id="chartHakiPerJenisTahunan" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="chartHakiPerJenisTahunan" data-colors='["--bs-info", "--bs-success", "--bs-warning", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -336,39 +334,13 @@
                             <div class="card-body">
                                 <h4 class="card-title mb-4">Diagram Haki</h4>
 
-                                <div id="pie_chart" data-colors='["--bs-success", "--bs-primary", "--bs-warning" ,"--bs-info", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
+                                <div id="pie_chart" data-colors='["--bs-info", "--bs-success", "--bs-warning", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
                             </div>
                         </div>
                     </div> 
                 </div> 
 
                 <div class="row">
-                    <div class="col-xl-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title mb-4">Haki</h4>
-
-                                <div data-simplebar style="max-height: 339px;">
-                                    <div class="table-responsive">
-                                        <table class="table table-borderless table-centered table-nowrap">
-                                            <tbody>
-                                                <?php foreach ($top_haki as $tp) : ?>
-                                                    <tr>
-                                                        <td>
-                                                            <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
-                                                            <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?></p>
-                                                        </td>
-                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['nHaki']; ?></td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    </div> <!-- enbd table-responsive-->
-                                </div> <!-- data-sidebar-->
-                            </div><!-- end card-body-->
-                        </div> <!-- end card-->
-                    </div><!-- end col -->
-
                     <div class="col-xl-8">
                         <div class="card">
                             <div class="card-body">
@@ -412,6 +384,34 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">Haki</h4>
+
+                                <div data-simplebar style="max-height: 339px;">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless table-centered table-nowrap">
+                                            <tbody>
+                                                <?php foreach ($top_haki as $tp) : ?>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="/dosen/<?= $tp['kode_dosen']?>">
+                                                                <strong class="font-size-15 mb-1 fw-normal text-black"><?= $tp['kode_dosen']; ?></strong>
+                                                                <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?></p>
+                                                            </a>
+                                                        </td>
+                                                        <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['nHaki']; ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div> <!-- enbd table-responsive-->
+                                </div> <!-- data-sidebar-->
+                            </div><!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div><!-- end col -->
+
 
                     <!-- <div class="col-xl-4">
                         <div class="card">
@@ -428,7 +428,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end d-flex">
-                                    <div class="dropdown">
+                                    <div class="dropdown me-2">
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">Tahun:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
@@ -441,6 +441,10 @@
                                                 class="dropdown-item" 
                                                 onclick="FILTER_HAKI_PER_DOSEN = {...FILTER_HAKI_PER_DOSEN,  tahun: 'Semua'}; onHakiPerDosenFilterUpdate(); "
                                             > Semua </button>
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_HAKI_PER_DOSEN = {...FILTER_HAKI_PER_DOSEN,  tahun: 'Recent'}; onHakiPerDosenFilterUpdate(); "
+                                            > (4 Tahun Terakhir) </button>
                                             <?php foreach($tahunHakiTersedia as $tahun): ?>
                                                 <button 
                                                     class="dropdown-item" 

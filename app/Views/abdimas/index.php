@@ -46,7 +46,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_Inter ?></span></h4>
@@ -60,7 +59,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_Ekster ?></span></h4>
@@ -75,7 +73,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
+                                    <div id="smallChart__internal" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_YearNow_Inter ?></span></h4>
@@ -102,7 +100,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
+                                    <div id="smallChart__eksternal" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Abdimas_YearNow_Ekster ?></span></h4>
@@ -243,7 +241,7 @@
                                     </ul>
                                 </div>
                                 <div class="mt-3">
-                                    <div id="chartAbdimasPerJenisTahunan" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="chartAbdimasPerJenisTahunan" data-colors='["--bs-info", "--bs-success", "--bs-warning", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -254,7 +252,7 @@
                             <div class="card-body">
                                 <h4 class="card-title mb-4">Diagram Abdimas</h4>
 
-                                <div id="pie_chart" data-colors='["--bs-success", "--bs-primary", "--bs-warning" ,"--bs-info", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
+                                <div id="pie_chart" data-colors='["--bs-info", "--bs-success", "--bs-warning" , "--bs-danger"]' class="apex-charts" dir="ltr"></div>
                             </div>
                         </div>
                     </div> <!-- end Col -->
@@ -265,7 +263,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end d-flex">
-                                    <div class="dropdown">
+                                    <div class="dropdown me-2">
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">Tahun:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
@@ -278,6 +276,10 @@
                                                 class="dropdown-item" 
                                                 onclick="FILTER_ABDIMAS_PER_DOSEN = {...FILTER_ABDIMAS_PER_DOSEN,  tahun: 'Semua'}; onAbdimasPerDosenFilterUpdate(); "
                                             > Semua </button>
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_ABDIMAS_PER_DOSEN = {...FILTER_ABDIMAS_PER_DOSEN,  tahun: 'Recent'}; onAbdimasPerDosenFilterUpdate(); "
+                                            > (4 Tahun Terakhir) </button>
                                             <?php foreach($tahunAbdimasTersedia as $tahun): ?>
                                                 <button 
                                                     class="dropdown-item" 
@@ -319,15 +321,49 @@
                     </div> <!-- end col-->
                 </div> <!-- end row-->
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
+                <div class="row mb-3">
+                    <div class="col-lg-8">
+                        <div class="card h-100 mb-3">
                             <div class="card-body">
+                                <div class="float-end d-flex">
+                                    <div class="dropdown" id="abdimasDosenFilter" style="display: none;">
+                                        <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fw-semibold">Status:&nbsp; </span> 
+                                            <div class="text-muted d-flex"> 
+                                                <p id="chartAbdimasDosen__status"> Semua </p>
+                                                <i class="mdi mdi-chevron-down ms-1"> </i>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton5">
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_ABDIMAS_DOSEN = {...FILTER_ABDIMAS_DOSEN,  status: 'Semua'}; onAbdimasDosenFilterUpdate(); "
+                                            > Semua </button>
+                                            <?php foreach($annualPerDosenByStatus as $status => $_): ?>
+                                                <button 
+                                                    class="dropdown-item" 
+                                                    onclick="FILTER_ABDIMAS_DOSEN = {...FILTER_ABDIMAS_DOSEN, status: '<?= $status ?>'}; onAbdimasDosenFilterUpdate(); "
+                                                >
+                                                    <?= $status ?>
+                                                </button>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div data-simplebar style="max-height: 339px;">
                                     <h4 class="card-title mb-4" id="chartAbdimas__title">Statistik Abdimas</h4>
                                     <p id="chartAbdimas__desc"> Klik pada salah satu dosen untuk melihat statistik abdimas dosen tersebut</p>
                                 </div>
                                 <div id="chartAbdimasDosen"> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">Rasio Status Abdimas</h4>
+                                <p id="pieAbdimas__desc"> Klik pada salah satu dosen untuk melihat pendanaan abdimas dosen tersebut</p>
+                                <div id="pieAbdimasDosen" data-colors='["--bs-info", "--bs-success", "--bs-warning" , "--bs-danger"]' class="apex-charts" dir="ltr"></div>
                             </div>
                         </div>
                     </div>
@@ -412,5 +448,6 @@
     "dosenByKK" => $dosenByKK,
     "data_tahunan" => $data_tahunan,
     "annualAbdimasByTypeAndKK" => $annualDataByTypeAndKK,
+    "annualPerDosenByStatus" => $annualPerDosenByStatus,
     "order_by_tahun_desc" => $order_by_tahun_desc
 ]) ?>

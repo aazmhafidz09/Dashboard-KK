@@ -23,7 +23,7 @@
 
 <?php
     $jenisAbdimas = [ "EKSTERNAL", "INTERNAL"];
-    $statusAbdimas = [ "Didanai", "Tidak didanai", "Closed"];
+    $statusAbdimas = [ "Didanai", "Tidak didanai", "Closed", "Submit Proposal"];
 ?>
 
 <!-- Begin page -->
@@ -50,7 +50,10 @@
                                     <p class="card-title-desc">Masukkan data <code>abdimas</code> ke dalam <code>form</code> berikut</p>
 
                                     <div class="mb-3 row">
-                                        <label for="Judul-Abdimas" class="col-md-2 col-form-label">Judul Abdimas</label>
+                                        <label for="Judul-Abdimas" class="col-md-2 col-form-label">
+                                            Judul abdimas
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -58,11 +61,12 @@
                                                 placeholder="Judul" 
                                                 id="Judul_Abdimas" 
                                                 name="judul"
+                                                required
                                             >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Nama Kegiatan</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Nama kegiatan</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -74,7 +78,10 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="Tahun" class="col-md-2 col-form-label">Tahun</label>
+                                        <label for="Tahun" class="col-md-2 col-form-label">
+                                            Tahun
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -83,13 +90,18 @@
                                                 min="1"
                                                 id="Tahun" 
                                                 name="tahun"
+                                                required
                                             >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="jenis" class="col-md-2 col-form-label">Jenis Abdimas</label>
+                                        <label for="jenis" class="col-md-2 col-form-label">
+                                            Jenis abdimas
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <select id="jenis" class="form-select" name="jenis">
+                                                <option value=""> (Pilih jenis abdimas)</option>
                                                 <?php foreach($jenisAbdimas as $jenis): ?>
                                                     <option> <?= $jenis?> </option>
                                                 <?php endforeach ?>
@@ -100,6 +112,7 @@
                                         <label for="status" class="col-md-2 col-form-label">Status</label>
                                         <div class="col-md-10">
                                             <select id="abdimas_status" class="form-select" name="status">
+                                                <option value=""> (Pilih status abdimas)</option>
                                                 <?php foreach($statusAbdimas as $status): ?>
                                                     <option> <?= $status?> </option>
                                                 <?php endforeach ?>
@@ -160,7 +173,7 @@
                                     <!-- <h4 class="card-title">Input Data Publikasi</h4> -->
                                     <p class="card-title-desc">Masukkan data <code>Abdimas</code> ke dalam <code>form</code> berikut</p>
                                     <div class="mb-3 row">
-                                        <label for="Institusi_mitra" class="col-md-2 col-form-label">Institusi Mitra</label>
+                                        <label for="Institusi_mitra" class="col-md-2 col-form-label">Institusi mitra</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -172,7 +185,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="Alamat_mitra" class="col-md-2 col-form-label">Alamat Mitra</label>
+                                        <label for="Alamat_mitra" class="col-md-2 col-form-label">Alamat mitra</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -184,7 +197,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="labRiset" class="col-md-2 col-form-label">Laboratorium Riset</label>
+                                        <label for="labRiset" class="col-md-2 col-form-label">Laboratorium riset</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -196,7 +209,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="kesesuaian_roadmap" class="col-md-2 col-form-label">Kesesuaian Roadmap</label>
+                                        <label for="kesesuaian_roadmap" class="col-md-2 col-form-label">Kesesuaian roadmap</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -208,7 +221,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="permasalahan_masyarakat" class="col-md-2 col-form-label">Permasalahan Masyarakat</label>
+                                        <label for="permasalahan_masyarakat" class="col-md-2 col-form-label">Permasalahan masyarakat</label>
                                         <div class="col-md-10">
                                             <!-- <input class="form-control" type="text" placeholder="Permasalahan Masyarakat" id="permasalahan_masyarakat"> -->
                                             <textarea class="form-control" id="permasalahan_masyarakat" rows="3" name="permasalahan_masy"></textarea>
@@ -245,8 +258,20 @@
                                             >
                                         </div>
                                     </div>
+                                    <!-- <div class="mb-3 row">
+                                        <label for="targetLuaran" class="col-md-2 col-form-label">Target luaran</label>
+                                        <div class="col-md-10">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder= "Target Luaran" 
+                                                id="targetLuaran" 
+                                                name="target_luaran"
+                                            >
+                                        </div>
+                                    </div> -->
                                     <div class="mb-3 row">
-                                        <label for="tanggal_pengesahan" class="col-md-2 col-form-label">Tanggal Pengesahan</label>
+                                        <label for="tanggal_pengesahan" class="col-md-2 col-form-label">Tanggal pengesahan</label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 

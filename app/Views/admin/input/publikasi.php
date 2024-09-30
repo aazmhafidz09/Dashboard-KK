@@ -43,7 +43,10 @@
                                     <h4 class="card-title">Input Data Publikasi</h4>
                                     <p class="card-title-desc">Masukkan data <code>publikasi</code> ke dalam <code>form</code> berikut</p>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Judul publikasi</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">
+                                            Judul publikasi
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -51,11 +54,15 @@
                                                 placeholder="Judul publikasi"
                                                 id="Judul-Publikasi" 
                                                 name="judul_publikasi"
+                                                required
                                             >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-number-input" class="col-md-2 col-form-label">Tahun</label>
+                                        <label for="example-number-input" class="col-md-2 col-form-label">
+                                            Tahun
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -64,6 +71,7 @@
                                                 name="tahun"
                                                 placeholder="Tahun Publikasi" 
                                                 min="1"
+                                                required
                                             >
                                         </div>
                                     </div>
@@ -71,6 +79,7 @@
                                         <label class="col-md-2 col-form-label">Jenis publikasi</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
+                                                <option value=""> (Pilih jenis publikasi)</option>
                                                 <?php foreach($jenisPublikasi as $jenis): ?>
                                                     <option> <?= $jenis ?> </option>
                                                 <?php endforeach; ?>
@@ -150,6 +159,18 @@
                                             >
                                         </div>
                                     </div>
+                                    <!-- <div class="mb-3 row">
+                                        <label for="targetLuaran" class="col-md-2 col-form-label">Target luaran</label>
+                                        <div class="col-md-10">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder= "Target Luaran" 
+                                                id="targetLuaran" 
+                                                name="target_luaran"
+                                            >
+                                        </div>
+                                    </div> -->
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Institusi mitra</label>
                                         <div class="col-md-10">
@@ -176,7 +197,7 @@
                                     </div>
 
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label">Akreditasi</label>
+                                        <label class="col-md-2 col-form-label"> Peringkat jurnal</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="akreditasi_journal_conf">
                                                 <option> not accredited yet </option>

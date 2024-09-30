@@ -58,7 +58,7 @@
                                                                 $publikasi['penulis_11'], 
                                                             ], function($v) { return strlen($v) > 0; }))),
                                                     "Jurnal" => $publikasi["nama_journal_conf"],
-                                                    "Akreditasi Jurnal" => $publikasi["akreditasi_journal_conf"],
+                                                    "Peringkat Jurnal" => $publikasi["akreditasi_journal_conf"],
                                                     "Jenis" => $publikasi["jenis"],
                                                     "Lab Riset" => $publikasi["lab_riset"],
                                                     "Mitra" => $publikasi["institusi_mitra"],

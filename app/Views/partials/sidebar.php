@@ -3,7 +3,7 @@
 
     <!-- LOGO -->
     <div class="navbar-brand-box">
-        <a href="index" class="logo logo-dark">
+        <a href="/" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="/assets/images/logo-sm.png" alt="" height="30">
             </span>
@@ -31,7 +31,7 @@
             <ul class="metismenu list-unstyled" id="side-menu"> <!-- Left Menu Start -->
                 <li class="menu-title"><?= lang('Files.Menu') ?></li>
                 <li>
-                    <a href="/index">
+                    <a href="/">
                         <i class="uil-home-alt"></i>
                         <span><?= lang('Files.Dashboard') ?></span>
                     </a>
@@ -52,11 +52,19 @@
 
                 <li>
                     <a href="/dosen">
-                        <i class="uil-user-circle"></i><span class="badge rounded-pill bg-primary float-end"></span>
+                        <i class="uil-users-alt"></i><span class="badge rounded-pill bg-primary float-end"></span>
                         <span><?= lang('Dosen') ?></span>
                     </a>
                 </li>
                 <?php if(logged_in()): ?>
+                    <?php if(user()->kode_dosen != ""): ?>
+                        <li>
+                            <a href="/profile">
+                                <i class="uil uil-user-circle"> </i> 
+                                <span> Profil</span>
+                            </a>
+                        </li>
+                    <?php endif ?>
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="uil-share-alt"></i>

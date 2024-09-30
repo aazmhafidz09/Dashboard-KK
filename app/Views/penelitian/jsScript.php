@@ -38,7 +38,7 @@
                     data: null,
                     render: function(data, type, row) {
                         return [
-                            `<a href="penelitian/view/${row.id}"`,
+                            `<a href="penelitian/view/${row.id}">`,
                                 "<i class='uil uil-eye font-size-18'></i>",
                             "</a>",
                         ].join(" ")
@@ -48,19 +48,18 @@
         });
     })
 
-    let FILTER_PENELITIAN_PER_TAHUN = { kk: <?= $defaultFilterKK ?>}
+    let FILTER_PENELITIAN_PER_TAHUN = { kk: <?= $defaultFilterKK ?>, }
     let FILTER_PENELITIAN_PER_JENIS_TAHUNAN = { kk: <?= $defaultFilterKK ?>}
     let FILTER_PENELITIAN_PER_DOSEN = {
         kk: <?= $defaultFilterKK ?>,
         tahun: "Semua",
+        recentKetuaOnly: false,
     };
     let FILTER_PENELITIAN_DOSEN = {
         kodeDosen: "",
         ketuaOnly: false
     }
 
-    const displayedPenelitianTypes = [ "INTERNAL", "EKSTERNAL", "MANDIRI", 
-                                    "KERJASAMA PERGURUAN TINGGI", "HILIRISASI"];
     const dataPenelitian = {
         <?php
             foreach($data_tahunan as $d) {
@@ -114,7 +113,14 @@
         dataPenelitianPerKKTahunan[kk][tahun][jenis] = nPenelitian;
     })
 
-    temp = Object.fromEntries(displayedPenelitianTypes.map(pType => [pType, {}]))
+    const displayedPenelitianTypes = [ "INTERNAL", "EKSTERNAL", "MANDIRI", 
+                                    "KERJASAMA PERGURUAN TINGGI", "HILIRISASI"];
+    const penelitianTypes = [
+        <?php foreach($penelitianTypes as $type) {
+            echo "'$type',";
+        } ?>
+    ];
+    temp = Object.fromEntries(penelitianTypes.map(pType => [pType, {}]))
     <?php foreach($annualPenelitianByType as $row): ?>
         <?php if(strtoupper($row["jenis"]) != "KEMITRAAN"): ?>
             temp['<?= strtoupper($row["jenis"]) ?>'][<?= $row["tahun"] ?>] = <?= $row["nPenelitian"] ?>;
@@ -127,7 +133,10 @@
                 name: penelitianType,
                 data: availablePenelitianYears 
                         .map(penelitianYear => {
-                            penelitianPerYear = temp[penelitianType][penelitianYear]
+                            const penelitianPerType = temp[penelitianType];
+                            if(penelitianPerType == undefined) return 0;
+
+                            const penelitianPerYear = penelitianPerType[penelitianYear];
                             return (penelitianPerYear == undefined? 0: penelitianPerYear)
                         })
             }))
@@ -150,6 +159,7 @@
     };
 
     function makeChartPenelitianPerTahun(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts( 
             targetElement,
             {
@@ -212,6 +222,7 @@
     }
 
     function makeChartPenelitianPerJenisTahunan(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts( 
             targetElement, 
             {
@@ -274,6 +285,7 @@
     }
 
     function makeChartPenelitianPerDosen(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts(
             targetElement,  
             {
@@ -343,6 +355,7 @@
     }
 
     function makeChartPenelitianDosen(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts(
             targetElement,  
             {
@@ -408,6 +421,34 @@
         ).render();
     }
 
+    function makeSmallChart(targetElement, color) { // Minible's chart config
+        new ApexCharts(
+            targetElement, 
+            {
+                series:[{
+                    name: "",
+                    data: Array.from({length: 11}, (_, idx) => 12 + (Math.floor(Math.random()*71) % 50)),
+                }],
+                fill: {colors: color},
+                chart: {
+                    type:"bar",
+                    width:70,
+                    height:40,
+                    sparkline:{enabled:!0}
+                },
+                plotOptions: {
+                    bar:{columnWidth:"50%"}
+                },
+                labels:[1,2,3,4,5,6,7,8,9,10,11],
+                xaxis:{crosshairs:{width:1}},
+                tooltip:{fixed:{enabled:!1},
+                x:{show:!1},
+                y:{title:{formatter:function(r){return""}}},
+                marker:{show:!1}}
+            }
+        ).render()
+    }
+
     const onDataPointSelection = function(e, context, opts) {
         const kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex];
 
@@ -421,29 +462,53 @@
             FILTER_PENELITIAN_DOSEN.ketuaOnly = false;
             const targetElement = document.getElementById("chartPenelitianDosen");
             const dataPublikasiDosen = dataPenelitian[kodeDosen];
-            targetElement.innerHTML = "";
             makeChartPenelitianDosen(targetElement, Object.keys(dataPublikasiDosen), Object.values(dataPublikasiDosen))
         }
     }
     
     function onPenelitianPerDosenFilterUpdate() {
-        const {kk, tahun} = FILTER_PENELITIAN_PER_DOSEN;
+        const {kk, tahun, recentKetuaOnly} = FILTER_PENELITIAN_PER_DOSEN;
+        const yearNow = (new Date()).getFullYear(); // Inclusive with system's year
+        const filterTahunText = document.getElementById("chartPenelitianPerDosen__tahun")
+
         document.getElementById("chartPenelitianPerDosen__KK").innerHTML = `KK ${kk}`;
-        document.getElementById("chartPenelitianPerDosen__tahun").innerHTML = tahun;
+        filterTahunText.innerHTML = ((tahun == "Recent")
+                                        ? `(${yearNow - 3} - ${yearNow})`
+                                        : tahun);
+
+        const dosenList = dosenByKK[kk];
+        let chartValues;
+        if(recentKetuaOnly) {
+            chartValues = dosenList.map(dosen => {
+                const dataDosen = dataKetuaPenelitianPerTahun[dosen]
+                if(dataDosen == undefined) return 0;
+
+                return Object.entries(dataDosen)
+                    .map((val, idx) => {
+                        const [tahunPenelitian, nPenelitian] = val;
+                        const isRecent = (yearNow - tahunPenelitian < 4
+                                            && yearNow - tahunPenelitian > -1)
+                        return isRecent? nPenelitian: 0;
+                    })
+                    .reduce((acc, val) => acc + val, 0)
+            })
+        } else {
+            chartValues = dosenList.map(dosen => {
+                return Object.entries(dataPenelitian[dosen])
+                    .map((val, idx) => {
+                        const [tahunPenelitian, nPenelitian] = val;
+                        const isRecent = (yearNow - tahunPenelitian < 4
+                                            && yearNow - tahunPenelitian > -1)
+
+                        if(tahun == "Recent" & isRecent) return nPenelitian;
+                        return tahun == "Semua" || tahunPenelitian == tahun ? nPenelitian: 0;
+                    })
+                    .reduce((acc, val) => acc + val, 0)
+            })
+        }
+
         const targetElement = document.getElementById("chartPenelitianPerDosen");
-        targetElement.innerHTML = "";
-
-        const chartLabels = dosenByKK[kk];
-        const chartValues = dosenByKK[kk].map(dosen => {
-            return Object.entries(dataPenelitian[dosen])
-                .map((val, idx) => {
-                    const [tahunPenelitian, nPenelitian] = val;
-                    return tahun == "Semua" || tahunPenelitian == tahun ? nPenelitian: 0;
-                })
-                .reduce((acc, val) => acc + val, 0)
-        })
-
-        makeChartPenelitianPerDosen( targetElement, chartLabels, chartValues);
+        makeChartPenelitianPerDosen(targetElement, dosenList, chartValues);
     }
 
     function onPenelitianPerTahunFilterUpdate() {
@@ -456,14 +521,13 @@
             document.getElementById("chartPenelitianPerTahun__KK").innerHTML = `KK ${kk}`;
             chartLabels = Object.keys(dataPenelitianPerKKTahunan[kk])
             chartValues = Object.values(dataPenelitianPerKKTahunan[kk])
-                                .map(abdimasType => (
-                                    Object.values(abdimasType)
+                                .map(penType => (
+                                    Object.values(penType)
                                           .reduce((acc, val) => acc + val, 0)
                                 ))
         }
 
         const targetElement = document.getElementById("chartPenelitianPerTahun");
-        targetElement.innerHTML = "";
         makeChartPenelitianPerTahun(targetElement, chartLabels, chartValues);
 
     }
@@ -495,7 +559,6 @@
         }
 
         const targetElement = document.getElementById("chartPenelitianPerJenisTahunan");
-        targetElement.innerHTML = "";
         makeChartPenelitianPerJenisTahunan(targetElement, chartLabels, chartValues);
     }
 
@@ -503,7 +566,6 @@
         FILTER_PENELITIAN_DOSEN.ketuaOnly = !FILTER_PENELITIAN_DOSEN.ketuaOnly;
         const {kodeDosen, ketuaOnly} = FILTER_PENELITIAN_DOSEN;
         const targetElement = document.getElementById("chartPenelitianDosen");
-        targetElement.innerHTML = "";
 
         const dataPenelitianDosen = dataPenelitian[kodeDosen];
         const chartLabels = Object.keys(dataPenelitianDosen);
@@ -519,6 +581,15 @@
                 })
         );
         makeChartPenelitianDosen(targetElement, chartLabels, chartValues);
+    }
+
+    function toggleRecentKetuaOnlyFilter() {
+        const recentKetuaOnly = !FILTER_PENELITIAN_PER_DOSEN.recentKetuaOnly;
+        FILTER_PENELITIAN_PER_DOSEN.recentKetuaOnly = recentKetuaOnly;
+
+        const yearDropdown = document.getElementById("penelitianPerDosen__yearDropdown")
+        yearDropdown.style.display = (recentKetuaOnly? "none": "block");
+        onPenelitianPerDosenFilterUpdate();
     }
 
     // Bar chart
@@ -545,7 +616,6 @@
                 colors: BarchartBarColors,
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: { 
-                    labels: { show: false, },
                     categories: [<?php foreach ($count_publikasi as $cpub) {
                                 echo '"' . $cpub['jenis_pen'] . '",';
                                 } ?>], 
@@ -555,18 +625,19 @@
     }
 
     // pie chart
+    const pieChartValues = {
+        <?php foreach($count_publikasi as $cpub) {
+            echo "'" . strtoupper($cpub["jenis_pen"]) . "': " . $cpub['jumlah_pen'] . ",";
+        } ?>
+    }
     const PiechartPieColors = getChartColorsArray("pie_chart");
     if (PiechartPieColors) {
         new ApexCharts( 
             document.getElementById("pie_chart"), 
             {
                 chart: { height: 380, type: 'pie', },
-                series: [<?php foreach ($count_publikasi as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        } ?>],
-                labels: [<?php foreach ($count_publikasi as $cpub) {
-                            echo '"' . $cpub['jenis_pen'] . '",';
-                        } ?>],
+                series: displayedPenelitianTypes.map(pTypes => pieChartValues[pTypes]),
+                labels: displayedPenelitianTypes,
                 colors: PiechartPieColors,
                 legend: {
                     show: true,
@@ -608,4 +679,10 @@
                                     .reduce((acc, val) => acc + val, 0)
                                 ))
     )
+
+    makeSmallChart( document.getElementById("smallChart__eksternal"), "#5b73e8")
+    makeSmallChart( document.getElementById("smallChart__internal"), "#20C997")
+    makeSmallChart( document.getElementById("smallChart__mandiri"), "#f1b44c")
+    makeSmallChart( document.getElementById("smallChart__kerjasamaPT"), "#f46a6a")
+    makeSmallChart( document.getElementById("smallChart__hilirisasi"), "#6f42c1")
 </script>

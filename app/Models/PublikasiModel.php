@@ -514,6 +514,12 @@ class PublikasiModel extends Model
     public function import($filePath) {
         // Validation purpose variables
         $dosenList = (new DosenModel())->getAllKodeDosen();
+        $publikasiTitles = array_map(function($v) { 
+            return strtolower($v["judul_publikasi"]); },
+            $this->getPublikasi()
+        );
+        $newPublikasiTitles = [];
+
         $insertFields = [ 
             // Excel format as of 24/07/29: (Please always adjust it to current format)
             // id | title | year | PENULIS1 | PENULIS2 | PENULIS3 | PENULIS4 | PENULIS5 | PENULIS6 |  PENULIS7 |  PENULIS8 |  PENULIS9 |  PENULIS10 |  PENULIS11 |  LABRISET |  authors | INSTITUSI | JENIS | JOURNAL | AKREDITASI | LINK
@@ -544,7 +550,7 @@ class PublikasiModel extends Model
 
                 $rowCells = $row->getCells();
                 if(count($rowCells) - 1 != count($insertFields)) { // Excluding id which exists in template
-                    throw new \Exception("Banyak kolom tidak sesuai kriteria, yakni sebanyak " . (count($insertFields) - 1));
+                    throw new \Exception("Banyak kolom tidak sesuai kriteria, yakni sebanyak " . (count($insertFields)));
                 }
 
                 $currentRow = [];
@@ -560,6 +566,17 @@ class PublikasiModel extends Model
                             && strlen($currentRow["jenis"]) > 0
                             && strlen($currentRow["penulis_all"]) > 0);
                 if(!$isValid) throw new \Exception("`judul_publikasi`, `tahun`, `jenis`, dan `penulis_all` harus diisi");
+
+                // Prohibit duplicate titles 
+                $isValid = !in_array(strtolower($currentRow["judul_publikasi"]), $publikasiTitles);
+                if(!$isValid) { 
+                    throw new \Exception("Terdapat judul publikasi serupa yang sudah terdaftar, silakan gunakan judul yang lainnya");
+                }
+
+                $isValid = !in_array(strtolower($currentRow["judul_publikasi"]), $newPublikasiTitles);
+                if(!$isValid) { 
+                    throw new \Exception("Terdapat judul publikasi serupa yang sama pada data input anda, silakan gunakan judul yang lainnya");
+                }
 
                 $hasWriter = false;
                 foreach($WRITER_FIELDS as $wf) {
@@ -583,6 +600,7 @@ class PublikasiModel extends Model
                             || filter_var($currentRow["link_artikel"], FILTER_VALIDATE_URL));
                 if(!$isValid) throw new \Exception("Pastikan `link_artikel` merupakan URL yang valid (contoh: https://www.google.com)");
 
+                array_push($newPublikasiTitles, strtolower($currentRow["judul_publikasi"]));
                 array_push($rowData, $currentRow);
             }
 
