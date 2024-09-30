@@ -350,20 +350,21 @@
                             <div class="modal-header pb-3 pt-3">
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body p-0 d-flex" style="overflow: clip">
+                            <div class="modal-body p-0 d-flex align-items-stretch" 
+                                style="overflow: clip">
                                 <?php if(is_null($dosen["sinta_id"])): ?>
-                                    <p class="align-center h-100"> Data SINTA belum ditambahkan untuk dosen ini </p>
+                                    <p style="margin: auto"> Data SINTA belum ditambahkan untuk dosen ini </p>
                                 <?php else:?>
+                                    <p id="sinta__loading" style="margin: auto"> Memuat laman SINTA...  </p>
                                     <iframe 
                                         data-reloaded="0"
                                         allow="fullscreen"
-                                        style="flex: 1;"
-                                        src="https://sinta.kemdikbud.go.id/authors/profile/<?= $dosen["sinta_id"]?>" frameborder="0"
-                                    ><!-- 
-                                        Onload forcefully reload, since the graph sometimes doesn't load on initialization and the reason why is unknown 
-                                        onload=" () => { console.log('hell'); if ($(this).attr('data-reloaded')) { $(this).attr('src', $(this).attr('src')); $(this).removeAttr('data-reloaded') }}" 
-                                    -->
-                                    </iframe>
+                                        loading="lazy"
+                                        style="opacity: 0; position: absolute;"
+                                        src="https://sinta.kemdikbud.go.id/authors/profile/<?= $dosen["sinta_id"]?>" 
+                                        frameborder="0"
+                                        onload="$('#sinta__loading').remove(); $(this).attr('style', 'opacity: 1; position: block; flex:1;')"
+                                    > </iframe>
                                 <?php endif?>
                             </div>
                         </div>
