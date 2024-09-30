@@ -388,87 +388,88 @@
 <script src="/assets/js/app.js"></script>
 
 <script>
-    // NOTE: This approach really depends on https://sinta.kemdikbud.go.id/ layout
-    // It it's get updated, the following code should be adapted to that layout to
-    // get the desired data
-    $(document).ready(async() => {
-        const SINTA_ID = "6866362" // 
-        const SINTA_URL = `https://sinta.kemdikbud.go.id/authors/profile/${SINTA_ID}`
-        const $sintaFetchInfo = $("#sinta_fetchInfo")
+    <?php if(!is_null($dosen["sinta_id"])): ?>
+        // NOTE: This approach really depends on https://sinta.kemdikbud.go.id/ layout
+        // It it's get updated, the following code should be adapted to that layout to
+        // get the desired data
+        $(document).ready(async() => {
+            const SINTA_URL = "https://sinta.kemdikbud.go.id/authors/profile/<?php $dosen["sinta_id"]?>"
+            const $sintaFetchInfo = $("#sinta_fetchInfo")
 
-        await fetch(`/thirdparty/sinta/${SINTA_ID}`)
-            .then(res => {
-                if(!res.ok) throw Error("Something went wrong")
-                return res.text()
-            })
-            .then(res => {
-                // Always sync these with how the data exist within SINTA page's DOM
-                const $html = $(res);
-                // const $statistics = $html.find(".stat-profile > div")
-                const $summary = $html.find(".side-content")
-                                    .find(".table")
-                const $pfp = $html.find(".content-box")
-                                .children()
-                                .first()
-                                .children()
-                                .first()
-                                .find("img")
+            await fetch(`/thirdparty/sinta/${SINTA_ID}`)
+                .then(res => {
+                    if(!res.ok) throw Error("Something went wrong")
+                    return res.text()
+                })
+                .then(res => {
+                    // Always sync these with how the data exist within SINTA page's DOM
+                    const $html = $(res);
+                    // const $statistics = $html.find(".stat-profile > div")
+                    const $summary = $html.find(".side-content")
+                                        .find(".table")
+                    const $pfp = $html.find(".content-box")
+                                    .children()
+                                    .first()
+                                    .children()
+                                    .first()
+                                    .find("img")
 
-                const fetchOK = $summary.length !== 0 //&& $statistics.length !== 0
-                if(!fetchOK) {
-                    throw Error(`Failed fething SINTA author page. This might be because of profile id ${SINTA_ID} wasn't found or the SINTA page layout has changed`)
-                }
-                $sintaFetchInfo.remove()
+                    const fetchOK = $summary.length !== 0 //&& $statistics.length !== 0
+                    if(!fetchOK) {
+                        throw Error(`Failed fething SINTA author page. This might be because of profile id ${SINTA_ID} wasn't found or the SINTA page layout has changed`)
+                    }
+                    $sintaFetchInfo.remove()
 
-                // Adjust some breaking changes as this site uses Bootstrap5 
-                // while SINTA uses Bootstrap4
-                const $sintaSideStats = $("#sinta_sideStat")
-                $summary
-                    .find("thead > tr")
-                    .children()
-                    .first()
-                    .removeClass("text-left")
-                    .addClass("text-start")
-                $summary
-                    .find("tbody")
-                    .children()
-                    .each(function() {
-                        $(this).children()
-                                .first()
-                                .removeClass("text-left") 
-                                .addClass("text-start")
-                    })
-                $sintaSideStats.empty()
-                $sintaSideStats.append($summary.prop("outerHTML"))
+                    // Adjust some breaking changes as this site uses Bootstrap5 
+                    // while SINTA uses Bootstrap4
+                    const $sintaSideStats = $("#sinta_sideStat")
+                    $summary
+                        .find("thead > tr")
+                        .children()
+                        .first()
+                        .removeClass("text-left")
+                        .addClass("text-start")
+                    $summary
+                        .find("tbody")
+                        .children()
+                        .each(function() {
+                            $(this).children()
+                                    .first()
+                                    .removeClass("text-left") 
+                                    .addClass("text-start")
+                        })
+                    $sintaSideStats.empty()
+                    $sintaSideStats.append($summary.prop("outerHTML"))
 
-                // const $sintaProfileStats = $("#sinta_profStat")
-                // $statistics
-                //     .children(":nth-child(even)")
-                //     .each(function() {
-                //         const $child = $(this).clone()
-                //         const $statName = $('<p class="text-muted mb-2"> </p>')
-                //         const $statValue = $('<h3 class="font-size-16 mb-0"> </h3>')
-                //         $statName.text($child.find(".pr-txt").prop("innerHTML"))
-                //         $statValue.text($child.find(".pr-num").prop("innerHTML"))
+                    // const $sintaProfileStats = $("#sinta_profStat")
+                    // $statistics
+                    //     .children(":nth-child(even)")
+                    //     .each(function() {
+                    //         const $child = $(this).clone()
+                    //         const $statName = $('<p class="text-muted mb-2"> </p>')
+                    //         const $statValue = $('<h3 class="font-size-16 mb-0"> </h3>')
+                    //         $statName.text($child.find(".pr-txt").prop("innerHTML"))
+                    //         $statValue.text($child.find(".pr-num").prop("innerHTML"))
 
-                //         const $column = $("<div class='col-6'></div>")
-                //         const $content = $("<div class='mt-3'></div>")
+                    //         const $column = $("<div class='col-6'></div>")
+                    //         const $content = $("<div class='mt-3'></div>")
 
-                //         $content.append($statName)
-                //         $content.append($statValue)
-                //         $column.append($content)
-                //         $sintaProfileStats.append($column)
-                //     })
+                    //         $content.append($statName)
+                    //         $content.append($statValue)
+                    //         $column.append($content)
+                    //         $sintaProfileStats.append($column)
+                    //     })
 
-                $dosenPfp = $("#dosenImg")
-                $dosenPfp.attr("src", $pfp.attr("src"))
+                    $dosenPfp = $("#dosenImg")
+                    $dosenPfp.attr("src", $pfp.attr("src"))
 
-            })
-            .catch(err => {
-                $sintaFetchInfo.text("Terjadi kesalahan ketika memuat data SINTA")
-                console.log(`LOG: ${err}`)
-            })
-    })
+                })
+                .catch(err => {
+                    $sintaFetchInfo.text("Terjadi kesalahan ketika memuat data SINTA")
+                    console.log(`LOG: ${err}`)
+                })
+        })
+    <?php endif?>
 </script>
 </body>
 </html>
