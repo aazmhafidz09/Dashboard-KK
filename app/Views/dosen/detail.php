@@ -1,5 +1,12 @@
 <?= $this->include('partials/main') ?>
 
+<!-- 
+    NOTICE:
+    This page is dependent on Kemendikbud's SINTA page because it doesn't
+    provide any usable API. THat means, if SINTA page is changed, this file 
+    SHOULD sync itself with SINTA latest state. It includes the way this page
+    gather its data from SINTA which heavily depends on SINTA page layout or 
+    the domain itself -->
 <head>
     <?= $this->include('partials/head-css') ?>
     <!-- Bootstrap 5 CSS -->
@@ -8,8 +15,10 @@
     <link rel='stylesheet' href='https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css'>
     <!-- Font Awesome CSS -->
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
-</head>
 
+    <!-- NOTE: SINTA icon pack -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">  -->
+</head>
 <?= $this->include('partials/body') ?>
 
 <!-- Begin page -->
@@ -22,13 +31,19 @@
         <div class="page-content">
             <div class="container-fluid">
                 <div class="row mb-4">
-                    <div class="col-xl-4">
+                    <div class="col-xl-4 mb-3">
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="text-center">
                                     <div class="clearfix"></div>
                                     <div>
-                                        <img src="assets/images/users/avatar-4.jpg" alt="" class="avatar-lg rounded-circle img-thumbnail">
+                                        <img 
+                                            id="dosenImg"
+                                            src="/assets/images/users/user-avatar.jpg" 
+                                            alt="<?= $dosen['kode_dosen']; ?>" 
+                                            class="avatar-lg rounded-circle img-thumbnail"
+                                            style="aspect-ratio:1; width: 100px"
+                                            onerror="this.src='/assets/images/users/user-avatar.jpg'">
                                     </div>
                                     <h5 class="mt-3 mb-1"><?= $dosen['nama_dosen']; ?></h5>
                                     <p class="text-muted"><?= $dosen['kode_dosen']; ?></p>
@@ -45,6 +60,7 @@
                                             <p class=""><?= $dosen['nama_dosen']; ?></p>
                                         </div>
                                         <hr class="my-4">
+                                        <h4>Statistik</h4>
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="mt-3">
@@ -88,6 +104,26 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <hr class="my-4">
+
+                                        <h4>SINTA</h4>
+                                        <div id="sinta">
+                                            <?php if(is_null($dosen["sinta_id"])): ?>
+                                                <p> Data SINTA belum ditambahkan untuk dosen ini </p>
+                                            <?php else:?>
+                                                <p id="sinta_fetchInfo"> Memuat data SINTA...</p>
+                                                <!-- <div class="row" id="sinta_profStat"> </div> -->
+                                                <div class="mt-3" id="sinta_sideStat"> </div>
+                                                <button type="button" 
+                                                    class="btn btn-primary p-0 bg-transparent text-primary float-end" 
+                                                    style="border: 0px solid black;"
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#exampleModal">
+                                                    Profil Selengkapnya
+                                                    <i class="uil uil-arrow-right font-size-20"></i> 
+                                                </button>
+                                            <?php endif?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +148,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-bs-toggle="tab" href="#abdimas" role="tab">
-                                        <i class="uil uil-users-alt font-size-20"></i>
+                                        <i class="uil uil-smile font-size-20"></i>
                                         <span class="d-none d-sm-block">Abdimas</span>
                                     </a>
                                 </li>
@@ -302,6 +338,38 @@
                         </div>
                     </div>
                 </div>
+                <!-- Modal -->
+                <div class="modal fade modal-xl" 
+                    id="exampleModal" 
+                    tabindex="-1" 
+                    aria-labelledby="exampleModalLabel" 
+                    aria-hidden="true"
+                >
+                    <div class="modal-dialog overflow-clip">
+                        <div class="modal-content" style="height: 90vh">
+                            <div class="modal-header pb-3 pt-3">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-0 d-flex align-items-stretch" 
+                                style="overflow: clip">
+                                <?php if(is_null($dosen["sinta_id"])): ?>
+                                    <p style="margin: auto"> Data SINTA belum ditambahkan untuk dosen ini </p>
+                                <?php else:?>
+                                    <p id="sinta__loading" style="margin: auto"> Memuat laman SINTA...  </p>
+                                    <iframe 
+                                        data-reloaded="0"
+                                        allow="fullscreen"
+                                        loading="lazy"
+                                        style="opacity: 0; position: absolute;"
+                                        src="https://sinta.kemdikbud.go.id/authors/profile/<?= $dosen["sinta_id"]?>" 
+                                        frameborder="0"
+                                        onload="$('#sinta__loading').remove(); $(this).attr('style', 'opacity: 1; position: block; flex:1;')"
+                                    > </iframe>
+                                <?php endif?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -320,5 +388,90 @@
 <!-- App js -->
 <script src="/assets/js/app.js"></script>
 
+<script>
+    <?php if(!is_null($dosen["sinta_id"])): ?>
+        // NOTE: This approach really depends on https://sinta.kemdikbud.go.id/ layout
+        // It it's get updated, the following code should be adapted to that layout to
+        // get the desired data
+        $(document).ready(async() => {
+            const SINTA_ID = "<?= $dosen["sinta_id"]?>"
+            const SINTA_URL = `https://sinta.kemdikbud.go.id/authors/profile/${SINTA_ID}`
+            const $sintaFetchInfo = $("#sinta_fetchInfo")
+
+            await fetch(`/thirdparty/sinta/${SINTA_ID}`)
+                .then(res => {
+                    if(!res.ok) throw Error("Something went wrong")
+                    return res.text()
+                })
+                .then(res => {
+                    // Always sync these with how the data exist within SINTA page's DOM
+                    const $html = $(res);
+                    // const $statistics = $html.find(".stat-profile > div")
+                    const $summary = $html.find(".side-content")
+                                        .find(".table")
+                    const $pfp = $html.find(".content-box")
+                                    .children()
+                                    .first()
+                                    .children()
+                                    .first()
+                                    .find("img")
+
+                    const fetchOK = $summary.length !== 0 //&& $statistics.length !== 0
+                    if(!fetchOK) {
+                        throw Error(`Failed fething SINTA author page. This might be because of profile id ${SINTA_ID} wasn't found or the SINTA page layout has changed`)
+                    }
+                    $sintaFetchInfo.remove()
+
+                    // Adjust some breaking changes as this site uses Bootstrap5 
+                    // while SINTA uses Bootstrap4
+                    const $sintaSideStats = $("#sinta_sideStat")
+                    $summary
+                        .find("thead > tr")
+                        .children()
+                        .first()
+                        .removeClass("text-left")
+                        .addClass("text-start")
+                    $summary
+                        .find("tbody")
+                        .children()
+                        .each(function() {
+                            $(this).children()
+                                    .first()
+                                    .removeClass("text-left") 
+                                    .addClass("text-start")
+                        })
+                    $sintaSideStats.empty()
+                    $sintaSideStats.append($summary.prop("outerHTML"))
+
+                    // const $sintaProfileStats = $("#sinta_profStat")
+                    // $statistics
+                    //     .children(":nth-child(even)")
+                    //     .each(function() {
+                    //         const $child = $(this).clone()
+                    //         const $statName = $('<p class="text-muted mb-2"> </p>')
+                    //         const $statValue = $('<h3 class="font-size-16 mb-0"> </h3>')
+                    //         $statName.text($child.find(".pr-txt").prop("innerHTML"))
+                    //         $statValue.text($child.find(".pr-num").prop("innerHTML"))
+
+                    //         const $column = $("<div class='col-6'></div>")
+                    //         const $content = $("<div class='mt-3'></div>")
+
+                    //         $content.append($statName)
+                    //         $content.append($statValue)
+                    //         $column.append($content)
+                    //         $sintaProfileStats.append($column)
+                    //     })
+
+                    $dosenPfp = $("#dosenImg")
+                    $dosenPfp.attr("src", $pfp.attr("src"))
+
+                })
+                .catch(err => {
+                    $sintaFetchInfo.text("Terjadi kesalahan ketika memuat data SINTA")
+                    console.log(`LOG: ${err}`)
+                })
+        })
+    <?php endif?>
+</script>
 </body>
 </html>

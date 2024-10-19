@@ -22,7 +22,7 @@
 
 <?php
     $jenisAbdimas = [ "EKSTERNAL", "INTERNAL"];
-    $statusAbdimas = [ "Didanai", "Tidak didanai", "Closed"];
+    $statusAbdimas = [ "Didanai", "Tidak didanai", "Closed", "Submit Proposal"];
 ?>
 
 <!-- Begin page -->
@@ -55,7 +55,10 @@
                                     <p class="card-title-desc">Masukkan data <code>abdimas</code> ke dalam <code>form</code> berikut</p>
 
                                     <div class="mb-3 row">
-                                        <label for="Judul-Abdimas" class="col-md-2 col-form-label">Judul abdimas</label>
+                                        <label for="Judul-Abdimas" class="col-md-2 col-form-label">
+                                            Judul abdimas
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -64,6 +67,7 @@
                                                 id="Judul_Abdimas" 
                                                 name="judul"
                                                 value="<?=$oldAbdimas["judul"]?>"
+                                                required
                                             >
                                         </div>
                                     </div>
@@ -81,7 +85,10 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="Tahun" class="col-md-2 col-form-label">Tahun</label>
+                                        <label for="Tahun" class="col-md-2 col-form-label">
+                                            Tahun
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -91,13 +98,18 @@
                                                 id="Tahun" 
                                                 name="tahun"
                                                 value="<?=$oldAbdimas["tahun"]?>"
+                                                required
                                             >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="jenis" class="col-md-2 col-form-label">Jenis abdimas</label>
+                                        <label for="jenis" class="col-md-2 col-form-label">
+                                            Jenis abdimas
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <select id="jenis" class="form-select" name="jenis">
+                                                <option value=""> (Pilih jenis abdimas)</option>
                                                 <?php foreach($jenisAbdimas as $jenis): ?>
                                                     <option <?= esc(strtolower($jenis) == strtolower($oldAbdimas["jenis"])? "selected": "") ?> >
                                                         <?= $jenis?>
@@ -111,6 +123,7 @@
                                         <label for="abdimas_status" class="col-md-2 col-form-label">Status</label> 
                                         <div class="col-md-10">
                                             <select id="abdimas_status" class="form-select" name="status">
+                                                <option value=""> (Pilih status abdimas)</option>
                                                 <?php foreach($statusAbdimas as $status): ?>
                                                     <option <?= esc(strtolower($status) == strtolower($oldAbdimas["status"])? "selected": "") ?> >
                                                         <?= $status?>
@@ -284,6 +297,19 @@
                                             >
                                         </div>
                                     </div>
+                                    <!-- TODO: implement gathering old value -->
+                                    <!-- <div class="mb-3 row">
+                                        <label for="targetLuaran" class="col-md-2 col-form-label">Target luaran</label>
+                                        <div class="col-md-10">
+                                            <input 
+                                                class="form-control" 
+                                                type="text" 
+                                                placeholder= "Target Luaran" 
+                                                id="targetLuaran" 
+                                                name="target_luaran"
+                                            >
+                                        </div>
+                                    </div> -->
                                     <div class="mb-3 row">
                                         <label for="tanggal_pengesahan" class="col-md-2 col-form-label">Tanggal pengesahan</label>
                                         <div class="col-md-10">

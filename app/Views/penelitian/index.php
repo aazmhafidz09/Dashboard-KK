@@ -23,9 +23,14 @@
         }
     }
 
+    $penelitianTypes = [];
     foreach($all_penelitian as $a) { // OPtimizable?
         $tahunPenelitian = $a["tahun"];
         $ketuaPeneliti = $a["ketua_peneliti"];
+        $jenisPenelitian = strtoupper($a["jenis"]);
+        if(!in_array($jenisPenelitian, $penelitianTypes)) {
+            array_push($penelitianTypes, $jenisPenelitian);
+        }
 
         if(strlen($ketuaPeneliti) > 0) {
             foreach($dosenByKK as $kk => $dList) {
@@ -67,7 +72,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
+                                    <!-- <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_Ekster ?></span></h4>
@@ -81,7 +86,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
+                                    <!-- <div id="orders-chart" data-colors='["--bs-success"]'> </div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_Inter ?></span></h4>
@@ -96,7 +101,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
+                                    <!-- <div id="customers-chart" data-colors='["--bs-primary"]'> </div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_Mand ?></span></h4>
@@ -110,7 +115,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
+                                    <!-- <div id="growth-chart" data-colors='["--bs-warning"]'></div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_Kerjasama_PT ?></span></h4>
@@ -123,7 +128,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
+                                    <!-- <div id="growth-chart" data-colors='["--bs-warning"]'></div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_Hilir ?></span></h4>
@@ -138,7 +143,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
+                                    <div id="smallChart__eksternal" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_YearNow_Ekster ?></span></h4>
@@ -160,7 +166,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
+                                    <div id="smallChart__internal" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="orders-chart" data-colors='["--bs-success"]'> </div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_YearNow_Inter ?></span></h4>
@@ -182,7 +189,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
+                                    <div id="smallChart__mandiri" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="customers-chart" data-colors='["--bs-primary"]'> </div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_YearNow_Mand ?></span></h4>
@@ -205,7 +213,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
+                                    <div id="smallChart__kerjasamaPT" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="growth-chart" data-colors='["--bs-warning"]'></div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_YearNow_Kerjasama_PT ?></span></h4>
@@ -227,7 +236,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
+                                    <div id="smallChart__hilirisasi" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="growth-chart" data-colors='["--bs-warning"]'></div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Penelitian_YearNow_Hilir ?></span></h4>
@@ -392,13 +402,21 @@
                         <div class="card h-100">
                             <div class="card-body d-flex flex-column">
                                 <h4 class="card-title mb-4">Grafik Penelitian</h4>
-                                <div style="flex: 1;" id="pie_chart" data-colors='["--bs-success", "--bs-primary", "--bs-info", "--bs-warning" , "--bs-danger", "--bs-secondary"]' class="apex-charts" dir="ltr"></div>
+                                <div style="flex: 1;" id="pie_chart" data-colors='["--bs-info", "--bs-success", "--bs-warning", "--bs-danger" , "--bs-purple"]' class="apex-charts" dir="ltr"></div>
                             </div>
                         </div>
                     </div> <!-- end Col -->
                 </div> <!-- end row-->
 
                 <div class="row">
+                    <div class="col-xl-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">Data Penelitian </h4>
+                                <div id="bar_chart" data-colors='["--bs-success"]' class="apex-charts" style="max-height: 339px" dir="ltr"></div>
+                            </div>
+                        </div><!--end card-->
+                    </div>
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
@@ -410,10 +428,11 @@
                                             <tbody>
                                                 <?php foreach ($top_penelitian as $tp) : ?>
                                                     <tr>
-                                                        <!-- <td style="width: 20px;"><img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle " alt="..."></td> -->
                                                         <td>
-                                                            <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
-                                                            <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?></p>
+                                                            <a href="/dosen/<?= $tp['kode_dosen']?>">
+                                                                <strong class="font-size-15 mb-1 fw-normal text-black"><?= $tp['kode_dosen']; ?></strong>
+                                                                <p class="text-muted font-size-13 mb-0"> <?= $tp['nama_dosen']; ?></p>
+                                                            </a>
                                                         </td>
                                                         <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['nPenelitian']; ?></td>
                                                     </tr>
@@ -426,15 +445,6 @@
                             </div><!-- end card-body-->
                         </div> <!-- end card-->
                     </div><!-- end col -->
-
-                    <div class="col-xl-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title mb-4">Data Penelitian </h4>
-                                <div id="bar_chart" data-colors='["--bs-success"]' class="apex-charts" style="max-height: 339px" dir="ltr"></div>
-                            </div>
-                        </div><!--end card-->
-                    </div>
                 </div>
                 <!-- end row -->
 
@@ -443,7 +453,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end d-flex">
-                                    <div class="dropdown">
+                                    <div class="me-2">
+                                        <label for="penelitianDosen__recentKetuaOnly"> Hanya ketua 4 tahun terakhir&nbsp;</label>
+                                        <input id="penelitianPerDosen__recentKetuaOnly" type="checkbox" onchange="toggleRecentKetuaOnlyFilter()">
+                                    </div>
+                                    <div class="dropdown me-2" id="penelitianPerDosen__yearDropdown">
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">Tahun:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
@@ -456,6 +470,10 @@
                                                 class="dropdown-item" 
                                                 onclick="FILTER_PENELITIAN_PER_DOSEN = {...FILTER_PENELITIAN_PER_DOSEN,  tahun: 'Semua'}; onPenelitianPerDosenFilterUpdate(); "
                                             > Semua </button>
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_PENELITIAN_PER_DOSEN = {...FILTER_PENELITIAN_PER_DOSEN,  tahun: 'Recent'}; onPenelitianPerDosenFilterUpdate(); "
+                                            > (4 Tahun Terakhir) </button>
                                             <?php foreach($tahunPenelitianTersedia as $tahun): ?>
                                                 <button 
                                                     class="dropdown-item" 
@@ -613,4 +631,5 @@
     "dosenKetuaByYear"  => $dosenKetuaByTahun,
     "annualPenelitianByType" => $annualPenelitianByType,
     "annualPenelitianByTypeAndKK" => $annualPenelitianByTypeAndKK,
+    "penelitianTypes" => $penelitianTypes
 ]) ?>

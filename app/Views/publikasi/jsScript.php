@@ -38,7 +38,7 @@
                     data: null,
                     render: function(data, type, row) {
                         return [
-                            `<a href="publikasi/view/${row.id}"`,
+                            `<a href="publikasi/view/${row.id}">`,
                                 "<i class='uil uil-eye font-size-18'></i>",
                             "</a>",
                         ].join(" ")
@@ -55,13 +55,13 @@
         ketuaOnly: false
     }
     let FILTER_PUBLIKASI_PER_DOSEN = {
+        recentPenulisPertamaOnly: false,
         kk: <?= $defaultFilterKK ?>,
         tahun: "Semua",
     };
 
-    const displayedPublikasiTypes = [ "JURNAL INTERNASIONAL", "JURNAL NASIONAL",
-                                    "PROSIDING INTERNASIONAL", "PROSIDING NASIONAL" ]
-
+    const displayedPublikasiTypes = [ "JURNAL INTERNASIONAL", "JURNAL NASIONAL" ,
+                                    "PROSIDING INTERNASIONAL", "PROSIDING NASIONAL", ]
     const dataPublikasi = {
         <?php
             foreach($data_tahunan as $data) {
@@ -123,22 +123,26 @@
         dataPublikasiPerKKTahunan[kk][tahun][jenis] = nPublikasi;
     })
 
-    const dataPublikasiAnyKKTahunan = [{
+    const dataPublikasiAnyKKTahunan = [
+        {
             name: 'Jurnal Internasional',
             data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                         echo '' . $cpub['jumlah_jurnal_internasional'] . ',';
                     } ?>]
-        }, {
+        }, 
+        {
             name: 'Jurnal Nasional',
             data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                         echo '' . $cpub['jumlah_jurnal_nasional'] . ',';
                     } ?>]
-        }, {
+        }, 
+        {
             name: 'Prosiding Internasional',
             data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                         echo '' . $cpub['jumlah_prosiding_internasional'] . ',';
                     } ?>]
-        }, {
+        }, 
+        {
             name: 'Prosiding Nasional',
             data: [<?php foreach ($getOrderByTahunAllJenis as $cpub) {
                         echo '' . $cpub['jumlah_prosiding_nasional'] . ',';
@@ -166,13 +170,13 @@
 
             const targetElement = document.getElementById("chartPublikasiDosen");
             const dataPublikasiDosen = dataPublikasi[kodeDosen];
-            targetElement.innerHTML = "";
 
             makeChartPublikasiDosen(targetElement, Object.keys(dataPublikasiDosen), Object.values(dataPublikasiDosen))
         }
     }
 
     function makeChartPublikasiPerTahun(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts(
             targetElement,
             {
@@ -238,6 +242,7 @@
     }
 
     function makeChartPublikasiPerJenisTahunan(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts( 
             targetElement,
             {
@@ -303,6 +308,7 @@
     }
 
     function makeChartPublikasiPerDosen(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts(
             targetElement,
             {
@@ -372,9 +378,10 @@
         ).render();
     }
 
-    function makeChartPublikasiDosen(target, labels, values) {
+    function makeChartPublikasiDosen(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts(
-            target,  
+            targetElement,  
             {
                 chart: {
                     height: 350,
@@ -438,6 +445,34 @@
 
     }
 
+    function makeSmallChart(targetElement, color) { // Minible's chart config
+        new ApexCharts(
+            targetElement, 
+            {
+                series:[{
+                    name: "",
+                    data: Array.from({length: 11}, (_, idx) => 12 + (Math.floor(Math.random()*71) % 50)),
+                }],
+                fill: {colors: color},
+                chart: {
+                    type:"bar",
+                    width:70,
+                    height:40,
+                    sparkline:{enabled:!0}
+                },
+                plotOptions: {
+                    bar:{columnWidth:"50%"}
+                },
+                labels:[1,2,3,4,5,6,7,8,9,10,11],
+                xaxis:{crosshairs:{width:1}},
+                tooltip:{fixed:{enabled:!1},
+                x:{show:!1},
+                y:{title:{formatter:function(r){return""}}},
+                marker:{show:!1}}
+            }
+        ).render()
+    }
+
     function onPublikasiPerTahunFilterUpdate() {
         const {kk} = FILTER_PUBLIKASI_PER_TAHUN;
         document.getElementById("chartPublikasiPerTahun__KK").innerHTML = `Semua`;
@@ -455,7 +490,6 @@
         }
 
         const targetElement = document.getElementById("chartPublikasiPerTahun");
-        targetElement.innerHTML = "";
         makeChartPublikasiPerTahun(targetElement, chartLabels, chartValues);
     }
 
@@ -489,39 +523,59 @@
         }
 
         const targetElement = document.getElementById("chartPublikasiPerJenisTahunan");
-        targetElement.innerHTML = "";
         makeChartPublikasiPerJenisTahunan(targetElement, chartLabels, chartValues);
-
     }
 
     function onPublikasiPerDosenFilterUpdate() {
-        const {kk, tahun} = FILTER_PUBLIKASI_PER_DOSEN;
-        document.getElementById("chartPublikasiPerDosen__KK").innerHTML = `KK ${kk}`;
-        document.getElementById("chartPublikasiPerDosen__tahun").innerHTML = tahun;
+        const {kk, tahun, recentPenulisPertamaOnly} = FILTER_PUBLIKASI_PER_DOSEN;
+        const yearNow = (new Date()).getFullYear();
+        const filterTahunText = document.getElementById("chartPublikasiPerDosen__tahun")
 
-        const chartLabels = dosenByKK[kk];
-        const chartValues = dosenByKK[kk].map(dosen => (
-                                Object.entries(dataPublikasi[dosen])
-                                    .map((val, idx) => {
-                                        const [tahunPublikasi, nPublikasi] = val;
-                                        return (
-                                            (tahun == "Semua" || tahunPublikasi == tahun)
-                                            ? nPublikasi: 0
-                                        )
-                                    })
-                                    .reduce((acc, val) => acc + val, 0)
-                                )
-                            )
+        document.getElementById("chartPublikasiPerDosen__KK").innerHTML = `KK ${kk}`;
+        filterTahunText.innerHTML = ((tahun == "Recent")
+                                        ? `(${yearNow - 3} - ${yearNow})`
+                                        : tahun);
+
+        const dosenList = dosenByKK[kk];
+        let chartValues;
+        if(recentPenulisPertamaOnly) {
+            chartValues = dosenList.map(dosen => {
+                const dataDosen = dataPenulisPertamaPerTahun[dosen]
+                if(dataDosen == undefined) return 0;
+
+                return Object.entries(dataDosen)
+                    .map((val, idx) => {
+                        const [tahunPublikasi, nPublikasi] = val;
+                        const isRecent = (yearNow - tahunPublikasi < 4
+                                            && yearNow - tahunPublikasi > -1)
+                        return isRecent? nPublikasi: 0;
+                    })
+                    .reduce((acc, val) => acc + val, 0)
+            })
+        } else {
+            chartValues = dosenList.map(dosen => {
+                return Object.entries(dataPublikasi[dosen])
+                    .map((val, idx) => {
+                        const [tahunPublikasi, nPublikasi] = val;
+                        const isRecent = (yearNow - tahunPublikasi < 4
+                                            && yearNow - tahunPublikasi > -1)
+
+                        if(tahun == "Recent" & isRecent) return nPublikasi;
+                        return tahun == "Semua" || tahunPublikasi == tahun ? nPublikasi : 0
+                    })
+                    .reduce((acc, val) => acc + val, 0)
+                }
+            )
+        }
+
         const targetElement = document.getElementById("chartPublikasiPerDosen");
-        targetElement.innerHTML = "";
-        makeChartPublikasiPerDosen( targetElement, chartLabels, chartValues)
+        makeChartPublikasiPerDosen( targetElement, dosenList, chartValues)
     }
 
     function onPublikasiDosenFilterUpdate() {
         FILTER_PUBLIKASI_DOSEN.ketuaOnly = !FILTER_PUBLIKASI_DOSEN.ketuaOnly
         const {ketuaOnly, kodeDosen} = FILTER_PUBLIKASI_DOSEN
         const targetElement = document.getElementById("chartPublikasiDosen");
-        targetElement.innerHTML = "";
 
         const dataPublikasiDosen = dataPublikasi[kodeDosen];
         const chartLabels = Object.keys(dataPublikasiDosen);
@@ -537,8 +591,16 @@
                 })
         );
 
-        targetElement.innerHTML = "";
         makeChartPublikasiDosen(targetElement, chartLabels, chartValues);
+    }
+
+    function toggleRecentPenulisPertamaOnlyFilter() {
+        const recentPenulisPertamaOnly = !FILTER_PUBLIKASI_PER_DOSEN.recentPenulisPertamaOnly;
+        FILTER_PUBLIKASI_PER_DOSEN.recentPenulisPertamaOnly = recentPenulisPertamaOnly;
+
+        const yearDropdown = document.getElementById("publikasiPerDosen__yearDropdown")
+        yearDropdown.style.display = (recentPenulisPertamaOnly? "none": "block");
+        onPublikasiPerDosenFilterUpdate();
     }
 
     function getChartColorsArray(chartId) {
@@ -568,18 +630,19 @@
     }
 
     // pie chart
+    const pieChartValue = {
+        <?php foreach($count_publikasi_all as $cpub) {
+            echo "'" . strtoupper($cpub["jenis_pen"]) . "': " . $cpub["jumlah_pen"] . ",";
+        } ?>
+    }
     const PiechartPieColors = getChartColorsArray("pie_chart");
     if (PiechartPieColors) {
         new ApexCharts( 
             document.getElementById("pie_chart"), 
             {
                 chart: { height: 380, type: 'pie', },
-                series: [<?php foreach ($count_publikasi_all as $cpub) {
-                            echo '' . $cpub['jumlah_pen'] . ',';
-                        } ?>],
-                labels: [<?php foreach ($count_publikasi_all as $cpub) {
-                            echo '"' . $cpub['jenis_pen'] . '",';
-                        } ?>],
+                series: displayedPublikasiTypes.map(pType => pieChartValue[pType]),
+                labels: displayedPublikasiTypes,
                 colors: PiechartPieColors,
                 legend: {
                     show: true,
@@ -630,7 +693,6 @@
                     categories: [<?php foreach ($akreditasi_jurnal as $cpub) {
                                     echo '"' . $cpub['akreditasi'] . '",';
                                 } ?>], 
-                    labels: { show: false }
                 },
             }
         ).render();
@@ -656,4 +718,9 @@
                                     .reduce((acc, val) => acc + val, 0)
                                 ))
     )
+
+    makeSmallChart( document.getElementById("smallChart__jurnalInternasional"), "#5b73e8")
+    makeSmallChart( document.getElementById("smallChart__jurnalNasional"), "#20C997")
+    makeSmallChart( document.getElementById("smallChart__prosidingInternasional"), "#f1b44c")
+    makeSmallChart( document.getElementById("smallChart__prosidingNasional"), "#f46a6a")
 </script>

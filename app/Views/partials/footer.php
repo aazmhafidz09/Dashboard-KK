@@ -2,13 +2,13 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-                <script>
+                2024 © Penelitian Strategis
+                <!-- <script>
                     document.write(new Date().getFullYear())
-                </script> © KK Intelligence System
+                </script> © KK Intelligence System -->
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    Created by ZHH</a>
                 </div>
             </div>
         </div>

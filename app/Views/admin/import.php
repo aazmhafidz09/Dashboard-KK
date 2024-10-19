@@ -157,6 +157,9 @@
                                                 <li> Apabila penulis/anggota tidak ada atau berasal dari luar fakultas informatika, silakan kosongkan field tersebut </li>
                                                 <li> Gunakan format <code>MM/DD/YYYY</code> pada field yang meminta data tanggal </li>
                                                 <li> Untuk setiap baris data, setidaknya sertakan satu ketua / anggota yang terlibat</li>
+                                                <li> Jangan ada judul yang sama di antara data yang anda ingin masukkan </li>
+                                                <li> Jangan ada baris yang terlewat di antara data yang ingin anda masukkan </li>
+                                                <li> Jangan tambahkan kolom di luar template </li>
                                             </ul>
                                         </div>
                                     </div>

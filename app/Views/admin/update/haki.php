@@ -13,7 +13,7 @@
 <?= $this->include('partials/body') ?>
 
 <?php
-    $jenisHaki = [ "PATEN", "HAK CIPTA", "MEREK", "DESAIN INDUSTRI" ];
+    $jenisHaki = [ "PATEN", "HAK CIPTA", "MEREK", "DESAIN INDUSTRI", "LISENSI INDUSTRI" ];
 ?>
 
 <!-- Begin page -->
@@ -47,7 +47,10 @@
                                     <h4 class="card-title">Input Data Haki</h4>
                                     <p class="card-title-desc">Masukkan data <code>Haki</code> ke dalam <code>form</code> berikut</p>
                                     <div class="mb-3 row">
-                                        <label for="Judul_Publikasi" class="col-md-2 col-form-label">Judul haki</label>
+                                        <label for="Judul_Publikasi" class="col-md-2 col-form-label">
+                                            Judul haki
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -56,11 +59,15 @@
                                                 id="Judul_haki" 
                                                 name="judul"
                                                 value="<?= $oldHaki["judul"] ?>"
+                                                required
                                             >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-number-input" class="col-md-2 col-form-label">Tahun</label>
+                                        <label for="example-number-input" class="col-md-2 col-form-label">
+                                            Tahun
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -70,13 +77,18 @@
                                                 id="example-number-input" 
                                                 name="tahun"
                                                 value="<?= $oldHaki["tahun"] ?>"
+                                                required
                                             >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label">Jenis haki</label>
+                                        <label class="col-md-2 col-form-label">
+                                            Jenis haki
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
+                                                <option value=""> (Pilih jenis haki)</option>
                                                 <?php foreach($jenisHaki as $jenis): ?>
                                                     <option <?= esc(strtolower($jenis) == strtolower($oldHaki["jenis"])? "selected": "") ?> >
                                                         <?= $jenis ?>

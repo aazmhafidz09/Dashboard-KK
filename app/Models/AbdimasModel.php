@@ -422,6 +422,12 @@ class AbdimasModel extends Model
     public function import($filePath) {
         // Validation purpose variables
         $dosenList = (new DosenModel())->getAllKodeDosen();
+        $abdimasTitles = array_map(function($v) { 
+            return strtolower($v["judul"]); },
+            $this->getAbdimas()
+        );
+        $newAbdimasTitles = [];
+
         $insertFields = [ 
             // Excel format as of 24/07/29: (Please always adjust it to current format)
             // id | tahun | jenis | nama_kegiatan | judul | status | lab_riset | ketua | anggota_1 |  anggota_2 |  anggota_3 |  anggota_4 |  anggota_5 |  anggota_6 |  anggota_7 |  anggota_8 | mitra | alamat_mitra | kesesuaian_roadmap | permasalahan_masy | solusi | catatan | luaran | tgl_pengesahan
@@ -451,7 +457,7 @@ class AbdimasModel extends Model
 
                 $rowCells = $row->getCells();
                 if(count($rowCells) - 1 != count($insertFields)) { // Excluding id which exists in template
-                    throw new \Exception("Banyak kolom tidak sesuai kriteria, yakni sebanyak " . (count($insertFields) - 1));
+                    throw new \Exception("Banyak kolom tidak sesuai kriteria, yakni sebanyak " . (count($insertFields)));
                 }
 
                 $currentRow = [];
@@ -464,7 +470,10 @@ class AbdimasModel extends Model
                     } else if($value instanceof \DateTimeImmutable) {
                         $currentRow[$field] = date_format($value, 'd-m-Y');
                     } else {
-                        throw new \Exception("`tgl_pengesahan` tidak valid. Pastikan tanggal valid dan menggunakan format yang sesuai");
+                        if(strlen($value) > 0) {
+                            throw new \Exception("`tgl_pengesahan` tidak valid. Pastikan tanggal valid dan menggunakan format yang sesuai");
+                        }
+                        $currentRow[$field] = null;
                     }
                 }
                 
@@ -474,6 +483,17 @@ class AbdimasModel extends Model
                             && strlen($currentRow["jenis"]) > 0
                             && strlen($currentRow["judul"]) > 0);
                 if(!$isValid) throw new \Exception("`judul`, `status`, `jenis`, dan `tahun` harus diisi");
+
+                // Prohibit duplicate titles 
+                $isValid = !in_array(strtolower($currentRow["judul"]), $abdimasTitles);
+                if(!$isValid) { 
+                    throw new \Exception("Terdapat judul abdimas serupa yang sudah terdaftar, silakan gunakan judul yang lainnya");
+                }
+
+                $isValid = !in_array(strtolower($currentRow["judul"]), $newAbdimasTitles);
+                if(!$isValid) { 
+                    throw new \Exception("Terdapat judul abdimas serupa yang sama pada data input anda, silakan gunakan judul yang lainnya");
+                }
 
                 $hasWriter = false;
                 foreach($WRITER_FIELDS as $wf) {
@@ -496,6 +516,7 @@ class AbdimasModel extends Model
                     || in_array(strtolower($currentRow["status"]), $ALLOWED_STATUS));
                 if(!$isValid) throw new \Exception("Jika diisi, `status` harus merupakan salah satu dari {'didanai', 'tidak didanai', 'closed'}");
 
+                array_push($newAbdimasTitles, strtolower($currentRow["judul"]));
                 array_push($rowData, $currentRow);
             }
 
@@ -583,7 +604,6 @@ class AbdimasModel extends Model
 
     public function getAllByYear($year = null) {
         $table = $this->table;
-
         if(is_null($year)) {
             return $this->db->query("SELECT * FROM $table")
                             ->getResultArray();
@@ -592,5 +612,60 @@ class AbdimasModel extends Model
         $sql = "SELECT * FROM $table WHERE tahun = ?";
         return $this->query($sql, [$year])
                     ->getResultArray();
+    }
+
+    public function getAnnualPerDosenByStatus() {
+        $table = $this->table;
+        $sql = " WITH 
+                    abdimasDosen AS (
+                        SELECT DISTINCT
+                            d.kode_dosen,
+                            d.nama_dosen,
+                            a.tahun,
+                            a.status,
+                            a.id
+                        FROM abdimas AS a
+                        JOIN dosen AS d
+                            ON (
+                                d.kode_dosen = a.ketua
+                                OR d.kode_dosen = a.anggota_1
+                                OR d.kode_dosen = a.anggota_2
+                                OR d.kode_dosen = a.anggota_3
+                                OR d.kode_dosen = a.anggota_4
+                                OR d.kode_dosen = a.anggota_5
+                                OR d.kode_dosen = a.anggota_6
+                                OR d.kode_dosen = a.anggota_7
+                                OR d.kode_dosen = a.anggota_8
+                            )
+                    )
+                SELECT
+                    tahun,
+                    UPPER(status) AS status,
+                    kode_dosen,
+                    nama_dosen,
+                    COUNT(*) AS nAbdimas
+                FROM abdimasDosen
+                GROUP BY kode_dosen, tahun, status ";
+
+        $query = $this->query($sql) 
+                        ->getResultArray();
+
+        $result = [];
+        foreach($query as $r) {
+            $status = $r["status"];
+            $kode_dosen = $r["kode_dosen"];
+            $year = $r["tahun"];
+            if(!isset($result[$status])) {
+                $result[$status] = [];
+            }
+
+            if(!isset($result[$status][$kode_dosen])) {
+                $result[$status][$kode_dosen] = [];
+            }
+
+            $result[$status][$kode_dosen][$year] = $r["nAbdimas"];
+        }
+
+        return $result;
     }
 }

@@ -26,7 +26,10 @@
         if(!isset($dosenPenulisPertamaPerTahun[$penulisPertama][$tahunPublikasi])) {
             $dosenPenulisPertamaPerTahun[$penulisPertama][$tahunPublikasi] = 0;
         }
-        $dosenPenulisPertamaPerTahun[$penulisPertama][$tahunPublikasi]++;
+
+        if(in_array(strtolower($a['jenis']), ["jurnal internasional", "jurnal nasional"])) {
+            $dosenPenulisPertamaPerTahun[$penulisPertama][$tahunPublikasi]++;
+        }
 
         if(!in_array($tahunPublikasi, $tahunPublikasiTersedia)) {
             array_push($tahunPublikasiTersedia, $tahunPublikasi);
@@ -54,7 +57,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Inter ?></span></h4>
@@ -68,7 +70,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Nas ?></span></h4>
@@ -82,7 +83,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Pros ?></span></h4>
@@ -97,7 +97,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $Publikasi_Pros_Nas ?></span></h4>
@@ -112,7 +111,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
+                                    <!-- <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div> -->
+                                    <div id="smallChart__jurnalInternasional" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Inter ?></span></h4>
@@ -134,7 +134,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
+                                    <div id="smallChart__jurnalNasional" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="orders-chart" data-colors='["--bs-success"]'> </div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Nas ?></span></h4>
@@ -157,7 +158,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
+                                    <div id="smallChart__prosidingInternasional" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="customers-chart" data-colors='["--bs-primary"]'> </div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros ?></span></h4>
@@ -180,7 +182,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
+                                    <div id="smallChart__prosidingNasional" style="min-height: 40px; min-width: 70px;"></div>
+                                    <!-- <div id="growth-chart" data-colors='["--bs-warning"]'></div> -->
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $PublikasiYearNow_Pros_Nas ?></span></h4>
@@ -339,7 +342,7 @@
                                 </div>
                                 <div class="mt-3">
                                     <!-- <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]' class="apex-charts" dir="ltr"></div> -->
-                                    <div id="chartPublikasiPerJenisTahunan" data-colors='["--bs-warning", "--bs-primary", "--bs-success"]' class="apex-charts" dir="ltr"></div>
+                                    <div id="chartPublikasiPerJenisTahunan" data-colors='[ "--bs-info", "--bs-success", "--bs-warning", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -350,13 +353,21 @@
                             <div class="card-body">
                                 <h4 class="card-title mb-4">Diagram Publikasi</h4>
 
-                                <div id="pie_chart" data-colors='["--bs-success", "--bs-primary", "--bs-warning" ,"--bs-info", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
+                                <div id="pie_chart" data-colors='["--bs-primary", "--bs-success", "--bs-warning", "--bs-danger"]' class="apex-charts" dir="ltr"></div>
                             </div>
                         </div>
                     </div> <!-- end Col -->
                 </div> <!-- end row-->
 
                 <div class="row">
+                    <div class="col-xl-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4"> Peringkat Publikasi</h4>
+                                <div id="bar_chart" data-colors='["--bs-success"]' class="apex-charts" dir="ltr"></div>
+                            </div>
+                        </div><!--end card-->
+                    </div>
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
@@ -370,8 +381,10 @@
                                                     <tr>
                                                         <!-- <td style="width: 20px;"><img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle " alt="..."></td> -->
                                                         <td>
-                                                            <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
-                                                            <p class="text-muted font-size-13 mb-0"><?= $tp['nama_dosen']; ?></p>
+                                                            <a href="/dosen/<?= $tp['kode_dosen'] ?>">
+                                                                <strong class="font-size-15 mb-1 fw-normal text-black"><?= $tp['kode_dosen']; ?></strong>
+                                                                <p class="text-muted font-size-13 mb-0"><?= $tp['nama_dosen']; ?></p>
+                                                            </a>
                                                         </td>
                                                         <!-- <td><span class="badge bg-danger-subtle text-danger font-size-12">#</span></td>g -->
                                                         <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i><?= $tp['nPublikasi']; ?></td>
@@ -385,15 +398,6 @@
                             </div><!-- end card-body-->
                         </div> <!-- end card-->
                     </div><!-- end col -->
-
-                    <div class="col-xl-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title mb-4"> Peringkat Publikasi</h4>
-                                <div id="bar_chart" data-colors='["--bs-success"]' class="apex-charts" dir="ltr"></div>
-                            </div>
-                        </div><!--end card-->
-                    </div>
                 </div>
                 <!-- end row -->
 
@@ -402,7 +406,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="float-end d-flex">
-                                    <div class="dropdown">
+                                    <div class="me-2">
+                                        <label for="penelitianDosen__recentKetuaOnly"> Hanya penulis pertama jurnal 4 tahun terakhir&nbsp;</label>
+                                        <input id="penelitianPerDosen__recentKetuaOnly" type="checkbox" onchange="toggleRecentPenulisPertamaOnlyFilter()">
+                                    </div>
+                                    <div class="dropdown me-2" id="publikasiPerDosen__yearDropdown">
                                         <a class="dropdown-toggle text-reset d-flex" href="#" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fw-semibold">Tahun:&nbsp; </span> 
                                             <div class="text-muted d-flex"> 
@@ -415,6 +423,10 @@
                                                 class="dropdown-item" 
                                                 onclick="FILTER_PUBLIKASI_PER_DOSEN = {...FILTER_PUBLIKASI_PER_DOSEN,  tahun: 'Semua'}; onPublikasiPerDosenFilterUpdate(); "
                                             > Semua </button>
+                                            <button 
+                                                class="dropdown-item" 
+                                                onclick="FILTER_PUBLIKASI_PER_DOSEN = {...FILTER_PUBLIKASI_PER_DOSEN,  tahun: 'Recent'}; onPublikasiPerDosenFilterUpdate(); "
+                                            > (4 Tahun Terakhir) </button>
                                             <?php foreach($tahunPublikasiTersedia as $tahun): ?>
                                                 <button 
                                                     class="dropdown-item" 
@@ -461,7 +473,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div id="dosenKetuaPublikasi" class="float-end" style="display: none">
-                                    <label> Hanya Penulis Pertama &nbsp;</label>
+                                    <label> Hanya Penulis Pertama Jurnal &nbsp;</label>
                                     <input id="dosenKetuaPublikasiToggle" type="checkbox" onchange="onPublikasiDosenFilterUpdate();"/>
                                 </div>
                                 <div data-simplebar style="max-height: 339px;">

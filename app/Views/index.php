@@ -38,7 +38,7 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="total-revenue-chart" data-colors='["--bs-primary"]'></div>
+                                    <div id="smallChart__publikasi" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $count_publikasi ?></span></h4>
@@ -61,7 +61,7 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="orders-chart" data-colors='["--bs-success"]'> </div>
+                                    <div id="smallChart__penelitian" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $count_penelitian ?></span></h4>
@@ -82,7 +82,7 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="customers-chart" data-colors='["--bs-primary"]'> </div>
+                                    <div id="smallChart__abdimas" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"><span data-plugin="counterup"><?php echo $count_abdimas ?></span></h4>
@@ -103,7 +103,7 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="float-end mt-2">
-                                    <div id="growth-chart" data-colors='["--bs-warning"]'></div>
+                                    <div id="smallChart__haki" style="min-height: 40px; min-width: 70px;"></div>
                                 </div>
                                 <div>
                                     <h4 class="mb-1 mt-1"> <span data-plugin="counterup"><?php echo $count_haki ?></span></h4>
@@ -165,22 +165,29 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Publikasi Dosen</h4>
-
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="card-title mb-4">Publikasi Dosen</h4>
+                                    <div class="float-end">
+                                        <label for="publikasiDosen"> Ascending &nbsp;</label>
+                                        <input id="publikasiDosen" type="checkbox" onchange="onPublikasiDosenToggle()">
+                                    </div>
+                                </div>
                                 <div data-simplebar style="max-height: 450px;">
                                     <div class="table-responsive">
                                         <table class="table table-borderless table-centered table-nowrap">
-                                            <tbody>
+                                            <tbody id="tPublikasiDosen">
                                                 <?php foreach ($nPublikasiEachDosen as $tp) : ?>
                                                     <tr>
                                                         <td>
-                                                            <h6 class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></h6>
-                                                            <p class="text-muted font-size-13 mb-0"> <?=
-                                                                ((strlen($tp['nama_dosen']) <= 15)
-                                                                ? $tp['nama_dosen']
-                                                                : substr($tp['nama_dosen'], 0, 15) . "...")
-                                                                ?>
-                                                            </p>
+                                                            <a href="/dosen/<?=$tp['kode_dosen']?>">
+                                                                <strong class="font-size-15 mb-1 fw-normal text-black"><?= $tp['kode_dosen']; ?></strong>
+                                                                <p class="text-muted font-size-13 mb-0"> <?=
+                                                                    ((strlen($tp['nama_dosen']) <= 15)
+                                                                    ? $tp['nama_dosen']
+                                                                    : substr($tp['nama_dosen'], 0, 15) . "...")
+                                                                    ?>
+                                                                </p>
+                                                            </a>
                                                         </td>
                                                         <td class="text-muted fw-semibold text-end">
                                                             <i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i>
@@ -237,21 +244,29 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Penelitian Dosen</h4>
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="card-title mb-4">Penelitian Dosen</h4>
+                                    <div class="float-end">
+                                        <label for="penelitianDosen"> Ascending &nbsp;</label>
+                                        <input id="penelitianDosen" type="checkbox" onchange="onPenelitianDosenToggle()">
+                                    </div>
+                                </div>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
                                         <table class="table table-borderless table-centered table-nowrap">
-                                            <tbody>
+                                            <tbody id="tPenelitianDosen">
                                                 <?php foreach ($nPenelitianEachDosen as $tp) : ?>
                                                     <tr>
                                                         <td style="max-width: 40%;">
-                                                            <strong class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></strong>
-                                                            <p class="text-muted font-size-13 mb-0"> <?=
-                                                                ((strlen($tp['nama_dosen']) <= 15)
-                                                                ? $tp['nama_dosen']
-                                                                : substr($tp['nama_dosen'], 0, 15) . "...")
-                                                                ?>
-                                                            </p>
+                                                            <a href="/dosen/<?=$tp['kode_dosen']?>">
+                                                                <strong class="font-size-15 mb-1 fw-normal text-black"><?= $tp['kode_dosen']; ?></strong>
+                                                                <p class="text-muted font-size-13 mb-0"> <?=
+                                                                    ((strlen($tp['nama_dosen']) <= 15)
+                                                                    ? $tp['nama_dosen']
+                                                                    : substr($tp['nama_dosen'], 0, 15) . "...")
+                                                                    ?>
+                                                                </p>
+                                                            </a>
                                                         </td>
                                                         <td class="text-muted fw-semibold text-end">
                                                             <?= $tp['nPenelitian']; ?>
@@ -299,21 +314,29 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4"> Abdimas Dosen</h4>
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="card-title mb-4"> Abdimas Dosen</h4>
+                                    <div class="float-end">
+                                        <label for="abdimasDosen"> Ascending &nbsp;</label>
+                                        <input id="abdimasDosen" type="checkbox" onchange="onAbdimasDosenToggle()">
+                                    </div>
+                                </div>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
                                         <table class="table table-borderless table-centered table-nowrap">
-                                            <tbody>
+                                            <tbody id="tAbdimasDosen">
                                                 <?php foreach ($nAbdimasEachDosen as $tp) : ?>
                                                     <tr>
                                                         <td style="max-width: 40%;">
-                                                            <strong class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></strong>
-                                                            <p class="text-muted font-size-13 mb-0"> <?=
-                                                                ((strlen($tp['nama_dosen']) <= 15)
-                                                                ? $tp['nama_dosen']
-                                                                : substr($tp['nama_dosen'], 0, 15) . "...")
-                                                                ?>
-                                                            </p>
+                                                            <a href="/dosen/<?=$tp['kode_dosen']?>">
+                                                                <strong class="font-size-15 mb-1 fw-normal text-black"><?= $tp['kode_dosen']; ?></strong>
+                                                                <p class="text-muted font-size-13 mb-0"> <?=
+                                                                    ((strlen($tp['nama_dosen']) <= 15)
+                                                                    ? $tp['nama_dosen']
+                                                                    : substr($tp['nama_dosen'], 0, 15) . "...")
+                                                                    ?>
+                                                                </p>
+                                                            </a>
                                                         </td>
                                                         <td class="text-muted fw-semibold text-end">
                                                             <?= $tp['nAbdimas']; ?>
@@ -362,21 +385,29 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Haki Dosen</h4>
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="card-title mb-4">Haki Dosen</h4>
+                                    <div class="float-end">
+                                        <label for="hakiDosen"> Ascending &nbsp;</label>
+                                        <input id="hakiDosen" type="checkbox" onchange="onHakiDosenToggle()">
+                                    </div>
+                                </div>
                                 <div data-simplebar style="max-height: 408px;">
                                     <div class="table-responsive">
                                         <table class="table table-borderless table-centered table-nowrap">
-                                            <tbody>
+                                            <tbody id="tHakiDosen">
                                                 <?php foreach ($nHakiEachDosen as $tp) : ?>
                                                     <tr>
                                                         <td style="max-width: 40%;">
-                                                            <strong class="font-size-15 mb-1 fw-normal"><?= $tp['kode_dosen']; ?></strong>
-                                                            <p class="text-muted font-size-13 mb-0"> <?=
-                                                                ((strlen($tp['nama_dosen']) <= 15)
-                                                                ? $tp['nama_dosen']
-                                                                : substr($tp['nama_dosen'], 0, 15) . "...")
-                                                                ?>
-                                                            </p>
+                                                            <a href="/dosen/<?=$tp['kode_dosen']?>">
+                                                                <strong class="font-size-15 mb-1 fw-normal text-black"><?= $tp['kode_dosen']; ?></strong>
+                                                                <p class="text-muted font-size-13 mb-0"> <?=
+                                                                    ((strlen($tp['nama_dosen']) <= 15)
+                                                                    ? $tp['nama_dosen']
+                                                                    : substr($tp['nama_dosen'], 0, 15) . "...")
+                                                                    ?>
+                                                                </p>
+                                                            </a>
                                                         </td>
                                                         <td class="text-muted fw-semibold text-end">
                                                             <?= $tp['nHaki']; ?>
@@ -426,6 +457,60 @@
 </html>
 
 <script type="text/javascript">
+    function onPublikasiDosenToggle() {
+        const node = document.getElementById("tPublikasiDosen");
+        const oldNodeChildren = Array.from(node.childNodes);
+        node.innerHTML = "";
+        node.append(...(oldNodeChildren.reverse()));
+    }
+
+    function onPenelitianDosenToggle() {
+        const node = document.getElementById("tPenelitianDosen");
+        const oldNodeChildren = Array.from(node.childNodes);
+        node.innerHTML = "";
+        node.append(...(oldNodeChildren.reverse()));
+    }
+    function onAbdimasDosenToggle() {
+        const node = document.getElementById("tAbdimasDosen");
+        const oldNodeChildren = Array.from(node.childNodes);
+        node.innerHTML = "";
+        node.append(...(oldNodeChildren.reverse()));
+    }
+    function onHakiDosenToggle() {
+        const node = document.getElementById("tHakiDosen");
+        const oldNodeChildren = Array.from(node.childNodes);
+        node.innerHTML = "";
+        node.append(...(oldNodeChildren.reverse()));
+    }
+
+    function makeSmallChart(targetElement, color) { // Minible's chart config
+        new ApexCharts(
+            targetElement, 
+            {
+                series:[{
+                    name: "",
+                    data: Array.from({length: 11}, (_, idx) => 12 + (Math.floor(Math.random()*71) % 50)),
+                }],
+                fill: {colors: color},
+                chart: {
+                    type:"bar",
+                    width:70,
+                    height:40,
+                    sparkline:{enabled:!0}
+                },
+                plotOptions: {
+                    bar:{columnWidth:"50%"}
+                },
+                labels:[1,2,3,4,5,6,7,8,9,10,11],
+                xaxis:{crosshairs:{width:1}},
+                tooltip:{fixed:{enabled:!1},
+                x:{show:!1},
+                y:{title:{formatter:function(r){return""}}},
+                marker:{show:!1}}
+            }
+        ).render()
+    }
+
     function getChartColorsArray(chartId) {
         if (document.getElementById(chartId) !== null) {
             var colors = document.getElementById(chartId).getAttribute("data-colors");
@@ -787,4 +872,9 @@
             options
         ).render();
     }
+
+    makeSmallChart( document.getElementById("smallChart__publikasi"), "#5b73e8")
+    makeSmallChart( document.getElementById("smallChart__penelitian"), "#20C997")
+    makeSmallChart( document.getElementById("smallChart__abdimas"), "#f1b44c")
+    makeSmallChart( document.getElementById("smallChart__haki"), "#f46a6a")
 </script>

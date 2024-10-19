@@ -36,7 +36,7 @@
                     data: null,
                     render: function(data, type, row) {
                         return [
-                            `<a href="haki/view/${row.id}"`,
+                            `<a href="haki/view/${row.id}">`,
                                 "<i class='uil uil-eye font-size-18'></i>",
                             "</a>",
                         ].join(" ")
@@ -150,7 +150,6 @@
 
             const targetElement = document.getElementById("chartHakiDosen");
             const dataHakiDosen = dataHaki[kodeDosen];
-            targetElement.innerHTML = "";
             makeChartHakiDosen(
                 targetElement, 
                 Object.keys(dataHakiDosen), 
@@ -159,6 +158,7 @@
     }
 
     function makeChartHakiPerTahun(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts( 
             targetElement,
             {
@@ -223,6 +223,7 @@
     }
 
     function makeChartHakiPerJenisTahunan(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts( 
             targetElement,
             {
@@ -288,6 +289,7 @@
     }
 
     function makeChartHakiDosen(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts( 
             targetElement,
             {
@@ -350,6 +352,7 @@
     }
 
     function makeChartHakiPerDosen(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts( 
             targetElement,
             {
@@ -412,15 +415,54 @@
         ).render();
     }
 
+    function makeSmallChart(targetElement, color) { // Minible's chart config
+        targetElement.innerHTML = "";
+        new ApexCharts(
+            targetElement, 
+            {
+                series:[{
+                    name: "",
+                    data: Array.from({length: 11}, (_, idx) => 12 + (Math.floor(Math.random()*71) % 50)),
+                }],
+                fill: {colors: color},
+                chart: {
+                    type:"bar",
+                    width:70,
+                    height:40,
+                    sparkline:{enabled:!0}
+                },
+                plotOptions: {
+                    bar:{columnWidth:"50%"}
+                },
+                labels:[1,2,3,4,5,6,7,8,9,10,11],
+                xaxis:{crosshairs:{width:1}},
+                tooltip:{fixed:{enabled:!1},
+                x:{show:!1},
+                y:{title:{formatter:function(r){return""}}},
+                marker:{show:!1}}
+            }
+        ).render()
+    }
+
     function onHakiPerDosenFilterUpdate() {
         const {kk, tahun} = FILTER_HAKI_PER_DOSEN;
+        const yearNow = (new Date()).getFullYear(); // Inclusive with system's year
+        const filterTahunText = document.getElementById("chartHakiPerDosen__tahun")
+
         document.getElementById("chartHakiPerDosen__KK").innerHTML = `KK ${kk}`;
-        document.getElementById("chartHakiPerDosen__tahun").innerHTML = tahun;
-        const chartLabels = dosenByKK[kk]
-        const chartValues = dosenByKK[kk].map(dosen => (
+        filterTahunText.innerHTML = ((tahun == "Recent")
+                                        ? `(${yearNow - 3} - ${yearNow})`
+                                        : tahun);
+
+        const dosenList = dosenByKK[kk]
+        const chartValues = dosenList.map(dosen => (
             Object.entries(dataHaki[dosen])
                 .map((val, idx) => {
                     const [tahunHaki, nHaki] = val;
+                    const isRecent = (yearNow - tahunHaki < 4
+                                        && yearNow - tahunHaki > -1)
+
+                    if(tahun == "Recent" & isRecent) return nHaki;
                     return tahun == "Semua" || tahunHaki == tahun? nHaki: 0;
                 })
                 .reduce((acc, val) => acc + val, 0)
@@ -428,8 +470,7 @@
         )
 
         const targetElement = document.getElementById("chartHakiPerDosen");
-        targetElement.innerHTML = "";
-        makeChartHakiPerDosen(targetElement, chartLabels, chartValues);
+        makeChartHakiPerDosen(targetElement, dosenList, chartValues);
     }
 
     function onHakiPerJenisTahunanFilterUpdate() {
@@ -462,7 +503,6 @@
         }
 
         const targetElement = document.getElementById("chartHakiPerJenisTahunan");
-        targetElement.innerHTML = "";
         makeChartHakiPerJenisTahunan(targetElement, chartLabels, chartValues);
     }
 
@@ -483,7 +523,6 @@
         }
 
         const targetElement = document.getElementById("chartHakiPerTahun");
-        targetElement.innerHTML = "";
         makeChartHakiPerTahun(targetElement, chartLabels, chartValues);
     }
 
@@ -598,4 +637,8 @@
         ),
     )
 
+    makeSmallChart( document.getElementById("smallChart__hakCipta"), "#5b73e8")
+    makeSmallChart( document.getElementById("smallChart__paten"), "#20C997")
+    makeSmallChart( document.getElementById("smallChart__merek"), "#f1b44c")
+    makeSmallChart( document.getElementById("smallChart__desainIndustri"), "#f46a6a")
 </script>

@@ -19,7 +19,7 @@
                             "Kerjasama Perguruan Tinggi",
                             "Kemitraan",
                             "Hilirisasi" ];
-    $statusPenelitian = ["Didanai", "Submit Proposal"];
+    $statusPenelitian = ["Didanai", "Submit Proposal", "Closed"];
     $luaranPenelitian = ["Riset", "Abdimas"];
 ?>
 
@@ -47,7 +47,10 @@
                                     <h4 class="card-title">Input Data Penelitian</h4>
                                     <p class="card-title-desc">Masukkan data <code>penelitian</code> ke dalam <code>form</code> berikut</p>
                                     <div class="mb-3 row">
-                                        <label for="example-text-input" class="col-md-2 col-form-label">Judul penelitian</label>
+                                        <label for="example-text-input" class="col-md-2 col-form-label">
+                                            Judul penelitian
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -55,6 +58,7 @@
                                                 placeholder="Judul Penelitian" 
                                                 id="Judul-Publikasi" 
                                                 name="judul_penelitian"
+                                                required
                                             >
                                         </div>
                                     </div>
@@ -71,7 +75,10 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label for="example-number-input" class="col-md-2 col-form-label">Tahun</label>
+                                        <label for="example-number-input" class="col-md-2 col-form-label">
+                                            Tahun
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <input 
                                                 class="form-control" 
@@ -80,13 +87,18 @@
                                                 min="1"
                                                 id="example-number-input" 
                                                 name="tahun"
+                                                required
                                             >
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-md-2 col-form-label">Jenis penelitian</label>
+                                        <label class="col-md-2 col-form-label">
+                                            Jenis penelitian
+                                            <span style="color: red"> * </span>
+                                        </label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="jenis">
+                                                <option value=""> (Pilih jenis penelitian)</option>
                                                 <?php foreach($jenisPenelitian as $jenis): ?>
                                                     <option> <?= $jenis ?> </option>
                                                 <?php endforeach; ?>
@@ -97,6 +109,7 @@
                                         <label class="col-md-2 col-form-label">Status</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="status">
+                                                <option value=""> (Pilih status penelitian)</option>
                                                 <?php foreach($statusPenelitian as $status): ?>
                                                     <option> <?= $status ?> </option>
                                                 <?php endforeach; ?>
@@ -210,13 +223,12 @@
                                     <div class="mb-3 row">
                                         <label for="example-text-input" class="col-md-2 col-form-label">Kesesuaian roadmap</label>
                                         <div class="col-md-10">
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                placeholder="Kesesuaian dengan roadmap"
-                                                id="roadmap" 
-                                                name="kesesuaian_roadmap"
-                                            >
+                                            <select class="form-select" name="kesesuaian_roadmap">
+                                                <option value=""> (Pilih roadmap) </option>
+                                                <?php foreach($roadmap as $r): ?>
+                                                    <option value="<?= $r["id"]?>"> <?= $r["topik"] ?> </option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -229,6 +241,7 @@
                                         <label class="col-md-2 col-form-label">Luaran riset/abdimas</label>
                                         <div class="col-md-10">
                                             <select class="form-select" name="luaran">
+                                                <option value=""> (Pilih jenis luaran)</option>
                                                 <?php foreach($luaranPenelitian as $luaran): ?>
                                                     <option> <?= $luaran ?> </option>
                                                 <?php endforeach; ?>

@@ -476,6 +476,12 @@ class HakiModel extends Model
     public function import($filePath) {
         // Validation purpose variables
         $dosenList = (new DosenModel())->getAllKodeDosen();
+        $hakiTitles = array_map(function($v) { 
+            return strtolower($v["judul"]); },
+            $this->getHaki()
+        );
+        $newHakiTitles = [];
+
         $insertFields = [ 
             // Excel format as of 24/07/29: (Please always adjust it to current format)
             // id | tahun | ketua | anggota_1 | anggota_2 |  anggota_3 |  anggota_4 |  anggota_5 | anggota_6 |  anggota_7 |  anggota_8 |  anggota_9 | jenis | jenis_ciptaan | judul | abstrak | no_pendaftaran | no_sertifikat | catatan
@@ -502,7 +508,7 @@ class HakiModel extends Model
 
                 $rowCells = $row->getCells();
                 if(count($rowCells) - 1 != count($insertFields)) { // Excluding id which exists in template
-                    throw new \Exception("Banyak kolom tidak sesuai kriteria, yakni sebanyak " . (count($insertFields) - 1));
+                    throw new \Exception("Banyak kolom tidak sesuai kriteria, yakni sebanyak " . (count($insertFields)));
                 }
 
                 $currentRow = [];
@@ -517,6 +523,18 @@ class HakiModel extends Model
                             && strlen($currentRow["jenis"]) > 0
                             && strlen($currentRow["judul"]) > 0);
                 if(!$isValid) throw new \Exception("`judul`, `jenis`, dan `tahun` harus diisi");
+
+                // Prohibit duplicate titles 
+                $isValid = !in_array(strtolower($currentRow["judul"]), $hakiTitles);
+                if(!$isValid) { 
+                    throw new \Exception("Terdapat judul haki serupa yang sudah terdaftar, silakan gunakan judul yang lainnya");
+                }
+
+                $isValid = !in_array(strtolower($currentRow["judul"]), $newHakiTitles);
+                if(!$isValid) { 
+                    throw new \Exception("Terdapat judul haki serupa yang sama pada data input anda, silakan gunakan judul yang lainnya");
+                }
+
 
                 $hasWriter = false;
                 foreach($WRITER_FIELDS as $wf) {
@@ -534,6 +552,7 @@ class HakiModel extends Model
                     || in_array(strtolower($currentRow["jenis"]), $ALLOWED_JENIS));
                 if(!$isValid) throw new \Exception("Jika diisi, `jenis` harus merupakan salah satu dari {'paten', 'hak cipta', 'merek', 'desain industri'}");
 
+                array_push($newHakiTitles, strtolower($currentRow["judul"]));
                 array_push($rowData, $currentRow);
             }
 

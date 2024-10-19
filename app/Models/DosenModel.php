@@ -11,7 +11,17 @@ class DosenModel extends Model
     public function getDosen($kode_dosen = false)
     {
         if ($kode_dosen == false) {
-            return $this->findAll();
+            $sql = "SELECT 
+                        *,
+                        IF(program_studi LIKE '%ITTS%',
+                            'Surabaya',
+                            IF(program_studi LIKE '%TUKJ%',
+                                'Jakarta',
+                                'Bandung'
+                            )
+                        ) AS lokasi_kerja
+                    FROM dosen";
+            return $this->query($sql)->getResultArray();
         }
         return $this->where(['kode_dosen' => $kode_dosen])->first();
     }

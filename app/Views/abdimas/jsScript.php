@@ -36,7 +36,7 @@
                     data: null,
                     render: function(data, type, row) {
                         return [
-                            `<a href="abdimas/view/${row.id}"`,
+                            `<a href="abdimas/view/${row.id}">`,
                                 "<i class='uil uil-eye font-size-18'></i>",
                             "</a>",
                         ].join(" ")
@@ -49,6 +49,7 @@
     let FILTER_ABDIMAS_PER_TAHUN = { kk: <?= $defaultFilterKK ?>, }
     let FILTER_ABDIMAS_PER_JENIS_TAHUNAN = { kk: <?= $defaultFilterKK ?> }
     let FILTER_ABDIMAS_PER_DOSEN = { kk: <?= $defaultFilterKK ?>, tahun: "Semua"};
+    let FILTER_ABDIMAS_DOSEN = { kodeDosen: "", status: "Semua"};
 
     const dataAbdimas = {
         <?php foreach($data_tahunan as $d) {
@@ -79,6 +80,20 @@
     Object.keys(dosenByKK)
         .forEach(kk => { dataAbdimasPerKKTahunan[kk] = {} });
 
+    const annualPerDosenByStatus = {
+        <?php foreach($annualPerDosenByStatus as $status => $statusPerDosen) {
+            echo "'$status': {";
+            foreach($statusPerDosen as $dosen => $annualData) {
+                echo "'$dosen': {";
+                foreach($annualData as $year => $nAbdimas) {
+                    echo "'$year': $nAbdimas,";
+                }
+                echo "},";
+            }
+            echo "},";
+        } ?>
+    }
+
     let temp = [ 
         <?php foreach($annualAbdimasByTypeAndKK as $row) {
             $kk = $row['kk']; 
@@ -103,7 +118,8 @@
             data: [<?php foreach ($order_jenis as $cpub) {
                         echo '' . $cpub['jumlah_Internal'] . ',';
                     } ?>]
-        }, {
+        }, 
+        {
             name: 'Eksternal',
             data: [<?php foreach ($order_jenis as $cpub) {
                         echo '' . $cpub['jumlah_Eksternal'] . ',';
@@ -143,13 +159,8 @@
         }
     }
 
-    const onDataPointSelection = function(e, context, opts) {
-        let kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
-        let targetElement = document.getElementById("chartAbdimasDosen") 
-        updateChartStatistik(targetElement, kodeDosen)
-    }
-
     function makeChartAbdimasPerJenisTahunan(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts(
             targetElement,
             {
@@ -212,6 +223,7 @@
     }
 
     function makeChartAbdimasPerTahun(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts(
             targetElement, 
             {
@@ -274,6 +286,7 @@
     }
 
     function makeChartAbdimasPerDosen(targetElement, labels, values) {
+        targetElement.innerHTML = "";
         new ApexCharts( 
             targetElement,
             {
@@ -336,88 +349,10 @@
         ).render();
     }
 
-    function onAbdimasPerDosenFilterUpdate() {
-        const {kk, tahun} = FILTER_ABDIMAS_PER_DOSEN;
-        document.getElementById("chartAbdimasPerDosen__KK").innerHTML = `KK ${kk}`;
-        document.getElementById("chartAbdimasPerDosen__tahun").innerHTML = tahun;
-
-        const chartLabels = dosenByKK[kk];
-        const chartValues = dosenByKK[kk].map(dosen => (
-            Object.entries(dataAbdimas[dosen])
-                .map((val, idx) => {
-                    const [tahunAbdimas, nAbdimas] = val;
-                    return tahun == "Semua" || tahunAbdimas == tahun ? nAbdimas: 0;
-                })
-                .reduce((acc, val) => acc + val, 0)
-            )
-        )
-
-        const targetElement = document.getElementById("chartAbdimasPerDosen");
+    function makeChartAbdimasDosen(targetElement, labels, values) {
         targetElement.innerHTML = "";
-        makeChartAbdimasPerDosen(targetElement, chartLabels, chartValues);
-    }
-
-    function onAbdimasPerTahunFilterUpdate() {
-        const {kk} = FILTER_ABDIMAS_PER_TAHUN;
-        document.getElementById("chartAbdimasPerTahun__KK").innerHTML = `Semua`;
-        let chartLabels = Object.keys(dataAbdimasAnyKind);
-        let chartValues = Object.values(dataAbdimasAnyKind);
-
-        if(kk != "") {
-            document.getElementById("chartAbdimasPerTahun__KK").innerHTML = `KK ${kk}`;
-            chartLabels = Object.keys(dataAbdimasPerKKTahunan[kk])
-            chartValues = Object.values(dataAbdimasPerKKTahunan[kk])
-                                .map(abdimasType => (
-                                    Object.values(abdimasType)
-                                          .reduce((acc, val) => acc + val, 0)
-                                ))
-        }
-
-        const targetElement = document.getElementById("chartAbdimasTahunan");
-        targetElement.innerHTML = "";
-        makeChartAbdimasPerTahun(targetElement, chartLabels, chartValues);
-    }
-
-    function onAbdimasPerJenisTahunanFilterUpdate() {
-        const {kk} = FILTER_ABDIMAS_PER_JENIS_TAHUNAN;
-        document.getElementById("chartAbdimasPerJenisTahunan__KK").innerHTML = 'Semua';
-
-        const chartLabels = [ <?php foreach ($order_jenis as $cpub) {
-                                echo '' . $cpub['tahun'] . ',';
-                            } ?>] ;
-        let chartValues = dataAbdimasAnyKKTahunan;
-        if(kk != '') {
-            document.getElementById("chartAbdimasPerJenisTahunan__KK").innerHTML = `KK ${kk}`;
-            chartValues = [
-                {
-                    name: 'Internal',
-                    data: Object.values(dataAbdimasPerKKTahunan[kk]).map(dataTahunan => {
-                        const nAbdimasEksternal = dataTahunan["Internal"]
-                        return nAbdimasEksternal == undefined? 0: nAbdimasEksternal;
-                    })
-                }, {
-                    name: 'Eksternal',
-                    data: Object.values(dataAbdimasPerKKTahunan[kk]).map(dataTahunan => {
-                        const nAbdimasEksternal = dataTahunan["Eksternal"]
-                        return nAbdimasEksternal == undefined? 0: nAbdimasEksternal;
-                    })
-                },
-            ];
-        }
-
-        const targetElement = document.getElementById("chartAbdimasPerJenisTahunan");
-        targetElement.innerHTML = "";
-        makeChartAbdimasPerJenisTahunan(targetElement, chartLabels, chartValues);
-    }
-
-    const updateChartStatistik = function(target, newKodeDosen) {
-        const dataAbdimasDosen = dataAbdimas[newKodeDosen];
-        document.getElementById("chartAbdimas__desc").innerHTML = ""
-        document.getElementById("chartAbdimas__title").innerHTML = `Statistik Abdimas ${newKodeDosen}`
-        target.innerHTML = "";
-
         new ApexCharts(
-            target,  
+            targetElement,  
             {
                 chart: {
                     height: 350,
@@ -436,10 +371,10 @@
                     offsetY: -20,
                     style: { fontSize: '12px', colors: ["#304758"] }
                 },
-                series: [{ name: 'Abdimas', data: Object.values(dataAbdimasDosen) }],
+                series: [{ name: 'Abdimas', data: values }],
                 grid: { borderColor: '#f1f1f1', },
                 xaxis: {
-                    categories: Object.keys(dataAbdimasDosen),
+                    categories: labels,
                     position: 'down',
                     labels: { offsetY: 0, },
                     axisBorder: { show: false },
@@ -479,31 +414,215 @@
         ).render();
     }
 
-    const PiechartPieColors = getChartColorsArray("pie_chart");
-    if (PiechartPieColors) {
-        new ApexCharts( document.getElementById("pie_chart"), {
-            chart: { height: 380, type: 'pie', },
-            series: [<?php echo $Abdimas_Inter ?>, <?php echo $Abdimas_Ekster ?>],
-            labels: ["Internal", "Eksternal"],
-            colors: PiechartPieColors,
-            legend: {
-                show: true,
-                position: 'bottom',
-                horizontalAlign: 'center',
-                verticalAlign: 'middle',
-                floating: false,
-                fontSize: '14px',
-                offsetX: 0
-            },
-            responsive: [{
-                breakpoint: 600,
-                options: {
-                    chart: { height: 240 },
-                    legend: { show: false },
-                }
-            }]
-        }).render();
+    function makeSmallChart(targetElement, color) { // Minible's chart config
+        targetElement.innerHTML = "";
+        new ApexCharts(
+            targetElement, 
+            {
+                series:[{
+                    name: "",
+                    data: Array.from({length: 11}, (_, idx) => 12 + (Math.floor(Math.random()*71) % 50)),
+                }],
+                fill: {colors: color},
+                chart: {
+                    type:"bar",
+                    width:70,
+                    height:40,
+                    sparkline:{enabled:!0}
+                },
+                plotOptions: {
+                    bar:{columnWidth:"50%"}
+                },
+                labels:[1,2,3,4,5,6,7,8,9,10,11],
+                xaxis:{crosshairs:{width:1}},
+                tooltip:{fixed:{enabled:!1},
+                x:{show:!1},
+                y:{title:{formatter:function(r){return""}}},
+                marker:{show:!1}}
+            }
+        ).render()
     }
+
+    function makePieChart(targetId, labels, values) {
+        const PiechartPieColors = getChartColorsArray(targetId);
+        if (PiechartPieColors) {
+            const targetElement = document.getElementById(targetId);
+            targetElement.innerHTML = "";
+            new ApexCharts(targetElement, {
+                chart: { height: 380, type: 'pie', },
+                series: values,
+                labels: labels,
+                colors: PiechartPieColors,
+                legend: {
+                    show: true,
+                    position: 'bottom',
+                    horizontalAlign: 'center',
+                    verticalAlign: 'middle',
+                    floating: false,
+                    fontSize: '14px',
+                    offsetX: 0
+                },
+                responsive: [{
+                    breakpoint: 600,
+                    options: {
+                        chart: { height: 240 },
+                        legend: { show: false },
+                    }
+                }]
+            }).render();
+        }
+    }
+
+    function makePieAbdimasDosen(kodeDosen, labels) {
+        let dataDidanai = 0;
+        let dataTidakDidanai = 0;
+        let dataClosed = 0;
+        let dataSubmitProposal = 0;
+        labels.forEach(year => {
+            Object
+                .keys(annualPerDosenByStatus)
+                .forEach(status => {
+                    const annualData = annualPerDosenByStatus[status][kodeDosen];
+                    if(annualData == undefined) return;
+
+                    const yearData = annualData[year];
+                    if(yearData == undefined) return;
+
+                    switch(status) {
+                        case "DIDANAI": dataDidanai +=  yearData; break;
+                        case "TIDAK DIDANAI": dataTidakDidanai += yearData; break;
+                        case "CLOSED": dataClosed += yearData; break;
+                        case "SUBMIT PROPOSAL": dataSubmitProposal += yearData; break;
+                    }
+                })
+        });
+
+        makePieChart("pieAbdimasDosen", 
+            ["Didanai", "Tidak Didanai", "Closed", "Submit Proposal"],
+            [dataDidanai, dataTidakDidanai, dataClosed, dataSubmitProposal]);
+    }
+
+    const onDataPointSelection = function(e, context, opts) {
+        const kodeDosen = opts.w.config.xaxis.categories[opts.dataPointIndex]
+        const targetElement = document.getElementById("chartAbdimasDosen") 
+        FILTER_ABDIMAS_DOSEN = { kodeDosen: kodeDosen, status: "Semua" }
+
+        document.getElementById("chartAbdimas__desc").innerHTML = "";
+        document.getElementById("pieAbdimas__desc").innerHTML = "";
+        document.getElementById("chartAbdimas__title").innerHTML = `Statistik Abdimas ${kodeDosen}`;
+        document.getElementById("chartAbdimasDosen__status").innerHTML = `Semua`;
+        document.getElementById("abdimasDosenFilter").style.display = "block";
+
+        const dataAbdimasDosen = dataAbdimas[kodeDosen];
+        const labels = Object.keys(dataAbdimasDosen);
+        makeChartAbdimasDosen(
+            targetElement, 
+            labels,
+            Object.values(dataAbdimasDosen))
+        makePieAbdimasDosen(kodeDosen, labels);
+    }
+
+    function onAbdimasDosenFilterUpdate() {
+        const {kodeDosen, status} = FILTER_ABDIMAS_DOSEN;
+        const dataAbdimasDosen = dataAbdimas[kodeDosen];
+        const targetElement = document.getElementById("chartAbdimasDosen") 
+        
+        const labels = Object.keys(dataAbdimasDosen);
+        let values = Object.values(dataAbdimasDosen);
+        if(status != "Semua") {
+            values = labels.map(year => {
+                const annualData = annualPerDosenByStatus[status][kodeDosen]
+                if(annualData == undefined) return 0;
+
+                const yearData = annualData[year];
+                return yearData == undefined? 0: yearData;
+            });
+        }
+
+        document.getElementById("chartAbdimasDosen__status").innerHTML = status;
+        makeChartAbdimasDosen(targetElement, labels, values)
+    }
+
+    function onAbdimasPerDosenFilterUpdate() {
+        const {kk, tahun} = FILTER_ABDIMAS_PER_DOSEN;
+        const yearNow = (new Date()).getFullYear(); // Inclusive with system's year
+        const filterTahunText = document.getElementById("chartAbdimasPerDosen__tahun")
+
+        document.getElementById("chartAbdimasPerDosen__KK").innerHTML = `KK ${kk}`;
+        filterTahunText.innerHTML = ((tahun == "Recent")
+                                        ? `(${yearNow - 3} - ${yearNow})`
+                                        : tahun);
+
+        const dosenList = dosenByKK[kk];
+        const chartValues = dosenList.map(dosen => (
+            Object.entries(dataAbdimas[dosen])
+                .map((val, idx) => {
+                    const [tahunAbdimas, nAbdimas] = val;
+                    const isRecent = (yearNow - tahunAbdimas < 4
+                                        && yearNow - tahunAbdimas > -1)
+
+                    if(tahun == "Recent" & isRecent) return nAbdimas;
+                    return tahun == "Semua" || tahunAbdimas == tahun ? nAbdimas: 0;
+                })
+                .reduce((acc, val) => acc + val, 0)
+            )
+        )
+
+        const targetElement = document.getElementById("chartAbdimasPerDosen");
+        makeChartAbdimasPerDosen(targetElement, dosenList, chartValues);
+    }
+
+    function onAbdimasPerTahunFilterUpdate() {
+        const {kk} = FILTER_ABDIMAS_PER_TAHUN;
+        document.getElementById("chartAbdimasPerTahun__KK").innerHTML = `Semua`;
+        let chartLabels = Object.keys(dataAbdimasAnyKind);
+        let chartValues = Object.values(dataAbdimasAnyKind);
+
+        if(kk != "") {
+            document.getElementById("chartAbdimasPerTahun__KK").innerHTML = `KK ${kk}`;
+            chartLabels = Object.keys(dataAbdimasPerKKTahunan[kk])
+            chartValues = Object.values(dataAbdimasPerKKTahunan[kk])
+                                .map(abdimasType => (
+                                    Object.values(abdimasType)
+                                          .reduce((acc, val) => acc + val, 0)
+                                ))
+        }
+
+        const targetElement = document.getElementById("chartAbdimasTahunan");
+        makeChartAbdimasPerTahun(targetElement, chartLabels, chartValues);
+    }
+
+    function onAbdimasPerJenisTahunanFilterUpdate() {
+        const {kk} = FILTER_ABDIMAS_PER_JENIS_TAHUNAN;
+        document.getElementById("chartAbdimasPerJenisTahunan__KK").innerHTML = 'Semua';
+
+        const chartLabels = [ <?php foreach ($order_jenis as $cpub) {
+                                echo '' . $cpub['tahun'] . ',';
+                            } ?>] ;
+        let chartValues = dataAbdimasAnyKKTahunan;
+        if(kk != '') {
+            document.getElementById("chartAbdimasPerJenisTahunan__KK").innerHTML = `KK ${kk}`;
+            chartValues = [
+                {
+                    name: 'Internal',
+                    data: Object.values(dataAbdimasPerKKTahunan[kk]).map(dataTahunan => {
+                        const nAbdimasEksternal = dataTahunan["Internal"]
+                        return nAbdimasEksternal == undefined? 0: nAbdimasEksternal;
+                    })
+                }, {
+                    name: 'Eksternal',
+                    data: Object.values(dataAbdimasPerKKTahunan[kk]).map(dataTahunan => {
+                        const nAbdimasEksternal = dataTahunan["Eksternal"]
+                        return nAbdimasEksternal == undefined? 0: nAbdimasEksternal;
+                    })
+                },
+            ];
+        }
+
+        const targetElement = document.getElementById("chartAbdimasPerJenisTahunan");
+        makeChartAbdimasPerJenisTahunan(targetElement, chartLabels, chartValues);
+    }
+
 
     makeChartAbdimasPerTahun(
         document.getElementById("chartAbdimasTahunan"),
@@ -517,6 +636,7 @@
         } ?>],
         dataAbdimasAnyKKTahunan
     );
+
     makeChartAbdimasPerDosen(
         document.getElementById("chartAbdimasPerDosen"),
         dosenByKK[Object.keys(dosenByKK)[0]],
@@ -525,4 +645,11 @@
                                     .reduce((acc, val) => acc + val, 0)
                                 ))
     );
+
+    makeSmallChart( document.getElementById("smallChart__internal"), "#5b73e8")
+    makeSmallChart( document.getElementById("smallChart__eksternal"), "#20C997")
+
+    makePieChart("pie_chart", 
+        ["Internal", "Eksternal"],
+        [<?php echo $Abdimas_Inter ?>, <?php echo $Abdimas_Ekster ?>]);
 </script>

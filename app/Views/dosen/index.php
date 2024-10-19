@@ -42,6 +42,7 @@
                                                 <th scope="col">Nama</th>
                                                 <th scope="col">Kode Dosen</th>
                                                 <th scope="col">Kelompok Keahlian</th>
+                                                <th scope="col">Lokasi Kerja</th>
                                                 <th scope="col" style="width: 200px;">Aksi</th>
                                             </tr>
                                         </thead>
@@ -53,6 +54,7 @@
                                                     <td><?= $ds['kode_dosen']; ?></td>
                                                     <td><?= $ds['nama_dosen']; ?></td>
                                                     <td><?= $ds['KK']; ?></td>
+                                                    <td> <?= $ds['lokasi_kerja']; ?></td>
                                                     <td>
                                                         <a href="/dosen/<?= $ds['kode_dosen']; ?>" class="btn btn-success"> Detail</a>
                                                     </td>
